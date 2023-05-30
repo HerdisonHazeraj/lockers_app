@@ -158,7 +158,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Student> filterStudentsBy(key, value) {
     if (key != '' && value != '') {
-      List<Student> filtredStudent = studentItems
+      List<Student> filtredStudent = getAvailableStudents()
           .where((element) => element.toJson()[key] == value)
           .toList();
       return filtredStudent;
