@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 
@@ -137,5 +139,13 @@ class LockerStudentProvider with ChangeNotifier {
         lockerNumber: locker.lockerNumber,
       ),
     );
+
+    void autoAttributeLocker(List<Student> students) {
+      final _random = Random();
+      final lockers = getAvailableLockers();
+      students.forEach((student) {
+        attributeLocker(lockers[_random.nextInt(lockers.length)], student);
+      });
+    }
   }
 }

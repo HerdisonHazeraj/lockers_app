@@ -111,7 +111,7 @@ class FirebaseRTDBService implements DBService {
       return student.copyWith(id: id);
     }).catchError((error) {
       developer.log(error);
-      return Student.base();
+      return Student.error();
     });
   }
 
