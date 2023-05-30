@@ -140,7 +140,6 @@ class LockerStudentProvider with ChangeNotifier {
         lockerNumber: locker.lockerNumber,
       ),
     );
-    sortStudentsBy("job", "ICT");
   }
 
   void autoAttributeLocker(List<Student> students) {
@@ -153,7 +152,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Locker> getLockerLessThen2Key() {
     List<Locker> availableItem =
-        lockerItems.where((element) => element.nbKey > 2).toList();
+        lockerItems.where((element) => element.nbKey < 2).toList();
     return availableItem;
   }
 
