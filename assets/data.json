@@ -1,0 +1,88 @@
+{
+  "lockers": [
+    {
+      "nbKey": 2,
+      "lockerNumber": 87,
+      "lockNumber": 156151,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "Le casier est cassé",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 85,
+      "lockNumber": 365236,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "Le casier ne possède plus de clés",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 114,
+      "lockNumber": 1454564,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 250,
+      "lockNumber": 1456812,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 100,
+      "lockNumber": 9489185,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    }
+  ],
+  "students": [
+    {
+      "firstName": "Elias",
+      "lastName": "Tormos",
+      "job": "ICT-2020",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 100
+    },
+    {
+      "firstName": "Herdison",
+      "lastName": "Hazeraj",
+      "job": "ICT-2020",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 250
+    },
+    {
+      "firstName": "Timo",
+      "lastName": "Portal",
+      "job": "ICT-2020",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 114
+    },
+    {
+      "firstName": "Fabio",
+      "lastName": "Leite Serra",
+      "job": "ICT-2020",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    }
+  ]
+}
