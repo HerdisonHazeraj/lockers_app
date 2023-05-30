@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -139,6 +140,7 @@ class LockerStudentProvider with ChangeNotifier {
         lockerNumber: locker.lockerNumber,
       ),
     );
+    sortStudentsBy("job", "ICT");
   }
 
   void autoAttributeLocker(List<Student> students) {
@@ -147,5 +149,21 @@ class LockerStudentProvider with ChangeNotifier {
     students.forEach((student) {
       attributeLocker(lockers[_random.nextInt(lockers.length)], student);
     });
+  }
+
+  List<Locker> getLockerLessThen2Key() {
+    List<Locker> availableItem =
+        lockerItems.where((element) => element.nbKey > 2).toList();
+    return availableItem;
+  }
+
+  List<Student> filterStudentsBy(key, value) {
+    if (key != '' && value != '') {
+      List<Student> filtredStudent = studentItems
+          .where((element) => element.toJson()[key] == value)
+          .toList();
+      return filtredStudent;
+    }
+    return [];
   }
 }
