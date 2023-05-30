@@ -18,6 +18,19 @@ class Student extends IStudent {
       required this.caution,
       required this.lockerNumber});
 
+  factory Student.fromCSV(Map<String, dynamic> csv) {
+    return Student(
+      firstName: csv['Prénom'],
+      lastName: csv['Nom'],
+      job: csv['Formation'] + csv['Année'],
+      manager: csv['Maître Classe'],
+      caution: 0,
+      lockerNumber: 0,
+      //csv['Titre']
+      //csv['_EnvoiMail]
+    );
+  }
+
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
         firstName: json['firstName'],
