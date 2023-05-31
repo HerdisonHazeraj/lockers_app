@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 
@@ -168,5 +169,26 @@ class LockerStudentProvider with ChangeNotifier {
       return filtredStudent;
     }
     return [];
+  }
+
+  Future<void> importStudentsWithCSV(FilePickerResult? result) async {
+    if (result != null) {
+      final file = result.files.first;
+      final fileContent = utf8.decode(file.bytes!);
+      final rows = fileContent.split('\n');
+      final indexes = rows[0].split(';');
+      rows.removeAt(0);
+      rows.removeLast();
+      for (String row in rows) {
+        final rowTable = row.split(';');
+        Map<String, dynamic> jsonRow = {};
+        for (int i = 0; i < indexes.length; i++) {
+          jsonRow.addAll({indexes[i]: rowTable[i]});
+        }
+        addStudent(Student.fromCSV(jsonRow));
+      }
+    } else {
+      throw Exception('Fichier non trouvé');
+    }
   }
 }

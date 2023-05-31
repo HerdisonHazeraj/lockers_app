@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lockers_app/responsive.dart';
 
 class InfoCard extends StatelessWidget {
   const InfoCard(
@@ -34,17 +35,13 @@ class InfoCard extends StatelessWidget {
         );
       },
       child: Container(
-        constraints: const BoxConstraints(
-          maxWidth: 200,
-          maxHeight: 200,
-          minHeight: 200,
-          minWidth: 200,
-        ),
-        padding: const EdgeInsets.only(
-          top: 20,
-          bottom: 20,
-          left: 20,
-          right: 20,
+        height: Responsive.isMobile(context) ? 175 : 200,
+        width: Responsive.isMobile(context) ? 175 : 200,
+        padding: EdgeInsets.only(
+          left: Responsive.isMobile(context) ? 20 : 20,
+          top: Responsive.isMobile(context) ? 20 : 20,
+          bottom: Responsive.isMobile(context) ? 20 : 20,
+          right: Responsive.isMobile(context) ? 10 : 20,
         ),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -64,16 +61,16 @@ class InfoCard extends StatelessWidget {
           children: [
             SvgPicture.asset(
               svgSrc,
-              height: 40,
+              height: Responsive.isMobile(context) ? 32 : 40,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.width / 100,
             ),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Color(0xffa6a6a6),
+              style: TextStyle(
+                fontSize: Responsive.isMobile(context) ? 14 : 16,
+                color: const Color(0xffa6a6a6),
                 fontWeight: FontWeight.w400,
                 height: 1.3,
               ),
@@ -83,8 +80,8 @@ class InfoCard extends StatelessWidget {
             ),
             Text(
               value,
-              style: const TextStyle(
-                fontSize: 30,
+              style: TextStyle(
+                fontSize: Responsive.isMobile(context) ? 24 : 30,
                 fontWeight: FontWeight.bold,
               ),
             ),
