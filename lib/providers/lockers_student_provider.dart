@@ -70,6 +70,12 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
+  List<Locker> getUnavailableLockers() {
+    List<Locker> availableItem =
+        lockerItems.where((element) => element.isAvailable == false).toList();
+    return availableItem;
+  }
+
   int findIndexOfLockerById(String id) {
     final lockerIndex = _lockerItems.indexWhere((locker) => locker.id == id);
     return lockerIndex;
