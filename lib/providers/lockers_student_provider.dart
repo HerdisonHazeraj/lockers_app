@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js_interop';
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
@@ -187,8 +188,35 @@ class LockerStudentProvider with ChangeNotifier {
           for (int i = 0; i < indexes.length; i++) {
             jsonRow.addAll({indexes[i]: rowTable[i]});
           }
-          if (jsonRow["Responsable"] == "JHI") {
-            addLocker(Locker.fromCSV(jsonRow));
+          if (jsonRow["Responsable"] == "JHI" ||
+              jsonRow["Responsable"] == null) {
+            final locker = Locker.fromCSV(jsonRow);
+            await addLocker(locker);
+            if ((jsonRow['Nom'] != '' || jsonRow['Nom'] != '') &&
+                (jsonRow['Prénom'] != '' || jsonRow['Prénom'] != '')) {
+              List<Student> studentsByFirstName =
+                  filterStudentsBy("firstName", jsonRow['Prénom']);
+              List<Student> studentsByLastName =
+                  filterStudentsBy("lastName", jsonRow['Nom']);
+              Student student = Student.base();
+              for (Student s in studentsByFirstName) {
+                student =
+                    studentsByLastName.where((element) => element == s).first;
+              }
+              if (student == Student.base()) {
+                throw Exception("l'élève " +
+                    jsonRow['Prénom'] +
+                    " " +
+                    jsonRow['Nom'] +
+                    " est introuvable, veuillez vous assurer qu'il existe et qu'il n'a pas de casier déjà attribué");
+              }
+              final newLocker = this
+                  ._lockerItems
+                  .where(
+                      (element) => element.lockerNumber == locker.lockerNumber)
+                  .first;
+              attributeLocker(newLocker, student);
+            }
           }
         }
       } else {
@@ -206,6 +234,7 @@ class LockerStudentProvider with ChangeNotifier {
       } else if (e.toString() == "Exception: Fichier non trouvé") {
         return "vérifier que le fichier ait bien été séléction et que c'est un csv";
       }
+      return e.toString();
     }
   }
 
