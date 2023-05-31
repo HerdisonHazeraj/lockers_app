@@ -192,8 +192,8 @@ class LockerStudentProvider with ChangeNotifier {
               jsonRow["Responsable"] == null) {
             final locker = Locker.fromCSV(jsonRow);
             await addLocker(locker);
-            if ((jsonRow['Nom'] != '' || jsonRow['Nom'] != '') &&
-                (jsonRow['Prénom'] != '' || jsonRow['Prénom'] != '')) {
+            if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
+                (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
               List<Student> studentsByFirstName =
                   filterStudentsBy("firstName", jsonRow['Prénom']);
               List<Student> studentsByLastName =
