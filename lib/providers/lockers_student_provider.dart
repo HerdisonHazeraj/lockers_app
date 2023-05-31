@@ -71,9 +71,9 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   List<Locker> getUnavailableLockers() {
-    List<Locker> availableItem =
+    List<Locker> unavailableItem =
         lockerItems.where((element) => element.isAvailable == false).toList();
-    return availableItem;
+    return unavailableItem;
   }
 
   int findIndexOfLockerById(String id) {
@@ -129,9 +129,9 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   List<Student> getUnavailableStudents() {
-    List<Student> availableItem =
+    List<Student> unavailableItem =
         studentItems.where((element) => element.lockerNumber != 0).toList();
-    return availableItem;
+    return unavailableItem;
   }
 
   int findIndexOfStudentById(String id) {
@@ -164,9 +164,9 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   List<Locker> getLockerLessThen2Key() {
-    List<Locker> availableItem =
+    List<Locker> lockers =
         lockerItems.where((element) => element.nbKey < 2).toList();
-    return availableItem;
+    return lockers;
   }
 
   List<Student> filterStudentsBy(List key, List value) {

@@ -68,7 +68,7 @@ class StudentDetailsScreen extends StatelessWidget {
                           firstName: firstnameController.text,
                           lastName: lastnameController.text,
                           job: jobController.text,
-                          manager: 'JHI',
+                          responsable: 'JHI',
                           caution: 0,
                           lockerNumber: 0,
                         );

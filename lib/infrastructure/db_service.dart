@@ -1,3 +1,4 @@
+import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../models/locker.dart';
@@ -15,8 +16,8 @@ abstract class DBService {
   Future<Student> updateStudent(Student student);
   Future<void> deleteStudent(String id);
 
-  // Future<Student> addProblem(Student student);
-  // Future<List<Student>> getAllProblems();
-  // Future<Student> updateProblem(Student student);
-  // Future<void> deleteProblem(String id);
+  Future<Problem> addProblem(Problem problem);
+  Future<List<Problem>> getAllProblems();
+  Future<Problem> updateProblem(Problem problem);
+  Future<void> deleteProblem(String id);
 }
