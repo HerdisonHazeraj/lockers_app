@@ -2,7 +2,10 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
+import 'package:lockers_app/screens/components/drawer_app.dart';
+import 'package:lockers_app/screens/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/components/side_menu_app.dart';
 import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/lockers/locker_details_screen.dart';
@@ -47,6 +50,8 @@ class MyApp extends StatelessWidget {
               const DashboardOverviewScreen(),
           LockersOverviewScreen.routeName: (context) =>
               const LockersOverviewScreen(),
+          AssignationOverviewScreen.routeName: (context) =>
+              const AssignationOverviewScreen(),
           StudentsOverviewScreen.routeName: (context) =>
               const StudentsOverviewScreen(),
           LockerDetailsScreen.routeName: (context) =>
@@ -81,57 +86,39 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SideMenuApp(sideMenuController: sideMenuController),
-          Expanded(
-            child: PageView(
-              controller: page,
-              children: const [
-                // PrepareDatabaseScreen(),
-                DashboardOverviewScreen(),
-                LockersOverviewScreen(),
-                StudentsOverviewScreen(),
-                AssignationOverviewScreen()
+    return Responsive.isDesktop(context)
+
+        /// Version desktop
+        ? Scaffold(
+            body: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SideMenuApp(sideMenuController: sideMenuController),
+                Expanded(
+                  child: PageView(
+                    controller: page,
+                    children: const [
+                      // PrepareDatabaseScreen(),
+                      DashboardOverviewScreen(),
+                      LockersOverviewScreen(),
+                      StudentsOverviewScreen(),
+                      AssignationOverviewScreen()
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+          )
 
-class PrepareDatabaseScreen extends StatefulWidget {
-  const PrepareDatabaseScreen({super.key});
-
-  @override
-  State<PrepareDatabaseScreen> createState() => _PrepareDatabaseScreenState();
-}
-
-class _PrepareDatabaseScreenState extends State<PrepareDatabaseScreen> {
-  var _isInit = true;
-  var _isLoading = false;
-
-  @override
-  Future<void> didChangeDependencies() async {
-    if (_isInit) {
-      _isLoading = true;
-      await FirebaseRTDBService.instance.prepareDataBase();
-      setState(() {
-        _isLoading = false;
-      });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : const Center(child: Text("DataLoaded"));
+        /// Version mobile
+        : Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              iconTheme: const IconThemeData(color: Colors.black),
+            ),
+            drawer: const DrawerApp(),
+            body: const DashboardOverviewScreen(),
+          );
   }
 }

@@ -15,11 +15,10 @@ class SideMenuApp extends StatelessWidget {
     return SideMenu(
       controller: sideMenuController,
       style: SideMenuStyle(
-        displayMode: SideMenuDisplayMode.auto,
+        displayMode: SideMenuDisplayMode.open,
         selectedTitleTextStyle: const TextStyle(
-          color: Colors.white,
+          color: Colors.black,
         ),
-        selectedIconColor: Colors.white,
       ),
       title: Column(
         children: [

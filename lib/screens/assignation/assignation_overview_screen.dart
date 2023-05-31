@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../models/locker.dart';
 
 class AssignationOverviewScreen extends StatefulWidget {
-  static const routeName = '/assign_screen';
+  static const routeName = '/assignation';
   const AssignationOverviewScreen({super.key});
 
   @override
