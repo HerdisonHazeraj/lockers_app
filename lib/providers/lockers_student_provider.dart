@@ -167,7 +167,7 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-   Future<void> importStudentsWithCSV(FilePickerResult? result) async {
+  Future<void> importStudentsWithCSV(FilePickerResult? result) async {
     if (result != null) {
       final file = result.files.first;
       final fileContent = utf8.decode(file.bytes!);
@@ -175,7 +175,6 @@ class LockerStudentProvider with ChangeNotifier {
       final indexes = rows[0].split(';');
       rows.removeAt(0);
       rows.removeLast();
-      List<Student> jsonRows = [];
       for (String row in rows) {
         final rowTable = row.split(';');
         Map<String, dynamic> jsonRow = {};
