@@ -87,11 +87,11 @@ class _AssignListViewState extends State<AssignListView> {
       isStudentsListViewInit = true;
     }
 
-    void filterStudents(key, value) {
+    void filterStudents(keys, RectangularRangeSliderValueIndicatorShape) {
       setState(() {
         filtredStudent =
             Provider.of<LockerStudentProvider>(context, listen: false)
-                .filterStudentsBy(key, value);
+                .filterStudentsBy(keys, values);
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
