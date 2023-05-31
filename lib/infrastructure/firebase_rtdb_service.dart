@@ -50,13 +50,13 @@ class FirebaseRTDBService implements DBService {
   Future<List<Locker>> getAllLockers() async {
     final snapshot = await _db.child(lockerNode).get();
     if (snapshot.exists) {
-      final products = <Locker>[];
+      final lockers = <Locker>[];
       for (dynamic v in snapshot.children) {
         final id = v.key.toString();
         final map = v.value as Map<String, dynamic>;
-        products.add(Locker.fromJson(map).copyWith(id: id));
+        lockers.add(Locker.fromJson(map).copyWith(id: id));
       }
-      return products;
+      return lockers;
     }
     return [];
   }
@@ -111,7 +111,7 @@ class FirebaseRTDBService implements DBService {
       return student.copyWith(id: id);
     }).catchError((error) {
       developer.log(error);
-      return Student.base();
+      return Student.error();
     });
   }
 

@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 
@@ -137,5 +141,51 @@ class LockerStudentProvider with ChangeNotifier {
         lockerNumber: locker.lockerNumber,
       ),
     );
+  }
+
+  void autoAttributeLocker(List<Student> students) {
+    final _random = Random();
+    final lockers = getAvailableLockers();
+    students.forEach((student) {
+      attributeLocker(lockers[_random.nextInt(lockers.length)], student);
+    });
+  }
+
+  List<Locker> getLockerLessThen2Key() {
+    List<Locker> availableItem =
+        lockerItems.where((element) => element.nbKey < 2).toList();
+    return availableItem;
+  }
+
+  List<Student> filterStudentsBy(key, value) {
+    if (key != '' && value != '') {
+      List<Student> filtredStudent = getAvailableStudents()
+          .where((element) => element.toJson()[key] == value)
+          .toList();
+      return filtredStudent;
+    }
+    return [];
+  }
+
+   Future<void> importStudentsWithCSV(FilePickerResult? result) async {
+    if (result != null) {
+      final file = result.files.first;
+      final fileContent = utf8.decode(file.bytes!);
+      final rows = fileContent.split('\n');
+      final indexes = rows[0].split(';');
+      rows.removeAt(0);
+      rows.removeLast();
+      List<Student> jsonRows = [];
+      for (String row in rows) {
+        final rowTable = row.split(';');
+        Map<String, dynamic> jsonRow = {};
+        for (int i = 0; i < indexes.length; i++) {
+          jsonRow.addAll({indexes[i]: rowTable[i]});
+        }
+        addStudent(Student.fromCSV(jsonRow));
+      }
+    } else {
+      throw Exception('Fichier non trouvé');
+    }
   }
 }
