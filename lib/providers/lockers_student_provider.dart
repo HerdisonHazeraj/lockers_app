@@ -79,6 +79,7 @@ class LockerStudentProvider with ChangeNotifier {
     final data = await dbService.getAllStudents();
     _studentItems.addAll(data);
     notifyListeners();
+    filtersStudentsByV2();
   }
 
   Future<void> addStudent(Student student) async {
@@ -156,11 +157,15 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
-  List<Student> filterStudentsBy(key, value) {
-    if (key != '' && value != '') {
-      List<Student> filtredStudent = getAvailableStudents()
-          .where((element) => element.toJson()[key] == value)
-          .toList();
+  List<Student> filterStudentsBy(List key, List value) {
+    List<Student> filtredStudent = [];
+    if (key != [] && value != []) {
+      filtredStudent = getAvailableStudents();
+      for (var i = 0; i < key.length; i++) {
+        filtredStudent = filtredStudent
+            .where((element) => element.toJson()[key[i]] == value[i])
+            .toList();
+      }
       return filtredStudent;
     }
     return [];
