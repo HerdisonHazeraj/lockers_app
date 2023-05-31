@@ -167,32 +167,45 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-  Future<void> importLockersWithCSV(FilePickerResult? result) async {
-    if (result != null) {
-      final file = result.files.first;
-      final fileContent = utf8.decode(file.bytes!);
-      final rows = fileContent.split('\n');
-      final indexes = rows[0].split(';');
+  Future<String?> importLockersWithCSV(FilePickerResult? result) async {
+    try {
+      if (result != null) {
+        final file = result.files.first;
+        final fileContent = utf8.decode(file.bytes!);
+        final rows = fileContent.split('\n');
+        final indexes = rows[0].split(';');
 
-      indexes[indexes.length - 1] = indexes[indexes.length - 1]
-          .substring(0, indexes[indexes.length - 1].length - 1);
+        indexes[indexes.length - 1] = indexes[indexes.length - 1]
+            .substring(0, indexes[indexes.length - 1].length - 1);
 
-      rows.removeAt(0);
-      rows.removeLast();
-      List<Student> jsonRows = [];
-      for (String row in rows) {
-        final rowTable = row.split(';');
-        Map<String, dynamic> jsonRow = {};
-        for (int i = 0; i < indexes.length; i++) {
-          jsonRow.addAll({indexes[i]: rowTable[i]});
+        rows.removeAt(0);
+        rows.removeLast();
+        List<Student> jsonRows = [];
+        for (String row in rows) {
+          final rowTable = row.split(';');
+          Map<String, dynamic> jsonRow = {};
+          for (int i = 0; i < indexes.length; i++) {
+            jsonRow.addAll({indexes[i]: rowTable[i]});
+          }
+          if (jsonRow["Responsable"] == "JHI") {
+            addLocker(Locker.fromCSV(jsonRow));
+          }
         }
-        final locker = Locker.fromCSV(jsonRow);
-        if (locker != Locker.error()) {
-          addLocker(locker);
-        }
+      } else {
+        throw Exception('Fichier non trouvé');
       }
-    } else {
-      throw Exception('Fichier non trouvé');
+    } catch (e) {
+      if (e.toString() ==
+          "Expected a value of type 'String', but got one of type 'Null'") {
+        return "verifier le nom des colones";
+      } else if (e.toString() ==
+          'Exception: Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"') {
+        return 'Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"';
+      } else if (e.toString().startsWith("FormatException:")) {
+        return "verifier que le ficheir soit en utf-8";
+      } else if (e.toString() == "Exception: Fichier non trouvé") {
+        return "vérifier que le fichier ait bien été séléction et que c'est un csv";
+      }
     }
   }
 

@@ -25,19 +25,20 @@ class Locker extends ILocker {
   factory Locker.fromCSV(Map<String, dynamic> csv) {
     if (csv['Nb clé'] != "" &&
         csv['No Casier'] != "" &&
-        csv["No serrure"] != "") {
+        csv["N° serrure"] != "") {
       return Locker(
         nbKey: int.parse(csv['Nb clé']),
         lockerNumber: int.parse(csv['No Casier']),
         floor: csv['Etage'],
-        //idEleve = ,
+        idEleve: '',
         job: csv['Métier'],
         remark: "",
         isAvailable: true,
-        lockNumber: int.parse(csv["No serrure"]),
+        lockNumber: int.parse(csv["N° serrure"]),
       );
     } else {
-      return Locker.error();
+      throw Exception(
+          'Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"');
     }
   }
 
