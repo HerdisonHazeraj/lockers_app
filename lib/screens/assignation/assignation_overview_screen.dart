@@ -174,11 +174,13 @@ class _AssignListViewState extends State<AssignListView> {
                       )),
                   ElevatedButton(
                     onPressed: () {
+                      keys.clear();
                       keys.add(metiersKeys);
                       keys.add(anneesKeys);
                       keys.add(responsablesKeys);
                       keys.add(cautionsKeys);
 
+                      values.clear();
                       values.add(metiersValues);
                       values.add(anneesValues);
                       values.add(responsablesValues);
