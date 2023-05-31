@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:lockers_app/screens/assignation/widgets/filter_popup.dart';
+import 'package:multiselect/multiselect.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/locker.dart';
@@ -16,57 +16,182 @@ class AssignationOverviewScreen extends StatefulWidget {
 }
 
 class _AssignationOverviewScreenState extends State<AssignationOverviewScreen> {
-  var _isInit = true;
-  var _isLoading = false;
-
-  @override
-  void didChangeDependencies() async {
-    if (_isInit) {
-      _isLoading = true;
-      setState(() {
-        _isLoading = false;
-      });
-    }
-    _isInit = false;
-
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : const AssignListView();
+    return AssignListView();
   }
 }
 
 class AssignListView extends StatefulWidget {
-  const AssignListView({super.key});
+  AssignListView({super.key});
 
   @override
   State<AssignListView> createState() => _AssignListViewState();
 }
 
 class _AssignListViewState extends State<AssignListView> {
+  _AssignListViewState() {}
+
+  //Liste affichant les élèves dans l'application
+  List<Student> studentsListView = [];
+
   bool _isAutoAttributeButtonEnabled = false;
   bool _isConfirmButtonEnabled = false;
-  bool ischecked = false;
+  bool areAllchecksChecked = false;
 
+  bool isStudentsListViewInit = false;
+
+  final metiers = ['OIC', 'ICT', 'ICH'];
+  final annees = ['1ère', '2ème', '3ème', '4ème'];
+  final responsables = ['JHI', 'CGU'];
+  final caution = [0, 20];
+
+//filtres
+  List metiersValues = [];
+  List anneesValues = [];
+  List responsablesValues = [];
+  List cautionsValues = [];
+
+  List metiersKeys = [];
+  List anneesKeys = [];
+  List responsablesKeys = [];
+  List cautionsKeys = [];
+
+  List values = [];
+  List keys = [];
+
+//listes des filtres sélectionné
+  List selectedMetiers = [];
+  List selectedAnnees = [];
+  List selectedResponsables = [];
+  List selectedCautions = [];
+
+//liste contenant les élèves coché
   List<Student> selectedStudents = [];
+
+//Liste allant recevoir les différents filtres voulus
+  List<Student> filtredStudent = [];
 
   @override
   Widget build(BuildContext context) {
     final availableLockers =
         Provider.of<LockerStudentProvider>(context).getAvailableLockers();
 
-    final availableStudents =
-        Provider.of<LockerStudentProvider>(context).getAvailableStudents();
+    //test si studentslistview est initialisé ou que certaines options ont été appliquées
+    if (!isStudentsListViewInit && values.isEmpty) {
+      final availableStudents =
+          Provider.of<LockerStudentProvider>(context).getAvailableStudents();
+      studentsListView = availableStudents;
+      isStudentsListViewInit = true;
+    } else if (values.isNotEmpty) {
+      isStudentsListViewInit = true;
+    }
+
+    void filterStudents(key, value) {
+      setState(() {
+        filtredStudent =
+            Provider.of<LockerStudentProvider>(context, listen: false)
+                .filterStudentsBy(key, value);
+        studentsListView = filtredStudent;
+        selectedStudents.clear();
+      });
+    }
 
     _showDialog() {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return FilterPopUp();
+            return AlertDialog(
+              title: const Text('Filtres'),
+              content: Wrap(
+                children: [
+                  DropDownMultiSelect(
+                      onChanged: (value) {
+                        setState(() {
+                          metiersValues = value;
+                          metiersKeys.clear();
+                          for (var v in value) {
+                            metiersKeys.add('metier');
+                          }
+                        });
+                      },
+                      selectedValues: selectedMetiers,
+                      options: metiers,
+                      decoration: const InputDecoration(
+                        labelText: 'Métier: ',
+                        floatingLabelAlignment: FloatingLabelAlignment.center,
+                      )),
+                  DropDownMultiSelect(
+                      onChanged: (value) {
+                        setState(() {
+                          anneesValues = value;
+
+                          anneesKeys.clear();
+                          for (var v in value) {
+                            anneesKeys.add('annee');
+                          }
+                        });
+                      },
+                      selectedValues: selectedAnnees,
+                      options: annees,
+                      decoration: const InputDecoration(
+                        labelText: 'Année: ',
+                        floatingLabelAlignment: FloatingLabelAlignment.center,
+                      )),
+                  DropDownMultiSelect(
+                      onChanged: (value) {
+                        setState(() {
+                          responsablesValues = value;
+
+                          responsablesKeys.clear();
+                          for (var v in value) {
+                            responsablesKeys.add('manager');
+                          }
+                        });
+                      },
+                      selectedValues: selectedResponsables,
+                      options: responsables,
+                      decoration: const InputDecoration(
+                        labelText: 'Responsable: ',
+                        floatingLabelAlignment: FloatingLabelAlignment.center,
+                      )),
+                  DropDownMultiSelect(
+                      onChanged: (value) {
+                        setState(() {
+                          cautionsValues = value;
+
+                          cautionsKeys.clear();
+                          for (var v in value) {
+                            cautionsKeys.add('caution');
+                          }
+                        });
+                      },
+                      selectedValues: selectedCautions,
+                      options: caution,
+                      decoration: const InputDecoration(
+                        labelText: 'Caution: ',
+                        floatingLabelAlignment: FloatingLabelAlignment.center,
+                      )),
+                  ElevatedButton(
+                    onPressed: () {
+                      keys.add(metiersKeys);
+                      keys.add(anneesKeys);
+                      keys.add(responsablesKeys);
+                      keys.add(cautionsKeys);
+
+                      values.add(metiersValues);
+                      values.add(anneesValues);
+                      values.add(responsablesValues);
+                      values.add(cautionsValues);
+
+                      filterStudents(keys, values);
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Confirmer'),
+                  )
+                ],
+              ),
+            );
           });
     }
 
@@ -81,13 +206,13 @@ class _AssignListViewState extends State<AssignListView> {
                   ? () {
                       late Locker locker;
                       late Student student;
-                      // if(_isButtonDisabled!){
+
                       availableLockers.forEach((l) {
                         if (l.isSelected) {
                           locker = l;
                         }
                       });
-                      availableStudents.forEach((s) {
+                      studentsListView.forEach((s) {
                         if (s.isSelected) {
                           student = s;
                         }
@@ -98,9 +223,13 @@ class _AssignListViewState extends State<AssignListView> {
                       availableLockers.forEach((e) {
                         e.isEnabled = true;
                       });
-                      availableStudents.forEach((e) {
+                      studentsListView.forEach((e) {
                         e.isEnabled = true;
                       });
+
+                      // A changer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+                      isStudentsListViewInit = false;
+                      filterStudents('manager', selectedResponsables[0]);
                     }
                   : null,
               child: Text('Confirmer'),
@@ -135,19 +264,19 @@ class _AssignListViewState extends State<AssignListView> {
                     ),
                   ),
                   Checkbox(
-                      value: ischecked,
+                      value: areAllchecksChecked,
                       onChanged: (newValue) {
                         setState(() {
-                          ischecked = newValue!;
-                          if (ischecked == true) {
+                          areAllchecksChecked = newValue!;
+                          if (areAllchecksChecked == true) {
                             selectedStudents.clear();
-                            availableStudents.forEach((student) {
+                            studentsListView.forEach((student) {
                               student.isSelected = true;
                               selectedStudents.add(student);
                             });
                           } else {
                             selectedStudents.clear();
-                            availableStudents.forEach((student) {
+                            studentsListView.forEach((student) {
                               student.isSelected = false;
                             });
                           }
@@ -178,24 +307,24 @@ class _AssignListViewState extends State<AssignListView> {
                 child: ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: availableStudents.length,
+              itemCount: studentsListView.length,
               itemBuilder: (context, index) => Card(
                 child: CheckboxListTile(
-                  enabled: availableStudents[index].isEnabled,
+                  enabled: studentsListView[index].isEnabled,
                   controlAffinity: ListTileControlAffinity.leading,
-                  value: availableStudents[index].isSelected,
+                  value: studentsListView[index].isSelected,
                   title: Text(
-                      '${availableStudents[index].firstName}  ${availableStudents[index].lastName}'),
-                  subtitle: Text(availableStudents[index].job),
+                      '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
+                  subtitle: Text(studentsListView[index].job),
                   onChanged: (newValue) {
                     setState(() {
-                      availableStudents[index].isSelected = newValue!;
+                      studentsListView[index].isSelected = newValue!;
 
-                      if (availableStudents[index].isSelected) {
-                        selectedStudents.add(availableStudents[index]);
+                      if (studentsListView[index].isSelected) {
+                        selectedStudents.add(studentsListView[index]);
                       } else {
-                        selectedStudents.remove(availableStudents[index]);
-                        ischecked = false;
+                        selectedStudents.remove(studentsListView[index]);
+                        areAllchecksChecked = false;
                       }
 
                       if (selectedStudents.length >= 2) {

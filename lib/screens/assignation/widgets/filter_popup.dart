@@ -1,12 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:provider/provider.dart';
 
 class FilterPopUp extends StatefulWidget {
-  const FilterPopUp({super.key});
+  FilterPopUp(
+      {super.key, required this.availableStudents, required this.event});
 
+  List<Student> availableStudents;
+
+  final VoidCallback event;
   @override
   State<FilterPopUp> createState() => _FilterPopUpState();
 }
@@ -16,7 +21,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
   final annee = ['1ère', '2ème', '3ème', '4ème'];
   final responsable = ['JHI'];
 
-  late List options = [];
+  late Map<String, dynamic> options;
 
   List selectedMetiers = [];
   List selectedAnnees = [];
@@ -31,7 +36,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
           DropDownMultiSelect(
               onChanged: (value) {
                 setState(() {
-                  options.add(value);
+                  selectedMetiers = value;
                 });
               },
               selectedValues: selectedMetiers,
@@ -43,7 +48,8 @@ class _FilterPopUpState extends State<FilterPopUp> {
           DropDownMultiSelect(
               onChanged: (value) {
                 setState(() {
-                  options.add(value);
+                  // options.add('')
+                  selectedAnnees = value;
                 });
               },
               selectedValues: selectedAnnees,
@@ -55,7 +61,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
           DropDownMultiSelect(
               onChanged: (value) {
                 setState(() {
-                  options.add(value);
+                  selectedResponsables = value;
                 });
               },
               selectedValues: selectedResponsables,
@@ -64,6 +70,12 @@ class _FilterPopUpState extends State<FilterPopUp> {
                 labelText: 'Responsable: ',
                 floatingLabelAlignment: FloatingLabelAlignment.center,
               )),
+          ElevatedButton(
+              onPressed: () {
+                widget.event();
+                Navigator.pop(context);
+              },
+              child: Text('Confirmer'))
         ],
       ),
     );

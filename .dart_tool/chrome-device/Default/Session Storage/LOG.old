@@ -1,6 +1,9 @@
-2023/05/30-08:46:48.850 238c Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.ba14cab2\flutter_tools_chrome_device.71e3347f\Default\Session Storage/MANIFEST-000001
-2023/05/30-08:46:48.851 238c Recovering log #7
-2023/05/30-08:46:48.851 238c (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.ba14cab2\flutter_tools_chrome_device.71e3347f\Default\Session Storage/000007.log: dropping 10793 bytes; Corruption: checksum mismatch
-2023/05/30-08:46:48.851 238c Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.ba14cab2\flutter_tools_chrome_device.71e3347f\Default\Session Storage/000007.log 
-2023/05/30-08:46:48.852 238c Delete type=0 #3
-2023/05/30-08:46:48.852 238c Delete type=0 #4
+2023/05/31-07:46:30.096 3dbc Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.5298c939\flutter_tools_chrome_device.358c97b5\Default\Session Storage/MANIFEST-000001
+2023/05/31-07:46:30.096 3dbc Recovering log #7
+2023/05/31-07:46:30.097 3dbc (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.5298c939\flutter_tools_chrome_device.358c97b5\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
+2023/05/31-07:46:30.097 3dbc (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.5298c939\flutter_tools_chrome_device.358c97b5\Default\Session Storage/000007.log: dropping 1768 bytes; Corruption: missing start of fragmented record(2)
+2023/05/31-07:46:30.098 3dbc Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.5298c939\flutter_tools_chrome_device.358c97b5\Default\Session Storage/000007.log 
+2023/05/31-07:46:30.099 3dbc Delete type=0 #3
+2023/05/31-07:46:30.099 3dbc Delete type=0 #4
+2023/05/31-07:46:30.099 3dbc Delete type=2 #5
+2023/05/31-07:46:30.099 3dbc Delete type=2 #8

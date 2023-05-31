@@ -2,7 +2,7 @@
   "lockers": [
     {
       "nbKey": 2,
-      "lockerNumber": 87,
+      "lockerNumber":87,
       "lockNumber": 156151,
       "floor": "d",
       "job": "ICT",
@@ -28,7 +28,7 @@
       "job": "ICT",
       "idEleve": "",
       "remark": "",
-      "isAvailable": true
+      "isAvailable": false
     },
     {
       "nbKey": 2,
@@ -38,13 +38,163 @@
       "job": "ICT",
       "idEleve": "",
       "remark": "",
-      "isAvailable": true
+      "isAvailable": false
     },
     {
       "nbKey": 2,
       "lockerNumber": 100,
       "lockNumber": 9489185,
       "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 70,
+      "lockNumber": 9480185,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": false
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 63,
+      "lockNumber": 948098,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": false
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 95,
+      "lockNumber": 9480213,
+      "floor": "e",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 2,
+      "lockNumber": 94801587,
+      "floor": "e",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 16,
+      "lockNumber": 9480132,
+      "floor": "e",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 21,
+      "lockNumber": 948098,
+      "floor": "c",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 183,
+      "lockNumber": 94801879,
+      "floor": "c",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 83,
+      "lockNumber": 94801684,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 76,
+      "lockNumber": 94801948,
+      "floor": "e",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 301,
+      "lockNumber": 94806514,
+      "floor": "f",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 243,
+      "lockNumber": 94801124,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 123,
+      "lockNumber": 948045,
+      "floor": "d",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 193,
+      "lockNumber": 948455,
+      "floor": "f",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 145,
+      "lockNumber": 948034585,
+      "floor": "e",
+      "job": "ICT",
+      "idEleve": "",
+      "remark": "",
+      "isAvailable": true
+    },
+    {
+      "nbKey": 2,
+      "lockerNumber": 14,
+      "lockNumber": 94567185,
+      "floor": "e",
       "job": "ICT",
       "idEleve": "",
       "remark": "",
@@ -58,13 +208,13 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 100
+      "lockerNumber": 0
     },
     {
       "firstName": "Herdison",
       "lastName": "Hazeraj",
       "job": "ICT-2020",
-      "manager": "JHI",
+      "manager": "CGU",
       "caution": 20,
       "lockerNumber": 250
     },
@@ -80,6 +230,118 @@
       "firstName": "Fabio",
       "lastName": "Leite Serra",
       "job": "ICT-2020",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Zinedine",
+      "lastName": "Zidane",
+      "job": "ELC-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 21
+    },
+    {
+      "firstName": "Garland",
+      "lastName": "Brunelle",
+      "job": "ICH-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 21
+    },
+    {
+      "firstName": "Aubrette",
+      "lastName": "Beaudry",
+      "job": "ICH-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Colin",
+      "lastName": "Brunelle",
+      "job": "AUT-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Zacharie",
+      "lastName": "Desjardins",
+      "job": "AUT-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Didiane",
+      "lastName": "Laprise",
+      "job": "ICH-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Courtland",
+      "lastName": "Chouinard",
+      "job": "ICH-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Blondelle",
+      "lastName": "Mercier",
+      "job": "AUT-2022",
+      "manager": "CGU",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Coralie",
+      "lastName": "Barrière",
+      "job": "AUT-2022",
+      "manager": "CGU",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Brice",
+      "lastName": "Tétrault",
+      "job": "ICH-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Abidin",
+      "lastName": "Mahir Handal",
+      "job": "AUT-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Zakaria",
+      "lastName": "Olsen",
+      "job": "ICH-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Cheqag",
+      "lastName": "Usamov",
+      "job": "AUT-2022",
+      "manager": "JHI",
+      "caution": 20,
+      "lockerNumber": 0
+    },
+    {
+      "firstName": "Dzhokhar",
+      "lastName": "Ryzaev",
+      "job": "ELC-2022",
       "manager": "JHI",
       "caution": 20,
       "lockerNumber": 0
