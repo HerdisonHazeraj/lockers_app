@@ -22,6 +22,25 @@ class Locker extends ILocker {
       required this.remark,
       this.isAvailable});
 
+  factory Locker.fromCSV(Map<String, dynamic> csv) {
+    if (csv['Nb clé'] != "" &&
+        csv['No Casier'] != "" &&
+        csv["No serrure"] != "") {
+      return Locker(
+        nbKey: int.parse(csv['Nb clé']),
+        lockerNumber: int.parse(csv['No Casier']),
+        floor: csv['Etage'],
+        //idEleve = ,
+        job: csv['Métier'],
+        remark: "",
+        isAvailable: true,
+        lockNumber: int.parse(csv["No serrure"]),
+      );
+    } else {
+      return Locker.error();
+    }
+  }
+
   factory Locker.fromJson(Map<String, dynamic> json) {
     return Locker(
       nbKey: json['nbKey'],

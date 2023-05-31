@@ -22,7 +22,7 @@ class Student extends IStudent {
     return Student(
       firstName: csv['Prénom'],
       lastName: csv['Nom'],
-      job: csv['Formation'] + csv['Année'],
+      job: csv['Formation'],
       manager: csv['Maître Classe'],
       caution: 0,
       lockerNumber: 0,

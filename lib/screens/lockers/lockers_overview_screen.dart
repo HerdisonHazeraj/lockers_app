@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/screens/lockers/locker_item.dart';
@@ -53,90 +54,107 @@ class LockersListView extends StatelessWidget {
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.add),
-                title: const Text('Ajouter un casier'),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Ajouter un casier'),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextField(
-                            controller: lockerNumberController,
-                            decoration: const InputDecoration(
-                              labelText: 'Numéro du casier',
+                title: Row(
+                  children: [
+                    TextButton(
+                      child: Text('Ajouter un casier'),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Ajouter un casier'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextField(
+                                  controller: lockerNumberController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Numéro du casier',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                                TextField(
+                                  controller: floorController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Étage',
+                                  ),
+                                  keyboardType: TextInputType.text,
+                                ),
+                                TextField(
+                                  controller: remarkController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Remarque (facultatif)',
+                                  ),
+                                  keyboardType: TextInputType.text,
+                                ),
+                                TextField(
+                                  controller: keysNumberController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Nombre de clés',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ],
                             ),
-                            keyboardType: TextInputType.number,
-                          ),
-                          TextField(
-                            controller: floorController,
-                            decoration: const InputDecoration(
-                              labelText: 'Étage',
-                            ),
-                            keyboardType: TextInputType.text,
-                          ),
-                          TextField(
-                            controller: remarkController,
-                            decoration: const InputDecoration(
-                              labelText: 'Remarque (facultatif)',
-                            ),
-                            keyboardType: TextInputType.text,
-                          ),
-                          TextField(
-                            controller: keysNumberController,
-                            decoration: const InputDecoration(
-                              labelText: 'Nombre de clés',
-                            ),
-                            keyboardType: TextInputType.number,
-                          ),
-                        ],
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Annuler'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Locker locker = Locker(
-                                lockerNumber:
-                                    int.parse(lockerNumberController.text),
-                                lockNumber:
-                                    int.parse(lockerNumberController.text),
-                                floor: floorController.text,
-                                remark: remarkController.text,
-                                nbKey: int.parse(keysNumberController.text),
-                                isAvailable: true,
-                                job: 'ICT');
-
-                            Provider.of<LockerStudentProvider>(context,
-                                    listen: false)
-                                .addLocker(locker);
-
-                            Navigator.of(context).pop();
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                    'Le casier numéro ${locker.lockNumber} a été ajouté avec succès !'),
-                                duration: const Duration(seconds: 3),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Annuler'),
                               ),
-                            );
+                              TextButton(
+                                onPressed: () {
+                                  Locker locker = Locker(
+                                      lockerNumber: int.parse(
+                                          lockerNumberController.text),
+                                      lockNumber: int.parse(
+                                          lockerNumberController.text),
+                                      floor: floorController.text,
+                                      remark: remarkController.text,
+                                      nbKey:
+                                          int.parse(keysNumberController.text),
+                                      isAvailable: true,
+                                      job: 'ICT');
 
-                            lockerNumberController.clear();
-                            floorController.clear();
-                            remarkController.clear();
-                            keysNumberController.clear();
-                          },
-                          child: const Text('Confirmer'),
-                        ),
-                      ],
+                                  Provider.of<LockerStudentProvider>(context,
+                                          listen: false)
+                                      .addLocker(locker);
+
+                                  Navigator.of(context).pop();
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          'Le casier numéro ${locker.lockNumber} a été ajouté avec succès !'),
+                                      duration: const Duration(seconds: 3),
+                                    ),
+                                  );
+
+                                  lockerNumberController.clear();
+                                  floorController.clear();
+                                  remarkController.clear();
+                                  keysNumberController.clear();
+                                },
+                                child: const Text('Confirmer'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                    TextButton(
+                      child: Text('Importer CSV'),
+                      onPressed: () async {
+                        final result = await FilePicker.platform.pickFiles(
+                            type: FileType.custom, allowedExtensions: ['csv']);
+                        await Provider.of<LockerStudentProvider>(context,
+                                listen: false)
+                            .importLockersWithCSV(result);
+                      },
+                    )
+                  ],
+                ),
               ),
             ],
           ),

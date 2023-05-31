@@ -167,12 +167,45 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-   Future<void> importStudentsWithCSV(FilePickerResult? result) async {
+  Future<void> importLockersWithCSV(FilePickerResult? result) async {
     if (result != null) {
       final file = result.files.first;
       final fileContent = utf8.decode(file.bytes!);
       final rows = fileContent.split('\n');
       final indexes = rows[0].split(';');
+
+      indexes[indexes.length - 1] = indexes[indexes.length - 1]
+          .substring(0, indexes[indexes.length - 1].length - 1);
+
+      rows.removeAt(0);
+      rows.removeLast();
+      List<Student> jsonRows = [];
+      for (String row in rows) {
+        final rowTable = row.split(';');
+        Map<String, dynamic> jsonRow = {};
+        for (int i = 0; i < indexes.length; i++) {
+          jsonRow.addAll({indexes[i]: rowTable[i]});
+        }
+        final locker = Locker.fromCSV(jsonRow);
+        if (locker != Locker.error()) {
+          addLocker(locker);
+        }
+      }
+    } else {
+      throw Exception('Fichier non trouvé');
+    }
+  }
+
+  Future<void> importStudentsWithCSV(FilePickerResult? result) async {
+    if (result != null) {
+      final file = result.files.first;
+      final fileContent = utf8.decode(file.bytes!);
+      final rows = fileContent.split('\n');
+      final indexes = rows[0].split(';');
+
+      indexes[indexes.length - 1] = indexes[indexes.length - 1]
+          .substring(0, indexes[indexes.length - 1].length - 1);
+
       rows.removeAt(0);
       rows.removeLast();
       List<Student> jsonRows = [];
