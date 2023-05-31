@@ -5,6 +5,7 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
 import 'package:lockers_app/screens/components/drawer_app.dart';
+import 'package:lockers_app/screens/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/components/side_menu_app.dart';
 import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/lockers/locker_details_screen.dart';
@@ -45,6 +46,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: const Color(0xfff5f5fd),
         ),
         routes: {
+          PrepareDatabaseScreen.routeName: (context) =>
+              const PrepareDatabaseScreen(),
           DashboardOverviewScreen.routeName: (context) =>
               const DashboardOverviewScreen(),
           LockersOverviewScreen.routeName: (context) =>

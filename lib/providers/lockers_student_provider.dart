@@ -70,6 +70,12 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
+  List<Locker> getUnAvailableLockers() {
+    List<Locker> availableItem =
+        lockerItems.where((element) => element.isAvailable == false).toList();
+    return availableItem;
+  }
+
   int findIndexOfLockerById(String id) {
     final lockerIndex = _lockerItems.indexWhere((locker) => locker.id == id);
     return lockerIndex;
@@ -122,6 +128,18 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
+  Map<String, List<Student>> getStudentsByYear() {
+    Map<String, List<Student>> studentsByYear = {};
+
+    for (Student student in studentItems) {
+      if (studentsByYear.containsKey(student.job)) {
+        studentsByYear[student.job]!.add(student);
+      }
+    }
+
+    return studentsByYear;
+  }
+
   int findIndexOfStudentById(String id) {
     final studentIndex =
         _studentItems.indexWhere((student) => student.id == id);
@@ -129,6 +147,8 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<void> attributeLocker(Locker locker, Student student) async {
+    getStudentsByYear();
+
     await updateLocker(
       locker.copyWith(
         isAvailable: false,
@@ -154,6 +174,7 @@ class LockerStudentProvider with ChangeNotifier {
   List<Locker> getLockerLessThen2Key() {
     List<Locker> availableItem =
         lockerItems.where((element) => element.nbKey < 2).toList();
+
     return availableItem;
   }
 

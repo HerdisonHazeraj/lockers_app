@@ -321,13 +321,13 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
             );
           case 1:
             return PieChartSectionData(
-              color: const Color(0xfff8b250),
+              color: Colors.red,
               value: Provider.of<LockerStudentProvider>(context)
-                  .getAvailableStudents()
+                  .getUnAvailableLockers()
                   .length
                   .toDouble(),
               title: Provider.of<LockerStudentProvider>(context)
-                  .getAvailableStudents()
+                  .getUnAvailableLockers()
                   .length
                   .toString(),
               radius: radius,
@@ -341,8 +341,14 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
           case 2:
             return PieChartSectionData(
               color: const Color(0xff845bef),
-              value: 1,
-              title: "1",
+              value: Provider.of<LockerStudentProvider>(context)
+                  .getLockerLessThen2Key()
+                  .length
+                  .toDouble(),
+              title: Provider.of<LockerStudentProvider>(context)
+                  .getLockerLessThen2Key()
+                  .length
+                  .toString(),
               radius: radius,
               titleStyle: TextStyle(
                 fontSize: fontSize,
