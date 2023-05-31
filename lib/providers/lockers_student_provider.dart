@@ -79,7 +79,6 @@ class LockerStudentProvider with ChangeNotifier {
     final data = await dbService.getAllStudents();
     _studentItems.addAll(data);
     notifyListeners();
-    filtersStudentsByV2();
   }
 
   Future<void> addStudent(Student student) async {
@@ -119,6 +118,12 @@ class LockerStudentProvider with ChangeNotifier {
   List<Student> getAvailableStudents() {
     List<Student> availableItem =
         studentItems.where((element) => element.lockerNumber == 0).toList();
+    return availableItem;
+  }
+
+  List<Student> getUnavailableStudents() {
+    List<Student> availableItem =
+        studentItems.where((element) => element.lockerNumber != 0).toList();
     return availableItem;
   }
 
