@@ -112,7 +112,6 @@ class SideMenuApp extends StatelessWidget {
         ),
         SideMenuItem(
           priority: 4,
-<<<<<<< HEAD
           title: 'Promotion',
           onTap: (page, _) {
             sideMenuController.changePage(page);
@@ -124,8 +123,6 @@ class SideMenuApp extends StatelessWidget {
         ),
         SideMenuItem(
           priority: 5,
-=======
->>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
           title: 'Importations',
           onTap: (page, _) async {
             final result = await FilePicker.platform.pickFiles(

@@ -179,8 +179,6 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
-<<<<<<< HEAD
-=======
   List<Locker> getDefectiveLockers() {
     List<Locker> lockers =
         lockerItems.where((element) => element.isDefective == true).toList();
@@ -195,7 +193,6 @@ class LockerStudentProvider with ChangeNotifier {
     );
   }
 
->>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
   List<Student> filterStudentsBy(List key, List value) {
     List<Student> filtredStudent = [];
     if (key != [] && value != []) {

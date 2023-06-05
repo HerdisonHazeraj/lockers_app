@@ -208,14 +208,10 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
-<<<<<<< HEAD
-      "lockerNumber": 0
-=======
       "lockerNumber": 100,
       "login": "",
       "year": 0,
       "classe": ""
->>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
     },
     {
       "firstName": "Herdison",
@@ -245,8 +241,10 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
-<<<<<<< HEAD
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Zinedine",
@@ -254,7 +252,10 @@
       "job": "ELC-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 21
+      "lockerNumber": 21,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Garland",
@@ -262,7 +263,10 @@
       "job": "ICH-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 21
+      "lockerNumber": 21,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Aubrette",
@@ -270,7 +274,10 @@
       "job": "ICH-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Colin",
@@ -278,7 +285,10 @@
       "job": "AUT-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Zacharie",
@@ -286,7 +296,10 @@
       "job": "AUT-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Didiane",
@@ -294,7 +307,10 @@
       "job": "ICH-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Courtland",
@@ -302,7 +318,10 @@
       "job": "ICH-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Blondelle",
@@ -310,7 +329,10 @@
       "job": "AUT-2022",
       "manager": "CGU",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Coralie",
@@ -318,7 +340,10 @@
       "job": "AUT-2022",
       "manager": "CGU",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Brice",
@@ -326,7 +351,10 @@
       "job": "ICH-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Abidin",
@@ -334,7 +362,10 @@
       "job": "AUT-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Zakaria",
@@ -342,7 +373,10 @@
       "job": "ICH-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Cheqag",
@@ -350,7 +384,10 @@
       "job": "AUT-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Dzhokhar",
@@ -358,13 +395,10 @@
       "job": "ELC-2022",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
-=======
       "lockerNumber": 0,
       "login": "",
       "year": 0,
       "classe": ""
->>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
     }
   ]
 }

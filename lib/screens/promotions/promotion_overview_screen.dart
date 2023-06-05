@@ -73,11 +73,13 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                 student.isSelected = true;
                                 selectedStudents.add(student);
                               });
+                              isPromoteButtonEnabled = true;
                             } else {
                               selectedStudents.clear();
                               students.forEach((student) {
                                 student.isSelected = false;
                               });
+                              isPromoteButtonEnabled = false;
                             }
                           });
                         }),
@@ -89,7 +91,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green),
-                        onPressed: () {},
+                        onPressed: isPromoteButtonEnabled ? () {} : null,
                         child: Text('Promouvoir'))),
               ],
             ),

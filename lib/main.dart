@@ -105,12 +105,8 @@ class _MyWidgetState extends State<MyWidget> {
                       const DashboardOverviewScreen(),
                       const LockersOverviewScreen(),
                       StudentsOverviewScreen(),
-<<<<<<< HEAD
                       AssignationOverviewScreen(),
                       PromotionOverviewScreen()
-=======
-                      const AssignationOverviewScreen()
->>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
                     ],
                   ),
                 ),
