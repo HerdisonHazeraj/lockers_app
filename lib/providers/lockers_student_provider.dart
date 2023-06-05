@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../infrastructure/db_service.dart';
@@ -128,6 +130,15 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
+  Map<String, List<Student>> getStudentByYear() {
+    Map<String, List<Student>> map = {};
+    map['1'] = studentItems.where((element) => element.year == 1).toList();
+    map['2'] = studentItems.where((element) => element.year == 2).toList();
+    map['3'] = studentItems.where((element) => element.year == 3).toList();
+    map['4'] = studentItems.where((element) => element.year == 4).toList();
+    return map;
+  }
+
   List<Student> getUnavailableStudents() {
     List<Student> unavailableItem =
         studentItems.where((element) => element.lockerNumber != 0).toList();
@@ -167,6 +178,20 @@ class LockerStudentProvider with ChangeNotifier {
     List<Locker> lockers =
         lockerItems.where((element) => element.nbKey < 2).toList();
     return lockers;
+  }
+
+  List<Locker> getDefectiveLockers() {
+    List<Locker> lockers =
+        lockerItems.where((element) => element.isDefective == true).toList();
+    return lockers;
+  }
+
+  Future<void> setLockerToDefective(Locker locker) async {
+    await updateLocker(
+      locker.copyWith(
+        isDefective: true,
+      ),
+    );
   }
 
   List<Student> filterStudentsBy(List key, List value) {

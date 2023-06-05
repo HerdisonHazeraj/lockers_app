@@ -1,59 +1,58 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
+import 'package:lockers_app/providers/lockers_student_provider.dart';
 
 import '../infrastructure/db_service.dart';
 import '../models/locker.dart';
 
-class LockerStudentProvider with ChangeNotifier {
-  final List<Locker> _lockerItems = [];
-  final List<Student> _studentItems = [];
+class ProblemProvider with ChangeNotifier {
+  final List<Problem> _problemItems = [];
+  // LockerStudentProvider lockerStudentProvider;
 
-  LockerStudentProvider(this.dbService);
+  ProblemProvider(this.dbService);
   final DBService dbService;
 
-  List<Locker> get lockerItems {
-    return [..._lockerItems];
-  }
-
-  List<Student> get studentItems {
-    return [..._studentItems];
+  List<Problem> get problemItems {
+    return [..._problemItems];
   }
 
   Future<void> fetchAndSetProblems() async {
-    _lockerItems.clear();
-    final data = await dbService.getAllLockers();
-    _lockerItems.addAll(data);
+    _problemItems.clear();
+    final data = await dbService.getAllProblems();
+    _problemItems.addAll(data);
     notifyListeners();
   }
 
-  Future<void> addProblem(Locker locker) async {
-    final data = await dbService.addLocker(locker);
-    _lockerItems.add(data);
+  Future<void> addProblem(Problem problem, String lockerId) async {
+    final data = await dbService.addProblem(problem);
+    _problemItems.add(data);
+    // Locker locker = lockerStudentProvider.lockerItems
+    //     .firstWhere((element) => element.id == lockerId);
+    // locker.copyWith(isDamaged: true);
     notifyListeners();
   }
 
-  Future<void> updateProblem(Locker updatedLocker) async {
-    final lockerIndex = findIndexOfProblemById(updatedLocker.id!);
+  Future<void> updateProblem(Problem updatedProblem) async {
+    final lockerIndex = findIndexOfProblemById(updatedProblem.id!);
     if (lockerIndex >= 0) {
-      final newLocker = await dbService.updateLocker(updatedLocker);
-      _lockerItems[lockerIndex] = newLocker;
+      final newProblem = await dbService.updateProblem(updatedProblem);
+      _problemItems[lockerIndex] = newProblem;
       notifyListeners();
     }
   }
 
   Future<void> deleteProblem(String id) async {
-    await dbService.deleteLocker(id);
-    Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
+    await dbService.deleteProblem(id);
+    Problem item = _problemItems.firstWhere((problem) => problem.id == id);
 
-    _lockerItems.remove(item);
+    _problemItems.remove(item);
     notifyListeners();
   }
 
   int findIndexOfProblemById(String id) {
-    final studentIndex =
-        _studentItems.indexWhere((student) => student.id == id);
-    return studentIndex;
+    final problemIndex =
+        _problemItems.indexWhere((problem) => problem.id == id);
+    return problemIndex;
   }
 }
