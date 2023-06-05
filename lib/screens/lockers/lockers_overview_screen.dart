@@ -117,6 +117,7 @@ class LockersListView extends StatelessWidget {
                                       int.parse(lockerNumberController.text),
                                   lockNumber:
                                       int.parse(lockerNumberController.text),
+                                  idEleve: "",
                                   floor: floorController.text,
                                   remark: remarkController.text,
                                   nbKey: int.parse(keysNumberController.text),

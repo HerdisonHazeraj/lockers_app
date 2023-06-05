@@ -109,7 +109,7 @@ main() {
           firstName: "Elias",
           lastName: "Tormos",
           job: "ict",
-          manager: "JHI",
+          responsable: "JHI",
           caution: 20,
           lockerNumber: 1),
       Student(
@@ -117,7 +117,7 @@ main() {
           firstName: "Timo",
           lastName: "Portal",
           job: "ict",
-          manager: "JHI",
+          responsable: "JHI",
           caution: 20,
           lockerNumber: 2),
       Student(
@@ -125,7 +125,7 @@ main() {
           firstName: "Fabio",
           lastName: "Serra",
           job: "ict",
-          manager: "JHI",
+          responsable: "JHI",
           caution: 20,
           lockerNumber: 0),
     ];
@@ -134,7 +134,7 @@ main() {
         firstName: "Fabio",
         lastName: "Leite",
         job: "ict",
-        manager: "JHI",
+        responsable: "JHI",
         caution: 20,
         lockerNumber: 3);
     studentsListForTestWithoutSecondItem = [
@@ -143,7 +143,7 @@ main() {
           firstName: "Elias",
           lastName: "Tormos",
           job: "ict",
-          manager: "JHI",
+          responsable: "JHI",
           caution: 20,
           lockerNumber: 1),
       Student(
@@ -151,7 +151,7 @@ main() {
           firstName: "Fabio",
           lastName: "Serra",
           job: "ict",
-          manager: "JHI",
+          responsable: "JHI",
           caution: 20,
           lockerNumber: 0),
     ];
@@ -160,7 +160,7 @@ main() {
         firstName: "Timo",
         lastName: "Portal",
         job: "ict",
-        manager: "JHI",
+        responsable: "JHI",
         caution: 20,
         lockerNumber: 2);
   });
@@ -520,7 +520,7 @@ main() {
             firstName: "Fabio",
             lastName: "Serra",
             job: "ict",
-            manager: "JHI",
+            responsable: "JHI",
             caution: 20,
             lockerNumber: 0)
       ]);

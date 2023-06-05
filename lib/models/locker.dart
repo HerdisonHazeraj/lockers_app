@@ -10,6 +10,7 @@ class Locker extends ILocker {
   final String job;
   final String remark;
   bool? isAvailable;
+  bool? isDefective;
 
   Locker(
       {this.id,
@@ -20,19 +21,40 @@ class Locker extends ILocker {
       this.idEleve,
       required this.job,
       required this.remark,
-      this.isAvailable});
+      this.isAvailable,
+      this.isDefective});
+
+  factory Locker.fromCSV(Map<String, dynamic> csv) {
+    if (csv['Nb clé'] != "" &&
+        csv['No Casier'] != "" &&
+        csv["N° serrure"] != "") {
+      return Locker(
+        nbKey: int.parse(csv['Nb clé']),
+        lockerNumber: int.parse(csv['No Casier']),
+        floor: csv['Etage'],
+        idEleve: '',
+        job: csv['Métier'],
+        remark: "",
+        isAvailable: true,
+        lockNumber: int.parse(csv["N° serrure"]),
+      );
+    } else {
+      throw Exception(
+          'Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"');
+    }
+  }
 
   factory Locker.fromJson(Map<String, dynamic> json) {
     return Locker(
-      nbKey: json['nbKey'],
-      lockNumber: json['lockNumber'],
-      lockerNumber: json['lockerNumber'],
-      floor: json['floor'],
-      idEleve: json['idEleve'],
-      job: json['job'],
-      remark: json['remark'],
-      isAvailable: json['isAvailable'],
-    );
+        nbKey: json['nbKey'],
+        lockNumber: json['lockNumber'],
+        lockerNumber: json['lockerNumber'],
+        floor: json['floor'],
+        idEleve: json['idEleve'],
+        job: json['job'],
+        remark: json['remark'],
+        isAvailable: json['isAvailable'],
+        isDefective: json['isDefective']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -45,6 +67,7 @@ class Locker extends ILocker {
         'job': job,
         'remark': remark,
         'isAvailable': isAvailable,
+        'isDefective': isDefective,
       };
 
   factory Locker.base() {
@@ -81,18 +104,19 @@ class Locker extends ILocker {
     String? job,
     String? remark,
     bool? isAvailable,
+    bool? isDefective,
   }) {
     return Locker(
-      id: id ?? this.id,
-      nbKey: nbKey ?? this.nbKey,
-      lockNumber: lockNumber ?? this.lockNumber,
-      lockerNumber: lockerNumber ?? this.lockerNumber,
-      floor: floor ?? this.floor,
-      idEleve: idEleve ?? this.idEleve,
-      job: job ?? this.job,
-      remark: remark ?? this.remark,
-      isAvailable: isAvailable ?? this.isAvailable,
-    );
+        id: id ?? this.id,
+        nbKey: nbKey ?? this.nbKey,
+        lockNumber: lockNumber ?? this.lockNumber,
+        lockerNumber: lockerNumber ?? this.lockerNumber,
+        floor: floor ?? this.floor,
+        idEleve: idEleve ?? this.idEleve,
+        job: job ?? this.job,
+        remark: remark ?? this.remark,
+        isAvailable: isAvailable ?? this.isAvailable,
+        isDefective: isDefective ?? this.isDefective);
   }
 
   @override
@@ -106,6 +130,7 @@ class Locker extends ILocker {
         idEleve == other.idEleve &&
         job == other.job &&
         remark == other.remark &&
-        isAvailable == other.isAvailable;
+        isAvailable == other.isAvailable &&
+        isDefective == other.isDefective;
   }
 }

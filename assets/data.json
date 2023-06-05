@@ -208,7 +208,14 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
+<<<<<<< HEAD
       "lockerNumber": 0
+=======
+      "lockerNumber": 100,
+      "login": "",
+      "year": 0,
+      "classe": ""
+>>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
     },
     {
       "firstName": "Herdison",
@@ -216,7 +223,10 @@
       "job": "ICT-2020",
       "manager": "CGU",
       "caution": 20,
-      "lockerNumber": 250
+      "lockerNumber": 250,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Timo",
@@ -224,7 +234,10 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 114
+      "lockerNumber": 114,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Fabio",
@@ -232,6 +245,7 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
+<<<<<<< HEAD
       "lockerNumber": 0
     },
     {
@@ -345,6 +359,12 @@
       "manager": "JHI",
       "caution": 20,
       "lockerNumber": 0
+=======
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
+>>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
     }
   ]
 }

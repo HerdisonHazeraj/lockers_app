@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/components/prepare_database_app.dart';
 import 'package:provider/provider.dart';
 
 class SideMenuApp extends StatelessWidget {
@@ -44,12 +45,23 @@ class SideMenuApp extends StatelessWidget {
           ),
         ],
       ),
-      footer: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Text(
-          'ceff - 2023',
-          style: TextStyle(
-            fontSize: 15,
+      footer: Padding(
+        padding: const EdgeInsets.all(8.0),
+        // child: Text(
+        //   'ceff - 2023',
+        //   style: TextStyle(
+        //     fontSize: 15,
+        //   ),
+        // ),
+        child: TextButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(PrepareDatabaseScreen.routeName);
+          },
+          child: const Text(
+            'ceff - 2023',
+            style: TextStyle(
+              fontSize: 15,
+            ),
           ),
         ),
       ),
@@ -100,6 +112,7 @@ class SideMenuApp extends StatelessWidget {
         ),
         SideMenuItem(
           priority: 4,
+<<<<<<< HEAD
           title: 'Promotion',
           onTap: (page, _) {
             sideMenuController.changePage(page);
@@ -111,6 +124,8 @@ class SideMenuApp extends StatelessWidget {
         ),
         SideMenuItem(
           priority: 5,
+=======
+>>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
           title: 'Importations',
           onTap: (page, _) async {
             final result = await FilePicker.platform.pickFiles(

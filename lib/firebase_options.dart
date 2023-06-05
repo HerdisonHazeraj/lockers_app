@@ -44,6 +44,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
+<<<<<<< HEAD
     apiKey: 'AIzaSyBxEm-Uue1yUdhOIqvcNHIeebF2ZUCP0kg',
     appId: '1:878604521951:web:37fc37eaae8242ce84b46a',
     messagingSenderId: '878604521951',
@@ -70,10 +71,39 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'lockerapp-3b54f.appspot.com',
     iosClientId: '878604521951-4cgqrvrgo9veirkjis77u1dqkkufgg3j.apps.googleusercontent.com',
+=======
+    apiKey: 'AIzaSyDrSHRNIVgMcqaFLT6IT5VKe1BDS9MSH7c',
+    appId: '1:1001077080153:web:bd14d5e6ee78c264217148',
+    messagingSenderId: '1001077080153',
+    projectId: 'lockers-app-d6caa',
+    authDomain: 'lockers-app-d6caa.firebaseapp.com',
+    databaseURL: 'https://lockers-app-d6caa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'lockers-app-d6caa.appspot.com',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDEMcZmF0_uuy8RQ5gItElxRcN2aQ6sWSA',
+    appId: '1:1001077080153:android:2d2471f0d61bd7b9217148',
+    messagingSenderId: '1001077080153',
+    projectId: 'lockers-app-d6caa',
+    databaseURL: 'https://lockers-app-d6caa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'lockers-app-d6caa.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCZtaWeY96KHbN3yGgaK2G_pFTepLeLg-g',
+    appId: '1:1001077080153:ios:78aabb47718f7334217148',
+    messagingSenderId: '1001077080153',
+    projectId: 'lockers-app-d6caa',
+    databaseURL: 'https://lockers-app-d6caa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'lockers-app-d6caa.appspot.com',
+    iosClientId: '1001077080153-5ektkeq125ufkdqtepe2qpuvk2gue9bk.apps.googleusercontent.com',
+>>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
     iosBundleId: 'com.example.lockersApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
+<<<<<<< HEAD
     apiKey: 'AIzaSyCCQWGm1LFwWxTHieiacIyG9x_cbJyawpk',
     appId: '1:878604521951:ios:43207f9971c4019884b46a',
     messagingSenderId: '878604521951',
@@ -81,6 +111,15 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'lockerapp-3b54f.appspot.com',
     iosClientId: '878604521951-uv6gv8tpegqvdv5pcho0d8eiogie0pfg.apps.googleusercontent.com',
+=======
+    apiKey: 'AIzaSyCZtaWeY96KHbN3yGgaK2G_pFTepLeLg-g',
+    appId: '1:1001077080153:ios:75ad0880b759b485217148',
+    messagingSenderId: '1001077080153',
+    projectId: 'lockers-app-d6caa',
+    databaseURL: 'https://lockers-app-d6caa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'lockers-app-d6caa.appspot.com',
+    iosClientId: '1001077080153-7rig9rrpq20usi9fknj88piemb39u58m.apps.googleusercontent.com',
+>>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
     iosBundleId: 'com.example.lockersApp.RunnerTests',
   );
 }

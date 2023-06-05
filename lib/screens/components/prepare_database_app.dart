@@ -3,6 +3,7 @@ import 'package:lockers_app/infrastructure/firebase_rtdb_service.dart';
 
 class PrepareDatabaseScreen extends StatefulWidget {
   const PrepareDatabaseScreen({super.key});
+  static String routeName = "/prepare_database";
 
   @override
   State<PrepareDatabaseScreen> createState() => _PrepareDatabaseScreenState();
@@ -29,6 +30,11 @@ class _PrepareDatabaseScreenState extends State<PrepareDatabaseScreen> {
   Widget build(BuildContext context) {
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
-        : const Center(child: Text("DataLoaded"));
+        : Scaffold(
+            appBar: AppBar(),
+            body: const Center(
+              child: Text("DataLoaded"),
+            ),
+          );
   }
 }

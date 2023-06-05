@@ -1,7 +1,13 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
+<<<<<<< HEAD
   "GOOGLE_APP_ID": "1:878604521951:ios:43207f9971c4019884b46a",
   "FIREBASE_PROJECT_ID": "lockerapp-3b54f",
   "GCM_SENDER_ID": "878604521951"
+=======
+  "GOOGLE_APP_ID": "1:1001077080153:ios:75ad0880b759b485217148",
+  "FIREBASE_PROJECT_ID": "lockers-app-d6caa",
+  "GCM_SENDER_ID": "1001077080153"
+>>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
 }

@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
 import 'package:lockers_app/models/locker.dart';
+import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
 import 'db_service.dart';
 
@@ -11,6 +12,7 @@ class FirebaseRTDBService implements DBService {
   late DatabaseReference _db; //2
   final lockerNode = "lockers";
   final studentNode = 'students';
+  final problemNode = 'problems';
   static final instance = FirebaseRTDBService._();
   FirebaseRTDBService._() {
     db.useDatabaseEmulator("127.0.0.1", 9000);
@@ -128,5 +130,47 @@ class FirebaseRTDBService implements DBService {
   @override
   Future<void> deleteStudent(String id) {
     return _db.child('$studentNode/$id').remove();
+  }
+
+  @override
+  Future<List<Problem>> getAllProblems() async {
+    final snapshot = await _db.child(problemNode).get();
+    if (snapshot.exists) {
+      final problem = <Problem>[];
+      for (dynamic v in snapshot.children) {
+        final id = v.key.toString();
+        final map = v.value as Map<String, dynamic>;
+        problem.add(Problem.fromJson(map).copyWith(id: id));
+      }
+      return problem;
+    }
+    return [];
+  }
+
+  @override
+  Future<Problem> addProblem(Problem student) {
+    final id = _db.child(problemNode).push().key;
+    return _db.child('$studentNode/$id').set(student.toJson()).then((_) {
+      developer.log("OK");
+      return student.copyWith(id: id);
+    }).catchError((error) {
+      developer.log(error);
+      return Problem.error();
+    });
+  }
+
+  @override
+  Future<Problem> updateProblem(Problem problem) async {
+    _db.child('$problemNode/${problem.id}').update(problem.toJson()).then((_) {
+      developer.log("OK");
+    }).catchError((error) {
+      developer.log(error);
+    });
+    return problem;
+  }
+
+  @override
+  Future<void> deleteProblem(String id) {
+    return _db.child('$problemNode/$id').remove();
   }
 }

@@ -68,9 +68,12 @@ class StudentDetailsScreen extends StatelessWidget {
                           firstName: firstnameController.text,
                           lastName: lastnameController.text,
                           job: jobController.text,
-                          manager: 'JHI',
+                          responsable: 'JHI',
                           caution: 0,
                           lockerNumber: 0,
+                          login: "",
+                          year: 0,
+                          classe: "",
                         );
 
                         Provider.of<LockerStudentProvider>(context,
@@ -166,7 +169,7 @@ class StudentDetailsScreen extends StatelessWidget {
                     );
                   },
                   child: const Text(
-                    'Supprimer le casier',
+                    'Supprimer l\'élève',
                     style: TextStyle(color: Colors.red),
                   ),
                 ),

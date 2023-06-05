@@ -47,6 +47,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: const Color(0xfff5f5fd),
         ),
         routes: {
+          PrepareDatabaseScreen.routeName: (context) =>
+              const PrepareDatabaseScreen(),
           DashboardOverviewScreen.routeName: (context) =>
               const DashboardOverviewScreen(),
           LockersOverviewScreen.routeName: (context) =>
@@ -54,7 +56,7 @@ class MyApp extends StatelessWidget {
           AssignationOverviewScreen.routeName: (context) =>
               const AssignationOverviewScreen(),
           StudentsOverviewScreen.routeName: (context) =>
-              const StudentsOverviewScreen(),
+              StudentsOverviewScreen(),
           LockerDetailsScreen.routeName: (context) =>
               const LockerDetailsScreen(),
           StudentDetailsScreen.routeName: (context) =>
@@ -98,13 +100,17 @@ class _MyWidgetState extends State<MyWidget> {
                 Expanded(
                   child: PageView(
                     controller: page,
-                    children: const [
+                    children: [
                       // PrepareDatabaseScreen(),
-                      DashboardOverviewScreen(),
-                      LockersOverviewScreen(),
+                      const DashboardOverviewScreen(),
+                      const LockersOverviewScreen(),
                       StudentsOverviewScreen(),
+<<<<<<< HEAD
                       AssignationOverviewScreen(),
                       PromotionOverviewScreen()
+=======
+                      const AssignationOverviewScreen()
+>>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
                     ],
                   ),
                 ),
