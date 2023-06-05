@@ -92,7 +92,7 @@ class _AssignListViewState extends State<AssignListView> {
       setState(() {
         filtredStudent =
             Provider.of<LockerStudentProvider>(context, listen: false)
-                .filterStudentsBy(keys, values);
+                .filterStudentsByV2(keys, values);
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
@@ -280,9 +280,8 @@ class _AssignListViewState extends State<AssignListView> {
                           if (metiersKeys.isNotEmpty) keys.add(metiersKeys);
                           if (anneesKeys.isNotEmpty) keys.add(anneesKeys);
                           if (responsablesKeys.isNotEmpty)
-                            keys.addAll(responsablesKeys);
-                          if (cautionsKeys.isNotEmpty)
-                            keys.addAll(cautionsKeys);
+                            keys.add(responsablesKeys);
+                          if (cautionsKeys.isNotEmpty) keys.add(cautionsKeys);
 
                           values.clear();
                           if (selectedAnnees.isNotEmpty)
@@ -290,9 +289,9 @@ class _AssignListViewState extends State<AssignListView> {
                           if (selectedAnnees.isNotEmpty)
                             values.add(selectedAnnees);
                           if (selectedResponsables.isNotEmpty)
-                            values.addAll(selectedResponsables);
+                            values.add(selectedResponsables);
                           if (selectedCautions.isNotEmpty)
-                            values.addAll(selectedCautions);
+                            values.add(selectedCautions);
 
                           filterStudents(keys, values);
                         },

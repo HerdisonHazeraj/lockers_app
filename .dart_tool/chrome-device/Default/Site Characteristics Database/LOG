@@ -1,24 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-2023/06/05-09:34:38.886 21cc Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.731b84de\flutter_tools_chrome_device.3d39f328\Default\Site Characteristics Database/MANIFEST-000001
-2023/06/05-09:34:38.886 21cc Recovering log #6
-2023/06/05-09:34:38.886 21cc Reusing old log C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.731b84de\flutter_tools_chrome_device.3d39f328\Default\Site Characteristics Database/000006.log 
-2023/06/05-09:34:38.886 21cc Delete type=0 #3
-=======
-<<<<<<< HEAD
-2023/06/05-09:23:47.717 355c Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.74634669\flutter_tools_chrome_device.632582b3\Default\Site Characteristics Database/MANIFEST-000001
-2023/06/05-09:23:47.717 355c Recovering log #3
-2023/06/05-09:23:47.717 355c Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.74634669\flutter_tools_chrome_device.632582b3\Default\Site Characteristics Database/000003.log 
-=======
-2023/05/31-10:08:37.628 fdc Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.693b2923\flutter_tools_chrome_device.6cf7a9a2\Default\Site Characteristics Database/MANIFEST-000001
-2023/05/31-10:08:37.628 fdc Recovering log #6
-2023/05/31-10:08:37.628 fdc Reusing old log C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.693b2923\flutter_tools_chrome_device.6cf7a9a2\Default\Site Characteristics Database/000006.log 
-2023/05/31-10:08:37.628 fdc Delete type=0 #3
->>>>>>> 1076034f232e3b6b45c6c9160da3663a35d8b266
->>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
-=======
-2023/06/05-08:47:58.592 378c Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.c6e5801f\flutter_tools_chrome_device.688e622f\Default\Site Characteristics Database/MANIFEST-000001
-2023/06/05-08:47:58.593 378c Recovering log #6
-2023/06/05-08:47:58.593 378c Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.c6e5801f\flutter_tools_chrome_device.688e622f\Default\Site Characteristics Database/000006.log 
-2023/06/05-08:47:58.593 378c Delete type=0 #3
->>>>>>> 7eb293a8317fd3ee7b2c0a4aa2f2cb3c49451b3d
+2023/06/05-11:37:15.071 1db4 Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.43e3a43e\flutter_tools_chrome_device.461c22cf\Default\Site Characteristics Database/MANIFEST-000001
+2023/06/05-11:37:15.072 1754 Compacting 4@0 + 0@1 files
+2023/06/05-11:37:15.081 1754 Generated table #11@0: 10 keys, 664 bytes
+2023/06/05-11:37:15.081 1754 Compacted 4@0 + 0@1 files => 664 bytes
+2023/06/05-11:37:15.091 1754 compacted to: files[ 0 1 0 0 0 0 0 ]
+2023/06/05-11:37:15.091 1754 Delete type=2 #4
+2023/06/05-11:37:15.091 1754 Delete type=2 #6
+2023/06/05-11:37:15.091 1754 Delete type=2 #7
+2023/06/05-11:37:15.091 1754 Delete type=2 #8
