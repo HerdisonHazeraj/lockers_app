@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2023/06/05-09:34:38.928 3430 Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.731b84de\flutter_tools_chrome_device.3d39f328\Default\Session Storage/MANIFEST-000001
 2023/06/05-09:34:38.929 3430 Recovering log #7
 2023/06/05-09:34:38.929 3430 (ignoring error) C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.731b84de\flutter_tools_chrome_device.3d39f328\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
@@ -28,3 +29,14 @@
 2023/05/31-10:08:37.678 1f78 Delete type=2 #8
 >>>>>>> 1076034f232e3b6b45c6c9160da3663a35d8b266
 >>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
+=======
+2023/06/05-08:47:58.633 2d8c Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.c6e5801f\flutter_tools_chrome_device.688e622f\Default\Session Storage/MANIFEST-000001
+2023/06/05-08:47:58.634 2d8c Recovering log #7
+2023/06/05-08:47:58.634 2d8c (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.c6e5801f\flutter_tools_chrome_device.688e622f\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
+2023/06/05-08:47:58.634 2d8c (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.c6e5801f\flutter_tools_chrome_device.688e622f\Default\Session Storage/000007.log: dropping 1768 bytes; Corruption: missing start of fragmented record(2)
+2023/06/05-08:47:58.635 2d8c Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.c6e5801f\flutter_tools_chrome_device.688e622f\Default\Session Storage/000007.log 
+2023/06/05-08:47:58.635 2d8c Delete type=0 #3
+2023/06/05-08:47:58.635 2d8c Delete type=0 #4
+2023/06/05-08:47:58.635 2d8c Delete type=2 #5
+2023/06/05-08:47:58.635 2d8c Delete type=2 #8
+>>>>>>> 7eb293a8317fd3ee7b2c0a4aa2f2cb3c49451b3d

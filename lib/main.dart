@@ -10,6 +10,7 @@ import 'package:lockers_app/screens/components/side_menu_app.dart';
 import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/lockers/locker_details_screen.dart';
 import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
+import 'package:lockers_app/screens/promotions/promotion_overview_screen.dart';
 import 'package:lockers_app/screens/students/student_details_screen.dart';
 import 'package:lockers_app/screens/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
@@ -104,7 +105,8 @@ class _MyWidgetState extends State<MyWidget> {
                       const DashboardOverviewScreen(),
                       const LockersOverviewScreen(),
                       StudentsOverviewScreen(),
-                      const AssignationOverviewScreen()
+                      AssignationOverviewScreen(),
+                      PromotionOverviewScreen()
                     ],
                   ),
                 ),
