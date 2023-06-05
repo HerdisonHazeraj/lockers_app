@@ -239,9 +239,9 @@ class LockerStudentProvider with ChangeNotifier {
               if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
                   (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
                 List<Student> studentsByFirstName =
-                    filterStudentsBy("firstName", jsonRow['Prénom']);
+                    filterStudentsBy(["firstName"], jsonRow['Prénom']);
                 List<Student> studentsByLastName =
-                    filterStudentsBy("lastName", jsonRow['Nom']);
+                    filterStudentsBy(["lastName"], jsonRow['Nom']);
                 Student student = Student.base();
                 for (Student s in studentsByFirstName) {
                   student =
