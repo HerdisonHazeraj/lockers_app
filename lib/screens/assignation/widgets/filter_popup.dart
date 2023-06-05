@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:multiselect/multiselect.dart';
+import 'package:provider/provider.dart';
 
 class FilterPopUp extends StatefulWidget {
   const FilterPopUp({super.key});
@@ -33,7 +36,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
               },
               selectedValues: selectedMetiers,
               options: metier,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Métier: ',
                 floatingLabelAlignment: FloatingLabelAlignment.center,
               )),
@@ -45,7 +48,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
               },
               selectedValues: selectedAnnees,
               options: annee,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Année: ',
                 floatingLabelAlignment: FloatingLabelAlignment.center,
               )),

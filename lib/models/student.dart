@@ -5,27 +5,37 @@ class Student extends IStudent {
   final String firstName;
   final String lastName;
   final String job;
-  final String manager;
+  final String responsable;
   final int caution;
   final int lockerNumber;
+  final String login;
+  final String classe;
+  final int year;
 
-  Student(
-      {this.id,
-      required this.firstName,
-      required this.lastName,
-      required this.job,
-      required this.manager,
-      required this.caution,
-      required this.lockerNumber});
+  Student({
+    this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.job,
+    required this.responsable,
+    required this.caution,
+    required this.lockerNumber,
+    required this.login,
+    required this.classe,
+    required this.year,
+  });
 
   factory Student.fromCSV(Map<String, dynamic> csv) {
     return Student(
       firstName: csv['Prénom'],
       lastName: csv['Nom'],
-      job: csv['Formation'], //csv['Année']
-      manager: csv['Maître Classe'],
+      job: csv['Formation'],
+      responsable: csv['Maître Classe'],
       caution: 0,
       lockerNumber: 0,
+      login: csv['Login'],
+      classe: csv['Classe'],
+      year: csv['Année'],
       //csv['Titre']
       //csv['_EnvoiMail]
     );
@@ -33,21 +43,28 @@ class Student extends IStudent {
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
-        firstName: json['firstName'],
-        lastName: json['lastName'],
-        job: json['job'],
-        manager: json['manager'],
-        caution: json['caution'],
-        lockerNumber: json['lockerNumber']);
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      job: json['job'],
+      responsable: json['manager'],
+      caution: json['caution'],
+      lockerNumber: json['lockerNumber'],
+      login: json['login'],
+      classe: json['classe'],
+      year: json['year'],
+    );
   }
 
   Map<String, dynamic> toJson() => {
         'firstName': firstName,
         'lastName': lastName,
         'job': job,
-        'manager': manager,
+        'manager': responsable,
         'caution': caution,
         'lockerNumber': lockerNumber,
+        'login': login,
+        'classe': classe,
+        'year': year,
       };
 
   factory Student.base() {
@@ -55,9 +72,12 @@ class Student extends IStudent {
       firstName: "",
       lastName: "",
       job: "",
-      manager: "",
+      responsable: "",
       caution: 0,
       lockerNumber: 0,
+      login: "",
+      classe: "",
+      year: 0,
     );
   }
 
@@ -66,9 +86,12 @@ class Student extends IStudent {
       firstName: "Erreur",
       lastName: "Erreur",
       job: "Erreur",
-      manager: "Erreur",
+      responsable: "Erreur",
       caution: 0,
       lockerNumber: -1,
+      login: "Erreur",
+      classe: "Erreur",
+      year: -1,
     );
   }
 
@@ -80,15 +103,21 @@ class Student extends IStudent {
     String? manager,
     int? caution,
     int? lockerNumber,
+    String? login,
+    String? classe,
+    int? year,
   }) {
     return Student(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       job: job ?? this.job,
-      manager: manager ?? this.manager,
+      responsable: manager ?? this.responsable,
       caution: caution ?? this.caution,
       lockerNumber: lockerNumber ?? this.lockerNumber,
+      login: login ?? this.login,
+      classe: classe ?? this.classe,
+      year: year ?? this.year,
     );
   }
 
@@ -100,7 +129,10 @@ class Student extends IStudent {
         lockerNumber == other.lockerNumber &&
         lastName == other.lastName &&
         job == other.job &&
-        manager == other.manager &&
-        caution == other.caution;
+        responsable == other.responsable &&
+        caution == other.caution &&
+        login == other.login &&
+        classe == other.classe &&
+        year == other.year;
   }
 }

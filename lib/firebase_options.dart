@@ -44,49 +44,43 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8',
-    appId: '1:653882674009:web:911282bd37d635c546da48',
-    messagingSenderId: '653882674009',
-    projectId: 'lockers-app-40f8d',
-    authDomain: 'lockers-app-40f8d.firebaseapp.com',
-    databaseURL:
-        'https://lockers-app-40f8d-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'lockers-app-40f8d.appspot.com',
+    apiKey: 'AIzaSyDrSHRNIVgMcqaFLT6IT5VKe1BDS9MSH7c',
+    appId: '1:1001077080153:web:bd14d5e6ee78c264217148',
+    messagingSenderId: '1001077080153',
+    projectId: 'lockers-app-d6caa',
+    authDomain: 'lockers-app-d6caa.firebaseapp.com',
+    databaseURL: 'https://lockers-app-d6caa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'lockers-app-d6caa.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAJsZnxuPejOLFZaYF8fOEA79VP0fzES4o',
-    appId: '1:653882674009:android:5a20c42a9f02870746da48',
-    messagingSenderId: '653882674009',
-    projectId: 'lockers-app-40f8d',
-    databaseURL:
-        'https://lockers-app-40f8d-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'lockers-app-40f8d.appspot.com',
+    apiKey: 'AIzaSyDEMcZmF0_uuy8RQ5gItElxRcN2aQ6sWSA',
+    appId: '1:1001077080153:android:2d2471f0d61bd7b9217148',
+    messagingSenderId: '1001077080153',
+    projectId: 'lockers-app-d6caa',
+    databaseURL: 'https://lockers-app-d6caa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'lockers-app-d6caa.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDoGUcG0gJTjLqBFAe6D0sta1zXP4Q-WDM',
-    appId: '1:653882674009:ios:e6a200c27634b5a846da48',
-    messagingSenderId: '653882674009',
-    projectId: 'lockers-app-40f8d',
-    databaseURL:
-        'https://lockers-app-40f8d-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'lockers-app-40f8d.appspot.com',
-    iosClientId:
-        '653882674009-prfjc91dpho5gis03rtf0i857pkm3ah4.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCZtaWeY96KHbN3yGgaK2G_pFTepLeLg-g',
+    appId: '1:1001077080153:ios:78aabb47718f7334217148',
+    messagingSenderId: '1001077080153',
+    projectId: 'lockers-app-d6caa',
+    databaseURL: 'https://lockers-app-d6caa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'lockers-app-d6caa.appspot.com',
+    iosClientId: '1001077080153-5ektkeq125ufkdqtepe2qpuvk2gue9bk.apps.googleusercontent.com',
     iosBundleId: 'com.example.lockersApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDoGUcG0gJTjLqBFAe6D0sta1zXP4Q-WDM',
-    appId: '1:653882674009:ios:17bf75354cb145f346da48',
-    messagingSenderId: '653882674009',
-    projectId: 'lockers-app-40f8d',
-    databaseURL:
-        'https://lockers-app-40f8d-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'lockers-app-40f8d.appspot.com',
-    iosClientId:
-        '653882674009-i2ve4puff056vqna7ntkqos7gpg1tteg.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCZtaWeY96KHbN3yGgaK2G_pFTepLeLg-g',
+    appId: '1:1001077080153:ios:75ad0880b759b485217148',
+    messagingSenderId: '1001077080153',
+    projectId: 'lockers-app-d6caa',
+    databaseURL: 'https://lockers-app-d6caa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'lockers-app-d6caa.appspot.com',
+    iosClientId: '1001077080153-7rig9rrpq20usi9fknj88piemb39u58m.apps.googleusercontent.com',
     iosBundleId: 'com.example.lockersApp.RunnerTests',
   );
 }
