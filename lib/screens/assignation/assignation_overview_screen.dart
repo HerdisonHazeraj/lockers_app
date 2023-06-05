@@ -65,8 +65,8 @@ class _AssignListViewState extends State<AssignListView> {
   List selectedCautions = [];
 
 //listes des filtres complets
-  List values = [];
-  List keys = [];
+  List<List> values = [];
+  List<List> keys = [];
 
 //liste contenant les élèves cochés
   List<Student> selectedStudents = [];
@@ -329,9 +329,9 @@ class _AssignListViewState extends State<AssignListView> {
                                       if (anneesKeys.isNotEmpty)
                                         keys.add(anneesKeys);
                                       if (responsablesKeys.isNotEmpty)
-                                        keys.addAll(responsablesKeys);
+                                        keys.add(responsablesKeys);
                                       if (cautionsKeys.isNotEmpty)
-                                        keys.addAll(cautionsKeys);
+                                        keys.add(cautionsKeys);
 
                                       values.clear();
                                       if (selectedAnnees.isNotEmpty)
@@ -339,9 +339,9 @@ class _AssignListViewState extends State<AssignListView> {
                                       if (selectedAnnees.isNotEmpty)
                                         values.add(selectedAnnees);
                                       if (selectedResponsables.isNotEmpty)
-                                        values.addAll(selectedResponsables);
+                                        values.add(selectedResponsables);
                                       if (selectedCautions.isNotEmpty)
-                                        values.addAll(selectedCautions);
+                                        values.add(selectedCautions);
 
                                       filterStudents(keys, values);
                                     },
