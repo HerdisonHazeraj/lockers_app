@@ -238,24 +238,19 @@ class LockerStudentProvider with ChangeNotifier {
               await addLocker(locker);
               if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
                   (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
-                List<Student> studentsByFirstName =
-                    filterStudentsBy(["firstName"], jsonRow['Prénom']);
-                List<Student> studentsByLastName =
-                    filterStudentsBy(["lastName"], jsonRow['Nom']);
-                Student student = Student.base();
-                for (Student s in studentsByFirstName) {
-                  student =
-                      studentsByLastName.where((element) => element == s).first;
-                }
+                List<Student> studentInList = filterStudentsBy(
+                    ["firstName", "lastName"],
+                    [jsonRow['Prénom'], jsonRow['Nom']]);
                 final newLocker = _lockerItems
                     .where((element) =>
                         element.lockerNumber == locker.lockerNumber)
                     .first;
-                if (student == Student.base()) {
+                if (studentInList.isEmpty) {
                   deleteLocker(newLocker.id!);
                   throw Exception(
                       "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué");
                 }
+                final student = studentInList.first;
                 attributeLocker(newLocker, student);
               }
             }
@@ -272,11 +267,11 @@ class LockerStudentProvider with ChangeNotifier {
           'Exception: Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"') {
         return 'Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"';
       } else if (e.toString().startsWith("FormatException:")) {
-        return "verifier que le ficheir soit en utf-8";
+        return "verifier que le ficheir soit un csv et qu'il soit codé en utf-8";
       } else if (e.toString() == "Exception: Fichier non trouvé") {
-        return "vérifier que le fichier ait bien été séléction et que c'est un csv";
+        return null;
       }
-      final exceptionString = e.toString().substring(11);
+      final exceptionString = e.toString();
       return exceptionString;
     }
     return null;
@@ -318,11 +313,11 @@ class LockerStudentProvider with ChangeNotifier {
           "Expected a value of type 'String', but got one of type 'Null'") {
         return 'verifier le nom des colones. Colones obligatoires : "Prénom", "Nom", "Formation" et "Maître Classe"';
       } else if (e.toString().startsWith("FormatException:")) {
-        return "verifier que le ficheir soit en utf-8";
+        return "verifier que le ficheir soit un csv et qu'il soit codé en utf-8";
       } else if (e.toString() == "Exception: Fichier non trouvé") {
-        return "vérifier que le fichier ait bien été séléction et que c'est un csv";
+        return null;
       }
-      final exceptionString = e.toString().substring(11);
+      final exceptionString = e.toString();
       return exceptionString;
     }
     return null;

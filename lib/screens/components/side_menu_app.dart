@@ -129,8 +129,34 @@ class SideMenuApp extends StatelessWidget {
               type: FileType.custom,
               allowedExtensions: ['csv'],
             );
-            await Provider.of<LockerStudentProvider>(context, listen: false)
-                .importStudentsWithCSV(result);
+            final error =
+                await Provider.of<LockerStudentProvider>(context, listen: false)
+                    .importStudentsWithCSV(result);
+            if (error != null) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(error)));
+            }
+          },
+          iconWidget: SvgPicture.asset(
+            "assets/icons/import.svg",
+            height: 24,
+          ),
+        ),
+        SideMenuItem(
+          priority: 5,
+          title: 'Importations Casiers',
+          onTap: (page, _) async {
+            final result = await FilePicker.platform.pickFiles(
+              type: FileType.custom,
+              allowedExtensions: ['csv'],
+            );
+            final error =
+                await Provider.of<LockerStudentProvider>(context, listen: false)
+                    .importLockersWithCSV(result);
+            if (error != null) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(error)));
+            }
           },
           iconWidget: SvgPicture.asset(
             "assets/icons/import.svg",

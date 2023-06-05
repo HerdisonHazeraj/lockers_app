@@ -35,7 +35,7 @@ class Student extends IStudent {
       lockerNumber: 0,
       login: csv['Login'],
       classe: csv['Classe'],
-      year: csv['Année'],
+      year: int.parse(csv['Année']),
       //csv['Titre']
       //csv['_EnvoiMail]
     );
