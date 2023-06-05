@@ -71,6 +71,9 @@ class StudentDetailsScreen extends StatelessWidget {
                           responsable: 'JHI',
                           caution: 0,
                           lockerNumber: 0,
+                          login: "",
+                          year: 0,
+                          classe: "",
                         );
 
                         Provider.of<LockerStudentProvider>(context,

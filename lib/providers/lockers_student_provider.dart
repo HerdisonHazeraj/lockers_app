@@ -72,7 +72,7 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
-  List<Locker> getUnavailableLockers() {
+  List<Locker> getUnAvailableLockers() {
     List<Locker> unavailableItem =
         lockerItems.where((element) => element.isAvailable == false).toList();
     return unavailableItem;
