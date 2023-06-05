@@ -1,3 +1,36 @@
-2023/05/23-13:15:54.024 1cf4 Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.27988a7d\flutter_tools_chrome_device.1fc92326\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
-2023/05/23-13:15:54.024 1cf4 Recovering log #117
-2023/05/23-13:15:54.026 1cf4 Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.27988a7d\flutter_tools_chrome_device.1fc92326\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/000117.log 
+2023/06/05-08:13:32.703 35b4 Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.e74e4cd1\flutter_tools_chrome_device.15a298ec\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/06/05-08:13:32.703 35b4 Recovering log #174
+2023/06/05-08:13:32.704 35b4 Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.e74e4cd1\flutter_tools_chrome_device.15a298ec\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/000174.log 
+2023/06/05-08:13:32.704 35b4 Delete type=0 #3
+2023/06/05-08:13:32.704 35b4 Delete type=2 #5
+2023/06/05-08:13:32.704 35b4 Delete type=2 #16
+2023/06/05-08:13:32.704 35b4 Delete type=0 #17
+2023/06/05-08:13:32.704 35b4 Delete type=2 #19
+2023/06/05-08:13:32.704 35b4 Delete type=2 #29
+2023/06/05-08:13:32.704 35b4 Delete type=0 #30
+2023/06/05-08:13:32.704 35b4 Delete type=2 #32
+2023/06/05-08:13:32.704 35b4 Delete type=2 #55
+2023/06/05-08:13:32.704 35b4 Delete type=0 #62
+2023/06/05-08:13:32.704 35b4 Delete type=2 #64
+2023/06/05-08:13:32.704 35b4 Delete type=2 #65
+2023/06/05-08:13:32.704 35b4 Delete type=2 #75
+2023/06/05-08:13:32.704 35b4 Delete type=0 #76
+2023/06/05-08:13:32.704 35b4 Delete type=2 #78
+2023/06/05-08:13:32.704 35b4 Delete type=0 #91
+2023/06/05-08:13:32.704 35b4 Delete type=2 #94
+2023/06/05-08:13:32.704 35b4 Delete type=2 #104
+2023/06/05-08:13:32.704 35b4 Delete type=0 #105
+2023/06/05-08:13:32.704 35b4 Delete type=2 #107
+2023/06/05-08:13:32.704 35b4 Delete type=0 #117
+2023/06/05-08:13:32.704 35b4 Delete type=2 #120
+2023/06/05-08:13:32.704 35b4 Delete type=2 #130
+2023/06/05-08:13:32.704 35b4 Delete type=0 #131
+2023/06/05-08:13:32.704 35b4 Delete type=2 #133
+2023/06/05-08:13:32.704 35b4 Delete type=0 #135
+2023/06/05-08:13:32.704 35b4 Delete type=2 #137
+2023/06/05-08:13:32.704 35b4 Delete type=0 #139
+2023/06/05-08:13:32.704 35b4 Delete type=2 #140
+2023/06/05-08:13:32.704 35b4 Delete type=0 #157
+2023/06/05-08:13:32.704 35b4 Delete type=2 #160
+2023/06/05-08:13:32.704 35b4 Delete type=2 #173
+2023/06/05-08:13:32.833 1aa0 Manual compaction at level-0 from '\x00\\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00]\x00\x00\x00' @ 0 : 0; will stop at (end)

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/problems.dart';
-import 'package:lockers_app/models/student.dart';
-import 'package:lockers_app/providers/lockers_student_provider.dart';
 
 import '../infrastructure/db_service.dart';
-import '../models/locker.dart';
 
 class ProblemProvider with ChangeNotifier {
   final List<Problem> _problemItems = [];
