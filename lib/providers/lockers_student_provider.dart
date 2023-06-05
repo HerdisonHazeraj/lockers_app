@@ -242,17 +242,16 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-  List<Student> filterStudentByResearch(key, value) {
-    List<Student> filtredStudent = [];
-    List<Student> students = [];
-    if (key != [] && value != []) {
-      students = getAvailableStudents();
-      filtredStudent = students
-          .where((element) => element.toJson()[key].toString().contains(value))
-          .toList();
-      return filtredStudent;
-    }
-    return [];
+  Future<void> promoteStudent(List<Student> students) async {
+    students.forEach(
+      (element) {
+        if (element.year != 4) {
+          element.year + 1;
+        } else {
+          element.copyWith(year: 0);
+        }
+      },
+    );
   }
 
   Future<String?> importLockersWithCSV(FilePickerResult? result) async {
