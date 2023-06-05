@@ -5,7 +5,7 @@ import 'package:lockers_app/screens/students/student_item.dart';
 import 'package:provider/provider.dart';
 
 class StudentsOverviewScreen extends StatefulWidget {
-  const StudentsOverviewScreen({super.key});
+  StudentsOverviewScreen({super.key});
 
   static String routeName = "/students";
 
@@ -16,15 +16,24 @@ class StudentsOverviewScreen extends StatefulWidget {
 class _StudentsOverviewScreenState extends State<StudentsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: StudentsListView());
+    return Scaffold(
+      body: StudentsListView(),
+    );
   }
 }
 
-class StudentsListView extends StatelessWidget {
+class StudentsListView extends StatefulWidget {
   StudentsListView({super.key});
 
+  @override
+  State<StudentsListView> createState() => _StudentsListViewState();
+}
+
+class _StudentsListViewState extends State<StudentsListView> {
   final firstnameController = TextEditingController();
+
   final lastnameController = TextEditingController();
+
   final jobController = TextEditingController();
 
   @override
@@ -36,16 +45,45 @@ class StudentsListView extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  itemCount: students.length,
-                  itemBuilder: (context, index) => Column(
+                child: SingleChildScrollView(
+                  child: ExpansionPanelList(
                     children: [
-                      StudentItem(students[index]),
-                      const Divider(),
+                      ExpansionPanel(
+                        headerBuilder: (context, isExpanded) {
+                          return const ListTile(
+                            title: Text(
+                              'Liste des élèves',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          );
+                        },
+                        body: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: students.length,
+                          itemBuilder: (context, index) => Column(
+                            children: [
+                              StudentItem(students[index]),
+                              const Divider(),
+                            ],
+                          ),
+                        ),
+                        isExpanded: true,
+                      ),
                     ],
                   ),
                 ),
               ),
+              // Expanded(
+              //   child: ListView.builder(
+              //     itemCount: students.length,
+              //     itemBuilder: (context, index) => Column(
+              //       children: [
+              //         StudentItem(students[index]),
+              //         const Divider(),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.add),

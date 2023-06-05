@@ -123,39 +123,41 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             ),
                                           ),
                                         ),
-                                        const Column(
+                                        const SizedBox(
+                                          height: 25,
+                                        ),
+                                        const Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Indicator(
-                                              color: Colors.green,
-                                              text: 'First',
-                                              isSquare: true,
+                                            Column(
+                                              children: [
+                                                Indicator(
+                                                  color: Colors.green,
+                                                  text: 'Casiers libres',
+                                                  isSquare: true,
+                                                ),
+                                                Indicator(
+                                                  color: Colors.red,
+                                                  text: 'Casiers occupés',
+                                                  isSquare: true,
+                                                ),
+                                              ],
                                             ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Indicator(
-                                              color: Colors.yellow,
-                                              text: 'Second',
-                                              isSquare: true,
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Indicator(
-                                              color: Colors.purple,
-                                              text: 'Third',
-                                              isSquare: true,
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Indicator(
-                                              color: Colors.blue,
-                                              text: 'Fourth',
-                                              isSquare: true,
-                                            ),
-                                            SizedBox(
-                                              height: 18,
+                                            Column(
+                                              children: [
+                                                Indicator(
+                                                  color: Colors.yellow,
+                                                  text: 'Clés manquantes',
+                                                  isSquare: true,
+                                                ),
+                                                Indicator(
+                                                  color: Colors.purple,
+                                                  text: 'Casiers défectueux',
+                                                  isSquare: true,
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -256,6 +258,89 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                       ),
                                     ),
                                     SizedBox(
+                                      height: 200,
+                                      child: Scrollbar(
+                                        thumbVisibility: true,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              ...Provider.of<
+                                                          LockerStudentProvider>(
+                                                      context)
+                                                  .studentItems
+                                                  .map(
+                                                    (student) => Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 6),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                "${student.firstName} ${student.lastName}",
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                student.job,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              IconButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                icon:
+                                                                    const Icon(
+                                                                  Icons.check,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                ),
+                                                              ),
+                                                              IconButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                icon:
+                                                                    const Icon(
+                                                                  Icons.close,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                ),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.02,
@@ -269,6 +354,94 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                           color: Colors.black54,
                                           fontWeight: FontWeight.w500,
                                           height: 1.3,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 200,
+                                      child: Scrollbar(
+                                        thumbVisibility: true,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              ...Provider.of<
+                                                          LockerStudentProvider>(
+                                                      context)
+                                                  .lockerItems
+                                                  .map(
+                                                    (locker) => Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 6),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                locker.remark ==
+                                                                        ''
+                                                                    ? 'Aucune remarque'
+                                                                    : locker
+                                                                        .remark
+                                                                        .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              IconButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                icon:
+                                                                    const Icon(
+                                                                  Icons.check,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                ),
+                                                              ),
+                                                              IconButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                icon:
+                                                                    const Icon(
+                                                                  Icons.close,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                ),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -320,6 +493,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
               ),
             );
           case 1:
+            // Casiers occupés
             return PieChartSectionData(
               color: Colors.red,
               value: Provider.of<LockerStudentProvider>(context)
@@ -339,8 +513,9 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
               ),
             );
           case 2:
+            // Casiers qui possèdent des clés manquantes
             return PieChartSectionData(
-              color: const Color(0xff845bef),
+              color: Colors.yellow,
               value: Provider.of<LockerStudentProvider>(context)
                   .getLockerLessThen2Key()
                   .length
@@ -358,8 +533,9 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
               ),
             );
           case 3:
+            // Casiers défectueux
             return PieChartSectionData(
-              color: const Color(0xff13d38e),
+              color: Colors.purple,
               value: 2,
               title: "2",
               radius: radius,

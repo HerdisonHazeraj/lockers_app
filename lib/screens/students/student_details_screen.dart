@@ -166,7 +166,7 @@ class StudentDetailsScreen extends StatelessWidget {
                     );
                   },
                   child: const Text(
-                    'Supprimer le casier',
+                    'Supprimer l\'élève',
                     style: TextStyle(color: Colors.red),
                   ),
                 ),

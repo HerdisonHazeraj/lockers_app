@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           AssignationOverviewScreen.routeName: (context) =>
               const AssignationOverviewScreen(),
           StudentsOverviewScreen.routeName: (context) =>
-              const StudentsOverviewScreen(),
+              StudentsOverviewScreen(),
           LockerDetailsScreen.routeName: (context) =>
               const LockerDetailsScreen(),
           StudentDetailsScreen.routeName: (context) =>
@@ -99,12 +99,12 @@ class _MyWidgetState extends State<MyWidget> {
                 Expanded(
                   child: PageView(
                     controller: page,
-                    children: const [
+                    children: [
                       // PrepareDatabaseScreen(),
-                      DashboardOverviewScreen(),
-                      LockersOverviewScreen(),
+                      const DashboardOverviewScreen(),
+                      const LockersOverviewScreen(),
                       StudentsOverviewScreen(),
-                      AssignationOverviewScreen()
+                      const AssignationOverviewScreen()
                     ],
                   ),
                 ),
