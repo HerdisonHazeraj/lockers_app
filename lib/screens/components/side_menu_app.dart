@@ -99,7 +99,18 @@ class SideMenuApp extends StatelessWidget {
           ),
         ),
         SideMenuItem(
-          priority: 3,
+          priority: 4,
+          title: 'Promotion',
+          onTap: (page, _) {
+            sideMenuController.changePage(page);
+          },
+          iconWidget: SvgPicture.asset(
+            "assets/icons/assign.svg",
+            height: 24,
+          ),
+        ),
+        SideMenuItem(
+          priority: 5,
           title: 'Importations',
           onTap: (page, _) async {
             final result = await FilePicker.platform.pickFiles(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lockers_app/screens/promotions/promotion_overview_screen.dart';
 
 import '../assignation/assignation_overview_screen.dart';
 import '../lockers/lockers_overview_screen.dart';
@@ -59,6 +60,17 @@ class DrawerApp extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .pushNamed(AssignationOverviewScreen.routeName);
+              },
+            ),
+            ListTile(
+              leading: SvgPicture.asset(
+                "assets/icons/assign.svg",
+                height: 24,
+              ),
+              title: const Text("Promotions"),
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(PromotionOverviewScreen.routeName);
               },
             ),
           ],
