@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:multiselect/multiselect.dart';
+=======
+import 'package:lockers_app/providers/lockers_student_provider.dart';
+// import 'package:multiselect/multiselect.dart';
+import 'package:provider/provider.dart';
+>>>>>>> 1d88bebc4e9df91e1b3edb4f171d213795f81a7f
 
 class FilterPopUp extends StatefulWidget {
   const FilterPopUp({super.key});
@@ -22,6 +28,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+<<<<<<< HEAD
       title: const Text('Filtres'),
       content: Wrap(
         children: [
@@ -66,6 +73,49 @@ class _FilterPopUpState extends State<FilterPopUp> {
           ),
         ],
       ),
+=======
+      // title: Text('Filtres'),
+      // content: Wrap(
+      //   children: [
+      //     // DropDownMultiSelect(
+      //         // onChanged: (value) {
+      //           setState(() {
+      //             options.add(value);
+      //           });
+      //         },
+      //         selectedValues: selectedMetiers,
+      //         options: metier,
+      //         decoration: InputDecoration(
+      //           labelText: 'Métier: ',
+      //           floatingLabelAlignment: FloatingLabelAlignment.center,
+      //         )),
+      //     DropDownMultiSelect(
+      //         onChanged: (value) {
+      //           setState(() {
+      //             options.add(value);
+      //           });
+      //         },
+      //         selectedValues: selectedAnnees,
+      //         options: annee,
+      //         decoration: InputDecoration(
+      //           labelText: 'Année: ',
+      //           floatingLabelAlignment: FloatingLabelAlignment.center,
+      //         )),
+      //     DropDownMultiSelect(
+      //         onChanged: (value) {
+      //           setState(() {
+      //             options.add(value);
+      //           });
+      //         },
+      //         selectedValues: selectedResponsables,
+      //         options: responsable,
+      //         decoration: InputDecoration(
+      //           labelText: 'Responsable: ',
+      //           floatingLabelAlignment: FloatingLabelAlignment.center,
+      //         )),
+      //   ],
+      // ),
+>>>>>>> 1d88bebc4e9df91e1b3edb4f171d213795f81a7f
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/responsive.dart';
