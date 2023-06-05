@@ -207,6 +207,24 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
+  List<Student> filterStudentsByV2(List<List> key, List<List> value) {
+    List<Student> students = [];
+    List<Student> filtredStudent = [];
+    if (key != [] && value != []) {
+      students = getAvailableStudents();
+      for (var i = 0; i < key.length; i++) {
+        for (var j = 0; j < key[i].length; j++) {
+          filtredStudent += students
+              .where((element) => element.toJson()[key[i]] == value[i])
+              .toList();
+        }
+        students = filtredStudent;
+      }
+      return filtredStudent;
+    }
+    return [];
+  }
+
   Future<String?> importLockersWithCSV(FilePickerResult? result) async {
     try {
       if (result != null) {
