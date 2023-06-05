@@ -208,24 +208,124 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-  Future<void> importStudentsWithCSV(FilePickerResult? result) async {
-    if (result != null) {
-      final file = result.files.first;
-      final fileContent = utf8.decode(file.bytes!);
-      final rows = fileContent.split('\n');
-      final indexes = rows[0].split(';');
-      rows.removeAt(0);
-      rows.removeLast();
-      for (String row in rows) {
-        final rowTable = row.split(';');
-        Map<String, dynamic> jsonRow = {};
-        for (int i = 0; i < indexes.length; i++) {
-          jsonRow.addAll({indexes[i]: rowTable[i]});
+  Future<String?> importLockersWithCSV(FilePickerResult? result) async {
+    try {
+      if (result != null) {
+        final file = result.files.first;
+        final fileContent = utf8.decode(file.bytes!);
+        final rows = fileContent.split('\n');
+        final indexes = rows[0].split(';');
+
+        indexes[indexes.length - 1] = indexes[indexes.length - 1]
+            .substring(0, indexes[indexes.length - 1].length - 1);
+
+        rows.removeAt(0);
+        rows.removeLast();
+        for (String row in rows) {
+          final rowTable = row.split(';');
+          Map<String, dynamic> jsonRow = {};
+          for (int i = 0; i < indexes.length; i++) {
+            jsonRow.addAll({indexes[i]: rowTable[i]});
+          }
+
+          if (jsonRow["Responsable"] == "JHI" ||
+              jsonRow["Responsable"] == null) {
+            final lockerExists = _lockerItems
+                .where((locker) =>
+                    int.parse(jsonRow['No Casier']) == locker.lockerNumber)
+                .isEmpty;
+            if (lockerExists) {
+              final locker = Locker.fromCSV(jsonRow);
+              await addLocker(locker);
+              if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
+                  (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
+                List<Student> studentsByFirstName =
+                    filterStudentsBy("firstName", jsonRow['Prénom']);
+                List<Student> studentsByLastName =
+                    filterStudentsBy("lastName", jsonRow['Nom']);
+                Student student = Student.base();
+                for (Student s in studentsByFirstName) {
+                  student =
+                      studentsByLastName.where((element) => element == s).first;
+                }
+                final newLocker = _lockerItems
+                    .where((element) =>
+                        element.lockerNumber == locker.lockerNumber)
+                    .first;
+                if (student == Student.base()) {
+                  deleteLocker(newLocker.id!);
+                  throw Exception(
+                      "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué");
+                }
+                attributeLocker(newLocker, student);
+              }
+            }
+          }
         }
-        addStudent(Student.fromCSV(jsonRow));
+      } else {
+        throw Exception('Fichier non trouvé');
       }
-    } else {
-      throw Exception('Fichier non trouvé');
+    } catch (e) {
+      if (e.toString() ==
+          "Expected a value of type 'String', but got one of type 'Null'") {
+        return 'verifier le nom des colones. Colones obligatoires : "Nb clé", "No Casier", "Etage", "Métier" et "N° serrure"';
+      } else if (e.toString() ==
+          'Exception: Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"') {
+        return 'Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"';
+      } else if (e.toString().startsWith("FormatException:")) {
+        return "verifier que le ficheir soit en utf-8";
+      } else if (e.toString() == "Exception: Fichier non trouvé") {
+        return "vérifier que le fichier ait bien été séléction et que c'est un csv";
+      }
+      final exceptionString = e.toString().substring(11);
+      return exceptionString;
     }
+    return null;
+  }
+
+  Future<String?> importStudentsWithCSV(FilePickerResult? result) async {
+    try {
+      if (result != null) {
+        final file = result.files.first;
+        final fileContent = utf8.decode(file.bytes!);
+        final rows = fileContent.split('\n');
+        final indexes = rows[0].split(';');
+
+        indexes[indexes.length - 1] = indexes[indexes.length - 1]
+            .substring(0, indexes[indexes.length - 1].length - 1);
+
+        rows.removeAt(0);
+        rows.removeLast();
+        for (String row in rows) {
+          final rowTable = row.split(';');
+          Map<String, dynamic> jsonRow = {};
+          for (int i = 0; i < indexes.length; i++) {
+            jsonRow.addAll({indexes[i]: rowTable[i]});
+          }
+          final studentExists = _studentItems
+              .where((student) =>
+                  jsonRow['Nom'] == student.lastName &&
+                  jsonRow['Prénom'] == student.firstName)
+              .isEmpty;
+          if (studentExists) {
+            addStudent(Student.fromCSV(jsonRow));
+          }
+        }
+      } else {
+        throw Exception('Fichier non trouvé');
+      }
+    } catch (e) {
+      if (e.toString() ==
+          "Expected a value of type 'String', but got one of type 'Null'") {
+        return 'verifier le nom des colones. Colones obligatoires : "Prénom", "Nom", "Formation" et "Maître Classe"';
+      } else if (e.toString().startsWith("FormatException:")) {
+        return "verifier que le ficheir soit en utf-8";
+      } else if (e.toString() == "Exception: Fichier non trouvé") {
+        return "vérifier que le fichier ait bien été séléction et que c'est un csv";
+      }
+      final exceptionString = e.toString().substring(11);
+      return exceptionString;
+    }
+    return null;
   }
 }
