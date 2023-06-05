@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js_interop';
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
@@ -181,7 +180,6 @@ class LockerStudentProvider with ChangeNotifier {
 
         rows.removeAt(0);
         rows.removeLast();
-        List<Student> jsonRows = [];
         for (String row in rows) {
           final rowTable = row.split(';');
           Map<String, dynamic> jsonRow = {};
@@ -203,18 +201,15 @@ class LockerStudentProvider with ChangeNotifier {
                 student =
                     studentsByLastName.where((element) => element == s).first;
               }
-              if (student == Student.base()) {
-                throw Exception("l'élève " +
-                    jsonRow['Prénom'] +
-                    " " +
-                    jsonRow['Nom'] +
-                    " est introuvable, veuillez vous assurer qu'il existe et qu'il n'a pas de casier déjà attribué");
-              }
-              final newLocker = this
-                  ._lockerItems
+              final newLocker = _lockerItems
                   .where(
                       (element) => element.lockerNumber == locker.lockerNumber)
                   .first;
+              if (student == Student.base()) {
+                deleteLocker(newLocker.id!);
+                throw Exception(
+                    "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué");
+              }
               attributeLocker(newLocker, student);
             }
           }
@@ -234,8 +229,10 @@ class LockerStudentProvider with ChangeNotifier {
       } else if (e.toString() == "Exception: Fichier non trouvé") {
         return "vérifier que le fichier ait bien été séléction et que c'est un csv";
       }
-      return e.toString();
+      final exceptionString = e.toString().substring(11);
+      return exceptionString;
     }
+    return null;
   }
 
   Future<String?> importStudentsWithCSV(FilePickerResult? result) async {
@@ -251,7 +248,6 @@ class LockerStudentProvider with ChangeNotifier {
 
         rows.removeAt(0);
         rows.removeLast();
-        List<Student> jsonRows = [];
         for (String row in rows) {
           final rowTable = row.split(';');
           Map<String, dynamic> jsonRow = {};
@@ -272,7 +268,9 @@ class LockerStudentProvider with ChangeNotifier {
       } else if (e.toString() == "Exception: Fichier non trouvé") {
         return "vérifier que le fichier ait bien été séléction et que c'est un csv";
       }
-      return e.toString();
+      final exceptionString = e.toString().substring(11);
+      return exceptionString;
     }
+    return null;
   }
 }
