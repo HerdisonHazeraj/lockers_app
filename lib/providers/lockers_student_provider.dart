@@ -186,31 +186,38 @@ class LockerStudentProvider with ChangeNotifier {
           for (int i = 0; i < indexes.length; i++) {
             jsonRow.addAll({indexes[i]: rowTable[i]});
           }
+
           if (jsonRow["Responsable"] == "JHI" ||
               jsonRow["Responsable"] == null) {
-            final locker = Locker.fromCSV(jsonRow);
-            await addLocker(locker);
-            if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
-                (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
-              List<Student> studentsByFirstName =
-                  filterStudentsBy("firstName", jsonRow['Prénom']);
-              List<Student> studentsByLastName =
-                  filterStudentsBy("lastName", jsonRow['Nom']);
-              Student student = Student.base();
-              for (Student s in studentsByFirstName) {
-                student =
-                    studentsByLastName.where((element) => element == s).first;
+            final lockerExists = _lockerItems
+                .where((locker) =>
+                    int.parse(jsonRow['No Casier']) == locker.lockerNumber)
+                .isEmpty;
+            if (lockerExists) {
+              final locker = Locker.fromCSV(jsonRow);
+              await addLocker(locker);
+              if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
+                  (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
+                List<Student> studentsByFirstName =
+                    filterStudentsBy("firstName", jsonRow['Prénom']);
+                List<Student> studentsByLastName =
+                    filterStudentsBy("lastName", jsonRow['Nom']);
+                Student student = Student.base();
+                for (Student s in studentsByFirstName) {
+                  student =
+                      studentsByLastName.where((element) => element == s).first;
+                }
+                final newLocker = _lockerItems
+                    .where((element) =>
+                        element.lockerNumber == locker.lockerNumber)
+                    .first;
+                if (student == Student.base()) {
+                  deleteLocker(newLocker.id!);
+                  throw Exception(
+                      "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué");
+                }
+                attributeLocker(newLocker, student);
               }
-              final newLocker = _lockerItems
-                  .where(
-                      (element) => element.lockerNumber == locker.lockerNumber)
-                  .first;
-              if (student == Student.base()) {
-                deleteLocker(newLocker.id!);
-                throw Exception(
-                    "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué");
-              }
-              attributeLocker(newLocker, student);
             }
           }
         }
@@ -254,7 +261,14 @@ class LockerStudentProvider with ChangeNotifier {
           for (int i = 0; i < indexes.length; i++) {
             jsonRow.addAll({indexes[i]: rowTable[i]});
           }
-          addStudent(Student.fromCSV(jsonRow));
+          final studentExists = _studentItems
+              .where((student) =>
+                  jsonRow['Nom'] == student.lastName &&
+                  jsonRow['Prénom'] == student.firstName)
+              .isEmpty;
+          if (studentExists) {
+            addStudent(Student.fromCSV(jsonRow));
+          }
         }
       } else {
         throw Exception('Fichier non trouvé');
