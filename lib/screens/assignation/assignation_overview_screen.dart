@@ -64,8 +64,8 @@ class _AssignListViewState extends State<AssignListView> {
   List selectedCautions = [];
 
 //listes des filtres complets
-  List values = [];
-  List keys = [];
+  List<List> values = [];
+  List<List> keys = [];
 
 //liste contenant les élèves cochés
   List<Student> selectedStudents = [];
@@ -92,7 +92,7 @@ class _AssignListViewState extends State<AssignListView> {
       setState(() {
         filtredStudent =
             Provider.of<LockerStudentProvider>(context, listen: false)
-                .filterStudentsByV2(keys, values);
+                .filterStudentsBy(keys, values);
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });

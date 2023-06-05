@@ -165,11 +165,28 @@ class LockerStudentProvider with ChangeNotifier {
     );
   }
 
+  Future<void> unAttributeLocker(Locker locker, Student student) async {
+    await updateLocker(
+      locker.copyWith(
+        isAvailable: true,
+        idEleve: "",
+      ),
+    );
+
+    await updateStudent(
+      student.copyWith(
+        lockerNumber: 0,
+      ),
+    );
+  }
+
   void autoAttributeLocker(List<Student> students) {
     final _random = Random();
     final lockers = getAvailableLockers();
     students.forEach((student) {
-      attributeLocker(lockers[_random.nextInt(lockers.length)], student);
+      int number = _random.nextInt(lockers.length);
+      attributeLocker(lockers[number], student);
+      lockers.remove(lockers[number]);
     });
   }
 
@@ -185,6 +202,12 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
+  List<Locker> getNonDefectiveLockers() {
+    List<Locker> lockers =
+        lockerItems.where((element) => element.isDefective == true).toList();
+    return lockers;
+  }
+
   Future<void> setLockerToDefective(Locker locker) async {
     await updateLocker(
       locker.copyWith(
@@ -193,21 +216,15 @@ class LockerStudentProvider with ChangeNotifier {
     );
   }
 
-  List<Student> filterStudentsBy(List key, List value) {
-    List<Student> filtredStudent = [];
-    if (key != [] && value != []) {
-      filtredStudent = getAvailableStudents();
-      for (var i = 0; i < key.length; i++) {
-        filtredStudent = filtredStudent
-            .where((element) => element.toJson()[key[i]] == value[i])
-            .toList();
-      }
-      return filtredStudent;
-    }
-    return [];
+  Future<void> unSetLockerToDefective(Locker locker) async {
+    await updateLocker(
+      locker.copyWith(
+        isDefective: false,
+      ),
+    );
   }
 
-  List<Student> filterStudentsByV2(List<List> key, List<List> value) {
+  List<Student> filterStudentsBy(List<List> key, List<List> value) {
     List<Student> students = [];
     List<Student> filtredStudent = [];
     if (key != [] && value != []) {
@@ -215,7 +232,7 @@ class LockerStudentProvider with ChangeNotifier {
       for (var i = 0; i < key.length; i++) {
         for (var j = 0; j < key[i].length; j++) {
           filtredStudent += students
-              .where((element) => element.toJson()[key[i]] == value[i])
+              .where((element) => element.toJson()[key[i][j]] == value[i][j])
               .toList();
         }
         students = filtredStudent;
@@ -256,9 +273,13 @@ class LockerStudentProvider with ChangeNotifier {
               await addLocker(locker);
               if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
                   (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
-                List<Student> studentInList = filterStudentsBy(
-                    ["firstName", "lastName"],
-                    [jsonRow['Prénom'], jsonRow['Nom']]);
+                List<Student> studentInList = filterStudentsBy([
+                  ["firstName"],
+                  ["lastName"]
+                ], [
+                  jsonRow['Prénom'],
+                  jsonRow['Nom']
+                ]);
                 final newLocker = _lockerItems
                     .where((element) =>
                         element.lockerNumber == locker.lockerNumber)
