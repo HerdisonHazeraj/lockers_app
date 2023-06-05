@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../infrastructure/db_service.dart';
@@ -71,9 +73,9 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   List<Locker> getUnAvailableLockers() {
-    List<Locker> availableItem =
+    List<Locker> unavailableItem =
         lockerItems.where((element) => element.isAvailable == false).toList();
-    return availableItem;
+    return unavailableItem;
   }
 
   int findIndexOfLockerById(String id) {
@@ -128,16 +130,19 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
-  Map<String, List<Student>> getStudentsByYear() {
-    Map<String, List<Student>> studentsByYear = {};
+  Map<String, List<Student>> getStudentByYear() {
+    Map<String, List<Student>> map = {};
+    map['1'] = studentItems.where((element) => element.year == 1).toList();
+    map['2'] = studentItems.where((element) => element.year == 2).toList();
+    map['3'] = studentItems.where((element) => element.year == 3).toList();
+    map['4'] = studentItems.where((element) => element.year == 4).toList();
+    return map;
+  }
 
-    for (Student student in studentItems) {
-      if (studentsByYear.containsKey(student.job)) {
-        studentsByYear[student.job]!.add(student);
-      }
-    }
-
-    return studentsByYear;
+  List<Student> getUnavailableStudents() {
+    List<Student> unavailableItem =
+        studentItems.where((element) => element.lockerNumber != 0).toList();
+    return unavailableItem;
   }
 
   int findIndexOfStudentById(String id) {
@@ -147,8 +152,6 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<void> attributeLocker(Locker locker, Student student) async {
-    getStudentsByYear();
-
     await updateLocker(
       locker.copyWith(
         isAvailable: false,
@@ -172,17 +175,34 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   List<Locker> getLockerLessThen2Key() {
-    List<Locker> availableItem =
+    List<Locker> lockers =
         lockerItems.where((element) => element.nbKey < 2).toList();
-
-    return availableItem;
+    return lockers;
   }
 
-  List<Student> filterStudentsBy(key, value) {
-    if (key != '' && value != '') {
-      List<Student> filtredStudent = getAvailableStudents()
-          .where((element) => element.toJson()[key] == value)
-          .toList();
+  List<Locker> getDefectiveLockers() {
+    List<Locker> lockers =
+        lockerItems.where((element) => element.isDefective == true).toList();
+    return lockers;
+  }
+
+  Future<void> setLockerToDefective(Locker locker) async {
+    await updateLocker(
+      locker.copyWith(
+        isDefective: true,
+      ),
+    );
+  }
+
+  List<Student> filterStudentsBy(List key, List value) {
+    List<Student> filtredStudent = [];
+    if (key != [] && value != []) {
+      filtredStudent = getAvailableStudents();
+      for (var i = 0; i < key.length; i++) {
+        filtredStudent = filtredStudent
+            .where((element) => element.toJson()[key[i]] == value[i])
+            .toList();
+      }
       return filtredStudent;
     }
     return [];

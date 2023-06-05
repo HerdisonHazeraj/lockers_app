@@ -132,9 +132,12 @@ class _StudentsListViewState extends State<StudentsListView> {
                               firstName: firstnameController.text,
                               lastName: lastnameController.text,
                               job: jobController.text,
-                              manager: 'JHI',
+                              responsable: 'JHI',
                               caution: 0,
                               lockerNumber: 0,
+                              login: "",
+                              year: 0,
+                              classe: "",
                             );
 
                             Provider.of<LockerStudentProvider>(context,

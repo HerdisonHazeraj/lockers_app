@@ -58,7 +58,10 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 100
+      "lockerNumber": 100,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Herdison",
@@ -66,7 +69,10 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 250
+      "lockerNumber": 250,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Timo",
@@ -74,7 +80,10 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 114
+      "lockerNumber": 114,
+      "login": "",
+      "year": 0,
+      "classe": ""
     },
     {
       "firstName": "Fabio",
@@ -82,7 +91,10 @@
       "job": "ICT-2020",
       "manager": "JHI",
       "caution": 20,
-      "lockerNumber": 0
+      "lockerNumber": 0,
+      "login": "",
+      "year": 0,
+      "classe": ""
     }
   ]
 }
