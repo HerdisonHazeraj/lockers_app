@@ -18,14 +18,14 @@ class _StudentItemState extends State<StudentItem> {
       onEnter: (event) {
         setState(
           () {
-            widget.student.studentListIsFocus = true;
+            widget.student.isFocus = true;
           },
         );
       },
       onExit: (event) {
         setState(
           () {
-            widget.student.studentListIsFocus = false;
+            widget.student.isFocus = false;
           },
         );
       },
@@ -42,8 +42,7 @@ class _StudentItemState extends State<StudentItem> {
         trailing: IconButton(
           onPressed: () {},
           icon: Visibility(
-              visible: widget.student.studentListIsFocus,
-              child: const Icon(Icons.edit)),
+              visible: widget.student.isFocus, child: const Icon(Icons.edit)),
         ),
       ),
     );

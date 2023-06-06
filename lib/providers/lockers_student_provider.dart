@@ -182,17 +182,26 @@ class LockerStudentProvider with ChangeNotifier {
 
   void autoAttributeLocker(List<Student> students) {
     final _random = Random();
-    Map<String, int> index = {"d": 1, "c": 2, "b": 3, "e": 4};
+    Map<String, int> index = {
+      "d": 1,
+      "c": 2,
+      "b": 3,
+      "e": 4,
+      "f": 5,
+    };
     final lockers = getAvailableLockers();
     lockers.sort(
       (a, b) => index[a.floor.toLowerCase()]!
           .compareTo(index[b.floor.toLowerCase()]!),
     );
-    students.forEach((student) {
-      int number = _random.nextInt(lockers.length);
-      attributeLocker(lockers[number], student);
-      lockers.remove(lockers[number]);
-    });
+    for (var i = 0; i < students.length; i++) {
+      if (i >= lockers.length) {
+        break;
+      }
+      // students.forEach((student) {
+      attributeLocker(lockers[i], students[i]);
+      // });
+    }
   }
 
   void autoAttributeLockerV2(List<Student> students) {

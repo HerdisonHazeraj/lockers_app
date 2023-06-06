@@ -54,16 +54,16 @@ class _DashboardMenuState extends State<DashboardMenu> {
                               .map(
                                 (student) => MouseRegion(
                                   onEnter: (event) => setState(() {
-                                    student.lastStudentIsFocus = true;
+                                    student.isFocus = true;
                                   }),
                                   onExit: (event) => setState(() {
-                                    student.lastStudentIsFocus = false;
+                                    student.isFocus = false;
                                   }),
                                   child: ListTile(
                                     title: Text(
                                         "${student.firstName} ${student.lastName}"),
                                     trailing: Visibility(
-                                      visible: student.lastStudentIsFocus,
+                                      visible: student.isFocus,
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
