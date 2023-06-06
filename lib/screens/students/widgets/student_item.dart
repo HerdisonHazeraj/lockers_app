@@ -5,7 +5,8 @@ import '../../../models/student.dart';
 
 class StudentItem extends StatelessWidget {
   final Student student;
-  const StudentItem(this.student, {super.key});
+  final Function()? showUpdateForm;
+  const StudentItem({this.showUpdateForm, required this.student, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class StudentItem extends StatelessWidget {
       title: Text("${student.firstName} ${student.lastName}"),
       subtitle: Text(student.job),
       trailing: IconButton(
-        onPressed: () {},
+        onPressed: () => showUpdateForm!(),
         icon: const Icon(Icons.edit),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/students/widgets/student_item.dart';
+import 'package:lockers_app/screens/students/widgets/student_update.dart';
 import 'package:lockers_app/screens/students/widgets/students_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +34,16 @@ class StudentsListView extends StatefulWidget {
 class _StudentsListViewState extends State<StudentsListView> {
   bool isInit = false;
 
+  // Tools for update student
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final mailController = TextEditingController();
+  final jobController = TextEditingController();
+  final loginController = TextEditingController();
+  final yearController = TextEditingController();
+  final classeController = TextEditingController();
+  final responsableController = TextEditingController();
+
   // Tools for students by search
   late bool isExpSearch = false;
   late List<Student> searchedStudents = [];
@@ -50,6 +61,12 @@ class _StudentsListViewState extends State<StudentsListView> {
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => true);
       isInit = true;
+    }
+
+    showUpdateForm(Student s) {
+      setState(() {
+        s.isUpdating = !s.isUpdating;
+      });
     }
 
     searchStudents(String value) {
@@ -130,7 +147,8 @@ class _StudentsListViewState extends State<StudentsListView> {
                                               Column(
                                             children: [
                                               StudentItem(
-                                                  searchedStudents[index]),
+                                                  student:
+                                                      searchedStudents[index]),
                                               const Divider(),
                                             ],
                                           ),
@@ -173,8 +191,20 @@ class _StudentsListViewState extends State<StudentsListView> {
                                       itemCount: e.value.length,
                                       itemBuilder: (context, index) => Column(
                                         children: [
-                                          StudentItem(e.value[index]),
+                                          StudentItem(
+                                              showUpdateForm: () =>
+                                                  showUpdateForm(
+                                                      e.value[index]),
+                                              student: e.value[index]),
                                           const Divider(),
+                                          e.value[index].isUpdating
+                                              ? StudentUpdate(
+                                                  student: e.value[index],
+                                                  showUpdateForm: () =>
+                                                      showUpdateForm(
+                                                          e.value[index]),
+                                                )
+                                              : const SizedBox(),
                                         ],
                                       ),
                                     ),
