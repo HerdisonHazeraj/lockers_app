@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:lockers_app/screens/assignation/widgets/actionBar_widget.dart';
+// import 'package:lockers_app/screens/assignation/widgets/actionBar_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/available_lockers_list_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/available_students_list_widget.dart';
 // import 'package:lockers_app/screens/assignation/widgets/buttonBar_widget.dart';
@@ -150,7 +150,6 @@ class _AssignListViewState extends State<AssignListView> {
           student.isSelected = false;
         }
       }
-
       checkIf2CheckBoxesAreChecked();
     }
 
@@ -188,16 +187,17 @@ class _AssignListViewState extends State<AssignListView> {
                                 studentsListView: studentsListView,
                                 areAllchecksChecked: areAllchecksChecked,
                                 selectedStudents: selectedStudents,
-                                checkIfAStudentAndALockerAreSelectedVoid:
-                                    checkIfAStudentAndALockerAreSelected,
-                                checkIf2CheckBoxesAreCheckedVoid:
-                                    checkIf2CheckBoxesAreChecked,
+                                checkIfAStudentAndALockerAreSelectedVoid: () =>
+                                    () =>
+                                        checkIfAStudentAndALockerAreSelected(),
+                                checkIf2CheckBoxesAreCheckedVoid: () =>
+                                    () => checkIf2CheckBoxesAreChecked(),
                               ),
                               AvailableLockersListWidget(
                                   availableLockers: availableLockers,
                                   isALockerSelected: isALockerSelected,
-                                  checkIfAStudentAndALockerAreSelectedVoid:
-                                      checkIfAStudentAndALockerAreSelected)
+                                  checkIfAStudentAndALockerAreSelectedVoid: () =>
+                                      checkIfAStudentAndALockerAreSelected())
                               // Expanded(
                               //   child: SingleChildScrollView(
                               //     scrollDirection: Axis.vertical,

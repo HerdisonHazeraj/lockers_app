@@ -7,14 +7,14 @@ class AvailableStudentsListWidget extends StatefulWidget {
       required this.studentsListView,
       required this.areAllchecksChecked,
       required this.selectedStudents,
-      required void Function() checkIfAStudentAndALockerAreSelectedVoid,
-      required void Function() checkIf2CheckBoxesAreCheckedVoid});
+      required this.checkIfAStudentAndALockerAreSelectedVoid,
+      required this.checkIf2CheckBoxesAreCheckedVoid});
   List<Student> studentsListView;
   bool areAllchecksChecked;
   List<Student> selectedStudents;
 
-  void checkIfAStudentAndALockerAreSelectedVoid;
-  void checkIf2CheckBoxesAreCheckedVoid;
+  final Function() checkIfAStudentAndALockerAreSelectedVoid;
+  final Function() checkIf2CheckBoxesAreCheckedVoid;
 
   @override
   State<AvailableStudentsListWidget> createState() =>
@@ -32,7 +32,7 @@ class _AvailableStudentsListWidgetState
           children: [
             widget.studentsListView.isEmpty
                 ? const Center(
-                    heightFactor: 50, child: Text('Aucun élève disponible '))
+                    heightFactor: 50, child: Text('Aucun élève disponible'))
                 : ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -59,8 +59,9 @@ class _AvailableStudentsListWidgetState
                               widget.areAllchecksChecked = false;
                             }
 
-                            widget.checkIfAStudentAndALockerAreSelectedVoid;
-                            widget.checkIf2CheckBoxesAreCheckedVoid;
+                            () => widget
+                                .checkIfAStudentAndALockerAreSelectedVoid();
+                            () => widget.checkIf2CheckBoxesAreCheckedVoid();
                           });
                         },
                       ),
