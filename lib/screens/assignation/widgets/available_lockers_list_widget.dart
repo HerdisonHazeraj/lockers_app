@@ -7,12 +7,12 @@ class AvailableLockersListWidget extends StatefulWidget {
     super.key,
     required this.availableLockers,
     required this.isALockerSelected,
-    required void Function() checkIfAStudentAndALockerAreSelectedVoid,
+    required this.checkIfAStudentAndALockerAreSelectedVoid,
   });
 
   List<Locker> availableLockers;
   bool isALockerSelected;
-  void checkIfAStudentAndALockerAreSelectedVoid;
+  VoidCallback checkIfAStudentAndALockerAreSelectedVoid;
 
   @override
   State<AvailableLockersListWidget> createState() =>
