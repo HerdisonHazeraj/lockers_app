@@ -1,9 +1,9 @@
-2023/06/06-10:03:01.644 3504 Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.ec43a3c\flutter_tools_chrome_device.fd87832f\Default\Session Storage/MANIFEST-000001
-2023/06/06-10:03:01.644 3504 Recovering log #7
-2023/06/06-10:03:01.644 3504 (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.ec43a3c\flutter_tools_chrome_device.fd87832f\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
-2023/06/06-10:03:01.644 3504 (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.ec43a3c\flutter_tools_chrome_device.fd87832f\Default\Session Storage/000007.log: dropping 122 bytes; Corruption: missing start of fragmented record(2)
-2023/06/06-10:03:01.645 3504 Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.ec43a3c\flutter_tools_chrome_device.fd87832f\Default\Session Storage/000007.log 
-2023/06/06-10:03:01.646 3504 Delete type=0 #3
-2023/06/06-10:03:01.646 3504 Delete type=0 #4
-2023/06/06-10:03:01.646 3504 Delete type=2 #5
-2023/06/06-10:03:01.646 3504 Delete type=2 #8
+2023/06/06-10:33:36.187 19c8 Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.cf6cc9b0\flutter_tools_chrome_device.7ee86260\Default\Session Storage/MANIFEST-000001
+2023/06/06-10:33:36.187 19c8 Recovering log #7
+2023/06/06-10:33:36.187 19c8 (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.cf6cc9b0\flutter_tools_chrome_device.7ee86260\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
+2023/06/06-10:33:36.187 19c8 (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.cf6cc9b0\flutter_tools_chrome_device.7ee86260\Default\Session Storage/000007.log: dropping 122 bytes; Corruption: missing start of fragmented record(2)
+2023/06/06-10:33:36.188 19c8 Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.cf6cc9b0\flutter_tools_chrome_device.7ee86260\Default\Session Storage/000007.log 
+2023/06/06-10:33:36.190 19c8 Delete type=0 #3
+2023/06/06-10:33:36.190 19c8 Delete type=0 #4
+2023/06/06-10:33:36.190 19c8 Delete type=2 #5
+2023/06/06-10:33:36.190 19c8 Delete type=2 #8

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 
+// ignore: must_be_immutable
 class FilterElement extends StatefulWidget {
   FilterElement(
       {super.key,

@@ -50,7 +50,7 @@ class _AssignListViewState extends State<AssignListView> {
   final metiers = ['Informaticien-ne CFC (dès 2021)', 'Opérateur-trice CFC'];
   // final annees = {"1ère": 1, "2ème": 2, "3ème": 3, "4ème": 4};
   final annees = [1, 2, 3, 4];
-  final responsables = ['JHI', 'CGU'];
+  final responsables = ['JHI', 'CGU', 'MIV', 'PGA'];
   final caution = [0, 20];
 
 //filtres
@@ -80,16 +80,6 @@ class _AssignListViewState extends State<AssignListView> {
     final availableLockers =
         Provider.of<LockerStudentProvider>(context).getAvailableLockers();
 
-    //test si studentslistview est initialisé ou que certaines options ont été appliquées
-    if (!isStudentsListViewInit && values.isEmpty) {
-      final availableStudents =
-          Provider.of<LockerStudentProvider>(context).getAvailableStudents();
-      studentsListView = availableStudents;
-      isStudentsListViewInit = true;
-    } else if (values.isNotEmpty) {
-      isStudentsListViewInit = true;
-    }
-
     void filterStudents(keys, values) {
       setState(() {
         filtredStudent =
@@ -98,6 +88,17 @@ class _AssignListViewState extends State<AssignListView> {
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
+    }
+
+    //test si studentslistview est initialisé ou que certaines options ont été appliquées
+    if (!isStudentsListViewInit && values.isEmpty) {
+      final availableStudents =
+          Provider.of<LockerStudentProvider>(context).getAvailableStudents();
+      studentsListView = availableStudents;
+      isStudentsListViewInit = true;
+    } else if (values.isNotEmpty && !isStudentsListViewInit) {
+      isStudentsListViewInit = true;
+      filterStudents(keys, values);
     }
 
     //check si 2 checkbox ont été checké
@@ -137,129 +138,132 @@ class _AssignListViewState extends State<AssignListView> {
             Expanded(
               flex: 10,
               child: SafeArea(
-                child: Container(
-                  margin: const EdgeInsets.all(55),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: areAllchecksChecked,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  areAllchecksChecked = newValue!;
-                                  //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
-                                  if (areAllchecksChecked == true) {
-                                    selectedStudents.clear();
-                                    for (var student in studentsListView) {
-                                      student.isSelected = true;
-                                      selectedStudents.add(student);
-                                    }
-                                  } else {
-                                    selectedStudents.clear();
-                                    for (var student in studentsListView) {
-                                      student.isSelected = false;
-                                    }
-                                  }
-
-                                  checkIf2CheckBoxesAreChecked(
-                                      availableLockers);
-                                });
-                              }),
-                          const Text('Tout sélectionner'),
-                        ],
-                      ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Container(
+                    margin: const EdgeInsets.all(55),
+                    child: Column(
+                      children: [
+                        Row(
                           children: [
-                            Expanded(
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.vertical,
-                                child: Column(
-                                  children: [
-                                    ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      itemCount: studentsListView.length,
-                                      itemBuilder: (context, index) => Card(
-                                        child: CheckboxListTile(
-                                          enabled:
-                                              studentsListView[index].isEnabled,
-                                          controlAffinity:
-                                              ListTileControlAffinity.leading,
-                                          value: studentsListView[index]
-                                              .isSelected,
-                                          title: Text(
-                                              '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
-                                          subtitle:
-                                              Text(studentsListView[index].job),
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              studentsListView[index]
-                                                  .isSelected = newValue!;
+                            Checkbox(
+                                value: areAllchecksChecked,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    areAllchecksChecked = newValue!;
+                                    //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
+                                    if (areAllchecksChecked == true) {
+                                      selectedStudents.clear();
+                                      for (var student in studentsListView) {
+                                        student.isSelected = true;
+                                        selectedStudents.add(student);
+                                      }
+                                    } else {
+                                      selectedStudents.clear();
+                                      for (var student in studentsListView) {
+                                        student.isSelected = false;
+                                      }
+                                    }
 
-                                              if (studentsListView[index]
-                                                  .isSelected) {
-                                                selectedStudents.add(
-                                                    studentsListView[index]);
-                                              } else {
-                                                selectedStudents.remove(
-                                                    studentsListView[index]);
-                                                areAllchecksChecked = false;
-                                              }
+                                    checkIf2CheckBoxesAreChecked(
+                                        availableLockers);
+                                  });
+                                }),
+                            const Text('Tout sélectionner'),
+                          ],
+                        ),
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Column(
+                                    children: [
+                                      ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        shrinkWrap: true,
+                                        itemCount: studentsListView.length,
+                                        itemBuilder: (context, index) => Card(
+                                          child: CheckboxListTile(
+                                            enabled: studentsListView[index]
+                                                .isEnabled,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                            value: studentsListView[index]
+                                                .isSelected,
+                                            title: Text(
+                                                '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
+                                            subtitle: Text(
+                                                studentsListView[index].job),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                studentsListView[index]
+                                                    .isSelected = newValue!;
 
-                                              checkIfAStudentAndALockerAreSelected();
-                                              checkIf2CheckBoxesAreChecked(
-                                                  availableLockers);
-                                            });
-                                          },
+                                                if (studentsListView[index]
+                                                    .isSelected) {
+                                                  selectedStudents.add(
+                                                      studentsListView[index]);
+                                                } else {
+                                                  selectedStudents.remove(
+                                                      studentsListView[index]);
+                                                  areAllchecksChecked = false;
+                                                }
+
+                                                checkIfAStudentAndALockerAreSelected();
+                                                checkIf2CheckBoxesAreChecked(
+                                                    availableLockers);
+                                              });
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                                child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: availableLockers.length,
-                              itemBuilder: (context, index) => Card(
-                                child: CheckboxListTile(
-                                  enabled: availableLockers[index].isEnabled,
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
-                                  value: availableLockers[index].isSelected,
-                                  title: Text(availableLockers[index]
-                                      .lockerNumber
-                                      .toString()),
-                                  subtitle: Text(
-                                      'Étage ${availableLockers[index].floor.toUpperCase()}'),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      availableLockers[index].isSelected =
-                                          newValue!;
+                              Expanded(
+                                  child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: availableLockers.length,
+                                itemBuilder: (context, index) => Card(
+                                  child: CheckboxListTile(
+                                    enabled: availableLockers[index].isEnabled,
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                    value: availableLockers[index].isSelected,
+                                    title: Text(availableLockers[index]
+                                        .lockerNumber
+                                        .toString()),
+                                    subtitle: Text(
+                                        'Étage ${availableLockers[index].floor.toUpperCase()}'),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        availableLockers[index].isSelected =
+                                            newValue!;
 
-                                      for (var e in availableLockers) {
-                                        if (!newValue) {
-                                          e.isEnabled = true;
-                                          isALockerSelected = false;
-                                        } else {
-                                          if (!e.isSelected) {
-                                            e.isEnabled = false;
-                                            isALockerSelected = true;
+                                        for (var e in availableLockers) {
+                                          if (!newValue) {
+                                            e.isEnabled = true;
+                                            isALockerSelected = false;
+                                          } else {
+                                            if (!e.isSelected) {
+                                              e.isEnabled = false;
+                                              isALockerSelected = true;
+                                            }
                                           }
                                         }
-                                      }
-                                      checkIfAStudentAndALockerAreSelected();
-                                    });
-                                  },
+                                        checkIfAStudentAndALockerAreSelected();
+                                      });
+                                    },
+                                  ),
                                 ),
-                              ),
-                            )),
-                          ]),
-                    ],
+                              )),
+                            ]),
+                      ],
+                    ),
                   ),
                 ),
               ),

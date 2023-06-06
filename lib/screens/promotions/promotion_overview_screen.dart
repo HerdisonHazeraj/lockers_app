@@ -27,7 +27,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
 
   final metiers = ['Informaticien-ne CFC (dès 2021)', 'Opérateur-trice CFC'];
   final annees = [1, 2, 3, 4];
-  final responsables = ['JHI', 'CGU'];
+  final responsables = ['JHI', 'CGU', 'MIV', 'PGA'];
 
   //filtres
   List metiersKeys = [];
@@ -48,15 +48,6 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
   List<Student> filtredStudent = [];
   @override
   Widget build(BuildContext context) {
-    if (!isStudentsListViewInit && values.isEmpty) {
-      final availableStudents =
-          Provider.of<LockerStudentProvider>(context).getAvailableStudents();
-      studentsListView = availableStudents;
-      isStudentsListViewInit = true;
-    } else if (values.isNotEmpty) {
-      isStudentsListViewInit = true;
-    }
-
     void filterStudents(keys, values) {
       setState(() {
         filtredStudent =
@@ -65,6 +56,16 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
+    }
+
+    if (!isStudentsListViewInit && values.isEmpty) {
+      final availableStudents =
+          Provider.of<LockerStudentProvider>(context).getAvailableStudents();
+      studentsListView = availableStudents;
+      isStudentsListViewInit = true;
+    } else if (values.isNotEmpty && !isStudentsListViewInit) {
+      isStudentsListViewInit = true;
+      filterStudents(keys, values);
     }
 
     return Scaffold(
@@ -242,9 +243,14 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                 backgroundColor: Colors.green),
                             onPressed: isPromoteButtonEnabled
                                 ? () {
-                                    Provider.of<LockerStudentProvider>(context,
-                                            listen: false)
-                                        .promoteStudent(selectedStudents);
+                                    setState(() {
+                                      Provider.of<LockerStudentProvider>(
+                                              context,
+                                              listen: false)
+                                          .promoteStudent(selectedStudents);
+                                      isStudentsListViewInit = false;
+                                      isPromoteButtonEnabled = false;
+                                    });
                                   }
                                 : null,
                             label: Text('Promouvoir')),
