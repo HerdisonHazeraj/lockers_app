@@ -91,37 +91,56 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                     child: Column(
                                       children: [
                                         Expanded(
-                                          child: PieChart(
-                                            PieChartData(
-                                              pieTouchData: PieTouchData(
-                                                touchCallback:
-                                                    (FlTouchEvent event,
-                                                        pieTouchResponse) {
-                                                  setState(() {
-                                                    if (!event
-                                                            .isInterestedForInteractions ||
-                                                        pieTouchResponse ==
-                                                            null ||
-                                                        pieTouchResponse
-                                                                .touchedSection ==
-                                                            null) {
-                                                      touchedIndex = -1;
-                                                      return;
-                                                    }
-                                                    touchedIndex =
-                                                        pieTouchResponse
-                                                            .touchedSection!
-                                                            .touchedSectionIndex;
-                                                  });
-                                                },
+                                          child: Stack(
+                                            children: [
+                                              PieChart(
+                                                PieChartData(
+                                                  pieTouchData: PieTouchData(
+                                                    touchCallback:
+                                                        (FlTouchEvent event,
+                                                            pieTouchResponse) {
+                                                      setState(() {
+                                                        if (!event
+                                                                .isInterestedForInteractions ||
+                                                            pieTouchResponse ==
+                                                                null ||
+                                                            pieTouchResponse
+                                                                    .touchedSection ==
+                                                                null) {
+                                                          touchedIndex = -1;
+                                                          return;
+                                                        }
+                                                        touchedIndex =
+                                                            pieTouchResponse
+                                                                .touchedSection!
+                                                                .touchedSectionIndex;
+                                                      });
+                                                    },
+                                                  ),
+                                                  borderData: FlBorderData(
+                                                    show: false,
+                                                  ),
+                                                  sectionsSpace: 0,
+                                                  sections:
+                                                      showingSections(context),
+                                                ),
                                               ),
-                                              borderData: FlBorderData(
-                                                show: false,
-                                              ),
-                                              sectionsSpace: 0,
-                                              sections:
-                                                  showingSections(context),
-                                            ),
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  Provider.of<LockerStudentProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .lockerItems
+                                                      .length
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    fontSize: 50,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ),
                                         const SizedBox(

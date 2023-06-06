@@ -245,6 +245,13 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
+  List<Locker> getLockerbyFloor(String floor) {
+    List<Locker> lockers = lockerItems
+        .where((element) => element.floor.toLowerCase() == floor.toLowerCase())
+        .toList();
+    return lockers;
+  }
+
   List<Locker> getDefectiveLockers() {
     List<Locker> lockers =
         lockerItems.where((element) => element.isDefective == true).toList();
