@@ -19,6 +19,10 @@ class StudentItem extends StatelessWidget {
       leading: Image.asset('assets/images/photoprofil.png'),
       title: Text("${student.firstName} ${student.lastName}"),
       subtitle: Text(student.job),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.edit),
+      ),
     );
   }
 }
