@@ -254,6 +254,31 @@ class LockerStudentProvider with ChangeNotifier {
     );
   }
 
+  List<Student> searchStudents(value) {
+    List<Student> filtredStudent = [];
+    List<Student> students = [];
+    if (value != "") {
+      students = _studentItems;
+      filtredStudent = students
+          .where((element) =>
+              element.lastName
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()) ||
+              element.firstName
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()) ||
+              element.login
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()))
+          .toList();
+      return filtredStudent;
+    }
+    return [];
+  }
+
   Future<String?> importLockersWithCSV(FilePickerResult? result) async {
     try {
       if (result != null) {
@@ -326,19 +351,6 @@ class LockerStudentProvider with ChangeNotifier {
       return exceptionString;
     }
     return null;
-  }
-
-  List<Student> searchStudents(key, value) {
-    List<Student> filtredStudent = [];
-    List<Student> students = [];
-    if (key != "" && value != "") {
-      students = _studentItems;
-      filtredStudent = students
-          .where((element) => element.toJson()[key].toString().contains(value))
-          .toList();
-      return filtredStudent;
-    }
-    return [];
   }
 
   Future<String?> importStudentsWithCSV(FilePickerResult? result) async {
