@@ -244,11 +244,11 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> promoteStudent(List<Student> students) async {
     students.forEach(
-      (element) {
+      (element) async {
         if (element.year != 4) {
-          element.year + 1;
+          await updateStudent(element.copyWith(year: element.year + 1));
         } else {
-          element.copyWith(year: 0);
+          await updateStudent(element.copyWith(year: 0));
         }
       },
     );
