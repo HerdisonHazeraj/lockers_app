@@ -34,11 +34,12 @@ class _StudentsListViewState extends State<StudentsListView> {
   bool isInit = false;
 
   // Tools for students by search
-  late bool isExpSearch;
-  late List<Student> searchedStudents;
+  late bool isExpSearch = false;
+  late List<Student> searchedStudents = [];
+  late String searchValue = "";
 
   // Tools for students by year
-  late List<bool> _isExpYear;
+  late List<bool> isExpYear;
   late Map<String, List<Student>> studentsByYear;
 
   @override
@@ -47,8 +48,23 @@ class _StudentsListViewState extends State<StudentsListView> {
         Provider.of<LockerStudentProvider>(context).getStudentByYear();
 
     if (!isInit) {
-      _isExpYear = List.generate(studentsByYear.length, (index) => true);
+      isExpYear = List.generate(studentsByYear.length, (index) => true);
       isInit = true;
+    }
+
+    searchStudents(String value) {
+      setState(() {
+        searchedStudents =
+            Provider.of<LockerStudentProvider>(context, listen: false)
+                .searchStudents(value);
+        searchValue = value;
+      });
+
+      if (searchValue.isNotEmpty) {
+        isExpSearch = true;
+      } else {
+        isExpSearch = false;
+      }
     }
 
     return Scaffold(
@@ -62,55 +78,76 @@ class _StudentsListViewState extends State<StudentsListView> {
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      searchedStudents == []
-                          ? const SizedBox()
-                          : Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: SingleChildScrollView(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: ExpansionPanelList(
-                                    expansionCallback:
-                                        (int index, bool isExpanded) {
-                                      setState(() {
-                                        _isExpYear[index] = !_isExpYear[index];
-                                      });
-                                    },
-                                    expandedHeaderPadding:
-                                        const EdgeInsets.all(6),
-                                    animationDuration:
-                                        const Duration(milliseconds: 500),
-                                    children: [
-                                      ExpansionPanel(
-                                        canTapOnHeader: true,
-                                        headerBuilder: ((context, isExpanded) {
-                                          return const ListTile(
-                                            title: Text(
-                                              'Résultats de recherche',
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                          );
-                                        }),
-                                        body: ListView.builder(
-                                          itemBuilder: ((context, index) =>
-                                              null),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                      Expanded(
-                        child: SingleChildScrollView(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: ExpansionPanelList(
                               expansionCallback: (int index, bool isExpanded) {
                                 setState(() {
-                                  _isExpYear[index] = !_isExpYear[index];
+                                  isExpSearch = !isExpSearch;
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ExpansionPanel(
+                                  isExpanded: isExpSearch,
+                                  canTapOnHeader: true,
+                                  headerBuilder: ((context, isExpanded) {
+                                    return ListTile(
+                                      title: Text(
+                                        "Résultats de recherche (${searchedStudents.length.toString()})",
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    );
+                                  }),
+                                  body: searchedStudents.isEmpty
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              const Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Aucun résultat",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: searchedStudents.length,
+                                          itemBuilder: (context, index) =>
+                                              Column(
+                                            children: [
+                                              StudentItem(
+                                                  searchedStudents[index]),
+                                              const Divider(),
+                                            ],
+                                          ),
+                                        ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpYear[index] = !isExpYear[index];
                                 });
                               },
                               expandedHeaderPadding: const EdgeInsets.all(6),
@@ -119,7 +156,7 @@ class _StudentsListViewState extends State<StudentsListView> {
                               children: [
                                 ...studentsByYear.entries.map(
                                   (e) => ExpansionPanel(
-                                    isExpanded: _isExpYear[studentsByYear.keys
+                                    isExpanded: isExpYear[studentsByYear.keys
                                         .toList()
                                         .indexOf(e.key)],
                                     canTapOnHeader: true,
@@ -147,13 +184,15 @@ class _StudentsListViewState extends State<StudentsListView> {
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-            const StudentsMenu(),
+            StudentsMenu(
+              searchStudents: (value) => searchStudents(value),
+            ),
           ],
         ),
       ),
