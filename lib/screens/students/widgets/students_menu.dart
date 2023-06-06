@@ -6,7 +6,9 @@ import 'package:lockers_app/screens/students/widgets/menu_widgets/import_student
 import 'package:lockers_app/screens/students/widgets/menu_widgets/search_student_menu.dart';
 
 class StudentsMenu extends StatefulWidget {
-  const StudentsMenu({super.key});
+  const StudentsMenu({super.key, required this.searchStudents});
+
+  final Function(String value) searchStudents;
 
   @override
   State<StudentsMenu> createState() => _StudentsMenuState();
@@ -34,13 +36,15 @@ class _StudentsMenuState extends State<StudentsMenu> {
             ),
             child: Column(
               children: [
-                const SearchStudentMenu(),
+                SearchStudentMenu(
+                  searchStudents: (value) => widget.searchStudents(value),
+                ),
                 const dividerMenu(),
                 // Form to add a student
                 const AddStudentMenu(),
                 const dividerMenu(),
                 // Form to import students
-                ImportStudentMenu()
+                ImportStudentMenu(),
               ],
             ),
           ),

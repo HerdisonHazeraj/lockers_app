@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:provider/provider.dart';
 
 class SearchStudentMenu extends StatefulWidget {
-  const SearchStudentMenu({super.key});
+  const SearchStudentMenu({super.key, required this.searchStudents});
+
+  final Function(String value) searchStudents;
 
   @override
   State<SearchStudentMenu> createState() => _SearchStudentMenuState();
@@ -31,12 +31,7 @@ class _SearchStudentMenuState extends State<SearchStudentMenu> {
             labelText: "Rechercher...",
             prefixIcon: Icon(Icons.search),
           ),
-          onChanged: (value) {
-            setState(() {
-              Provider.of<LockerStudentProvider>(context, listen: false)
-                  .searchStudents(value);
-            });
-          },
+          onChanged: (value) => widget.searchStudents(value),
         ),
       ],
     );
