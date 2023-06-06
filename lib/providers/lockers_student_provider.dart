@@ -338,7 +338,7 @@ class LockerStudentProvider with ChangeNotifier {
     } catch (e) {
       if (e.toString() ==
           "Expected a value of type 'String', but got one of type 'Null'") {
-        return 'verifier le nom des colones. Colones obligatoires : "Nb clé", "No Casier", "Etage", "Métier" et "N° serrure"';
+        return 'Vérifier le nom des colonnes. Colonnes obligatoires : "Nb clé", "No Casier", "Etage", "Métier" et "N° serrure"';
       } else if (e.toString() ==
           'Exception: Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"') {
         return 'Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"';

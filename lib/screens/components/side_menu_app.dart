@@ -47,12 +47,6 @@ class SideMenuApp extends StatelessWidget {
       ),
       footer: Padding(
         padding: const EdgeInsets.all(8.0),
-        // child: Text(
-        //   'ceff - 2023',
-        //   style: TextStyle(
-        //     fontSize: 15,
-        //   ),
-        // ),
         child: TextButton(
           onPressed: () {
             Navigator.of(context).pushNamed(PrepareDatabaseScreen.routeName);
