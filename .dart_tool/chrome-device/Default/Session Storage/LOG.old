@@ -1,21 +1,9 @@
-<<<<<<< HEAD
-2023/06/05-15:48:17.330 4558 Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.4d6bbcf\flutter_tools_chrome_device.730e9325\Default\Session Storage/MANIFEST-000001
-2023/06/05-15:48:17.332 4558 Recovering log #7
-2023/06/05-15:48:17.333 4558 (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.4d6bbcf\flutter_tools_chrome_device.730e9325\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
-2023/06/05-15:48:17.333 4558 (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.4d6bbcf\flutter_tools_chrome_device.730e9325\Default\Session Storage/000007.log: dropping 974 bytes; Corruption: missing start of fragmented record(2)
-2023/06/05-15:48:17.334 4558 Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.4d6bbcf\flutter_tools_chrome_device.730e9325\Default\Session Storage/000007.log 
-2023/06/05-15:48:17.335 4558 Delete type=0 #3
-2023/06/05-15:48:17.335 4558 Delete type=0 #4
-2023/06/05-15:48:17.335 4558 Delete type=2 #5
-2023/06/05-15:48:17.335 4558 Delete type=2 #8
-=======
-2023/06/05-11:45:02.567 2e5c Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.adc475ab\flutter_tools_chrome_device.91cd6519\Default\Session Storage/MANIFEST-000001
-2023/06/05-11:45:02.568 2e5c Recovering log #7
-2023/06/05-11:45:02.568 2e5c (ignoring error) C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.adc475ab\flutter_tools_chrome_device.91cd6519\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
-2023/06/05-11:45:02.568 2e5c (ignoring error) C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.adc475ab\flutter_tools_chrome_device.91cd6519\Default\Session Storage/000007.log: dropping 122 bytes; Corruption: missing start of fragmented record(2)
-2023/06/05-11:45:02.569 2e5c Reusing old log C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.adc475ab\flutter_tools_chrome_device.91cd6519\Default\Session Storage/000007.log 
-2023/06/05-11:45:02.569 2e5c Delete type=0 #3
-2023/06/05-11:45:02.569 2e5c Delete type=0 #4
-2023/06/05-11:45:02.569 2e5c Delete type=2 #5
-2023/06/05-11:45:02.569 2e5c Delete type=2 #8
->>>>>>> 03b810461d9ee7ec1eac35ed3488a9acaf244137
+2023/06/06-08:13:41.086 e54 Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.2ba21e70\flutter_tools_chrome_device.440bef1\Default\Session Storage/MANIFEST-000001
+2023/06/06-08:13:41.086 e54 Recovering log #7
+2023/06/06-08:13:41.086 e54 (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.2ba21e70\flutter_tools_chrome_device.440bef1\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
+2023/06/06-08:13:41.086 e54 (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.2ba21e70\flutter_tools_chrome_device.440bef1\Default\Session Storage/000007.log: dropping 974 bytes; Corruption: missing start of fragmented record(2)
+2023/06/06-08:13:41.087 e54 Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.2ba21e70\flutter_tools_chrome_device.440bef1\Default\Session Storage/000007.log 
+2023/06/06-08:13:41.087 e54 Delete type=0 #3
+2023/06/06-08:13:41.087 e54 Delete type=0 #4
+2023/06/06-08:13:41.087 e54 Delete type=2 #5
+2023/06/06-08:13:41.087 e54 Delete type=2 #8

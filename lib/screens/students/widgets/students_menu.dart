@@ -12,6 +12,9 @@ class StudentsMenu extends StatefulWidget {
 }
 
 class _StudentsMenuState extends State<StudentsMenu> {
+  List<Student> searchedStudents = [];
+
+  String? dropdownSearchValue = "";
 
   // Controllers
   final firstnameController = TextEditingController();
@@ -54,6 +57,54 @@ class _StudentsMenuState extends State<StudentsMenu> {
                   ),
                 ),
                 SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: dropDown(
+                            {
+                              "lastName": "Nom",
+                              "firstName": "Prénom",
+                              "login": "Login",
+                            },
+                            Icons.search,
+                            (value) {
+                              setState(() {
+                                dropdownSearchValue = value;
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              labelText: "Rechercher",
+                              prefixIcon: Icon(Icons.search),
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                searchedStudents =
+                                    Provider.of<LockerStudentProvider>(context,
+                                            listen: false)
+                                        .searchStudents(
+                                            dropdownSearchValue!, value);
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 const SizedBox(
@@ -71,7 +122,50 @@ class _StudentsMenuState extends State<StudentsMenu> {
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.01,
                 ),
-                addStudentForm(context)
+                addStudentForm(context),
+
+                // Students list
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "Liste des élèves",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
+                      height: 1.3,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: ListView.builder(
+                    itemCount: searchedStudents.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                          "${searchedStudents[index].firstName} ${searchedStudents[index].lastName}",
+                        ),
+                        subtitle: Text(
+                          searchedStudents[index].login,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -153,6 +247,11 @@ class _StudentsMenuState extends State<StudentsMenu> {
                       "4": "4ème année",
                     },
                     Icons.calendar_today,
+                    (value) {
+                      setState(() {
+                        yearController.text = value!;
+                      });
+                    },
                   ),
                   TextField(
                     controller: responsableController,
@@ -217,7 +316,7 @@ class _StudentsMenuState extends State<StudentsMenu> {
   }
 
   DropdownButtonFormField<String> dropDown(
-      Map<String, String> items, IconData icon) {
+      Map<String, String> items, IconData icon, Function(String?) onChanged) {
     return DropdownButtonFormField(
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
@@ -237,9 +336,7 @@ class _StudentsMenuState extends State<StudentsMenu> {
             ),
           )
           .toList(),
-      onChanged: (value) => setState(
-        () => yearController.text = value!,
-      ),
+      onChanged: onChanged,
     );
   }
 }

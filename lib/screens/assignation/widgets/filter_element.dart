@@ -25,7 +25,7 @@ class _FilterElementState extends State<FilterElement> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 30.0, left: 30.0),
+      margin: const EdgeInsets.only(right: 30.0, left: 30.0),
       width: MediaQuery.of(context).size.width * 0.36,
       child: DropDownMultiSelect(
           onChanged: (value) {
