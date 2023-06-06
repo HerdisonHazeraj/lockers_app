@@ -237,6 +237,7 @@ class LockerStudentProvider with ChangeNotifier {
         }
         students = filtredStudent;
       }
+      if (filtredStudent.isEmpty) return getAvailableStudents();
       return filtredStudent;
     }
     return [];
@@ -244,14 +245,39 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> promoteStudent(List<Student> students) async {
     students.forEach(
-      (element) {
+      (element) async {
         if (element.year != 4) {
-          element.year + 1;
+          await updateStudent(element.copyWith(year: element.year + 1));
         } else {
-          element.copyWith(year: 0);
+          await updateStudent(element.copyWith(year: 0));
         }
       },
     );
+  }
+
+  List<Student> searchStudents(value) {
+    List<Student> filtredStudent = [];
+    List<Student> students = [];
+    if (value != "") {
+      students = _studentItems;
+      filtredStudent = students
+          .where((element) =>
+              element.lastName
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()) ||
+              element.firstName
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()) ||
+              element.login
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()))
+          .toList();
+      return filtredStudent;
+    }
+    return [];
   }
 
   Future<String?> importLockersWithCSV(FilePickerResult? result) async {
@@ -326,32 +352,6 @@ class LockerStudentProvider with ChangeNotifier {
       return exceptionString;
     }
     return null;
-  }
-
-  List<Student> searchStudents(value) {
-    List<Student> filtredStudent = [];
-    List<Student> students = [];
-    if (value != "") {
-      students = _studentItems;
-      filtredStudent = students
-          .where(
-            (element) =>
-                element.lastName
-                    .toString()
-                    .toLowerCase()
-                    .contains(value.toString().trim().toLowerCase()) ||
-                element.firstName
-                    .toString()
-                    .toLowerCase()
-                    .contains(value.toString().trim().toLowerCase()) ||
-                element.login.toString().toLowerCase().contains(
-                      value.toString().trim().toLowerCase(),
-                    ),
-          )
-          .toList();
-      return filtredStudent;
-    }
-    return [];
   }
 
   Future<String?> importStudentsWithCSV(FilePickerResult? result) async {
