@@ -185,6 +185,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                           child: Wrap(
                             children: [
                               FilterElement(
+                                icon: Icons.calendar_today,
                                 keys: anneesKeys,
                                 dropDownList: annees,
                                 selectedFilters: selectedAnnees,
@@ -192,6 +193,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                 filterNod: 'year',
                               ),
                               FilterElement(
+                                icon: Icons.work,
                                 keys: metiersKeys,
                                 dropDownList: metiers,
                                 selectedFilters: selectedMetiers,
@@ -199,6 +201,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                 filterNod: 'metier',
                               ),
                               FilterElement(
+                                icon: Icons.admin_panel_settings,
                                 keys: responsablesKeys,
                                 dropDownList: responsables,
                                 selectedFilters: selectedResponsables,

@@ -137,131 +137,129 @@ class _AssignListViewState extends State<AssignListView> {
             Expanded(
               flex: 10,
               child: SafeArea(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Container(
-                    margin: const EdgeInsets.all(55),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                                value: areAllchecksChecked,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    areAllchecksChecked = newValue!;
-                                    //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
-                                    if (areAllchecksChecked == true) {
-                                      selectedStudents.clear();
-                                      for (var student in studentsListView) {
-                                        student.isSelected = true;
-                                        selectedStudents.add(student);
-                                      }
-                                    } else {
-                                      selectedStudents.clear();
-                                      for (var student in studentsListView) {
-                                        student.isSelected = false;
-                                      }
+                child: Container(
+                  margin: const EdgeInsets.all(55),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Checkbox(
+                              value: areAllchecksChecked,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  areAllchecksChecked = newValue!;
+                                  //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
+                                  if (areAllchecksChecked == true) {
+                                    selectedStudents.clear();
+                                    for (var student in studentsListView) {
+                                      student.isSelected = true;
+                                      selectedStudents.add(student);
                                     }
+                                  } else {
+                                    selectedStudents.clear();
+                                    for (var student in studentsListView) {
+                                      student.isSelected = false;
+                                    }
+                                  }
 
-                                    checkIf2CheckBoxesAreChecked(
-                                        availableLockers);
-                                  });
-                                }),
-                            const Text('Tout sélectionner'),
-                          ],
-                        ),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        itemCount: studentsListView.length,
-                                        itemBuilder: (context, index) => Card(
-                                          child: CheckboxListTile(
-                                            enabled: studentsListView[index]
-                                                .isEnabled,
-                                            controlAffinity:
-                                                ListTileControlAffinity.leading,
-                                            value: studentsListView[index]
-                                                .isSelected,
-                                            title: Text(
-                                                '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
-                                            subtitle: Text(
-                                                studentsListView[index].job),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                studentsListView[index]
-                                                    .isSelected = newValue!;
+                                  checkIf2CheckBoxesAreChecked(
+                                      availableLockers);
+                                });
+                              }),
+                          const Text('Tout sélectionner'),
+                        ],
+                      ),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Column(
+                                  children: [
+                                    ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: studentsListView.length,
+                                      itemBuilder: (context, index) => Card(
+                                        child: CheckboxListTile(
+                                          enabled:
+                                              studentsListView[index].isEnabled,
+                                          controlAffinity:
+                                              ListTileControlAffinity.leading,
+                                          value: studentsListView[index]
+                                              .isSelected,
+                                          title: Text(
+                                              '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
+                                          subtitle:
+                                              Text(studentsListView[index].job),
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              studentsListView[index]
+                                                  .isSelected = newValue!;
 
-                                                if (studentsListView[index]
-                                                    .isSelected) {
-                                                  selectedStudents.add(
-                                                      studentsListView[index]);
-                                                } else {
-                                                  selectedStudents.remove(
-                                                      studentsListView[index]);
-                                                  areAllchecksChecked = false;
-                                                }
+                                              if (studentsListView[index]
+                                                  .isSelected) {
+                                                selectedStudents.add(
+                                                    studentsListView[index]);
+                                              } else {
+                                                selectedStudents.remove(
+                                                    studentsListView[index]);
+                                                areAllchecksChecked = false;
+                                              }
 
-                                                checkIfAStudentAndALockerAreSelected();
-                                                checkIf2CheckBoxesAreChecked(
-                                                    availableLockers);
-                                              });
-                                            },
-                                          ),
+                                              checkIfAStudentAndALockerAreSelected();
+                                              checkIf2CheckBoxesAreChecked(
+                                                  availableLockers);
+                                            });
+                                          },
                                         ),
-                                      )
-                                    ],
-                                  ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                              Expanded(
-                                  child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: availableLockers.length,
-                                itemBuilder: (context, index) => Card(
-                                  child: CheckboxListTile(
-                                    enabled: availableLockers[index].isEnabled,
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
-                                    value: availableLockers[index].isSelected,
-                                    title: Text(availableLockers[index]
-                                        .lockerNumber
-                                        .toString()),
-                                    subtitle: Text(
-                                        'Étage ${availableLockers[index].floor.toUpperCase()}'),
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        availableLockers[index].isSelected =
-                                            newValue!;
+                            ),
+                            Expanded(
+                                child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: availableLockers.length,
+                              itemBuilder: (context, index) => Card(
+                                child: CheckboxListTile(
+                                  enabled: availableLockers[index].isEnabled,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  value: availableLockers[index].isSelected,
+                                  title: Text(availableLockers[index]
+                                      .lockerNumber
+                                      .toString()),
+                                  subtitle: Text(
+                                      'Étage ${availableLockers[index].floor.toUpperCase()}'),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      availableLockers[index].isSelected =
+                                          newValue!;
 
-                                        for (var e in availableLockers) {
-                                          if (!newValue) {
-                                            e.isEnabled = true;
-                                            isALockerSelected = false;
-                                          } else {
-                                            if (!e.isSelected) {
-                                              e.isEnabled = false;
-                                              isALockerSelected = true;
-                                            }
+                                      for (var e in availableLockers) {
+                                        if (!newValue) {
+                                          e.isEnabled = true;
+                                          isALockerSelected = false;
+                                        } else {
+                                          if (!e.isSelected) {
+                                            e.isEnabled = false;
+                                            isALockerSelected = true;
                                           }
                                         }
-                                        checkIfAStudentAndALockerAreSelected();
-                                      });
-                                    },
-                                  ),
+                                      }
+                                      checkIfAStudentAndALockerAreSelected();
+                                    });
+                                  },
                                 ),
-                              )),
-                            ]),
-                      ],
-                    ),
+                              ),
+                            )),
+                          ]),
+                    ],
                   ),
                 ),
               ),
@@ -301,6 +299,7 @@ class _AssignListViewState extends State<AssignListView> {
                           child: Wrap(
                             children: [
                               FilterElement(
+                                icon: Icons.work,
                                 keys: metiersKeys,
                                 dropDownList: metiers,
                                 selectedFilters: selectedMetiers,
@@ -308,6 +307,7 @@ class _AssignListViewState extends State<AssignListView> {
                                 filterNod: 'job',
                               ),
                               FilterElement(
+                                icon: Icons.calendar_month,
                                 keys: anneesKeys,
                                 dropDownList: annees,
                                 selectedFilters: selectedAnnees,
@@ -315,6 +315,7 @@ class _AssignListViewState extends State<AssignListView> {
                                 filterNod: 'year',
                               ),
                               FilterElement(
+                                icon: Icons.admin_panel_settings,
                                 keys: responsablesKeys,
                                 dropDownList: responsables,
                                 selectedFilters: selectedResponsables,
@@ -322,6 +323,7 @@ class _AssignListViewState extends State<AssignListView> {
                                 filterNod: 'manager',
                               ),
                               FilterElement(
+                                icon: Icons.attach_money,
                                 keys: cautionsKeys,
                                 dropDownList: caution,
                                 selectedFilters: selectedCautions,
