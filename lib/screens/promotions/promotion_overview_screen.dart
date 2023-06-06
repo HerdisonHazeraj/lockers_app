@@ -59,13 +59,15 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
     }
 
     if (!isStudentsListViewInit && values.isEmpty) {
-      final availableStudents =
-          Provider.of<LockerStudentProvider>(context).getAvailableStudents();
-      studentsListView = availableStudents;
+      final students = Provider.of<LockerStudentProvider>(context).studentItems;
+      studentsListView = students;
       isStudentsListViewInit = true;
     } else if (values.isNotEmpty && !isStudentsListViewInit) {
       isStudentsListViewInit = true;
-      filterStudents(keys, values);
+      filterStudents(
+        keys,
+        values, /*Provider.of<LockerStudentProvider>(context).studentItems*/
+      );
     }
 
     return Scaffold(
