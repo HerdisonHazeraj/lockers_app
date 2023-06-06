@@ -328,6 +328,19 @@ class LockerStudentProvider with ChangeNotifier {
     return null;
   }
 
+  List<Student> searchStudents(key, value) {
+    List<Student> filtredStudent = [];
+    List<Student> students = [];
+    if (key != "" && value != "") {
+      students = _studentItems;
+      filtredStudent = students
+          .where((element) => element.toJson()[key].toString().contains(value))
+          .toList();
+      return filtredStudent;
+    }
+    return [];
+  }
+
   Future<String?> importStudentsWithCSV(FilePickerResult? result) async {
     try {
       if (result != null) {

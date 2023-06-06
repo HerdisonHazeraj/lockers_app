@@ -36,8 +36,6 @@ class Student extends IStudent {
       login: csv['Login'],
       classe: csv['Classe'],
       year: int.parse(csv['Année']),
-      //csv['Titre']
-      //csv['_EnvoiMail]
     );
   }
 

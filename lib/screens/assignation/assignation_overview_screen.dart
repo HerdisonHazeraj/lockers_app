@@ -3,7 +3,6 @@ import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/assignation/widgets/filter_element.dart';
 
-import 'package:multiselect/multiselect.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/locker.dart';
