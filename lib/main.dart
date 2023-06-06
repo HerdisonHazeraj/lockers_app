@@ -100,10 +100,10 @@ class _MyWidgetState extends State<MyWidget> {
                 Expanded(
                   child: PageView(
                     controller: page,
-                    children: [
+                    children: const [
                       // PrepareDatabaseScreen(),
-                      const DashboardOverviewScreen(),
-                      const LockersOverviewScreen(),
+                      DashboardOverviewScreen(),
+                      LockersOverviewScreen(),
                       StudentsOverviewScreen(),
                       AssignationOverviewScreen(),
                       PromotionOverviewScreen()
