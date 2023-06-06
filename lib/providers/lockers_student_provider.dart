@@ -276,6 +276,7 @@ class LockerStudentProvider with ChangeNotifier {
       } else if (e.toString() == "Exception: Fichier non trouvé") {
         return "vérifier que le fichier ait bien été séléction et que c'est un csv";
       }
+
       final exceptionString = e.toString().substring(11);
       return exceptionString;
     }
