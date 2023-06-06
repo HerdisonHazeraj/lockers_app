@@ -18,8 +18,8 @@ class ButtonBarWidget extends StatelessWidget {
           decoration: const BoxDecoration(
             color: Color(0xffececf6),
           ),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(
+          child: const SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
               vertical: 30,
               horizontal: 30,
             ),
