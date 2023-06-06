@@ -1,10 +1,7 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/components/prepare_database_app.dart';
-import 'package:provider/provider.dart';
 
 class SideMenuApp extends StatelessWidget {
   const SideMenuApp({
@@ -112,48 +109,6 @@ class SideMenuApp extends StatelessWidget {
           },
           iconWidget: SvgPicture.asset(
             "assets/icons/assign.svg",
-            height: 24,
-          ),
-        ),
-        SideMenuItem(
-          priority: 5,
-          title: 'Importations',
-          onTap: (page, _) async {
-            final result = await FilePicker.platform.pickFiles(
-              type: FileType.custom,
-              allowedExtensions: ['csv'],
-            );
-            final error =
-                await Provider.of<LockerStudentProvider>(context, listen: false)
-                    .importStudentsWithCSV(result);
-            if (error != null) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(error)));
-            }
-          },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/import.svg",
-            height: 24,
-          ),
-        ),
-        SideMenuItem(
-          priority: 5,
-          title: 'Importations Casiers',
-          onTap: (page, _) async {
-            final result = await FilePicker.platform.pickFiles(
-              type: FileType.custom,
-              allowedExtensions: ['csv'],
-            );
-            final error =
-                await Provider.of<LockerStudentProvider>(context, listen: false)
-                    .importLockersWithCSV(result);
-            if (error != null) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(error)));
-            }
-          },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/import.svg",
             height: 24,
           ),
         ),
