@@ -182,11 +182,60 @@ class LockerStudentProvider with ChangeNotifier {
 
   void autoAttributeLocker(List<Student> students) {
     final _random = Random();
+    Map<String, int> index = {
+      "d": 1,
+      "c": 2,
+      "b": 3,
+      "e": 4,
+      "f": 5,
+    };
     final lockers = getAvailableLockers();
+    lockers.sort(
+      (a, b) => index[a.floor.toLowerCase()]!
+          .compareTo(index[b.floor.toLowerCase()]!),
+    );
+    for (var i = 0; i < students.length; i++) {
+      if (i >= lockers.length) {
+        break;
+      }
+      // students.forEach((student) {
+      attributeLocker(lockers[i], students[i]);
+      // });
+    }
+  }
+
+  void autoAttributeLockerV2(List<Student> students) {
+    final _random = Random();
+    final lockersFloorD = getAvailableLockers()
+        .where((element) => element.floor.toLowerCase() == "d")
+        .toList();
+    final lockersFloorC = getAvailableLockers()
+        .where((element) => element.floor.toLowerCase() == "c")
+        .toList();
+    final lockersFloorB = getAvailableLockers()
+        .where((element) => element.floor.toLowerCase() == "b")
+        .toList();
+    final lockersFloorE = getAvailableLockers()
+        .where((element) => element.floor.toLowerCase() == "e")
+        .toList();
     students.forEach((student) {
-      int number = _random.nextInt(lockers.length);
-      attributeLocker(lockers[number], student);
-      lockers.remove(lockers[number]);
+      if (lockersFloorD.isNotEmpty) {
+        int number = _random.nextInt(lockersFloorD.length);
+        attributeLocker(lockersFloorD[number], student);
+        lockersFloorD.remove(lockersFloorD[number]);
+      } else if (lockersFloorC.isNotEmpty) {
+        int number = _random.nextInt(lockersFloorC.length);
+        attributeLocker(lockersFloorC[number], student);
+        lockersFloorC.remove(lockersFloorC[number]);
+      } else if (lockersFloorB.isNotEmpty) {
+        int number = _random.nextInt(lockersFloorB.length);
+        attributeLocker(lockersFloorB[number], student);
+        lockersFloorB.remove(lockersFloorB[number]);
+      } else if (lockersFloorE.isNotEmpty) {
+        int number = _random.nextInt(lockersFloorE.length);
+        attributeLocker(lockersFloorE[number], student);
+        lockersFloorE.remove(lockersFloorE[number]);
+      }
     });
   }
 
@@ -224,7 +273,8 @@ class LockerStudentProvider with ChangeNotifier {
     );
   }
 
-  List<Student> filterStudentsBy(List<List> key, List<List> value) {
+  List<Student> filterStudentsBy(List<List> key, List<List> value,
+      {List<Student> startList = const []}) {
     List<Student> students = [];
     List<Student> filtredStudent = [];
     if (key != [] && value != []) {
@@ -237,7 +287,7 @@ class LockerStudentProvider with ChangeNotifier {
         }
         students = filtredStudent;
       }
-      if (filtredStudent.isEmpty) return getAvailableStudents();
+      if (filtredStudent.isEmpty) return startList;
       return filtredStudent;
     }
     return [];
