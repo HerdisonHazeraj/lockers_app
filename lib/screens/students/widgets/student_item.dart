@@ -3,25 +3,48 @@ import 'package:lockers_app/screens/students/student_details_screen.dart';
 
 import '../../../models/student.dart';
 
-class StudentItem extends StatelessWidget {
+class StudentItem extends StatefulWidget {
   final Student student;
   const StudentItem(this.student, {super.key});
 
   @override
+  State<StudentItem> createState() => _StudentItemState();
+}
+
+class _StudentItemState extends State<StudentItem> {
+  @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        Navigator.of(context).pushNamed(
-          StudentDetailsScreen.routeName,
-          arguments: student.id,
+    return MouseRegion(
+      onEnter: (event) {
+        setState(
+          () {
+            widget.student.studentListIsFocus = true;
+          },
         );
       },
-      leading: Image.asset('assets/images/photoprofil.png'),
-      title: Text("${student.firstName} ${student.lastName}"),
-      subtitle: Text(student.job),
-      trailing: IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.edit),
+      onExit: (event) {
+        setState(
+          () {
+            widget.student.studentListIsFocus = false;
+          },
+        );
+      },
+      child: ListTile(
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            StudentDetailsScreen.routeName,
+            arguments: widget.student.id,
+          );
+        },
+        leading: Image.asset('assets/images/photoprofil.png'),
+        title: Text("${widget.student.firstName} ${widget.student.lastName}"),
+        subtitle: Text(widget.student.job),
+        trailing: IconButton(
+          onPressed: () {},
+          icon: Visibility(
+              visible: widget.student.studentListIsFocus,
+              child: const Icon(Icons.edit)),
+        ),
       ),
     );
   }
