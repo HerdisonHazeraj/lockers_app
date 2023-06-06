@@ -237,6 +237,7 @@ class LockerStudentProvider with ChangeNotifier {
         }
         students = filtredStudent;
       }
+      if (filtredStudent.isEmpty) return getAvailableStudents();
       return filtredStudent;
     }
     return [];
