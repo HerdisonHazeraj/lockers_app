@@ -1,6 +1,46 @@
-<<<<<<< HEAD
-2023/06/05-15:38:55.438 33a4 Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.547667d8\flutter_tools_chrome_device.56b68ccd\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
-2023/06/05-15:38:55.438 33a4 Recovering log #204
-2023/06/05-15:38:55.438 33a4 Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.547667d8\flutter_tools_chrome_device.56b68ccd\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/000204.log 
-=======
->>>>>>> 03b810461d9ee7ec1eac35ed3488a9acaf244137
+2023/06/06-09:18:31.502 3150 Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.99299d2\flutter_tools_chrome_device.7b7ff955\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/06/06-09:18:31.502 3150 Recovering log #204
+2023/06/06-09:18:31.503 3150 Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.99299d2\flutter_tools_chrome_device.7b7ff955\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/000204.log 
+2023/06/06-09:18:31.503 3150 Delete type=0 #3
+2023/06/06-09:18:31.503 3150 Delete type=2 #5
+2023/06/06-09:18:31.503 3150 Delete type=2 #16
+2023/06/06-09:18:31.503 3150 Delete type=0 #17
+2023/06/06-09:18:31.503 3150 Delete type=2 #19
+2023/06/06-09:18:31.503 3150 Delete type=2 #29
+2023/06/06-09:18:31.503 3150 Delete type=0 #30
+2023/06/06-09:18:31.503 3150 Delete type=2 #32
+2023/06/06-09:18:31.503 3150 Delete type=2 #55
+2023/06/06-09:18:31.503 3150 Delete type=0 #62
+2023/06/06-09:18:31.503 3150 Delete type=2 #64
+2023/06/06-09:18:31.503 3150 Delete type=2 #65
+2023/06/06-09:18:31.503 3150 Delete type=2 #75
+2023/06/06-09:18:31.503 3150 Delete type=0 #76
+2023/06/06-09:18:31.503 3150 Delete type=2 #78
+2023/06/06-09:18:31.503 3150 Delete type=0 #91
+2023/06/06-09:18:31.503 3150 Delete type=2 #94
+2023/06/06-09:18:31.503 3150 Delete type=2 #104
+2023/06/06-09:18:31.503 3150 Delete type=0 #105
+2023/06/06-09:18:31.503 3150 Delete type=2 #107
+2023/06/06-09:18:31.503 3150 Delete type=0 #117
+2023/06/06-09:18:31.503 3150 Delete type=2 #120
+2023/06/06-09:18:31.503 3150 Delete type=2 #130
+2023/06/06-09:18:31.503 3150 Delete type=0 #131
+2023/06/06-09:18:31.503 3150 Delete type=2 #133
+2023/06/06-09:18:31.503 3150 Delete type=0 #135
+2023/06/06-09:18:31.503 3150 Delete type=2 #137
+2023/06/06-09:18:31.503 3150 Delete type=0 #139
+2023/06/06-09:18:31.503 3150 Delete type=2 #140
+2023/06/06-09:18:31.503 3150 Delete type=0 #157
+2023/06/06-09:18:31.503 3150 Delete type=2 #160
+2023/06/06-09:18:31.503 3150 Delete type=2 #173
+2023/06/06-09:18:31.503 3150 Delete type=0 #174
+2023/06/06-09:18:31.503 3150 Delete type=2 #176
+2023/06/06-09:18:31.503 3150 Delete type=2 #189
+2023/06/06-09:18:31.503 3150 Delete type=0 #190
+2023/06/06-09:18:31.503 3150 Delete type=2 #192
+2023/06/06-09:18:31.503 3150 Delete type=0 #200
+2023/06/06-09:18:31.503 3150 Delete type=2 #202
+2023/06/06-09:18:31.584 1df8 Level-0 table #209: started
+2023/06/06-09:18:31.587 1df8 Level-0 table #209: 151205 bytes OK
+2023/06/06-09:18:31.590 1df8 Delete type=0 #204
+2023/06/06-09:18:31.591 1df8 Manual compaction at level-0 from '\x00l\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00m\x00\x00\x00' @ 0 : 0; will stop at (end)

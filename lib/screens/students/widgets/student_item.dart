@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/screens/students/student_details_screen.dart';
 
-import '../../models/student.dart';
+import '../../../models/student.dart';
 
 class StudentItem extends StatelessWidget {
   final Student student;

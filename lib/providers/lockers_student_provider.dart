@@ -313,7 +313,7 @@ class LockerStudentProvider with ChangeNotifier {
     } catch (e) {
       if (e.toString() ==
           "Expected a value of type 'String', but got one of type 'Null'") {
-        return 'verifier le nom des colones. Colones obligatoires : "Nb clé", "No Casier", "Etage", "Métier" et "N° serrure"';
+        return 'Vérifier le nom des colonnes. Colonnes obligatoires : "Nb clé", "No Casier", "Etage", "Métier" et "N° serrure"';
       } else if (e.toString() ==
           'Exception: Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"') {
         return 'Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"';
@@ -328,13 +328,26 @@ class LockerStudentProvider with ChangeNotifier {
     return null;
   }
 
-  List<Student> searchStudents(key, value) {
+  List<Student> searchStudents(value) {
     List<Student> filtredStudent = [];
     List<Student> students = [];
-    if (key != "" && value != "") {
+    if (value != "") {
       students = _studentItems;
       filtredStudent = students
-          .where((element) => element.toJson()[key].toString().contains(value))
+          .where(
+            (element) =>
+                element.lastName
+                    .toString()
+                    .toLowerCase()
+                    .contains(value.toString().trim().toLowerCase()) ||
+                element.firstName
+                    .toString()
+                    .toLowerCase()
+                    .contains(value.toString().trim().toLowerCase()) ||
+                element.login.toString().toLowerCase().contains(
+                      value.toString().trim().toLowerCase(),
+                    ),
+          )
           .toList();
       return filtredStudent;
     }
