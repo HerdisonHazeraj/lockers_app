@@ -1,9 +1,9 @@
-2023/06/06-08:13:41.086 e54 Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.2ba21e70\flutter_tools_chrome_device.440bef1\Default\Session Storage/MANIFEST-000001
-2023/06/06-08:13:41.086 e54 Recovering log #7
-2023/06/06-08:13:41.086 e54 (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.2ba21e70\flutter_tools_chrome_device.440bef1\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
-2023/06/06-08:13:41.086 e54 (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.2ba21e70\flutter_tools_chrome_device.440bef1\Default\Session Storage/000007.log: dropping 974 bytes; Corruption: missing start of fragmented record(2)
-2023/06/06-08:13:41.087 e54 Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.2ba21e70\flutter_tools_chrome_device.440bef1\Default\Session Storage/000007.log 
-2023/06/06-08:13:41.087 e54 Delete type=0 #3
-2023/06/06-08:13:41.087 e54 Delete type=0 #4
-2023/06/06-08:13:41.087 e54 Delete type=2 #5
-2023/06/06-08:13:41.087 e54 Delete type=2 #8
+2023/06/06-08:17:03.700 1750 Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.d0b91430\flutter_tools_chrome_device.b45396e9\Default\Session Storage/MANIFEST-000001
+2023/06/06-08:17:03.700 1750 Recovering log #7
+2023/06/06-08:17:03.700 1750 (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.d0b91430\flutter_tools_chrome_device.b45396e9\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
+2023/06/06-08:17:03.701 1750 (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.d0b91430\flutter_tools_chrome_device.b45396e9\Default\Session Storage/000007.log: dropping 974 bytes; Corruption: missing start of fragmented record(2)
+2023/06/06-08:17:03.701 1750 Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.d0b91430\flutter_tools_chrome_device.b45396e9\Default\Session Storage/000007.log 
+2023/06/06-08:17:03.702 1750 Delete type=0 #3
+2023/06/06-08:17:03.702 1750 Delete type=0 #4
+2023/06/06-08:17:03.702 1750 Delete type=2 #5
+2023/06/06-08:17:03.702 1750 Delete type=2 #8

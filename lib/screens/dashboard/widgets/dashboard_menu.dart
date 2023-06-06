@@ -10,6 +10,7 @@ class DashboardMenu extends StatefulWidget {
 }
 
 class _DashboardMenuState extends State<DashboardMenu> {
+  bool isFocus = false;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -51,34 +52,20 @@ class _DashboardMenuState extends State<DashboardMenu> {
                           ...Provider.of<LockerStudentProvider>(context)
                               .studentItems
                               .map(
-                                (student) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 6),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "${student.firstName} ${student.lastName}",
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          Text(
-                                            student.job,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
+                                (student) => MouseRegion(
+                                  onEnter: (event) => setState(() {
+                                    student.isFocus = true;
+                                  }),
+                                  onExit: (event) => setState(() {
+                                    student.isFocus = false;
+                                  }),
+                                  child: ListTile(
+                                    title: Text(
+                                        "${student.firstName} ${student.lastName}"),
+                                    trailing: Visibility(
+                                      visible: student.isFocus,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
                                           IconButton(
                                             onPressed: () {},
@@ -95,8 +82,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                             ),
                                           )
                                         ],
-                                      )
-                                    ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -131,36 +118,30 @@ class _DashboardMenuState extends State<DashboardMenu> {
                           ...Provider.of<LockerStudentProvider>(context)
                               .lockerItems
                               .map(
-                                (locker) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 6),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          Text(
-                                            locker.remark == ''
-                                                ? 'Aucune remarque'
-                                                : locker.remark.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
+                                (locker) => MouseRegion(
+                                  onEnter: (event) => setState(() {
+                                    locker.isFocus = true;
+                                  }),
+                                  onExit: (event) => setState(() {
+                                    locker.isFocus = false;
+                                  }),
+                                  child: ListTile(
+                                    title: Text(
+                                      "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
+                                    ),
+                                    subtitle: Text(
+                                      locker.remark == ''
+                                          ? 'Aucune remarque'
+                                          : locker.remark.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                      Row(
+                                    ),
+                                    trailing: Visibility(
+                                      visible: locker.isFocus,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
                                           IconButton(
                                             onPressed: () {},
@@ -177,8 +158,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                             ),
                                           )
                                         ],
-                                      )
-                                    ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
