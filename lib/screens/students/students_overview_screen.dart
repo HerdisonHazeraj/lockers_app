@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:lockers_app/screens/students/student_item.dart';
+import 'package:lockers_app/screens/students/widgets/student_item.dart';
 import 'package:lockers_app/screens/students/widgets/students_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -31,15 +32,22 @@ class StudentsListView extends StatefulWidget {
 
 class _StudentsListViewState extends State<StudentsListView> {
   bool isInit = false;
-  late List<bool> _isExps;
+
+  // Tools for students by search
+  late bool isExpSearch;
+  late List<Student> searchedStudents;
+
+  // Tools for students by year
+  late List<bool> _isExpYear;
+  late Map<String, List<Student>> studentsByYear;
 
   @override
   Widget build(BuildContext context) {
-    final students =
+    studentsByYear =
         Provider.of<LockerStudentProvider>(context).getStudentByYear();
 
     if (!isInit) {
-      _isExps = List.generate(students.length, (index) => true);
+      _isExpYear = List.generate(studentsByYear.length, (index) => true);
       isInit = true;
     }
 
@@ -56,6 +64,45 @@ class _StudentsListViewState extends State<StudentsListView> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
+                      searchedStudents == []
+                          ? const SizedBox()
+                          : Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child: SingleChildScrollView(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: ExpansionPanelList(
+                                    expansionCallback:
+                                        (int index, bool isExpanded) {
+                                      setState(() {
+                                        _isExpYear[index] = !_isExpYear[index];
+                                      });
+                                    },
+                                    expandedHeaderPadding:
+                                        const EdgeInsets.all(6),
+                                    animationDuration:
+                                        const Duration(milliseconds: 500),
+                                    children: [
+                                      ExpansionPanel(
+                                        canTapOnHeader: true,
+                                        headerBuilder: ((context, isExpanded) {
+                                          return const ListTile(
+                                            title: Text(
+                                              'Résultats de recherche',
+                                              style: TextStyle(fontSize: 18),
+                                            ),
+                                          );
+                                        }),
+                                        body: ListView.builder(
+                                          itemBuilder: ((context, index) =>
+                                              null),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
                       Expanded(
                         child: SingleChildScrollView(
                           child: ClipRRect(
@@ -63,17 +110,18 @@ class _StudentsListViewState extends State<StudentsListView> {
                             child: ExpansionPanelList(
                               expansionCallback: (int index, bool isExpanded) {
                                 setState(() {
-                                  _isExps[index] = !_isExps[index];
+                                  _isExpYear[index] = !_isExpYear[index];
                                 });
                               },
                               expandedHeaderPadding: const EdgeInsets.all(6),
                               animationDuration:
                                   const Duration(milliseconds: 500),
                               children: [
-                                ...students.entries.map(
+                                ...studentsByYear.entries.map(
                                   (e) => ExpansionPanel(
-                                    isExpanded: _isExps[
-                                        students.keys.toList().indexOf(e.key)],
+                                    isExpanded: _isExpYear[studentsByYear.keys
+                                        .toList()
+                                        .indexOf(e.key)],
                                     canTapOnHeader: true,
                                     headerBuilder: (context, isExpanded) {
                                       return ListTile(
@@ -100,88 +148,6 @@ class _StudentsListViewState extends State<StudentsListView> {
                           ),
                         ),
                       ),
-                      // const Divider(),
-                      // ListTile(
-                      //   leading: const Icon(Icons.add),
-                      //   title: const Text('Ajouter un élève'),
-                      //   onTap: () {
-                      //     showDialog(
-                      //       context: context,
-                      //       builder: (context) => AlertDialog(
-                      //         title: const Text('Ajouter un élève'),
-                      //         content: Column(
-                      //           mainAxisSize: MainAxisSize.min,
-                      //           children: [
-                      //             TextField(
-                      //               controller: firstnameController,
-                      //               decoration: const InputDecoration(
-                      //                 labelText: "Prénom",
-                      //               ),
-                      //               keyboardType: TextInputType.name,
-                      //             ),
-                      //             TextField(
-                      //               controller: lastnameController,
-                      //               decoration: const InputDecoration(
-                      //                 labelText: "Nom",
-                      //               ),
-                      //               keyboardType: TextInputType.name,
-                      //             ),
-                      //             TextField(
-                      //               controller: jobController,
-                      //               decoration: const InputDecoration(
-                      //                 labelText: "Métier",
-                      //               ),
-                      //               keyboardType: TextInputType.name,
-                      //             ),
-                      //           ],
-                      //         ),
-                      //         actions: [
-                      //           TextButton(
-                      //             onPressed: () {
-                      //               Navigator.of(context).pop();
-                      //             },
-                      //             child: const Text('Annuler'),
-                      //           ),
-                      //           TextButton(
-                      //             onPressed: () {
-                      //               Student student = Student(
-                      //                 firstName: firstnameController.text,
-                      //                 lastName: lastnameController.text,
-                      //                 job: jobController.text,
-                      //                 responsable: 'JHI',
-                      //                 caution: 0,
-                      //                 lockerNumber: 0,
-                      //                 login: "",
-                      //                 year: 0,
-                      //                 classe: "",
-                      //               );
-
-                      //               Provider.of<LockerStudentProvider>(context,
-                      //                       listen: false)
-                      //                   .addStudent(student);
-
-                      //               Navigator.of(context).pop();
-
-                      //               ScaffoldMessenger.of(context).showSnackBar(
-                      //                 SnackBar(
-                      //                   content: Text(
-                      //                       'L\'élève "${student.firstName} ${student.lastName}" a été ajouté avec succès !'),
-                      //                   duration: const Duration(seconds: 3),
-                      //                 ),
-                      //               );
-
-                      //               firstnameController.clear();
-                      //               lastnameController.clear();
-                      //               jobController.clear();
-                      //             },
-                      //             child: const Text('Confirmer'),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                      // const Text(''),
                     ],
                   ),
                 ),

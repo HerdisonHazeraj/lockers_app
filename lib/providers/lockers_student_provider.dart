@@ -244,14 +244,39 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> promoteStudent(List<Student> students) async {
     students.forEach(
-      (element) {
+      (element) async {
         if (element.year != 4) {
-          element.year + 1;
+          await updateStudent(element.copyWith(year: element.year + 1));
         } else {
-          element.copyWith(year: 0);
+          await updateStudent(element.copyWith(year: 0));
         }
       },
     );
+  }
+
+  List<Student> searchStudents(value) {
+    List<Student> filtredStudent = [];
+    List<Student> students = [];
+    if (value != "") {
+      students = _studentItems;
+      filtredStudent = students
+          .where((element) =>
+              element.lastName
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()) ||
+              element.firstName
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()) ||
+              element.login
+                  .toString()
+                  .toLowerCase()
+                  .contains(value.toString().toLowerCase().trim()))
+          .toList();
+      return filtredStudent;
+    }
+    return [];
   }
 
   Future<String?> importLockersWithCSV(FilePickerResult? result) async {
@@ -313,7 +338,7 @@ class LockerStudentProvider with ChangeNotifier {
     } catch (e) {
       if (e.toString() ==
           "Expected a value of type 'String', but got one of type 'Null'") {
-        return 'verifier le nom des colones. Colones obligatoires : "Nb clé", "No Casier", "Etage", "Métier" et "N° serrure"';
+        return 'Vérifier le nom des colonnes. Colonnes obligatoires : "Nb clé", "No Casier", "Etage", "Métier" et "N° serrure"';
       } else if (e.toString() ==
           'Exception: Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"') {
         return 'Chaque casier doit contenir une valeur pour "Nb clé", "No Casier" et "N° serrure"';
@@ -326,19 +351,6 @@ class LockerStudentProvider with ChangeNotifier {
       return exceptionString;
     }
     return null;
-  }
-
-  List<Student> searchStudents(key, value) {
-    List<Student> filtredStudent = [];
-    List<Student> students = [];
-    if (key != "" && value != "") {
-      students = _studentItems;
-      filtredStudent = students
-          .where((element) => element.toJson()[key].toString().contains(value))
-          .toList();
-      return filtredStudent;
-    }
-    return [];
   }
 
   Future<String?> importStudentsWithCSV(FilePickerResult? result) async {
