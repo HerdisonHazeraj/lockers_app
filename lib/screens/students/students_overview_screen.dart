@@ -150,6 +150,18 @@ class _StudentsListViewState extends State<StudentsListView> {
                                                   student:
                                                       searchedStudents[index]),
                                               const Divider(),
+                                              searchedStudents[index]
+                                                          .isUpdating ==
+                                                      true
+                                                  ? StudentUpdate(
+                                                      student: searchedStudents[
+                                                          index],
+                                                      showUpdateForm: () =>
+                                                          showUpdateForm(
+                                                        searchedStudents[index],
+                                                      ),
+                                                    )
+                                                  : const SizedBox(),
                                             ],
                                           ),
                                         ),
@@ -170,7 +182,7 @@ class _StudentsListViewState extends State<StudentsListView> {
                               },
                               expandedHeaderPadding: const EdgeInsets.all(6),
                               animationDuration:
-                                  const Duration(milliseconds: 500),
+                                  const Duration(milliseconds: 800),
                               children: [
                                 ...studentsByYear.entries.map(
                                   (e) => ExpansionPanel(
@@ -192,12 +204,12 @@ class _StudentsListViewState extends State<StudentsListView> {
                                       itemBuilder: (context, index) => Column(
                                         children: [
                                           StudentItem(
-                                              showUpdateForm: () =>
-                                                  showUpdateForm(
-                                                      e.value[index]),
-                                              student: e.value[index]),
+                                            showUpdateForm: () =>
+                                                showUpdateForm(e.value[index]),
+                                            student: e.value[index],
+                                          ),
                                           const Divider(),
-                                          e.value[index].isUpdating
+                                          e.value[index].isUpdating == true
                                               ? StudentUpdate(
                                                   student: e.value[index],
                                                   showUpdateForm: () =>
