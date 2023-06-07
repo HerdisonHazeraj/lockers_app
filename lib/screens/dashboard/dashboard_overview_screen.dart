@@ -127,38 +127,22 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                         const SizedBox(
                                           height: 25,
                                         ),
-                                        const Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Column(
-                                              children: [
-                                                Indicator(
-                                                  color: Colors.green,
-                                                  text: 'Casiers libres',
-                                                  isSquare: true,
-                                                ),
-                                                Indicator(
-                                                  color: Colors.red,
-                                                  text: 'Casiers occupés',
-                                                  isSquare: true,
-                                                ),
-                                              ],
+                                        const Column(
+                                          children: [
+                                            Indicator(
+                                              color: Colors.green,
+                                              text: 'Casiers libres',
+                                              isSquare: true,
                                             ),
-                                            Column(
-                                              children: [
-                                                Indicator(
-                                                  color: Colors.yellow,
-                                                  text: 'Clés manquantes',
-                                                  isSquare: true,
-                                                ),
-                                                Indicator(
-                                                  color: Colors.purple,
-                                                  text: 'Casiers défectueux',
-                                                  isSquare: true,
-                                                ),
-                                              ],
+                                            Indicator(
+                                              color: Colors.red,
+                                              text: 'Casiers occupés',
+                                              isSquare: true,
+                                            ),
+                                            Indicator(
+                                              color: Colors.yellow,
+                                              text: 'Casiers défectueux',
+                                              isSquare: true,
                                             ),
                                           ],
                                         ),
@@ -240,7 +224,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
 
   List<PieChartSectionData> showingSections(BuildContext context) {
     return List.generate(
-      4,
+      3,
       (index) {
         final isTouched = index == touchedIndex;
         final fontSize = isTouched ? 20.0 : 16.0;
@@ -248,7 +232,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
         const shadows = [
           BoxShadow(
             color: Colors.black12,
-            blurRadius: 4,
+            blurRadius: 3,
           ),
         ];
         switch (index) {
@@ -293,29 +277,9 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
               ),
             );
           case 2:
-            // Casiers qui possèdent des clés manquantes
-            return PieChartSectionData(
-              color: Colors.yellow,
-              value: Provider.of<LockerStudentProvider>(context)
-                  .getLockerLessThen2Key()
-                  .length
-                  .toDouble(),
-              title: Provider.of<LockerStudentProvider>(context)
-                  .getLockerLessThen2Key()
-                  .length
-                  .toString(),
-              radius: radius,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                shadows: shadows,
-              ),
-            );
-          case 3:
             // Casiers défectueux
             return PieChartSectionData(
-              color: Colors.purple,
+              color: Colors.yellow,
               value: 2,
               title: "2",
               radius: radius,

@@ -91,7 +91,7 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return Responsive.isDesktop(context)
 
-        /// Version desktop
+        // Version desktop
         ? Scaffold(
             body: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -114,7 +114,7 @@ class _MyWidgetState extends State<MyWidget> {
             ),
           )
 
-        /// Version mobile
+        // Version mobile
         : Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.transparent,

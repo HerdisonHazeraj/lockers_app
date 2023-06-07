@@ -11,6 +11,7 @@ class DashboardMenu extends StatefulWidget {
 
 class _DashboardMenuState extends State<DashboardMenu> {
   bool isFocus = false;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -42,53 +43,50 @@ class _DashboardMenuState extends State<DashboardMenu> {
                   ),
                 ),
                 SizedBox(
-                  height: 200,
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ...Provider.of<LockerStudentProvider>(context)
-                              .studentItems
-                              .map(
-                                (student) => MouseRegion(
-                                  onEnter: (event) => setState(() {
-                                    student.isFocus = true;
-                                  }),
-                                  onExit: (event) => setState(() {
-                                    student.isFocus = false;
-                                  }),
-                                  child: ListTile(
-                                    title: Text(
-                                        "${student.firstName} ${student.lastName}"),
-                                    trailing: Visibility(
-                                      visible: student.isFocus,
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.check,
-                                              color: Colors.black54,
-                                            ),
+                  height: 220,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...Provider.of<LockerStudentProvider>(context)
+                            .studentItems
+                            .map(
+                              (student) => MouseRegion(
+                                onEnter: (event) => setState(() {
+                                  student.isFocus = true;
+                                }),
+                                onExit: (event) => setState(() {
+                                  student.isFocus = false;
+                                }),
+                                child: ListTile(
+                                  title: Text(
+                                      "${student.firstName} ${student.lastName}"),
+                                  trailing: Visibility(
+                                    visible: student.isFocus,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.check,
+                                            color: Colors.black54,
                                           ),
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.close,
-                                              color: Colors.black54,
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.close,
+                                            color: Colors.black54,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
-                        ],
-                      ),
+                            ),
+                      ],
                     ),
                   ),
                 ),
@@ -108,63 +106,60 @@ class _DashboardMenuState extends State<DashboardMenu> {
                   ),
                 ),
                 SizedBox(
-                  height: 200,
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ...Provider.of<LockerStudentProvider>(context)
-                              .lockerItems
-                              .map(
-                                (locker) => MouseRegion(
-                                  onEnter: (event) => setState(() {
-                                    locker.isFocus = true;
-                                  }),
-                                  onExit: (event) => setState(() {
-                                    locker.isFocus = false;
-                                  }),
-                                  child: ListTile(
-                                    title: Text(
-                                      "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
+                  height: 220,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...Provider.of<LockerStudentProvider>(context)
+                            .lockerItems
+                            .map(
+                              (locker) => MouseRegion(
+                                onEnter: (event) => setState(() {
+                                  locker.isFocus = true;
+                                }),
+                                onExit: (event) => setState(() {
+                                  locker.isFocus = false;
+                                }),
+                                child: ListTile(
+                                  title: Text(
+                                    "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
+                                  ),
+                                  subtitle: Text(
+                                    locker.remark == ''
+                                        ? 'Aucune remarque'
+                                        : locker.remark.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    subtitle: Text(
-                                      locker.remark == ''
-                                          ? 'Aucune remarque'
-                                          : locker.remark.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    trailing: Visibility(
-                                      visible: locker.isFocus,
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.check,
-                                              color: Colors.black54,
-                                            ),
+                                  ),
+                                  trailing: Visibility(
+                                    visible: locker.isFocus,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.check,
+                                            color: Colors.black54,
                                           ),
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.close,
-                                              color: Colors.black54,
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.close,
+                                            color: Colors.black54,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
-                        ],
-                      ),
+                            ),
+                      ],
                     ),
                   ),
                 ),
