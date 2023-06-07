@@ -182,17 +182,26 @@ class LockerStudentProvider with ChangeNotifier {
 
   void autoAttributeLocker(List<Student> students) {
     final _random = Random();
-    Map<String, int> index = {"d": 1, "c": 2, "b": 3, "e": 4};
+    Map<String, int> index = {
+      "d": 1,
+      "c": 2,
+      "b": 3,
+      "e": 4,
+      "f": 5,
+    };
     final lockers = getAvailableLockers();
     lockers.sort(
       (a, b) => index[a.floor.toLowerCase()]!
           .compareTo(index[b.floor.toLowerCase()]!),
     );
-    students.forEach((student) {
-      int number = _random.nextInt(lockers.length);
-      attributeLocker(lockers[number], student);
-      lockers.remove(lockers[number]);
-    });
+    for (var i = 0; i < students.length; i++) {
+      if (i >= lockers.length) {
+        break;
+      }
+      // students.forEach((student) {
+      attributeLocker(lockers[i], students[i]);
+      // });
+    }
   }
 
   void autoAttributeLockerV2(List<Student> students) {
@@ -233,6 +242,13 @@ class LockerStudentProvider with ChangeNotifier {
   List<Locker> getLockerLessThen2Key() {
     List<Locker> lockers =
         lockerItems.where((element) => element.nbKey < 2).toList();
+    return lockers;
+  }
+
+  List<Locker> getLockerbyFloor(String floor) {
+    List<Locker> lockers = lockerItems
+        .where((element) => element.floor.toLowerCase() == floor.toLowerCase())
+        .toList();
     return lockers;
   }
 
@@ -278,10 +294,9 @@ class LockerStudentProvider with ChangeNotifier {
         }
         students = filtredStudent;
       }
-      if (filtredStudent.isEmpty) return startList;
       return filtredStudent;
     }
-    return [];
+    return startList;
   }
 
   Future<void> promoteStudent(List<Student> students) async {

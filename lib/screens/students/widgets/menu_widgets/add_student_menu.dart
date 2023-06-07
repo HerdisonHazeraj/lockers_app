@@ -15,19 +15,12 @@ class AddStudentMenu extends StatefulWidget {
 class _AddStudentMenuState extends State<AddStudentMenu> {
   // Controllers for the adding student form
   final firstnameController = TextEditingController();
-
   final lastnameController = TextEditingController();
-
   final mailController = TextEditingController();
-
   final jobController = TextEditingController();
-
   final loginController = TextEditingController();
-
   final yearController = TextEditingController();
-
   final classeController = TextEditingController();
-
   final responsableController = TextEditingController();
 
   @override
