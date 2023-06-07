@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import '../../../models/locker.dart';
 
 class AvailableLockersListWidget extends StatefulWidget {
-  AvailableLockersListWidget({
-    super.key,
-    required this.availableLockers,
-    required this.isALockerSelected,
-    required this.checkIfAStudentAndALockerAreSelectedVoid,
-  });
+  AvailableLockersListWidget(
+      {super.key,
+      required this.availableLockers,
+      required this.isALockerSelected,
+      required this.checkIfWeCanAssignVoid,
+      required this.changeCheckBoxesLockerStatesVoid});
 
   List<Locker> availableLockers;
   bool isALockerSelected;
-  VoidCallback checkIfAStudentAndALockerAreSelectedVoid;
+  final VoidCallback checkIfWeCanAssignVoid;
+  final Function(int index, bool? newValue) changeCheckBoxesLockerStatesVoid;
 
   @override
   State<AvailableLockersListWidget> createState() =>
@@ -42,20 +43,10 @@ class _AvailableLockersListWidgetState
                         'Étage ${widget.availableLockers[index].floor.toUpperCase()}'),
                     onChanged: (newValue) {
                       setState(() {
-                        widget.availableLockers[index].isSelected = newValue!;
+                        widget.changeCheckBoxesLockerStatesVoid(
+                            index, newValue);
 
-                        for (var e in widget.availableLockers) {
-                          if (!newValue) {
-                            e.isEnabled = true;
-                            widget.isALockerSelected = false;
-                          } else {
-                            if (!e.isSelected) {
-                              e.isEnabled = false;
-                              widget.isALockerSelected = true;
-                            }
-                          }
-                        }
-                        widget.checkIfAStudentAndALockerAreSelectedVoid;
+                        widget.checkIfWeCanAssignVoid();
                       });
                     },
                   ),

@@ -35,7 +35,7 @@ class _FilterElementState extends State<FilterElement> {
             setState(() {
               widget.keys.clear();
               // ignore: unused_local_variable
-              for (var v in value) {
+              for (var i = 0; i < value.length; i++) {
                 widget.keys.add(widget.filterNod);
               }
             });

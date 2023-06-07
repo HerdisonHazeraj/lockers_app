@@ -7,14 +7,14 @@ class AvailableStudentsListWidget extends StatefulWidget {
       required this.studentsListView,
       required this.areAllchecksChecked,
       required this.selectedStudents,
-      required this.checkIfAStudentAndALockerAreSelectedVoid,
-      required this.checkIf2CheckBoxesAreCheckedVoid});
+      required this.checkIfWeCanAssignVoid,
+      required this.checkIfWeCanAutoAssignVoid});
   List<Student> studentsListView;
   bool areAllchecksChecked;
   List<Student> selectedStudents;
 
-  final Function() checkIfAStudentAndALockerAreSelectedVoid;
-  final Function() checkIf2CheckBoxesAreCheckedVoid;
+  final VoidCallback checkIfWeCanAssignVoid;
+  final VoidCallback checkIfWeCanAutoAssignVoid;
 
   @override
   State<AvailableStudentsListWidget> createState() =>
@@ -26,48 +26,51 @@ class _AvailableStudentsListWidgetState
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            widget.studentsListView.isEmpty
-                ? const Center(
-                    heightFactor: 50, child: Text('Aucun élève disponible'))
-                : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: widget.studentsListView.length,
-                    itemBuilder: (context, index) => Card(
-                      child: CheckboxListTile(
-                        enabled: widget.studentsListView[index].isEnabled,
-                        controlAffinity: ListTileControlAffinity.leading,
-                        value: widget.studentsListView[index].isSelected,
-                        title: Text(
-                            '${widget.studentsListView[index].firstName}  ${widget.studentsListView[index].lastName}'),
-                        subtitle: Text(widget.studentsListView[index].job),
-                        onChanged: (newValue) {
-                          setState(() {
-                            widget.studentsListView[index].isSelected =
-                                newValue!;
+      // height: 200,
+      child: Scrollbar(
+        thumbVisibility: true,
+        child: SingleChildScrollView(
+          child: widget.studentsListView.isEmpty
+              ? const Center(
+                  heightFactor: 50, child: Text('Aucun élève disponible'))
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: widget.studentsListView.length,
+                      itemBuilder: (context, index) => Card(
+                        child: CheckboxListTile(
+                          enabled: widget.studentsListView[index].isEnabled,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          value: widget.studentsListView[index].isSelected,
+                          title: Text(
+                              '${widget.studentsListView[index].firstName}  ${widget.studentsListView[index].lastName}'),
+                          subtitle: Text(widget.studentsListView[index].job),
+                          onChanged: (newValue) {
+                            setState(() {
+                              widget.studentsListView[index].isSelected =
+                                  newValue!;
 
-                            if (widget.studentsListView[index].isSelected) {
-                              widget.selectedStudents
-                                  .add(widget.studentsListView[index]);
-                            } else {
-                              widget.selectedStudents
-                                  .remove(widget.studentsListView[index]);
-                              widget.areAllchecksChecked = false;
-                            }
+                              if (widget.studentsListView[index].isSelected) {
+                                widget.selectedStudents
+                                    .add(widget.studentsListView[index]);
+                              } else {
+                                widget.selectedStudents
+                                    .remove(widget.studentsListView[index]);
+                                widget.areAllchecksChecked = false;
+                              }
 
-                            () => widget
-                                .checkIfAStudentAndALockerAreSelectedVoid();
-                            () => widget.checkIf2CheckBoxesAreCheckedVoid();
-                          });
-                        },
+                              widget.checkIfWeCanAssignVoid();
+                              widget.checkIfWeCanAutoAssignVoid();
+                            });
+                          },
+                        ),
                       ),
                     ),
-                  )
-          ],
+                  ],
+                ),
         ),
       ),
     );
