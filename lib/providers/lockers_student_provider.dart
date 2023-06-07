@@ -245,6 +245,13 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
+  List<Locker> getLockerbyFloor(String floor) {
+    List<Locker> lockers = lockerItems
+        .where((element) => element.floor.toLowerCase() == floor.toLowerCase())
+        .toList();
+    return lockers;
+  }
+
   List<Locker> getDefectiveLockers() {
     List<Locker> lockers =
         lockerItems.where((element) => element.isDefective == true).toList();
@@ -287,10 +294,9 @@ class LockerStudentProvider with ChangeNotifier {
         }
         students = filtredStudent;
       }
-      if (filtredStudent.isEmpty) return startList;
       return filtredStudent;
     }
-    return [];
+    return startList;
   }
 
   Future<void> promoteStudent(List<Student> students) async {
