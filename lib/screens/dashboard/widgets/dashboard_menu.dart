@@ -18,8 +18,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   void initState() {
-    lockers =
-        Provider.of<LockerStudentProvider>(context, listen: false).lockerItems;
+    lockers = Provider.of<LockerStudentProvider>(context, listen: false)
+        .getLastAddedLockers();
     students =
         Provider.of<LockerStudentProvider>(context, listen: false).studentItems;
     super.initState();
@@ -63,7 +63,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ...students.map(
+                          ...students.reversed.map(
                             (student) => MouseRegion(
                               onEnter: (event) => setState(() {
                                 student.isFocus = true;
@@ -81,7 +81,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                 subtitle: Text(
                                   student.job,
                                   style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 trailing: Visibility(
@@ -165,7 +165,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ...lockers.map(
+                          ...lockers.reversed.map(
                             (locker) => MouseRegion(
                               onEnter: (event) => setState(() {
                                 locker.isFocus = true;

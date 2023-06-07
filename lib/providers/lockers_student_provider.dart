@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,9 @@ import '../models/locker.dart';
 
 class LockerStudentProvider with ChangeNotifier {
   final List<Locker> _lockerItems = [];
+  final List<Locker> _lastLockerItems = [];
   final List<Student> _studentItems = [];
+  final List<Student> _lastStudentItems = [];
 
   LockerStudentProvider(this.dbService);
   final DBService dbService;
@@ -20,8 +21,16 @@ class LockerStudentProvider with ChangeNotifier {
     return [..._lockerItems];
   }
 
+  List<Locker> get lastLockerItems {
+    return [..._lastLockerItems];
+  }
+
   List<Student> get studentItems {
     return [..._studentItems];
+  }
+
+  List<Student> get lastStudentItems {
+    return [..._lastStudentItems];
   }
 
   Future<void> fetchAndSetLockers() async {
@@ -34,6 +43,8 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addLocker(Locker locker) async {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);
+    _lastLockerItems.add(data);
+    updateLatestLocker();
     notifyListeners();
   }
 
@@ -42,6 +53,8 @@ class LockerStudentProvider with ChangeNotifier {
     if (lockerIndex >= 0) {
       final newLocker = await dbService.updateLocker(updatedLocker);
       _lockerItems[lockerIndex] = newLocker;
+      updateLatestLocker();
+
       notifyListeners();
     }
   }
@@ -49,14 +62,15 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteLocker(String id) async {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
-
     _lockerItems.remove(item);
+    updateLatestLocker();
     notifyListeners();
   }
 
   Future<void> insertLocker(int index, Locker locker) async {
     await dbService.updateLocker(locker);
     _lockerItems.insert(index, locker);
+    updateLatestLocker();
     notifyListeners();
   }
 
@@ -92,6 +106,7 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
+    updateLatestStudent;
     notifyListeners();
   }
 
@@ -100,6 +115,7 @@ class LockerStudentProvider with ChangeNotifier {
     if (studentIndex >= 0) {
       final newStudent = await dbService.updateStudent(updatedStudent);
       _studentItems[studentIndex] = newStudent;
+      updateLatestStudent();
       notifyListeners();
     }
   }
@@ -107,12 +123,14 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
+    updateLatestStudent;
     notifyListeners();
   }
 
   Future<void> insertStudent(int index, Student student) async {
     await dbService.updateStudent(student);
     _studentItems.insert(index, student);
+    updateLatestStudent();
     notifyListeners();
   }
 
@@ -181,7 +199,6 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   void autoAttributeLocker(List<Student> students) {
-    final _random = Random();
     Map<String, int> index = {
       "d": 1,
       "c": 2,
@@ -198,51 +215,42 @@ class LockerStudentProvider with ChangeNotifier {
       if (i >= lockers.length) {
         break;
       }
-      // students.forEach((student) {
       attributeLocker(lockers[i], students[i]);
-      // });
     }
-  }
-
-  void autoAttributeLockerV2(List<Student> students) {
-    final _random = Random();
-    final lockersFloorD = getAvailableLockers()
-        .where((element) => element.floor.toLowerCase() == "d")
-        .toList();
-    final lockersFloorC = getAvailableLockers()
-        .where((element) => element.floor.toLowerCase() == "c")
-        .toList();
-    final lockersFloorB = getAvailableLockers()
-        .where((element) => element.floor.toLowerCase() == "b")
-        .toList();
-    final lockersFloorE = getAvailableLockers()
-        .where((element) => element.floor.toLowerCase() == "e")
-        .toList();
-    students.forEach((student) {
-      if (lockersFloorD.isNotEmpty) {
-        int number = _random.nextInt(lockersFloorD.length);
-        attributeLocker(lockersFloorD[number], student);
-        lockersFloorD.remove(lockersFloorD[number]);
-      } else if (lockersFloorC.isNotEmpty) {
-        int number = _random.nextInt(lockersFloorC.length);
-        attributeLocker(lockersFloorC[number], student);
-        lockersFloorC.remove(lockersFloorC[number]);
-      } else if (lockersFloorB.isNotEmpty) {
-        int number = _random.nextInt(lockersFloorB.length);
-        attributeLocker(lockersFloorB[number], student);
-        lockersFloorB.remove(lockersFloorB[number]);
-      } else if (lockersFloorE.isNotEmpty) {
-        int number = _random.nextInt(lockersFloorE.length);
-        attributeLocker(lockersFloorE[number], student);
-        lockersFloorE.remove(lockersFloorE[number]);
-      }
-    });
   }
 
   List<Locker> getLockerLessThen2Key() {
     List<Locker> lockers =
         lockerItems.where((element) => element.nbKey < 2).toList();
     return lockers;
+  }
+
+  List<Locker> getLastAddedLockers() {
+    List<Locker> lastLocker = [];
+    for (var i = lockerItems.length - 10; i < lockerItems.length; i++) {
+      lastLocker.add(lockerItems[i]);
+    }
+    return lastLocker;
+  }
+
+  Future<void> updateLatestStudent() async {
+    for (var lastLocker in lastLockerItems) {
+      for (var locker in lockerItems) {
+        if (lastLocker.id == locker.id) {
+          lastLocker = locker;
+        }
+      }
+    }
+  }
+
+  Future<void> updateLatestLocker() async {
+    for (var lastStudent in lastStudentItems) {
+      for (var student in studentItems) {
+        if (lastStudent.id == student.id) {
+          lastStudent = student;
+        }
+      }
+    }
   }
 
   List<Locker> getLockerbyFloor(String floor) {
@@ -284,7 +292,7 @@ class LockerStudentProvider with ChangeNotifier {
       {List<Student> startList = const []}) {
     List<Student> students = [];
     List<Student> filtredStudent = [];
-    if (key != [] && value != []) {
+    if (key.isNotEmpty && value.isNotEmpty) {
       students = getAvailableStudents();
       for (var i = 0; i < key.length; i++) {
         for (var j = 0; j < key[i].length; j++) {
@@ -300,15 +308,13 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<void> promoteStudent(List<Student> students) async {
-    students.forEach(
-      (element) async {
-        if (element.year != 4) {
-          await updateStudent(element.copyWith(year: element.year + 1));
-        } else {
-          await updateStudent(element.copyWith(year: 0));
-        }
-      },
-    );
+    for (var element in students) {
+      if (element.year != 4) {
+        await updateStudent(element.copyWith(year: element.year + 1));
+      } else {
+        await updateStudent(element.copyWith(year: 0));
+      }
+    }
   }
 
   List<Student> searchStudents(value) {
@@ -318,14 +324,22 @@ class LockerStudentProvider with ChangeNotifier {
       students = _studentItems;
       filtredStudent = students
           .where((element) =>
-              element.lastName
+              ("${element.lastName} ${element.firstName}")
                   .toString()
                   .toLowerCase()
-                  .contains(value.toString().toLowerCase().trim()) ||
-              element.firstName
+                  .trim()
+                  .contains(value
+                      .toString()
+                      .toLowerCase()
+                      .replaceAll(RegExp(r"\s+"), " ")) ||
+              ("${element.firstName} ${element.lastName}")
                   .toString()
                   .toLowerCase()
-                  .contains(value.toString().toLowerCase().trim()) ||
+                  .trim()
+                  .contains(value
+                      .toString()
+                      .toLowerCase()
+                      .replaceAll(RegExp(r"\s+"), " ")) ||
               element.login
                   .toString()
                   .toLowerCase()
