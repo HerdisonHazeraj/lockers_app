@@ -14,13 +14,13 @@ class DashboardMenu extends StatefulWidget {
 class _DashboardMenuState extends State<DashboardMenu> {
   bool isFocus = false;
   List<Locker> lockers = [];
-  List<Student> student = [];
+  List<Student> students = [];
 
   @override
   void initState() {
     lockers =
         Provider.of<LockerStudentProvider>(context, listen: false).lockerItems;
-    student =
+    students =
         Provider.of<LockerStudentProvider>(context, listen: false).studentItems;
     super.initState();
   }
@@ -63,7 +63,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ...student.map(
+                          ...students.map(
                             (student) => MouseRegion(
                               onEnter: (event) => setState(() {
                                 student.isFocus = true;
@@ -90,14 +90,42 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          setState(() {
+                                            students.remove(student);
+
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été confirmer avec succès!'),
+                                                duration:
+                                                    const Duration(seconds: 3),
+                                              ),
+                                            );
+                                          });
+                                        },
                                         icon: const Icon(
                                           Icons.check,
                                           color: Colors.black54,
                                         ),
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          setState(() {
+                                            students.remove(student);
+
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été annuler avec succès !'),
+                                                duration:
+                                                    const Duration(seconds: 3),
+                                              ),
+                                            );
+                                          });
+                                        },
                                         icon: const Icon(
                                           Icons.close,
                                           color: Colors.black54,
@@ -167,14 +195,40 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          setState(() {
+                                            lockers.remove(locker);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    'L\'ajout du casier numéro ${locker.lockerNumber} à été confirmer avec succès!'),
+                                                duration:
+                                                    const Duration(seconds: 3),
+                                              ),
+                                            );
+                                          });
+                                        },
                                         icon: const Icon(
                                           Icons.check,
                                           color: Colors.black54,
                                         ),
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          setState(() {
+                                            lockers.remove(locker);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    'L\'ajout du casier numéro ${locker.lockerNumber} à été annuler avec succès !'),
+                                                duration:
+                                                    const Duration(seconds: 3),
+                                              ),
+                                            );
+                                          });
+                                        },
                                         icon: const Icon(
                                           Icons.close,
                                           color: Colors.black54,

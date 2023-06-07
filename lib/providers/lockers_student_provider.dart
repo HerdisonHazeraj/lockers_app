@@ -294,10 +294,9 @@ class LockerStudentProvider with ChangeNotifier {
         }
         students = filtredStudent;
       }
-      if (filtredStudent.isEmpty) return startList;
       return filtredStudent;
     }
-    return [];
+    return startList;
   }
 
   Future<void> promoteStudent(List<Student> students) async {
