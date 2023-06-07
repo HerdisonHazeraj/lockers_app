@@ -50,9 +50,12 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
   Widget build(BuildContext context) {
     void filterStudents(keys, values) {
       setState(() {
-        filtredStudent =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .filterStudentsBy(keys, values);
+        filtredStudent = Provider.of<LockerStudentProvider>(context,
+                listen: false)
+            .filterStudentsBy(keys, values,
+                startList:
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .studentItems);
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
@@ -64,10 +67,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
       isStudentsListViewInit = true;
     } else if (values.isNotEmpty && !isStudentsListViewInit) {
       isStudentsListViewInit = true;
-      filterStudents(
-        keys,
-        values, /*Provider.of<LockerStudentProvider>(context).studentItems*/
-      );
+      filterStudents(keys, values);
     }
 
     void checkAllChecks(newValue) {
@@ -153,8 +153,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                                 selectedStudents.remove(
                                                     studentsListView[index]);
                                                 areAllchecksChecked = false;
-                                                if (selectedStudents.length ==
-                                                    0) {
+                                                if (selectedStudents.isEmpty) {
                                                   isPromoteButtonEnabled =
                                                       false;
                                                 }
@@ -326,6 +325,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                           .promoteStudent(selectedStudents);
                                       isStudentsListViewInit = false;
                                       isPromoteButtonEnabled = false;
+                                      areAllchecksChecked = false;
                                     });
                                   }
                                 : null,

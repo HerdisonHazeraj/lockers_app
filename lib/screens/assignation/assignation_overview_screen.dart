@@ -85,9 +85,12 @@ class _AssignListViewState extends State<AssignListView> {
 
     void filterStudents(keys, values) {
       setState(() {
-        filtredStudent =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .filterStudentsBy(keys, values);
+        filtredStudent = Provider.of<LockerStudentProvider>(context,
+                listen: false)
+            .filterStudentsBy(keys, values,
+                startList:
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .getAvailableStudents());
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
@@ -183,133 +186,139 @@ class _AssignListViewState extends State<AssignListView> {
                         Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AvailableStudentsListWidget(
-                                studentsListView: studentsListView,
-                                areAllchecksChecked: areAllchecksChecked,
-                                selectedStudents: selectedStudents,
-                                checkIfAStudentAndALockerAreSelectedVoid: () =>
-                                    () =>
-                                        checkIfAStudentAndALockerAreSelected(),
-                                checkIf2CheckBoxesAreCheckedVoid: () =>
-                                    () => checkIf2CheckBoxesAreChecked(),
-                              ),
-                              AvailableLockersListWidget(
-                                  availableLockers: availableLockers,
-                                  isALockerSelected: isALockerSelected,
-                                  checkIfAStudentAndALockerAreSelectedVoid: () =>
-                                      checkIfAStudentAndALockerAreSelected())
-                              // Expanded(
-                              //   child: SingleChildScrollView(
-                              //     scrollDirection: Axis.vertical,
-                              //     child: Column(
-                              //       children: [
-                              //         studentsListView.isEmpty
-                              //             ? const Center(
-                              //                 heightFactor: 50,
-                              //                 child: Text(
-                              //                     'Aucun élève disponible '))
-                              //             : ListView.builder(
-                              //                 scrollDirection: Axis.vertical,
-                              //                 shrinkWrap: true,
-                              //                 itemCount:
-                              //                     studentsListView.length,
-                              //                 itemBuilder: (context, index) =>
-                              //                     Card(
-                              //                   child: CheckboxListTile(
-                              //                     enabled:
-                              //                         studentsListView[index]
-                              //                             .isEnabled,
-                              //                     controlAffinity:
-                              //                         ListTileControlAffinity
-                              //                             .leading,
-                              //                     value: studentsListView[index]
-                              //                         .isSelected,
-                              //                     title: Text(
-                              //                         '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
-                              //                     subtitle: Text(
-                              //                         studentsListView[index]
-                              //                             .job),
-                              //                     onChanged: (newValue) {
-                              //                       setState(() {
-                              //                         studentsListView[index]
-                              //                                 .isSelected =
-                              //                             newValue!;
-
-                              //                         if (studentsListView[
-                              //                                 index]
-                              //                             .isSelected) {
-                              //                           selectedStudents.add(
-                              //                               studentsListView[
-                              //                                   index]);
-                              //                         } else {
-                              //                           selectedStudents.remove(
-                              //                               studentsListView[
-                              //                                   index]);
-                              //                           areAllchecksChecked =
-                              //                               false;
-                              //                         }
-
-                              //                         checkIfAStudentAndALockerAreSelected();
-                              //                         checkIf2CheckBoxesAreChecked(
-                              //                             );
-                              //                       });
-                              //                     },
-                              //                   ),
-                              //                 ),
-                              //               )
-                              //       ],
-                              //     ),
-                              //   ),
+                              // AvailableStudentsListWidget(
+                              //   studentsListView: studentsListView,
+                              //   areAllchecksChecked: areAllchecksChecked,
+                              //   selectedStudents: selectedStudents,
+                              //   checkIfAStudentAndALockerAreSelectedVoid: () =>
+                              //       () =>
+                              //           checkIfAStudentAndALockerAreSelected(),
+                              //   checkIf2CheckBoxesAreCheckedVoid: () =>
+                              //       () => checkIf2CheckBoxesAreChecked(),
                               // ),
-                              // Expanded(
-                              //     child: availableLockers.isEmpty
-                              //         ? const Center(
-                              //             heightFactor: 50,
-                              //             child:
-                              //                 Text('Aucun casier disponible '))
-                              //         : ListView.builder(
-                              //             scrollDirection: Axis.vertical,
-                              //             shrinkWrap: true,
-                              //             itemCount: availableLockers.length,
-                              //             itemBuilder: (context, index) => Card(
-                              //               child: CheckboxListTile(
-                              //                 enabled: availableLockers[index]
-                              //                     .isEnabled,
-                              //                 controlAffinity:
-                              //                     ListTileControlAffinity
-                              //                         .leading,
-                              //                 value: availableLockers[index]
-                              //                     .isSelected,
-                              //                 title: Text(
-                              //                     availableLockers[index]
-                              //                         .lockerNumber
-                              //                         .toString()),
-                              //                 subtitle: Text(
-                              //                     'Étage ${availableLockers[index].floor.toUpperCase()}'),
-                              //                 onChanged: (newValue) {
-                              //                   setState(() {
-                              //                     availableLockers[index]
-                              //                         .isSelected = newValue!;
+                              // AvailableLockersListWidget(
+                              //     availableLockers: availableLockers,
+                              //     isALockerSelected: isALockerSelected,
+                              //     checkIfAStudentAndALockerAreSelectedVoid: () =>
+                              //         checkIfAStudentAndALockerAreSelected())
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Column(
+                                    children: [
+                                      studentsListView.isEmpty
+                                          ? const Center(
+                                              heightFactor: 50,
+                                              child: Text(
+                                                  'Aucun élève disponible '))
+                                          : ListView.builder(
+                                              scrollDirection: Axis.vertical,
+                                              shrinkWrap: true,
+                                              itemCount:
+                                                  studentsListView.length,
+                                              itemBuilder: (context, index) =>
+                                                  Card(
+                                                child: CheckboxListTile(
+                                                  enabled:
+                                                      studentsListView[index]
+                                                          .isEnabled,
+                                                  controlAffinity:
+                                                      ListTileControlAffinity
+                                                          .leading,
+                                                  value: studentsListView[index]
+                                                      .isSelected,
+                                                  title: Text(
+                                                      '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
+                                                  subtitle: Text(
+                                                      studentsListView[index]
+                                                          .job),
+                                                  onChanged: (newValue) {
+                                                    setState(() {
+                                                      studentsListView[index]
+                                                              .isSelected =
+                                                          newValue!;
 
-                              //                     for (var e
-                              //                         in availableLockers) {
-                              //                       if (!newValue) {
-                              //                         e.isEnabled = true;
-                              //                         isALockerSelected = false;
-                              //                       } else {
-                              //                         if (!e.isSelected) {
-                              //                           e.isEnabled = false;
-                              //                           isALockerSelected =
-                              //                               true;
-                              //                         }
-                              //                       }
-                              //                     }
-                              //                     checkIfAStudentAndALockerAreSelected();
-                              //                   });
-                              //                 },
-                              //               ),
-                              //             ),
-                              //           )),
+                                                      if (studentsListView[
+                                                              index]
+                                                          .isSelected) {
+                                                        selectedStudents.add(
+                                                            studentsListView[
+                                                                index]);
+                                                      } else {
+                                                        selectedStudents.remove(
+                                                            studentsListView[
+                                                                index]);
+                                                        areAllchecksChecked =
+                                                            false;
+                                                      }
+
+                                                      checkIfAStudentAndALockerAreSelected();
+                                                      checkIf2CheckBoxesAreChecked();
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  child: Column(children: [
+                                    availableLockers.isEmpty
+                                        ? const Center(
+                                            heightFactor: 50,
+                                            child: Text(
+                                                'Aucun casier disponible '))
+                                        : ListView.builder(
+                                            scrollDirection: Axis.vertical,
+                                            shrinkWrap: true,
+                                            itemCount: availableLockers.length,
+                                            itemBuilder: (context, index) =>
+                                                Card(
+                                              child: CheckboxListTile(
+                                                enabled: availableLockers[index]
+                                                    .isEnabled,
+                                                controlAffinity:
+                                                    ListTileControlAffinity
+                                                        .leading,
+                                                value: availableLockers[index]
+                                                    .isSelected,
+                                                title: Text(
+                                                    availableLockers[index]
+                                                        .lockerNumber
+                                                        .toString()),
+                                                subtitle: Text(
+                                                    'Étage ${availableLockers[index].floor.toUpperCase()}'),
+                                                onChanged: (newValue) {
+                                                  setState(() {
+                                                    availableLockers[index]
+                                                        .isSelected = newValue!;
+
+                                                    for (var e
+                                                        in availableLockers) {
+                                                      if (!newValue) {
+                                                        e.isEnabled = true;
+                                                        isALockerSelected =
+                                                            false;
+                                                      } else {
+                                                        if (!e.isSelected) {
+                                                          e.isEnabled = false;
+                                                          isALockerSelected =
+                                                              true;
+                                                        }
+                                                      }
+                                                    }
+                                                    checkIfAStudentAndALockerAreSelected();
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          )
+                                  ]),
+                                ),
+                              ),
                             ]),
                       ],
                     ),
@@ -388,6 +397,10 @@ class _AssignListViewState extends State<AssignListView> {
                                 margin: const EdgeInsets.only(
                                     top: 20.0, left: 10.0),
                                 child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.black54),
+                                  ),
                                   onPressed: () {
                                     keys.clear();
 
@@ -440,70 +453,90 @@ class _AssignListViewState extends State<AssignListView> {
                             ),
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  bottom: 20.0, top: 30.0),
-                              child: ElevatedButton.icon(
-                                icon: const Icon(Icons.done),
-                                label: const Text('Attribuer'),
-                                onPressed: _isConfirmButtonEnabled
-                                    ? () {
-                                        late Locker locker;
-                                        late Student student;
+                        Container(
+                          margin: EdgeInsets.only(top: 20.0),
+                          child: Wrap(
+                            spacing: 30,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 20),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  // height: 60,
+                                  child: ElevatedButton.icon(
+                                    icon: const Icon(Icons.done),
+                                    label: const Text('Attribuer'),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.black54),
+                                    ),
+                                    onPressed: _isConfirmButtonEnabled
+                                        ? () {
+                                            late Locker locker;
+                                            late Student student;
 
-                                        for (var l in availableLockers) {
-                                          if (l.isSelected) {
-                                            locker = l;
+                                            for (var l in availableLockers) {
+                                              if (l.isSelected) {
+                                                locker = l;
+                                              }
+                                            }
+                                            for (var s in studentsListView) {
+                                              if (s.isSelected) {
+                                                student = s;
+                                              }
+                                            }
+                                            Provider.of<LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .attributeLocker(
+                                                    locker, student);
+
+                                            for (var e in availableLockers) {
+                                              e.isEnabled = true;
+                                            }
+                                            for (var e in studentsListView) {
+                                              e.isEnabled = true;
+                                            }
+
+                                            setState(() {
+                                              // A changer
+                                              isStudentsListViewInit = false;
+                                              filterStudents(keys, values);
+                                            });
                                           }
-                                        }
-                                        for (var s in studentsListView) {
-                                          if (s.isSelected) {
-                                            student = s;
-                                          }
-                                        }
-                                        Provider.of<LockerStudentProvider>(
-                                                context,
-                                                listen: false)
-                                            .attributeLocker(locker, student);
-
-                                        for (var e in availableLockers) {
-                                          e.isEnabled = true;
-                                        }
-                                        for (var e in studentsListView) {
-                                          e.isEnabled = true;
-                                        }
-
-                                        setState(() {
-                                          // A changer
-                                          isStudentsListViewInit = false;
-                                          filterStudents(keys, values);
-                                        });
-                                      }
-                                    : null,
+                                        : null,
+                                  ),
+                                ),
                               ),
-                            ),
-                            ElevatedButton.icon(
-                              label: const Text('Attribuer Automatiquement'),
-                              icon: const Icon(Icons.done_all),
-                              onPressed: _isAutoAttributeButtonEnabled
-                                  ? () {
-                                      Provider.of<LockerStudentProvider>(
-                                              context,
-                                              listen: false)
-                                          .autoAttributeLocker(
-                                              selectedStudents);
-                                      setState(() {
-                                        isStudentsListViewInit = false;
-                                        filterStudents(keys, values);
-                                      });
-                                    }
-                                  : null,
-                            ),
-                          ],
+                              SizedBox(
+                                // height: 60,
+                                width: double.infinity,
+                                child: ElevatedButton.icon(
+                                  label:
+                                      const Text('Attribuer Automatiquement'),
+                                  icon: const Icon(Icons.done_all),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.black54),
+                                  ),
+                                  onPressed: _isAutoAttributeButtonEnabled
+                                      ? () {
+                                          Provider.of<LockerStudentProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .autoAttributeLocker(
+                                                  selectedStudents);
+                                          setState(() {
+                                            isStudentsListViewInit = false;
+                                            filterStudents(keys, values);
+                                          });
+                                        }
+                                      : null,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
