@@ -56,7 +56,7 @@ class _StudentsListViewState extends State<StudentsListView> {
   @override
   Widget build(BuildContext context) {
     studentsByYear =
-        Provider.of<LockerStudentProvider>(context).getStudentByYear();
+        Provider.of<LockerStudentProvider>(context).mapStudentByYear();
 
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => true);
