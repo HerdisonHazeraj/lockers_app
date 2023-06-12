@@ -343,30 +343,18 @@ class LockerStudentProvider with ChangeNotifier {
   List<Locker> sortLockerBy(String key, bool value, List<Locker> lockers) {
     List<Locker> sortedLocker = lockers;
     if (key.isNotEmpty && value.isDefinedAndNotNull) {
-      if (int.tryParse(sortedLocker[0].toJson()[key]).isDefinedAndNotNull) {
-        if (value) {
-          sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString())
-                  .isNull
-              ? a.toJson()[key].toString().compareTo(b.toJson()[key].toString())
-              : int.parse(a.toJson()[key].toString())
-                  .compareTo(int.parse(b.toJson()[key].toString())));
-        } else {
-          sortedLocker.sort((a, b) =>
-              int.tryParse(a.toJson()[key].toString()).isNull
-                  ? -a
-                      .toJson()[key]
-                      .toString()
-                      .compareTo(b.toJson()[key].toString())
-                  : -int.parse(a.toJson()[key].toString())
-                      .compareTo(int.parse(b.toJson()[key].toString())));
-        }
-      }
       if (value) {
-        sortedLocker.sort((a, b) =>
-            a.toJson()[key].hashCode.compareTo(b.toJson()[key].hashCode));
+        sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString())
+                .isNull
+            ? a.toJson()[key].toString().compareTo(b.toJson()[key].toString())
+            : int.parse(a.toJson()[key].toString())
+                .compareTo(int.parse(b.toJson()[key].toString())));
       } else {
-        sortedLocker.sort((a, b) =>
-            -a.toJson()[key].hashCode.compareTo(b.toJson()[key].hashCode));
+        sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString())
+                .isNull
+            ? -a.toJson()[key].toString().compareTo(b.toJson()[key].toString())
+            : -int.parse(a.toJson()[key].toString())
+                .compareTo(int.parse(b.toJson()[key].toString())));
       }
       return sortedLocker;
     }

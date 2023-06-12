@@ -133,6 +133,7 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                     floor: floorController.text,
                     job: jobController.text,
                     remark: remarkController.text,
+                    isAvailable: true,
                   );
 
                   Provider.of<LockerStudentProvider>(context, listen: false)
