@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lockers_app/providers/lockers_student_provider.dart';
+
 import 'package:lockers_app/screens/assignation/menu_widgets/dropdown_item_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/filter_element.dart';
-import 'package:provider/provider.dart';
+
 import '../../../models/locker.dart';
 import '../../../models/student.dart';
 
@@ -15,7 +15,8 @@ class ActionBarWidget extends StatefulWidget {
       required this.studentsListView,
       required this.selectedStudents,
       required this.isStudentsListViewInit,
-      required this.filterStudentsVoid});
+      required this.filterStudentsVoid,
+      required this.changeLockerListStateVoid});
 
   List<Locker> availableLockers;
   List<Student> studentsListView;
@@ -25,6 +26,8 @@ class ActionBarWidget extends StatefulWidget {
   bool isStudentsListViewInit;
 
   final Function(List<List> keys, List<List> values) filterStudentsVoid;
+  final Function(TextEditingController sortController,
+      TextEditingController orderController) changeLockerListStateVoid;
 
   @override
   State<ActionBarWidget> createState() => _ActionBarWidgetState();
@@ -182,14 +185,17 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  child: Text(
-                    "Trier les casiers",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                      height: 1.3,
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    child: Text(
+                      "Trier les casiers",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w500,
+                        height: 1.3,
+                      ),
                     ),
                   ),
                 ),
@@ -214,14 +220,17 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     width: double.infinity,
                     child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            Provider.of<LockerStudentProvider>(context,
-                                    listen: false)
-                                .sortLockerBy(
-                                    sortController.text,
-                                    orderController.text == "1" ? true : false,
-                                    widget.availableLockers);
-                          });
+                          widget.changeLockerListStateVoid(
+                              sortController, orderController);
+
+                          // setState(() {
+                          //   Provider.of<LockerStudentProvider>(context,
+                          //           listen: false)
+                          //       .sortLockerBy(
+                          //           sortController.text,
+                          //           orderController.text == "1" ? true : false,
+                          //           widget.availableLockers);
+                          // });
                         },
                         style: ButtonStyle(
                           backgroundColor:

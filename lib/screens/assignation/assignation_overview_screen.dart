@@ -35,8 +35,9 @@ class AssignListView extends StatefulWidget {
 class _AssignListViewState extends State<AssignListView> {
   _AssignListViewState();
 
-  //Liste affichant les élèves dans l'application
+  //Liste affichant les élèves et les casiers dans l'application
   List<Student> studentsListView = [];
+  List<Locker> lockersListView = [];
 
   bool _isAutoAttributeButtonEnabled = false;
   bool _isConfirmButtonEnabled = false;
@@ -44,6 +45,7 @@ class _AssignListViewState extends State<AssignListView> {
   bool isALockerSelected = false;
 
   bool isStudentsListViewInit = false;
+  bool isLockersListViewInit = false;
 
   bool isExpandedVisible = false;
 
@@ -57,10 +59,12 @@ class _AssignListViewState extends State<AssignListView> {
 //Liste allant recevoir les différents filtres voulus
   List<Student> filtredStudent = [];
 
+  List<Student> sortedLockers = [];
+
   @override
   Widget build(BuildContext context) {
-    final availableLockers =
-        Provider.of<LockerStudentProvider>(context).getAvailableLockers();
+    // final lockersListView =
+    //     Provider.of<LockerStudentProvider>(context).getAvailableLockers();
 
     void filterStudents(keys, values) {
       setState(() {
@@ -73,6 +77,14 @@ class _AssignListViewState extends State<AssignListView> {
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
+    }
+
+    //test si lockerslistview est initialisé
+    if (!isLockersListViewInit) {
+      final availableLockers =
+          Provider.of<LockerStudentProvider>(context).getAvailableLockers();
+      lockersListView = availableLockers;
+      isLockersListViewInit = true;
     }
 
     //test si studentslistview est initialisé ou que certaines options ont été appliquées
@@ -96,12 +108,12 @@ class _AssignListViewState extends State<AssignListView> {
         if (selectedStudents.length >= 2) {
           _isAutoAttributeButtonEnabled = true;
           _isConfirmButtonEnabled = false;
-          for (var locker in availableLockers) {
+          for (var locker in lockersListView) {
             locker.isEnabled = false;
             locker.isSelected = false;
           }
         } else if (selectedStudents.isEmpty && !isALockerSelected) {
-          for (var locker in availableLockers) {
+          for (var locker in lockersListView) {
             // if(lock)
 
             locker.isEnabled = true;
@@ -125,9 +137,9 @@ class _AssignListViewState extends State<AssignListView> {
 
     void changeCheckBoxesLockerStates(index, newValue) {
       setState(() {
-        availableLockers[index].isSelected = newValue!;
+        lockersListView[index].isSelected = newValue!;
 
-        for (var locker in availableLockers) {
+        for (var locker in lockersListView) {
           if (!newValue) {
             locker.isEnabled = true;
             isALockerSelected = false;
@@ -138,6 +150,17 @@ class _AssignListViewState extends State<AssignListView> {
             }
           }
         }
+      });
+    }
+
+    void changeLockerListState(sortController, orderController) {
+      setState(() {
+        lockersListView =
+            Provider.of<LockerStudentProvider>(context, listen: false)
+                .sortLockerBy(
+                    sortController.text,
+                    orderController.text == "1" ? true : false,
+                    lockersListView);
       });
     }
 
@@ -209,7 +232,7 @@ class _AssignListViewState extends State<AssignListView> {
                                         late Locker locker;
                                         late Student student;
 
-                                        for (var l in availableLockers) {
+                                        for (var l in lockersListView) {
                                           if (l.isSelected) {
                                             locker = l;
                                           }
@@ -224,7 +247,7 @@ class _AssignListViewState extends State<AssignListView> {
                                                 listen: false)
                                             .attributeLocker(locker, student);
 
-                                        for (var e in availableLockers) {
+                                        for (var e in lockersListView) {
                                           e.isEnabled = true;
                                         }
                                         for (var e in studentsListView) {
@@ -234,6 +257,8 @@ class _AssignListViewState extends State<AssignListView> {
                                       setState(() {
                                         _isAutoAttributeButtonEnabled = false;
                                         _isConfirmButtonEnabled = false;
+
+                                        isLockersListViewInit = false;
 
                                         isStudentsListViewInit = false;
                                         filterStudents(keys, values);
@@ -255,7 +280,7 @@ class _AssignListViewState extends State<AssignListView> {
                                     checkIfWeCanAutoAssign,
                               ),
                               AvailableLockersListWidget(
-                                  availableLockers: availableLockers,
+                                  availableLockers: lockersListView,
                                   isALockerSelected: isALockerSelected,
                                   checkIfWeCanAssignVoid: checkIfWeCanAssign,
                                   changeCheckBoxesLockerStatesVoid:
@@ -272,12 +297,14 @@ class _AssignListViewState extends State<AssignListView> {
             ActionBarWidget(
                 keys: keys,
                 values: values,
-                availableLockers: availableLockers,
+                availableLockers: lockersListView,
                 studentsListView: studentsListView,
                 selectedStudents: selectedStudents,
                 isStudentsListViewInit: isStudentsListViewInit,
                 filterStudentsVoid: (keys, values) =>
-                    filterStudents(keys, values)),
+                    filterStudents(keys, values),
+                changeLockerListStateVoid: (sortController, orderController) =>
+                    changeLockerListState(sortController, orderController)),
           ],
         ),
       ),
