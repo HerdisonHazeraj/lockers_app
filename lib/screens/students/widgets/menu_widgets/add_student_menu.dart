@@ -110,6 +110,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                           "3": "3ème année",
                           "4": "4ème année",
                         },
+                        defaultItem: "Année...",
                         icon: Icons.calendar_today,
                         onChanged: (value) {
                           setState(() {

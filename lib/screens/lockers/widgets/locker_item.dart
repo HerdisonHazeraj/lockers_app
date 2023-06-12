@@ -4,8 +4,8 @@ import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/student.dart';
-import 'locker_details_screen.dart';
+import '../../../models/student.dart';
+import '../locker_details_screen.dart';
 
 class LockerItem extends StatefulWidget {
   final Locker locker;
