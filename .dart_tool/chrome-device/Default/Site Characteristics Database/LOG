@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2023/06/12-07:52:40.876 1720 Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.e75ea8fd\flutter_tools_chrome_device.1553a667\Default\Site Characteristics Database/MANIFEST-000001
 2023/06/12-07:52:40.876 1720 Recovering log #10
 2023/06/12-07:52:40.876 1720 Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.e75ea8fd\flutter_tools_chrome_device.1553a667\Default\Site Characteristics Database/000010.log 
@@ -25,3 +26,12 @@
 2023/06/07-08:04:58.981 2c64 Delete type=0 #6
 >>>>>>> Elias
 >>>>>>> d37dbcdd6fc2735d072b5d7af035a7e19d750a00
+=======
+2023/06/12-10:52:48.767 3fb8 Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.b4742dc3\flutter_tools_chrome_device.ceb20a2b\Default\Site Characteristics Database/MANIFEST-000001
+2023/06/12-10:52:48.768 3fb8 Recovering log #10
+2023/06/12-10:52:48.768 3fb8 Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.b4742dc3\flutter_tools_chrome_device.ceb20a2b\Default\Site Characteristics Database/000010.log 
+2023/06/12-10:52:48.768 3fb8 Delete type=0 #3
+2023/06/12-10:52:48.768 3fb8 Delete type=2 #4
+2023/06/12-10:52:48.768 3fb8 Delete type=2 #6
+2023/06/12-10:52:48.768 3fb8 Delete type=0 #6
+>>>>>>> Timo

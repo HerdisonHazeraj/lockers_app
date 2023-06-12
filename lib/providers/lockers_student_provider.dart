@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:js_interop';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../infrastructure/db_service.dart';
@@ -44,7 +47,6 @@ class LockerStudentProvider with ChangeNotifier {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);
     _lastLockerItems.add(data);
-    updateLatestLocker();
     notifyListeners();
   }
 
@@ -54,7 +56,6 @@ class LockerStudentProvider with ChangeNotifier {
       final newLocker = await dbService.updateLocker(updatedLocker);
       _lockerItems[lockerIndex] = newLocker;
       updateLatestLocker();
-
       notifyListeners();
     }
   }
@@ -63,14 +64,14 @@ class LockerStudentProvider with ChangeNotifier {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
     _lockerItems.remove(item);
-    updateLatestLocker();
+    // deleteLatestLocker();
     notifyListeners();
   }
 
   Future<void> insertLocker(int index, Locker locker) async {
     await dbService.updateLocker(locker);
     _lockerItems.insert(index, locker);
-    updateLatestLocker();
+    // insertLatestLocker();
     notifyListeners();
   }
 
@@ -123,14 +124,14 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
-    updateLatestStudent;
+    // deleteLatestStudent();
     notifyListeners();
   }
 
   Future<void> insertStudent(int index, Student student) async {
     await dbService.updateStudent(student);
     _studentItems.insert(index, student);
-    updateLatestStudent();
+    // insertLatestStudent();
     notifyListeners();
   }
 
@@ -147,7 +148,7 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
-  Map<String, List<Student>> getStudentByYear() {
+  Map<String, List<Student>> mapStudentByYear() {
     Map<String, List<Student>> map = {};
     map['1'] = studentItems.where((element) => element.year == 1).toList();
     map['2'] = studentItems.where((element) => element.year == 2).toList();
@@ -204,7 +205,6 @@ class LockerStudentProvider with ChangeNotifier {
       "c": 2,
       "b": 3,
       "e": 4,
-      "f": 5,
     };
     final lockers = getAvailableLockers();
     lockers.sort(
@@ -219,18 +219,30 @@ class LockerStudentProvider with ChangeNotifier {
     }
   }
 
+  Map<String, List<Locker>> mapLockerByFloor() {
+    Map<String, List<Locker>> map = {};
+    map["a"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "a")
+        .toList();
+    map["b"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "b")
+        .toList();
+    map["c"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "c")
+        .toList();
+    map["d"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "d")
+        .toList();
+    map["e"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "e")
+        .toList();
+    return map;
+  }
+
   List<Locker> getLockerLessThen2Key() {
     List<Locker> lockers =
         lockerItems.where((element) => element.nbKey < 2).toList();
     return lockers;
-  }
-
-  List<Locker> getLastAddedLockers() {
-    List<Locker> lastLocker = [];
-    for (var i = lockerItems.length - 10; i < lockerItems.length; i++) {
-      lastLocker.add(lockerItems[i]);
-    }
-    return lastLocker;
   }
 
   Future<void> updateLatestStudent() async {
@@ -243,6 +255,18 @@ class LockerStudentProvider with ChangeNotifier {
     }
   }
 
+  Future<void> deleteLatestStudent(String id) async {
+    await dbService.deleteStudent(id);
+    _studentItems.removeWhere((student) => student.id == id);
+    notifyListeners();
+  }
+
+  Future<void> insertLatestStudent(int index, Student student) async {
+    await dbService.updateStudent(student);
+    _studentItems.insert(index, student);
+    notifyListeners();
+  }
+
   Future<void> updateLatestLocker() async {
     for (var lastStudent in lastStudentItems) {
       for (var student in studentItems) {
@@ -251,6 +275,19 @@ class LockerStudentProvider with ChangeNotifier {
         }
       }
     }
+  }
+
+  Future<void> deleteLatestLocker(String id) async {
+    await dbService.deleteLocker(id);
+    Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
+    _lockerItems.remove(item);
+    notifyListeners();
+  }
+
+  Future<void> insertLatestLocker(int index, Locker locker) async {
+    await dbService.updateLocker(locker);
+    _lockerItems.insert(index, locker);
+    notifyListeners();
   }
 
   List<Locker> getLockerbyFloor(String floor) {
@@ -307,6 +344,54 @@ class LockerStudentProvider with ChangeNotifier {
     return startList;
   }
 
+  List<Locker> sortLockerBy(String key, bool value, List<Locker> lockers) {
+    List<Locker> sortedLocker = lockers;
+    if (key.isNotEmpty && value.isDefinedAndNotNull) {
+      if (int.tryParse(sortedLocker[0].toJson()[key]).isDefinedAndNotNull) {
+        if (value) {
+          sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString())
+                  .isNull
+              ? a.toJson()[key].toString().compareTo(b.toJson()[key].toString())
+              : int.parse(a.toJson()[key].toString())
+                  .compareTo(int.parse(b.toJson()[key].toString())));
+        } else {
+          sortedLocker.sort((a, b) =>
+              int.tryParse(a.toJson()[key].toString()).isNull
+                  ? -a
+                      .toJson()[key]
+                      .toString()
+                      .compareTo(b.toJson()[key].toString())
+                  : -int.parse(a.toJson()[key].toString())
+                      .compareTo(int.parse(b.toJson()[key].toString())));
+        }
+      }
+      if (value) {
+        sortedLocker.sort((a, b) =>
+            a.toJson()[key].hashCode.compareTo(b.toJson()[key].hashCode));
+      } else {
+        sortedLocker.sort((a, b) =>
+            -a.toJson()[key].hashCode.compareTo(b.toJson()[key].hashCode));
+      }
+      return sortedLocker;
+    }
+    return [];
+  }
+
+  List<Student> sortStudentBy(String key, bool value, List<Student> students) {
+    List<Student> sortedStudent = students;
+    if (key.isNotEmpty && value.isDefinedAndNotNull) {
+      if (value) {
+        sortedStudent.sort(
+            (a, b) => a.toJson()[key].toString().compareTo(b.toJson()[key]));
+      } else {
+        sortedStudent.sort(
+            (a, b) => -a.toJson()[key].toString().compareTo(b.toJson()[key]));
+      }
+      return sortedStudent;
+    }
+    return [];
+  }
+
   Future<void> promoteStudent(List<Student> students) async {
     for (var element in students) {
       if (element.year != 4) {
@@ -346,6 +431,22 @@ class LockerStudentProvider with ChangeNotifier {
                   .contains(value.toString().toLowerCase().trim()))
           .toList();
       return filtredStudent;
+    }
+    return [];
+  }
+
+  List<Locker> searchLockers(value) {
+    List<Locker> filtredLocker = [];
+    List<Locker> lockers = [];
+    if (value != "") {
+      lockers = _lockerItems;
+      filtredLocker = lockers
+          .where((element) => element.lockerNumber
+              .toString()
+              .toLowerCase()
+              .contains(value.toString().toLowerCase().trim()))
+          .toList();
+      return filtredLocker;
     }
     return [];
   }

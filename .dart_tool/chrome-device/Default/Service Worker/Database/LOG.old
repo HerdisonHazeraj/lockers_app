@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2023/06/07-10:51:38.170 1f54 Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.628fbdce\flutter_tools_chrome_device.c6c40b8\Default\Service Worker\Database/MANIFEST-000001
 2023/06/07-10:51:38.171 1f54 Recovering log #3
 2023/06/07-10:51:38.171 1f54 Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.628fbdce\flutter_tools_chrome_device.c6c40b8\Default\Service Worker\Database/000003.log 
@@ -13,3 +14,8 @@
 2023/06/07-08:01:26.518 1784 Reusing old log C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.e0a541ee\flutter_tools_chrome_device.3cba02a6\Default\Service Worker\Database/000003.log 
 >>>>>>> Elias
 >>>>>>> d37dbcdd6fc2735d072b5d7af035a7e19d750a00
+=======
+2023/06/12-10:15:43.483 c98 Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.71a80918\flutter_tools_chrome_device.86a147a6\Default\Service Worker\Database/MANIFEST-000001
+2023/06/12-10:15:43.483 c98 Recovering log #3
+2023/06/12-10:15:43.484 c98 Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.71a80918\flutter_tools_chrome_device.86a147a6\Default\Service Worker\Database/000003.log 
+>>>>>>> Timo

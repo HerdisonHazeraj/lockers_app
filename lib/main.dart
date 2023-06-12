@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
-import 'package:lockers_app/screens/components/drawer_app.dart';
-import 'package:lockers_app/screens/components/prepare_database_app.dart';
-import 'package:lockers_app/screens/components/side_menu_app.dart';
+import 'package:lockers_app/screens/core/components/drawer_app.dart';
+import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
+import 'package:lockers_app/screens/core/components/side_menu_app.dart';
 import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/lockers/locker_details_screen.dart';
 import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/promotions/promotion_overview_screen.dart';
-import 'package:lockers_app/screens/students/student_details_screen.dart';
 import 'package:lockers_app/screens/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -59,8 +58,6 @@ class MyApp extends StatelessWidget {
               StudentsOverviewScreen(),
           LockerDetailsScreen.routeName: (context) =>
               const LockerDetailsScreen(),
-          StudentDetailsScreen.routeName: (context) =>
-              const StudentDetailsScreen(),
         },
         home: const MyWidget(),
       ),
@@ -90,7 +87,6 @@ class _MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
     return Responsive.isDesktop(context)
-
         // Version desktop
         ? Scaffold(
             body: Row(

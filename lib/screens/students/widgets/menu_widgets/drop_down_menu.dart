@@ -4,15 +4,17 @@ class DropDownMenu extends StatelessWidget {
   const DropDownMenu({
     super.key,
     required this.items,
+    required this.defaultItem,
     required this.icon,
     required this.onChanged,
-    this.defaultItem,
+    this.defaultChoosedItem,
   });
 
   final Map<String, String> items;
-  final String? defaultItem;
+  final String defaultItem;
   final IconData icon;
   final Function(String?) onChanged;
+  final String? defaultChoosedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +22,13 @@ class DropDownMenu extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
       ),
-      hint: const Text("Choisir..."),
+      hint: Text(defaultItem),
       iconSize: 36,
       icon: const Icon(
         Icons.arrow_drop_down,
         color: Colors.black54,
       ),
-      value: defaultItem,
+      value: defaultChoosedItem,
       isExpanded: true,
       items: items.entries
           .map(

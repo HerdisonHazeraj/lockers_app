@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/locker.dart';
-import 'package:lockers_app/responsive.dart';
-import 'package:lockers_app/screens/components/drawer_app.dart';
-import 'package:lockers_app/screens/lockers/locker_item.dart';
+import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/lockers/widgets/locker_item.dart';
+import 'package:lockers_app/screens/lockers/widgets/locker_update.dart';
+import 'package:lockers_app/screens/lockers/widgets/lockers_menu.dart';
 import 'package:provider/provider.dart';
-
-import '../../providers/lockers_student_provider.dart';
 
 class LockersOverviewScreen extends StatefulWidget {
   const LockersOverviewScreen({super.key});
@@ -17,176 +16,249 @@ class LockersOverviewScreen extends StatefulWidget {
 }
 
 class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: LockersListView(),
-    );
-  }
-}
+  bool isInit = false;
 
-class LockersListView extends StatelessWidget {
-  LockersListView({super.key});
+  // Tools for lockers by search
+  late bool isExpSearch = false;
+  late List<Locker> searchedLockers = [];
+  late String searchValue = "";
 
-  final lockerNumberController = TextEditingController();
-  final floorController = TextEditingController();
-  final remarkController = TextEditingController();
-  final keysNumberController = TextEditingController();
+  // Tools for lockers by year
+  late List<bool> isExpFloor;
+  late Map<String, List<Locker>> lockersByFloor;
 
   @override
   Widget build(BuildContext context) {
-    final lockers = Provider.of<LockerStudentProvider>(context).lockerItems;
+    lockersByFloor =
+        Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
+
+    if (!isInit) {
+      isExpFloor = List.generate(lockersByFloor.length, (index) => true);
+      isInit = true;
+    }
+
+    searchLockers(String value) {
+      setState(() {
+        searchedLockers =
+            Provider.of<LockerStudentProvider>(context, listen: false)
+                .searchLockers(value);
+        searchValue = value;
+      });
+
+      if (searchValue.isNotEmpty) {
+        isExpSearch = true;
+      } else {
+        isExpSearch = false;
+      }
+    }
+
+    refreshList() {
+      setState(() {
+        searchLockers(searchValue);
+      });
+    }
+
+    showUpdateForm(Locker l) {
+      setState(() {
+        l.isUpdating = !l.isUpdating;
+        refreshList();
+      });
+    }
+
+    showUpdateFormSearch(Locker l) {
+      setState(() {
+        l.isUpdatingSearch = !l.isUpdatingSearch;
+      });
+    }
+
     return Scaffold(
-      appBar: Responsive.isMobile(context)
-          ? AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              iconTheme: const IconThemeData(color: Colors.black),
-            )
-          : null,
-      drawer: const DrawerApp(),
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: lockers.length,
-                    itemBuilder: (context, index) => Column(
+      body: SafeArea(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 10,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        LockerItem(lockers[index]),
-                        const Divider(),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpSearch = !isExpSearch;
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6.0),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ExpansionPanel(
+                                  isExpanded: isExpSearch,
+                                  canTapOnHeader: true,
+                                  headerBuilder: (context, isExpanded) {
+                                    return ListTile(
+                                      title: Text(
+                                        "Résultats de recherche (${searchedLockers.length.toString()})",
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    );
+                                  },
+                                  body: searchedLockers.isEmpty
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              const Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Aucun résultat",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : ExpansionPanelList(
+                                          expansionCallback:
+                                              (int index, bool isExpanded) {
+                                            setState(() {
+                                              searchedLockers[index]
+                                                      .isUpdatingSearch =
+                                                  !searchedLockers[index]
+                                                      .isUpdatingSearch;
+                                            });
+                                          },
+                                          expandedHeaderPadding:
+                                              const EdgeInsets.all(0),
+                                          animationDuration:
+                                              const Duration(milliseconds: 500),
+                                          children: [
+                                            ...searchedLockers.map(
+                                              (l) => ExpansionPanel(
+                                                isExpanded: l.isUpdatingSearch,
+                                                canTapOnHeader: true,
+                                                headerBuilder:
+                                                    (context, isExpanded) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            6.0),
+                                                    child: LockerItem(
+                                                      locker: l,
+                                                    ),
+                                                  );
+                                                },
+                                                body: l.isUpdatingSearch
+                                                    ? LockerUpdate(
+                                                        locker: l,
+                                                        showUpdateForm: () =>
+                                                            showUpdateFormSearch(
+                                                                l),
+                                                      )
+                                                    : const SizedBox(),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpFloor[index] = !isExpFloor[index];
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6.0),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ...lockersByFloor.entries.map(
+                                  (e) => ExpansionPanel(
+                                    isExpanded: isExpFloor[lockersByFloor.keys
+                                        .toList()
+                                        .indexOf(e.key)],
+                                    canTapOnHeader: true,
+                                    headerBuilder: (context, isExpanded) {
+                                      return ListTile(
+                                        title: Text(
+                                          'Tous les casiers de l\'étage ${e.key.toUpperCase()}',
+                                          style: const TextStyle(fontSize: 18),
+                                        ),
+                                      );
+                                    },
+                                    body: ExpansionPanelList(
+                                      expansionCallback:
+                                          (int index, bool isExpanded) {
+                                        setState(() {
+                                          e.value[index].isUpdating =
+                                              !e.value[index].isUpdating;
+                                        });
+                                      },
+                                      expandedHeaderPadding:
+                                          const EdgeInsets.all(0),
+                                      animationDuration:
+                                          const Duration(milliseconds: 500),
+                                      children: [
+                                        ...e.value.map(
+                                          (l) => ExpansionPanel(
+                                            isExpanded: l.isUpdating,
+                                            canTapOnHeader: true,
+                                            headerBuilder:
+                                                (context, isExpanded) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(6.0),
+                                                child: LockerItem(
+                                                  locker: l,
+                                                  refreshList: () =>
+                                                      refreshList(),
+                                                ),
+                                              );
+                                            },
+                                            body: l.isUpdating == true
+                                                ? LockerUpdate(
+                                                    locker: l,
+                                                    showUpdateForm: () =>
+                                                        showUpdateForm(l),
+                                                  )
+                                                : const SizedBox(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.add),
-                  title: const Text('Ajouter un casier'),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Ajouter un casier'),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              controller: lockerNumberController,
-                              decoration: const InputDecoration(
-                                labelText: 'Numéro du casier',
-                              ),
-                              keyboardType: TextInputType.number,
-                            ),
-                            TextField(
-                              controller: floorController,
-                              decoration: const InputDecoration(
-                                labelText: 'Étage',
-                              ),
-                              keyboardType: TextInputType.text,
-                            ),
-                            TextField(
-                              controller: remarkController,
-                              decoration: const InputDecoration(
-                                labelText: 'Remarque (facultatif)',
-                              ),
-                              keyboardType: TextInputType.text,
-                            ),
-                            TextField(
-                              controller: keysNumberController,
-                              decoration: const InputDecoration(
-                                labelText: 'Nombre de clés',
-                              ),
-                              keyboardType: TextInputType.number,
-                            ),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Annuler'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Locker locker = Locker(
-                                  lockerNumber:
-                                      int.parse(lockerNumberController.text),
-                                  lockNumber:
-                                      int.parse(lockerNumberController.text),
-                                  idEleve: "",
-                                  floor: floorController.text,
-                                  remark: remarkController.text,
-                                  nbKey: int.parse(keysNumberController.text),
-                                  isAvailable: true,
-                                  job: 'ICT');
-
-                              Provider.of<LockerStudentProvider>(context,
-                                      listen: false)
-                                  .addLocker(locker);
-
-                              Navigator.of(context).pop();
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      'Le casier numéro ${locker.lockNumber} a été ajouté avec succès !'),
-                                  duration: const Duration(seconds: 3),
-                                ),
-                              );
-
-                              lockerNumberController.clear();
-                              floorController.clear();
-                              remarkController.clear();
-                              keysNumberController.clear();
-                            },
-                            child: const Text('Confirmer'),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ],
+              ),
             ),
-          ),
-          const Text('')
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Provider.of<LockersProvider>(context).deletedLocker == null
-          //       ? const Text('')
-          //       : Center(
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             children: [
-          //               Text(
-          //                 "Le casier n°${Provider.of<LockersProvider>(context).deletedLocker.lockNumber} a bien été supprimé.",
-          //               ),
-          //               TextButton(
-          //                 child: const Text(
-          //                   "Annuler",
-          //                 ),
-          //                 onPressed: () {
-          //                   Provider.of<LockersProvider>(context, listen: false)
-          //                       .insertLocker(
-          //                           Provider.of<LockersProvider>(context,
-          //                                   listen: false)
-          //                               .deletedLockerIndex,
-          //                           Provider.of<LockersProvider>(context,
-          //                                   listen: false)
-          //                               .deletedLocker);
-          //                   Provider.of<LockersProvider>(context, listen: false)
-          //                       .deletedLocker = null;
-          //                 },
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          // ),
-        ],
+            LockersMenu(
+              searchLockers: (value) => searchLockers(value),
+            ),
+          ],
+        ),
       ),
     );
   }
