@@ -93,7 +93,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         onPressed: () {
                                           setState(() {
                                             students.remove(student);
-
+                                            student.isFocus = false;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -114,6 +114,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         onPressed: () {
                                           setState(() {
                                             students.remove(student);
+                                            student.isFocus = false;
 
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
@@ -173,6 +174,9 @@ class _DashboardMenuState extends State<DashboardMenu> {
                               onExit: (event) => setState(() {
                                 locker.isFocus = false;
                               }),
+                              onHover: (event) => setState(() {
+                                locker.isFocus = true;
+                              }),
                               child: ListTile(
                                 title: Text(
                                   "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
@@ -198,6 +202,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         onPressed: () {
                                           setState(() {
                                             lockers.remove(locker);
+                                            locker.isFocus = false;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -218,6 +223,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         onPressed: () {
                                           setState(() {
                                             lockers.remove(locker);
+                                            locker.isFocus = false;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(

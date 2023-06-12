@@ -351,11 +351,11 @@ class LockerStudentProvider with ChangeNotifier {
     List<Locker> sortedLocker = lockers;
     if (key.isNotEmpty && value.isDefinedAndNotNull) {
       if (value) {
-        sortedLocker.sort(
-            (a, b) => a.toJson()[key].toString().compareTo(b.toJson()[key]));
+        sortedLocker.sort((a, b) =>
+            a.toJson()[key].toString().compareTo(b.toJson()[key].toString()));
       } else {
-        sortedLocker.sort(
-            (a, b) => -a.toJson()[key].toString().compareTo(b.toJson()[key]));
+        sortedLocker.sort((a, b) =>
+            -a.toJson()[key].toString().compareTo(b.toJson()[key].toString()));
       }
       return sortedLocker;
     }
