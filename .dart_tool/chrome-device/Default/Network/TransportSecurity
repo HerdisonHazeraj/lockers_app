@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"sts":[{"expiry":1718099504.656501,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686563504.656506}],"version":2}
+=======
+{"sts":[{"expiry":1718107164.937831,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686571164.937833}],"version":2}
+>>>>>>> Timo
