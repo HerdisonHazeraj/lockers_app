@@ -5,7 +5,6 @@ import 'dart:js_interop';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../infrastructure/db_service.dart';
@@ -221,17 +220,14 @@ class LockerStudentProvider with ChangeNotifier {
 
   Map<String, List<Locker>> mapLockerByFloor() {
     Map<String, List<Locker>> map = {};
-    map["a"] = lockerItems
-        .where((element) => element.floor.toLowerCase() == "a")
-        .toList();
-    map["b"] = lockerItems
-        .where((element) => element.floor.toLowerCase() == "b")
+    map["d"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "d")
         .toList();
     map["c"] = lockerItems
         .where((element) => element.floor.toLowerCase() == "c")
         .toList();
-    map["d"] = lockerItems
-        .where((element) => element.floor.toLowerCase() == "d")
+    map["b"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "b")
         .toList();
     map["e"] = lockerItems
         .where((element) => element.floor.toLowerCase() == "e")
