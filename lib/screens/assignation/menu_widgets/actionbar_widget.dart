@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/assignation/menu_widgets/dropdown_item_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/filter_element.dart';
+import 'package:provider/provider.dart';
+import '../../../models/locker.dart';
 import '../../../models/student.dart';
 
 class ActionBarWidget extends StatefulWidget {
@@ -14,8 +17,8 @@ class ActionBarWidget extends StatefulWidget {
       required this.isStudentsListViewInit,
       required this.filterStudentsVoid});
 
-  List availableLockers;
-  List studentsListView;
+  List<Locker> availableLockers;
+  List<Student> studentsListView;
   List<List> keys;
   List<List> values;
   List<Student> selectedStudents;
@@ -210,7 +213,9 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                   child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // Provider.of<LockerStudentProvider>(context).sortLockerBy(sortController.text, orderController.text=="1"?true:false, widget.availableLockers)
+                        },
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.black54),
