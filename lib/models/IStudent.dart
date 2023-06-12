@@ -3,4 +3,5 @@ class IStudent {
   bool isEnabled = true;
   bool isFocus = false;
   bool isUpdating = false;
+  bool isUpdatingSearch = false;
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/screens/students/widgets/menu_widgets/add_student_menu.dart';
-import 'package:lockers_app/screens/students/widgets/menu_widgets/divider_menu.dart';
+import 'package:lockers_app/screens/shared/widgets/divider_menu.dart';
 import 'package:lockers_app/screens/students/widgets/menu_widgets/import_student_menu.dart';
 import 'package:lockers_app/screens/students/widgets/menu_widgets/search_student_menu.dart';
 

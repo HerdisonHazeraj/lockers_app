@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+{"sts":[{"expiry":1688719400.046836,"host":"EDaVpPgD6jLqbY9TZW3aNxeHnTpfB+0+pfRU2vvq+oI=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686127400.046839},{"expiry":1717663381.113896,"host":"M4bfUnCmQAi4PNb3B8aI/2+SVJhHKsMfMMT7fzi6ij4=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686127381.113898},{"expiry":1701679381.214263,"host":"Xc7cAsRjFQUXG8/xQb0o1ow0EUOMwBW74DhuET/ajqs=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686127381.214264},{"expiry":1717660036.038748,"host":"nAuqgR4iEWti7SOdT3UHPl6rmZU/DeaIm38P2O2OkgA=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686124036.03875},{"expiry":1717663380.817124,"host":"5EdUoB7YUY9zZV+2DkgVXgho8WUvp+D+6KpeUOhNQIM=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686127380.817126},{"expiry":1717665994.671343,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686129994.671346}],"version":2}
+=======
+<<<<<<< HEAD
 {"sts":[{"expiry":1717660349.114325,"host":"5EdUoB7YUY9zZV+2DkgVXgho8WUvp+D+6KpeUOhNQIM=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686124349.114326},{"expiry":1718085853.272981,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686549853.272985}],"version":2}
 =======
 <<<<<<< HEAD
@@ -23,3 +26,4 @@
 {"sts":[{"expiry":1717653899.115034,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686117899.115037}],"version":2}
 >>>>>>> Elias
 >>>>>>> d37dbcdd6fc2735d072b5d7af035a7e19d750a00
+>>>>>>> a0f5c25815267f7da1945bf34aa1646077425290
