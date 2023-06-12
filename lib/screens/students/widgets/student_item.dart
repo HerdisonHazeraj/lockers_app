@@ -64,6 +64,7 @@ class _StudentItemState extends State<StudentItem> {
                       Uri.parse("mailto:$email?subject=$subject&body=$body");
                   await launchUrl(mail);
                 },
+                tooltip: "Envoyer un mail à l'élève",
                 icon: const Icon(
                   Icons.mail_outlined,
                   color: Colors.black,

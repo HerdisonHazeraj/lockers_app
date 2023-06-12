@@ -3,6 +3,8 @@ import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../models/student.dart';
+
 class LockerItem extends StatefulWidget {
   final Locker locker;
   final Function()? showUpdateForm;
@@ -57,9 +59,47 @@ class _LockerItemState extends State<LockerItem> {
           child: Wrap(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (widget.locker.isAvailable == false) {
+                    // Student owner = Provider.of<LockerStudentProvider>(context,
+                    //         listen: false)
+                    //     .findStudentById(widget.locker.ownerId!);
+
+                    showDialog(
+                        context: context,
+                        builder: (builder) {
+                          return const AlertDialog(
+                            title: Text('Attention !'),
+                            content: Text(
+                                "Ce casier appartient actuellement à '', voulez-vous qu'un nouveau casier lui soit attribué ?"),
+                          );
+                        });
+                  }
+
+                  widget.locker.isInaccessible = true;
+                  Provider.of<LockerStudentProvider>(context, listen: false)
+                      .updateLocker(widget.locker);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Le casier n°${widget.locker.lockerNumber} est maintenant inaccessible, celui-ci peut être retrouver dans la catégorie 'Casiers inaccessibles' en bas de page !",
+                      ),
+                      duration: const Duration(seconds: 5),
+                    ),
+                  );
+                },
+                tooltip: "Rendre le casier indisponible",
                 icon: const Icon(
-                  Icons.info_outlined,
+                  Icons.block_outlined,
+                  color: Colors.black,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                tooltip: "Ajouter une remarque",
+                icon: const Icon(
+                  Icons.add_comment_outlined,
                   color: Colors.black,
                 ),
               ),
@@ -137,41 +177,6 @@ class _LockerItemState extends State<LockerItem> {
               ),
             ],
           ),
-          // child: IconButton(
-          //   onPressed: widget.locker.isAvailable!
-          //       ? () {}
-          //       : () {
-          //           Student student = Provider.of<LockerStudentProvider>(
-          //                   context,
-          //                   listen: false)
-          //               .getStudent(widget.locker.idEleve!);
-
-          //           Provider.of<LockerStudentProvider>(context, listen: false)
-          //               .updateStudent(student.copyWith(
-          //             lockerNumber: 0,
-          //           ));
-          //           Provider.of<LockerStudentProvider>(context, listen: false)
-          //               .updateLocker(widget.locker.copyWith(
-          //             idEleve: "",
-          //             isAvailable: true,
-          //           ));
-
-          //           ScaffoldMessenger.of(context).showSnackBar(
-          //             SnackBar(
-          //               content: Text(
-          //                 'Le casier ${widget.locker.lockerNumber} a été désattribué à ${student.firstName} ${student.lastName} avec succès !',
-          //               ),
-          //               duration: const Duration(seconds: 3),
-          //             ),
-          //           );
-          //         },
-          //   icon: SvgPicture.asset(
-          //     'assets/icons/remove_user.svg',
-          //     height: 24,
-          //     color: widget.locker.isAvailable! ? Colors.grey : Colors.black,
-          //   ),
-          //   tooltip: 'Désattribuer',
-          // ),
         ),
       ),
     );

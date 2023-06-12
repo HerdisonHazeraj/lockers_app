@@ -24,7 +24,7 @@ class Locker extends ILocker {
     required this.remark,
     this.isAvailable,
     this.isDefective,
-    this.isInaccessible,
+    this.isInaccessible = false,
   });
 
   factory Locker.fromCSV(Map<String, dynamic> csv) {
@@ -39,6 +39,7 @@ class Locker extends ILocker {
         job: csv['Métier'],
         remark: "",
         isAvailable: true,
+        isInaccessible: false,
         lockNumber: int.parse(csv["N° serrure"]),
       );
     } else {
