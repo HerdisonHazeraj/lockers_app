@@ -34,16 +34,6 @@ class StudentsListView extends StatefulWidget {
 class _StudentsListViewState extends State<StudentsListView> {
   bool isInit = false;
 
-  // Tools for update student
-  final firstnameController = TextEditingController();
-  final lastnameController = TextEditingController();
-  final mailController = TextEditingController();
-  final jobController = TextEditingController();
-  final loginController = TextEditingController();
-  final yearController = TextEditingController();
-  final classeController = TextEditingController();
-  final responsableController = TextEditingController();
-
   // Tools for students by search
   late bool isExpSearch = false;
   late List<Student> searchedStudents = [];

@@ -56,90 +56,84 @@ class _DashboardMenuState extends State<DashboardMenu> {
                   ),
                 ),
                 SizedBox(
-                  height: 200,
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ...students.reversed.map(
-                            (student) => MouseRegion(
-                              onEnter: (event) => setState(() {
-                                student.isFocus = true;
-                              }),
-                              onExit: (event) => setState(() {
-                                student.isFocus = false;
-                              }),
-                              child: ListTile(
-                                title: Text(
-                                  "${student.firstName} ${student.lastName}",
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                subtitle: Text(
-                                  student.job,
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                trailing: Visibility(
-                                  visible: student.isFocus,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            students.remove(student);
-                                            student.isFocus = false;
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été confirmer avec succès!'),
-                                                duration:
-                                                    const Duration(seconds: 3),
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          Icons.check,
-                                          color: Colors.black54,
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            students.remove(student);
-                                            student.isFocus = false;
+                  height: 220,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...students.reversed.map(
+                          (student) => MouseRegion(
+                            onEnter: (event) => setState(() {
+                              student.isFocus = true;
+                            }),
+                            onExit: (event) => setState(() {
+                              student.isFocus = false;
+                            }),
+                            child: ListTile(
+                              title: Text(
+                                "${student.firstName} ${student.lastName}",
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                              subtitle: Text(
+                                student.job,
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                              trailing: Visibility(
+                                visible: student.isFocus,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          students.remove(student);
 
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été annuler avec succès !'),
-                                                duration:
-                                                    const Duration(seconds: 3),
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          Icons.close,
-                                          color: Colors.black54,
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été confirmer avec succès!'),
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                            ),
+                                          );
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.check,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          students.remove(student);
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été annuler avec succès !'),
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                            ),
+                                          );
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.close,
+                                        color: Colors.black54,
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
