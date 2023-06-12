@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:lockers_app/screens/assignation/menu_widgets/dropdown_item_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/filter_element.dart';
-
 import '../../../models/locker.dart';
 import '../../../models/student.dart';
 
