@@ -154,91 +154,87 @@ class _DashboardMenuState extends State<DashboardMenu> {
                 ),
                 SizedBox(
                   height: 200,
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ...lockers.reversed.map(
-                            (locker) => MouseRegion(
-                              onEnter: (event) => setState(() {
-                                locker.isFocus = true;
-                              }),
-                              onExit: (event) => setState(() {
-                                locker.isFocus = false;
-                              }),
-                              child: ListTile(
-                                title: Text(
-                                  "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...lockers.reversed.map(
+                          (locker) => MouseRegion(
+                            onEnter: (event) => setState(() {
+                              locker.isFocus = true;
+                            }),
+                            onExit: (event) => setState(() {
+                              locker.isFocus = false;
+                            }),
+                            child: ListTile(
+                              title: Text(
+                                "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                              subtitle: Text(
+                                locker.remark == ''
+                                    ? 'Aucune remarque'
+                                    : locker.remark.toString(),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                subtitle: Text(
-                                  locker.remark == ''
-                                      ? 'Aucune remarque'
-                                      : locker.remark.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                trailing: Visibility(
-                                  visible: locker.isFocus,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            lockers.remove(locker);
-                                            locker.isFocus = false;
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    'L\'ajout du casier numéro ${locker.lockerNumber} à été confirmer avec succès!'),
-                                                duration:
-                                                    const Duration(seconds: 3),
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          Icons.check,
-                                          color: Colors.black54,
-                                        ),
+                              ),
+                              trailing: Visibility(
+                                visible: locker.isFocus,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          lockers.remove(locker);
+                                          locker.isFocus = false;
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'L\'ajout du casier numéro ${locker.lockerNumber} à été confirmer avec succès!'),
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                            ),
+                                          );
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.check,
+                                        color: Colors.black54,
                                       ),
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            lockers.remove(locker);
-                                            locker.isFocus = false;
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    'L\'ajout du casier numéro ${locker.lockerNumber} à été annuler avec succès !'),
-                                                duration:
-                                                    const Duration(seconds: 3),
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          Icons.close,
-                                          color: Colors.black54,
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          lockers.remove(locker);
+                                          locker.isFocus = false;
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'L\'ajout du casier numéro ${locker.lockerNumber} à été annuler avec succès !'),
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                            ),
+                                          );
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.close,
+                                        color: Colors.black54,
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
