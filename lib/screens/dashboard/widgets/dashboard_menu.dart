@@ -57,43 +57,39 @@ class _DashboardMenuState extends State<DashboardMenu> {
                   ),
                 ),
                 SizedBox(
-                  height: 200,
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ...students.reversed.map(
-                            (student) => MouseRegion(
-                              onEnter: (event) => setState(() {
-                                student.isFocus = true;
-                              }),
-                              onExit: (event) => setState(() {
-                                student.isFocus = false;
-                              }),
-                              child: ListTile(
-                                title: Text(
-                                  "${student.firstName} ${student.lastName}",
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                subtitle: Text(
-                                  student.job,
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                trailing: Visibility(
-                                  visible: student.isFocus,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            students.remove(student);
+                  height: 220,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...students.reversed.map(
+                          (student) => MouseRegion(
+                            onEnter: (event) => setState(() {
+                              student.isFocus = true;
+                            }),
+                            onExit: (event) => setState(() {
+                              student.isFocus = false;
+                            }),
+                            child: ListTile(
+                              title: Text(
+                                "${student.firstName} ${student.lastName}",
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                              subtitle: Text(
+                                student.job,
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                              trailing: Visibility(
+                                visible: student.isFocus,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          students.remove(student);
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
@@ -156,28 +152,24 @@ class _DashboardMenuState extends State<DashboardMenu> {
                   ),
                 ),
                 SizedBox(
-                  height: 200,
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ...lockers.reversed.map(
-                            (locker) => MouseRegion(
-                              onEnter: (event) => setState(() {
-                                locker.isFocus = true;
-                              }),
-                              onExit: (event) => setState(() {
-                                locker.isFocus = false;
-                              }),
-                              child: ListTile(
-                                title: Text(
-                                  "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
+                  height: 220,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...lockers.reversed.map(
+                          (locker) => MouseRegion(
+                            onEnter: (event) => setState(() {
+                              locker.isFocus = true;
+                            }),
+                            onExit: (event) => setState(() {
+                              locker.isFocus = false;
+                            }),
+                            child: ListTile(
+                              title: Text(
+                                "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               ),
                               trailing: Visibility(
                                 visible: locker.isFocus,
