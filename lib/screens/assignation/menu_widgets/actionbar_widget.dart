@@ -220,15 +220,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         onPressed: () {
                           widget.changeLockerListStateVoid(
                               sortController, orderController);
-
-                          // setState(() {
-                          //   Provider.of<LockerStudentProvider>(context,
-                          //           listen: false)
-                          //       .sortLockerBy(
-                          //           sortController.text,
-                          //           orderController.text == "1" ? true : false,
-                          //           widget.availableLockers);
-                          // });
                         },
                         style: ButtonStyle(
                           backgroundColor:
