@@ -299,6 +299,19 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
+  List<Locker> getInaccessibleLocker() {
+    List<Locker> lockers =
+        lockerItems.where((element) => element.isInaccessible == true).toList();
+    return lockers;
+  }
+
+  List<Locker> getAccessibleLocker() {
+    List<Locker> lockers = lockerItems
+        .where((element) => element.isInaccessible == false)
+        .toList();
+    return lockers;
+  }
+
   List<Locker> getNonDefectiveLockers() {
     List<Locker> lockers =
         lockerItems.where((element) => element.isDefective == true).toList();
