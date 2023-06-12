@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-// import 'package:lockers_app/screens/assignation/widgets/buttonBar_widget.dart';
-
-import 'package:lockers_app/screens/assignation/widgets/filter_element.dart';
+import 'package:lockers_app/screens/assignation/menu_widgets/actionBar_widget.dart';
+import 'package:lockers_app/screens/assignation/widgets/available_lockers_list_widget.dart';
+import 'package:lockers_app/screens/assignation/widgets/available_students_list_widget.dart';
 
 import 'package:provider/provider.dart';
 
@@ -47,24 +47,6 @@ class _AssignListViewState extends State<AssignListView> {
 
   bool isExpandedVisible = false;
 
-  final metiers = ['Informaticien-ne CFC (dès 2021)', 'Opérateur-trice CFC'];
-  // final annees = {"1ère": 1, "2ème": 2, "3ème": 3, "4ème": 4};
-  final annees = [1, 2, 3, 4];
-  final responsables = ['JHI', 'CGU', 'MIV', 'PGA'];
-  final caution = [0, 20];
-
-//filtres
-  List metiersKeys = [];
-  List anneesKeys = [];
-  List responsablesKeys = [];
-  List cautionsKeys = [];
-
-//listes des filtres sélectionné
-  List selectedMetiers = [];
-  List selectedAnnees = [];
-  List selectedResponsables = [];
-  List selectedCautions = [];
-
 //listes des filtres complets
   List<List> values = [];
   List<List> keys = [];
@@ -82,9 +64,12 @@ class _AssignListViewState extends State<AssignListView> {
 
     void filterStudents(keys, values) {
       setState(() {
-        filtredStudent =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .filterStudentsBy(keys, values);
+        filtredStudent = Provider.of<LockerStudentProvider>(context,
+                listen: false)
+            .filterStudentsBy(keys, values,
+                startList:
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .getAvailableStudents());
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
@@ -98,35 +83,80 @@ class _AssignListViewState extends State<AssignListView> {
       isStudentsListViewInit = true;
     } else if (values.isNotEmpty && !isStudentsListViewInit) {
       isStudentsListViewInit = true;
-      filterStudents(keys, values);
+      filterStudents(
+        keys,
+        values,
+      );
     }
 
     //check si 2 checkbox ont été checké
     //si oui on peut attribuer automatiquement des casiers
-    void checkIf2CheckBoxesAreChecked(availableLockers) {
-      if (selectedStudents.length >= 2) {
-        _isAutoAttributeButtonEnabled = true;
-        _isConfirmButtonEnabled = false;
-        availableLockers.forEach((e) {
-          e.isEnabled = false;
-          e.isSelected = false;
-        });
-      } else {
-        availableLockers.forEach((e) {
-          e.isEnabled = true;
-        });
-        _isAutoAttributeButtonEnabled = false;
-      }
+    void checkIfWeCanAutoAssign() {
+      setState(() {
+        if (selectedStudents.length >= 2) {
+          _isAutoAttributeButtonEnabled = true;
+          _isConfirmButtonEnabled = false;
+          for (var locker in availableLockers) {
+            locker.isEnabled = false;
+            locker.isSelected = false;
+          }
+        } else if (selectedStudents.isEmpty && !isALockerSelected) {
+          for (var locker in availableLockers) {
+            // if(lock)
+
+            locker.isEnabled = true;
+          }
+          _isAutoAttributeButtonEnabled = false;
+        }
+      });
     }
 
-    void checkIfAStudentAndALockerAreSelected() {
-      if (isALockerSelected && selectedStudents.length == 1) {
-        _isConfirmButtonEnabled = true;
-        _isAutoAttributeButtonEnabled = false;
+    void checkIfWeCanAssign() {
+      setState(() {
+        if (isALockerSelected && selectedStudents.length == 1) {
+          _isConfirmButtonEnabled = true;
+          _isAutoAttributeButtonEnabled = false;
+        } else {
+          _isConfirmButtonEnabled = false;
+          _isAutoAttributeButtonEnabled = false;
+        }
+      });
+    }
+
+    void changeCheckBoxesLockerStates(index, newValue) {
+      setState(() {
+        availableLockers[index].isSelected = newValue!;
+
+        for (var locker in availableLockers) {
+          if (!newValue) {
+            locker.isEnabled = true;
+            isALockerSelected = false;
+          } else {
+            if (!locker.isSelected) {
+              locker.isEnabled = false;
+              isALockerSelected = true;
+            }
+          }
+        }
+      });
+    }
+
+    void checkAllChecks(newValue) {
+      areAllchecksChecked = newValue!;
+      //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
+      if (areAllchecksChecked == true) {
+        selectedStudents.clear();
+        for (var student in studentsListView) {
+          student.isSelected = true;
+          selectedStudents.add(student);
+        }
       } else {
-        _isConfirmButtonEnabled = false;
-        _isAutoAttributeButtonEnabled = false;
+        selectedStudents.clear();
+        for (var student in studentsListView) {
+          student.isSelected = false;
+        }
       }
+      checkIfWeCanAutoAssign();
     }
 
     return Scaffold(
@@ -145,254 +175,37 @@ class _AssignListViewState extends State<AssignListView> {
                     child: Column(
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Checkbox(
-                                value: areAllchecksChecked,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    areAllchecksChecked = newValue!;
-                                    //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
-                                    if (areAllchecksChecked == true) {
-                                      selectedStudents.clear();
-                                      for (var student in studentsListView) {
-                                        student.isSelected = true;
-                                        selectedStudents.add(student);
-                                      }
-                                    } else {
-                                      selectedStudents.clear();
-                                      for (var student in studentsListView) {
-                                        student.isSelected = false;
-                                      }
-                                    }
-
-                                    checkIf2CheckBoxesAreChecked(
-                                        availableLockers);
-                                  });
-                                }),
-                            const Text('Tout sélectionner'),
-                          ],
-                        ),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: Column(
-                                    children: [
-                                      ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        itemCount: studentsListView.length,
-                                        itemBuilder: (context, index) => Card(
-                                          child: CheckboxListTile(
-                                            enabled: studentsListView[index]
-                                                .isEnabled,
-                                            controlAffinity:
-                                                ListTileControlAffinity.leading,
-                                            value: studentsListView[index]
-                                                .isSelected,
-                                            title: Text(
-                                                '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
-                                            subtitle: Text(
-                                                studentsListView[index].job),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                studentsListView[index]
-                                                    .isSelected = newValue!;
-
-                                                if (studentsListView[index]
-                                                    .isSelected) {
-                                                  selectedStudents.add(
-                                                      studentsListView[index]);
-                                                } else {
-                                                  selectedStudents.remove(
-                                                      studentsListView[index]);
-                                                  areAllchecksChecked = false;
-                                                }
-
-                                                checkIfAStudentAndALockerAreSelected();
-                                                checkIf2CheckBoxesAreChecked(
-                                                    availableLockers);
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                  child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: availableLockers.length,
-                                itemBuilder: (context, index) => Card(
-                                  child: CheckboxListTile(
-                                    enabled: availableLockers[index].isEnabled,
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
-                                    value: availableLockers[index].isSelected,
-                                    title: Text(availableLockers[index]
-                                        .lockerNumber
-                                        .toString()),
-                                    subtitle: Text(
-                                        'Étage ${availableLockers[index].floor.toUpperCase()}'),
+                            Row(
+                              children: [
+                                Checkbox(
+                                    value: areAllchecksChecked,
                                     onChanged: (newValue) {
                                       setState(() {
-                                        availableLockers[index].isSelected =
-                                            newValue!;
-
-                                        for (var e in availableLockers) {
-                                          if (!newValue) {
-                                            e.isEnabled = true;
-                                            isALockerSelected = false;
-                                          } else {
-                                            if (!e.isSelected) {
-                                              e.isEnabled = false;
-                                              isALockerSelected = true;
-                                            }
-                                          }
-                                        }
-                                        checkIfAStudentAndALockerAreSelected();
+                                        checkAllChecks(newValue);
                                       });
-                                    },
-                                  ),
-                                ),
-                              )),
-                            ]),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 4,
-              child: SafeArea(
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                    color: Color(0xffececf6),
-                  ),
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 30,
-                      horizontal: 30,
-                    ),
-                    child: Column(
-                      children: [
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: SizedBox(
-                            child: Text(
-                              "Filtrer les élèves",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w500,
-                                height: 1.3,
-                              ),
+                                    }),
+                                const Text('Tout sélectionner'),
+                              ],
                             ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              bottom: 80.0, left: 10, top: 10.0),
-                          child: Wrap(
-                            children: [
-                              FilterElement(
-                                icon: Icons.work,
-                                keys: metiersKeys,
-                                dropDownList: metiers,
-                                selectedFilters: selectedMetiers,
-                                filterName: 'Metier(s): ',
-                                filterNod: 'job',
+                            ElevatedButton.icon(
+                              label: const Text('Attribuer'),
+                              icon: const Icon(Icons.done_all),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.black54),
                               ),
-                              FilterElement(
-                                icon: Icons.calendar_month,
-                                keys: anneesKeys,
-                                dropDownList: annees,
-                                selectedFilters: selectedAnnees,
-                                filterName: 'Année(s): ',
-                                filterNod: 'year',
-                              ),
-                              FilterElement(
-                                icon: Icons.admin_panel_settings,
-                                keys: responsablesKeys,
-                                dropDownList: responsables,
-                                selectedFilters: selectedResponsables,
-                                filterName: 'Responsable(s): ',
-                                filterNod: 'manager',
-                              ),
-                              FilterElement(
-                                icon: Icons.attach_money,
-                                keys: cautionsKeys,
-                                dropDownList: caution,
-                                selectedFilters: selectedCautions,
-                                filterName: 'Caution: ',
-                                filterNod: 'caution',
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    top: 20.0, left: 10.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    keys.clear();
-                                    if (metiersKeys.isNotEmpty)
-                                      keys.add(metiersKeys);
-                                    if (anneesKeys.isNotEmpty)
-                                      keys.add(anneesKeys);
-                                    if (responsablesKeys.isNotEmpty)
-                                      keys.add(responsablesKeys);
-                                    if (cautionsKeys.isNotEmpty)
-                                      keys.add(cautionsKeys);
-
-                                    values.clear();
-                                    if (selectedMetiers.isNotEmpty)
-                                      values.add(selectedMetiers);
-                                    if (selectedAnnees.isNotEmpty)
-                                      values.add(selectedAnnees);
-                                    if (selectedResponsables.isNotEmpty)
-                                      values.add(selectedResponsables);
-                                    if (selectedCautions.isNotEmpty)
-                                      values.add(selectedCautions);
-
-                                    filterStudents(keys, values);
-                                  },
-                                  child: const Text('Appliquer'),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: SizedBox(
-                            child: Text(
-                              "Boutons d'attribution",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w500,
-                                height: 1.3,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  bottom: 20.0, top: 30.0),
-                              child: ElevatedButton.icon(
-                                icon: const Icon(Icons.done),
-                                label: const Text('Attribuer'),
-                                onPressed: _isConfirmButtonEnabled
-                                    ? () {
+                              onPressed: _isAutoAttributeButtonEnabled ||
+                                      _isConfirmButtonEnabled
+                                  ? () {
+                                      if (_isAutoAttributeButtonEnabled) {
+                                        Provider.of<LockerStudentProvider>(
+                                                context,
+                                                listen: false)
+                                            .autoAttributeLocker(
+                                                selectedStudents);
+                                      } else if (_isConfirmButtonEnabled) {
                                         late Locker locker;
                                         late Student student;
 
@@ -417,41 +230,54 @@ class _AssignListViewState extends State<AssignListView> {
                                         for (var e in studentsListView) {
                                           e.isEnabled = true;
                                         }
-
-                                        setState(() {
-                                          // A changer
-                                          isStudentsListViewInit = false;
-                                          filterStudents(keys, values);
-                                        });
                                       }
-                                    : null,
-                              ),
-                            ),
-                            ElevatedButton.icon(
-                              label: const Text('Attribuer Automatiquement'),
-                              icon: const Icon(Icons.done_all),
-                              onPressed: _isAutoAttributeButtonEnabled
-                                  ? () {
-                                      Provider.of<LockerStudentProvider>(
-                                              context,
-                                              listen: false)
-                                          .autoAttributeLocker(
-                                              selectedStudents);
                                       setState(() {
+                                        _isAutoAttributeButtonEnabled = false;
+                                        _isConfirmButtonEnabled = false;
+
                                         isStudentsListViewInit = false;
                                         filterStudents(keys, values);
                                       });
                                     }
                                   : null,
-                            ),
+                            )
                           ],
                         ),
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AvailableStudentsListWidget(
+                                studentsListView: studentsListView,
+                                areAllchecksChecked: areAllchecksChecked,
+                                selectedStudents: selectedStudents,
+                                checkIfWeCanAssignVoid: checkIfWeCanAssign,
+                                checkIfWeCanAutoAssignVoid:
+                                    checkIfWeCanAutoAssign,
+                              ),
+                              AvailableLockersListWidget(
+                                  availableLockers: availableLockers,
+                                  isALockerSelected: isALockerSelected,
+                                  checkIfWeCanAssignVoid: checkIfWeCanAssign,
+                                  changeCheckBoxesLockerStatesVoid:
+                                      (index, newValue) =>
+                                          changeCheckBoxesLockerStates(
+                                              index, newValue))
+                            ]),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
+            ActionBarWidget(
+                keys: keys,
+                values: values,
+                availableLockers: availableLockers,
+                studentsListView: studentsListView,
+                selectedStudents: selectedStudents,
+                isStudentsListViewInit: isStudentsListViewInit,
+                filterStudentsVoid: (keys, values) =>
+                    filterStudents(keys, values)),
           ],
         ),
       ),

@@ -5,7 +5,8 @@ import '../../../models/student.dart';
 
 class StudentItem extends StatefulWidget {
   final Student student;
-  const StudentItem(this.student, {super.key});
+  final Function()? showUpdateForm;
+  const StudentItem({this.showUpdateForm, required this.student, super.key});
 
   @override
   State<StudentItem> createState() => _StudentItemState();
@@ -40,9 +41,13 @@ class _StudentItemState extends State<StudentItem> {
         title: Text("${widget.student.firstName} ${widget.student.lastName}"),
         subtitle: Text(widget.student.job),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            widget.showUpdateForm!();
+          },
           icon: Visibility(
-              visible: widget.student.isFocus, child: const Icon(Icons.edit)),
+            visible: widget.student.isFocus,
+            child: const Icon(Icons.edit),
+          ),
         ),
       ),
     );

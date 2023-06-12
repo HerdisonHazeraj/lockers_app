@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 2023/06/12-08:04:13.207 438 Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.a84723c6\flutter_tools_chrome_device.4263d531\Default\Service Worker\Database/MANIFEST-000001
 2023/06/12-08:04:13.207 438 Recovering log #3
 2023/06/12-08:04:13.207 438 Reusing old log C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.a84723c6\flutter_tools_chrome_device.4263d531\Default\Service Worker\Database/000003.log 
+=======
+<<<<<<< HEAD
+2023/06/07-08:41:14.498 153c Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.2d9f5426\flutter_tools_chrome_device.3cc4baae\Default\Service Worker\Database/MANIFEST-000001
+2023/06/07-08:41:14.499 153c Recovering log #3
+2023/06/07-08:41:14.499 153c Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.2d9f5426\flutter_tools_chrome_device.3cc4baae\Default\Service Worker\Database/000003.log 
+=======
+2023/06/07-08:04:59.027 2b08 Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.1398e31\flutter_tools_chrome_device.f6f38915\Default\Service Worker\Database/MANIFEST-000001
+2023/06/07-08:04:59.027 2b08 Recovering log #3
+2023/06/07-08:04:59.027 2b08 Reusing old log C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.1398e31\flutter_tools_chrome_device.f6f38915\Default\Service Worker\Database/000003.log 
+>>>>>>> Elias
+>>>>>>> d37dbcdd6fc2735d072b5d7af035a7e19d750a00

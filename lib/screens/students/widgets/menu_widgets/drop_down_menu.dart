@@ -6,9 +6,11 @@ class DropDownMenu extends StatelessWidget {
     required this.items,
     required this.icon,
     required this.onChanged,
+    this.defaultItem,
   });
 
   final Map<String, String> items;
+  final String? defaultItem;
   final IconData icon;
   final Function(String?) onChanged;
 
@@ -24,6 +26,7 @@ class DropDownMenu extends StatelessWidget {
         Icons.arrow_drop_down,
         color: Colors.black54,
       ),
+      value: defaultItem,
       isExpanded: true,
       items: items.entries
           .map(
