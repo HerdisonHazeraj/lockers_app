@@ -50,22 +50,43 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
   Widget build(BuildContext context) {
     void filterStudents(keys, values) {
       setState(() {
-        filtredStudent =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .filterStudentsBy(keys, values);
+        filtredStudent = Provider.of<LockerStudentProvider>(context,
+                listen: false)
+            .filterStudentsBy(keys, values,
+                startList:
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .studentItems);
         studentsListView = filtredStudent;
         selectedStudents.clear();
       });
     }
 
     if (!isStudentsListViewInit && values.isEmpty) {
-      final availableStudents =
-          Provider.of<LockerStudentProvider>(context).getAvailableStudents();
-      studentsListView = availableStudents;
+      final students = Provider.of<LockerStudentProvider>(context).studentItems;
+      studentsListView = students;
       isStudentsListViewInit = true;
     } else if (values.isNotEmpty && !isStudentsListViewInit) {
       isStudentsListViewInit = true;
       filterStudents(keys, values);
+    }
+
+    void checkAllChecks(newValue) {
+      areAllchecksChecked = newValue!;
+      //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
+      if (areAllchecksChecked == true) {
+        selectedStudents.clear();
+        studentsListView.forEach((student) {
+          student.isSelected = true;
+          selectedStudents.add(student);
+        });
+        isPromoteButtonEnabled = true;
+      } else {
+        selectedStudents.clear();
+        studentsListView.forEach((student) {
+          student.isSelected = false;
+        });
+        isPromoteButtonEnabled = false;
+      }
     }
 
     return Scaffold(
@@ -89,61 +110,115 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                 value: areAllchecksChecked,
                                 onChanged: (newValue) {
                                   setState(() {
-                                    areAllchecksChecked = newValue!;
-                                    //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
-                                    if (areAllchecksChecked == true) {
-                                      selectedStudents.clear();
-                                      studentsListView.forEach((student) {
-                                        student.isSelected = true;
-                                        selectedStudents.add(student);
-                                      });
-                                      isPromoteButtonEnabled = true;
-                                    } else {
-                                      selectedStudents.clear();
-                                      studentsListView.forEach((student) {
-                                        student.isSelected = false;
-                                      });
-                                      isPromoteButtonEnabled = false;
-                                    }
+                                    checkAllChecks(newValue);
                                   });
                                 }),
                             Text('Tout sélectionner'),
                           ],
                         ),
-                        ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: studentsListView.length,
-                          itemBuilder: (context, index) => Card(
-                            child: CheckboxListTile(
-                              enabled: studentsListView[index].isEnabled,
-                              controlAffinity: ListTileControlAffinity.leading,
-                              value: studentsListView[index].isSelected,
-                              title: Text(
-                                  '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
-                              subtitle: Text(
-                                  '${studentsListView[index].year} --> ${studentsListView[index].year + 1}'),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  studentsListView[index].isSelected =
-                                      newValue!;
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: studentsListView.length,
+                                      itemBuilder: (context, index) => Card(
+                                        child: CheckboxListTile(
+                                          enabled:
+                                              studentsListView[index].isEnabled,
+                                          controlAffinity:
+                                              ListTileControlAffinity.leading,
+                                          value: studentsListView[index]
+                                              .isSelected,
+                                          title: Text(
+                                              '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
+                                          subtitle: Text(
+                                              '  ${studentsListView[index].year} -->  ${studentsListView[index].year + 1}'),
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              studentsListView[index]
+                                                  .isSelected = newValue!;
 
-                                  if (studentsListView[index].isSelected) {
-                                    selectedStudents
-                                        .add(studentsListView[index]);
-                                    isPromoteButtonEnabled = true;
-                                  } else {
-                                    selectedStudents
-                                        .remove(studentsListView[index]);
-                                    areAllchecksChecked = false;
-                                    if (selectedStudents.length == 0) {
-                                      isPromoteButtonEnabled = false;
-                                    }
-                                  }
-                                });
-                              },
+                                              if (studentsListView[index]
+                                                  .isSelected) {
+                                                selectedStudents.add(
+                                                    studentsListView[index]);
+                                                isPromoteButtonEnabled = true;
+                                              } else {
+                                                selectedStudents.remove(
+                                                    studentsListView[index]);
+                                                areAllchecksChecked = false;
+                                                if (selectedStudents.isEmpty) {
+                                                  isPromoteButtonEnabled =
+                                                      false;
+                                                }
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
+                            // Expanded(
+                            //   child: SingleChildScrollView(
+                            //     child: Column(
+                            //       children: [
+                            //         ListView.builder(
+                            //           scrollDirection: Axis.vertical,
+                            //           shrinkWrap: true,
+                            //           itemCount: studentsListView.length,
+                            //           itemBuilder: (context, index) => Card(
+                            //             child: CheckboxListTile(
+                            //               enabled:
+                            //                   studentsListView[index].isEnabled,
+                            //               controlAffinity:
+                            //                   ListTileControlAffinity.leading,
+                            //               value: studentsListView[index]
+                            //                   .isSelected,
+                            //               title: Text(
+                            //                   '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
+                            //               subtitle: Text(
+                            //                   '  ${studentsListView[index].classe}'),
+                            //               secondary: Text(
+                            //                   '${studentsListView[index].year}'),
+                            //               onChanged: (newValue) {
+                            //                 setState(() {
+                            //                   studentsListView[index]
+                            //                       .isSelected = newValue!;
+
+                            //                   if (studentsListView[index]
+                            //                       .isSelected) {
+                            //                     selectedStudents.add(
+                            //                         studentsListView[index]);
+                            //                     isPromoteButtonEnabled = true;
+                            //                   } else {
+                            //                     selectedStudents.remove(
+                            //                         studentsListView[index]);
+                            //                     areAllchecksChecked = false;
+                            //                     if (selectedStudents.length ==
+                            //                         0) {
+                            //                       isPromoteButtonEnabled =
+                            //                           false;
+                            //                     }
+                            //                   }
+                            //                 });
+                            //               },
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
                         ),
                       ],
                     ),
@@ -250,6 +325,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                           .promoteStudent(selectedStudents);
                                       isStudentsListViewInit = false;
                                       isPromoteButtonEnabled = false;
+                                      areAllchecksChecked = false;
                                     });
                                   }
                                 : null,
