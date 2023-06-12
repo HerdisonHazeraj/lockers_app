@@ -139,8 +139,6 @@ class LockerStudentProvider with ChangeNotifier {
     if (id == "") return Student.base();
 
     final studentIndex = findIndexOfStudentById(id);
-    sortStudentBy("floor", true);
-    sortStudentBy("floor", false);
     return _studentItems[studentIndex];
   }
 
