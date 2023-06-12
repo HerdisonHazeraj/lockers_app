@@ -395,6 +395,22 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
+  List<Locker> searchLockers(value) {
+    List<Locker> filtredLocker = [];
+    List<Locker> lockers = [];
+    if (value != "") {
+      lockers = _lockerItems;
+      filtredLocker = lockers
+          .where((element) => element.lockerNumber
+              .toString()
+              .toLowerCase()
+              .contains(value.toString().toLowerCase().trim()))
+          .toList();
+      return filtredLocker;
+    }
+    return [];
+  }
+
   Future<String?> importLockersWithCSV(FilePickerResult? result) async {
     try {
       if (result != null) {
