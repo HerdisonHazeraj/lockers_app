@@ -122,14 +122,14 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
-    updateLatestStudent;
+    deleteLatestStudent;
     notifyListeners();
   }
 
   Future<void> insertStudent(int index, Student student) async {
     await dbService.updateStudent(student);
     _studentItems.insert(index, student);
-    updateLatestStudent();
+    insertLatestStudent();
     notifyListeners();
   }
 
