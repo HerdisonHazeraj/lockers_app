@@ -45,7 +45,6 @@ class LockerStudentProvider with ChangeNotifier {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);
     _lastLockerItems.add(data);
-    updateLatestLocker();
     notifyListeners();
   }
 
@@ -55,7 +54,6 @@ class LockerStudentProvider with ChangeNotifier {
       final newLocker = await dbService.updateLocker(updatedLocker);
       _lockerItems[lockerIndex] = newLocker;
       updateLatestLocker();
-
       notifyListeners();
     }
   }
@@ -64,14 +62,14 @@ class LockerStudentProvider with ChangeNotifier {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
     _lockerItems.remove(item);
-    updateLatestLocker();
+    deleteLatestLocker();
     notifyListeners();
   }
 
   Future<void> insertLocker(int index, Locker locker) async {
     await dbService.updateLocker(locker);
     _lockerItems.insert(index, locker);
-    updateLatestLocker();
+    insertLatestLocker();
     notifyListeners();
   }
 
@@ -124,14 +122,14 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
-    updateLatestStudent;
+    deleteLatestStudent;
     notifyListeners();
   }
 
   Future<void> insertStudent(int index, Student student) async {
     await dbService.updateStudent(student);
     _studentItems.insert(index, student);
-    updateLatestStudent();
+    insertLatestStudent();
     notifyListeners();
   }
 
@@ -148,7 +146,7 @@ class LockerStudentProvider with ChangeNotifier {
     return availableItem;
   }
 
-  Map<String, List<Student>> getStudentByYear() {
+  Map<String, List<Student>> mapStudentByYear() {
     Map<String, List<Student>> map = {};
     map['1'] = studentItems.where((element) => element.year == 1).toList();
     map['2'] = studentItems.where((element) => element.year == 2).toList();
@@ -219,7 +217,7 @@ class LockerStudentProvider with ChangeNotifier {
     }
   }
 
-  Map<String, List<Locker>> getLockerByFloor() {
+  Map<String, List<Locker>> mapLockerByFloor() {
     Map<String, List<Locker>> map = {};
     map["d"] = lockerItems
         .where((element) => element.floor.toLowerCase() == "d")
@@ -324,7 +322,7 @@ class LockerStudentProvider with ChangeNotifier {
     return startList;
   }
 
-  List<Locker> sortStudentBy(String key, bool value, List<Locker> lockers) {
+  List<Locker> sortLockerBy(String key, bool value, List<Locker> lockers) {
     List<Locker> sortedLocker = lockers;
     if (key.isNotEmpty && value.isDefinedAndNotNull) {
       if (value) {
@@ -339,7 +337,7 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-  List<Student> sortLockerBy(String key, bool value, List<Student> students) {
+  List<Student> sortStudentBy(String key, bool value, List<Student> students) {
     List<Student> sortedStudent = students;
     if (key.isNotEmpty && value.isDefinedAndNotNull) {
       if (value) {
@@ -393,6 +391,22 @@ class LockerStudentProvider with ChangeNotifier {
                   .contains(value.toString().toLowerCase().trim()))
           .toList();
       return filtredStudent;
+    }
+    return [];
+  }
+
+  List<Locker> searchLockers(value) {
+    List<Locker> filtredLocker = [];
+    List<Locker> lockers = [];
+    if (value != "") {
+      lockers = _lockerItems;
+      filtredLocker = lockers
+          .where((element) => element.lockerNumber
+              .toString()
+              .toLowerCase()
+              .contains(value.toString().toLowerCase().trim()))
+          .toList();
+      return filtredLocker;
     }
     return [];
   }
