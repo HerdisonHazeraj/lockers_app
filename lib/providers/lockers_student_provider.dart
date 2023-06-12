@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lockers_app/models/student.dart';
@@ -346,6 +347,22 @@ class LockerStudentProvider with ChangeNotifier {
   List<Locker> sortLockerBy(String key, bool value, List<Locker> lockers) {
     List<Locker> sortedLocker = lockers;
     if (key.isNotEmpty && value.isDefinedAndNotNull) {
+      if (int.tryParse(sortedLocker[0].toJson()[key]).isDefinedAndNotNull) {
+        if (value) {
+          sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key]).isNull
+              ? a.toJson()[key].toString().compareTo(b.toJson()[key].toString())
+              : int.parse(a.toJson()[key])
+                  .compareTo(int.parse(b.toJson()[key])));
+        } else {
+          sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key]).isNull
+              ? -a
+                  .toJson()[key]
+                  .toString()
+                  .compareTo(b.toJson()[key].toString())
+              : -int.parse(a.toJson()[key])
+                  .compareTo(int.parse(b.toJson()[key])));
+        }
+      }
       if (value) {
         sortedLocker.sort((a, b) =>
             a.toJson()[key].hashCode.compareTo(b.toJson()[key].hashCode));
