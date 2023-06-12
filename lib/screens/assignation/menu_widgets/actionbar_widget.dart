@@ -183,16 +183,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     ],
                   ),
                 ),
-<<<<<<< HEAD
-                const SizedBox(
-                  child: Text(
-                    "Trier les casiers",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                      height: 1.3,
-=======
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: SizedBox(
@@ -204,7 +194,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),
->>>>>>> Timo
                     ),
                   ),
                 ),
@@ -219,11 +208,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     DropDownItemWidget(
                       list: orderList,
                       controller: orderController,
-<<<<<<< HEAD
-                      hintText: "Ordre.r...",
-=======
                       hintText: "Ordre...",
->>>>>>> Timo
                     ),
                   ],
                 ),
@@ -232,9 +217,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                   child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-<<<<<<< HEAD
-                        onPressed: () {},
-=======
                         onPressed: () {
                           widget.changeLockerListStateVoid(
                               sortController, orderController);
@@ -248,7 +230,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                           //           widget.availableLockers);
                           // });
                         },
->>>>>>> Timo
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.black54),

@@ -230,11 +230,6 @@ class _AssignListViewState extends State<AssignListView> {
                                       late Locker locker;
                                       late Student student;
 
-<<<<<<< HEAD
-                                      for (var l in availableLockers) {
-                                        if (l.isSelected) {
-                                          locker = l;
-=======
                                         for (var l in lockersListView) {
                                           if (l.isSelected) {
                                             locker = l;
@@ -255,7 +250,6 @@ class _AssignListViewState extends State<AssignListView> {
                                         }
                                         for (var e in studentsListView) {
                                           e.isEnabled = true;
->>>>>>> Timo
                                         }
                                       }
                                       for (var s in studentsListView) {
@@ -268,20 +262,17 @@ class _AssignListViewState extends State<AssignListView> {
                                               listen: false)
                                           .attributeLocker(locker, student);
 
-<<<<<<< HEAD
                                       for (var e in availableLockers) {
                                         e.isEnabled = true;
                                       }
                                       for (var e in studentsListView) {
                                         e.isEnabled = true;
                                       }
-=======
                                         isLockersListViewInit = false;
 
                                         isStudentsListViewInit = false;
                                         filterStudents(keys, values);
                                       });
->>>>>>> Timo
                                     }
                                     setState(() {
                                       _isAutoAttributeButtonEnabled = false;
@@ -307,19 +298,6 @@ class _AssignListViewState extends State<AssignListView> {
                                 checkIfWeCanAssignVoid: checkIfWeCanAssign,
                                 checkIfWeCanAutoAssignVoid:
                                     checkIfWeCanAutoAssign,
-<<<<<<< HEAD
-                              )),
-                              Expanded(
-                                child: AvailableLockersListWidget(
-                                    availableLockers: availableLockers,
-                                    isALockerSelected: isALockerSelected,
-                                    checkIfWeCanAssignVoid: checkIfWeCanAssign,
-                                    changeCheckBoxesLockerStatesVoid:
-                                        (index, newValue) =>
-                                            changeCheckBoxesLockerStates(
-                                                index, newValue)),
-                              )
-=======
                               ),
                               AvailableLockersListWidget(
                                   availableLockers: lockersListView,
@@ -329,7 +307,6 @@ class _AssignListViewState extends State<AssignListView> {
                                       (index, newValue) =>
                                           changeCheckBoxesLockerStates(
                                               index, newValue))
->>>>>>> Timo
                             ]),
                       ),
                     ],
