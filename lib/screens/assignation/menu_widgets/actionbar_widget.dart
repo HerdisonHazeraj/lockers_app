@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/screens/assignation/menu_widgets/dropdown_item_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/filter_element.dart';
+import '../../../models/locker.dart';
 import '../../../models/student.dart';
 
 class ActionBarWidget extends StatefulWidget {
@@ -11,16 +13,19 @@ class ActionBarWidget extends StatefulWidget {
       required this.studentsListView,
       required this.selectedStudents,
       required this.isStudentsListViewInit,
-      required this.filterStudentsVoid});
+      required this.filterStudentsVoid,
+      required this.changeLockerListStateVoid});
 
-  List availableLockers;
-  List studentsListView;
+  List<Locker> availableLockers;
+  List<Student> studentsListView;
   List<List> keys;
   List<List> values;
   List<Student> selectedStudents;
   bool isStudentsListViewInit;
 
   final Function(List<List> keys, List<List> values) filterStudentsVoid;
+  final Function(TextEditingController sortController,
+      TextEditingController orderController) changeLockerListStateVoid;
 
   @override
   State<ActionBarWidget> createState() => _ActionBarWidgetState();
@@ -34,6 +39,18 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
   final responsables = ['JHI', 'CGU', 'MIV', 'PGA'];
   final caution = [0, 20];
 
+  final sortList = {
+    "lockerNumber": 'Numéro de casier',
+    "lockNumber": 'Numéro de serrure',
+    "floor": 'Étage',
+    "nbKey": 'Nombre de clé(s)'
+  };
+
+  final orderList = {
+    "1": 'Croissant',
+    "2": 'Décroissant',
+  };
+
   //clefs des filtres
   List metiersKeys = [];
   List anneesKeys = [];
@@ -45,6 +62,9 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
   List selectedAnnees = [];
   List selectedResponsables = [];
   List selectedCautions = [];
+
+  final sortController = TextEditingController();
+  final orderController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -116,50 +136,126 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 20.0, left: 10.0),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.black54),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black54),
+                            ),
+                            onPressed: () {
+                              widget.keys.clear();
+
+                              if (metiersKeys.isNotEmpty) {
+                                widget.keys.add(metiersKeys);
+                              }
+                              if (anneesKeys.isNotEmpty) {
+                                widget.keys.add(anneesKeys);
+                              }
+                              if (responsablesKeys.isNotEmpty) {
+                                widget.keys.add(responsablesKeys);
+                              }
+                              if (cautionsKeys.isNotEmpty) {
+                                widget.keys.add(cautionsKeys);
+                              }
+
+                              widget.values.clear();
+                              if (selectedMetiers.isNotEmpty) {
+                                widget.values.add(selectedMetiers);
+                              }
+                              if (selectedAnnees.isNotEmpty) {
+                                widget.values.add(selectedAnnees);
+                              }
+                              if (selectedResponsables.isNotEmpty) {
+                                widget.values.add(selectedResponsables);
+                              }
+                              if (selectedCautions.isNotEmpty) {
+                                widget.values.add(selectedCautions);
+                              }
+
+                              widget.filterStudentsVoid(
+                                  widget.keys, widget.values);
+                            },
+                            child: const Text('Appliquer'),
                           ),
-                          onPressed: () {
-                            widget.keys.clear();
-
-                            if (metiersKeys.isNotEmpty) {
-                              widget.keys.add(metiersKeys);
-                            }
-                            if (anneesKeys.isNotEmpty) {
-                              widget.keys.add(anneesKeys);
-                            }
-                            if (responsablesKeys.isNotEmpty) {
-                              widget.keys.add(responsablesKeys);
-                            }
-                            if (cautionsKeys.isNotEmpty) {
-                              widget.keys.add(cautionsKeys);
-                            }
-
-                            widget.values.clear();
-                            if (selectedMetiers.isNotEmpty) {
-                              widget.values.add(selectedMetiers);
-                            }
-                            if (selectedAnnees.isNotEmpty) {
-                              widget.values.add(selectedAnnees);
-                            }
-                            if (selectedResponsables.isNotEmpty) {
-                              widget.values.add(selectedResponsables);
-                            }
-                            if (selectedCautions.isNotEmpty) {
-                              widget.values.add(selectedCautions);
-                            }
-
-                            widget.filterStudentsVoid(
-                                widget.keys, widget.values);
-                          },
-                          child: const Text('Appliquer'),
                         ),
                       )
                     ],
                   ),
                 ),
+<<<<<<< HEAD
+                const SizedBox(
+                  child: Text(
+                    "Trier les casiers",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
+                      height: 1.3,
+=======
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    child: Text(
+                      "Trier les casiers",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w500,
+                        height: 1.3,
+                      ),
+>>>>>>> Timo
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    DropDownItemWidget(
+                      list: sortList,
+                      controller: sortController,
+                      hintText: "Trier par...",
+                    ),
+                    DropDownItemWidget(
+                      list: orderList,
+                      controller: orderController,
+<<<<<<< HEAD
+                      hintText: "Ordre.r...",
+=======
+                      hintText: "Ordre...",
+>>>>>>> Timo
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20.0, left: 10.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+<<<<<<< HEAD
+                        onPressed: () {},
+=======
+                        onPressed: () {
+                          widget.changeLockerListStateVoid(
+                              sortController, orderController);
+
+                          // setState(() {
+                          //   Provider.of<LockerStudentProvider>(context,
+                          //           listen: false)
+                          //       .sortLockerBy(
+                          //           sortController.text,
+                          //           orderController.text == "1" ? true : false,
+                          //           widget.availableLockers);
+                          // });
+                        },
+>>>>>>> Timo
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.black54),
+                        ),
+                        child: const Text('Trier')),
+                  ),
+                )
               ],
             ),
           ),

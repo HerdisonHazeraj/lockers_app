@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 
@@ -219,17 +220,14 @@ class LockerStudentProvider with ChangeNotifier {
 
   Map<String, List<Locker>> mapLockerByFloor() {
     Map<String, List<Locker>> map = {};
-    map["a"] = lockerItems
-        .where((element) => element.floor.toLowerCase() == "a")
-        .toList();
-    map["b"] = lockerItems
-        .where((element) => element.floor.toLowerCase() == "b")
+    map["d"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "d")
         .toList();
     map["c"] = lockerItems
         .where((element) => element.floor.toLowerCase() == "c")
         .toList();
-    map["d"] = lockerItems
-        .where((element) => element.floor.toLowerCase() == "d")
+    map["b"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "b")
         .toList();
     map["e"] = lockerItems
         .where((element) => element.floor.toLowerCase() == "e")
@@ -345,6 +343,24 @@ class LockerStudentProvider with ChangeNotifier {
   List<Locker> sortLockerBy(String key, bool value, List<Locker> lockers) {
     List<Locker> sortedLocker = lockers;
     if (key.isNotEmpty && value.isDefinedAndNotNull) {
+      if (int.tryParse(sortedLocker[0].toJson()[key]).isDefinedAndNotNull) {
+        if (value) {
+          sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString())
+                  .isNull
+              ? a.toJson()[key].toString().compareTo(b.toJson()[key].toString())
+              : int.parse(a.toJson()[key].toString())
+                  .compareTo(int.parse(b.toJson()[key].toString())));
+        } else {
+          sortedLocker.sort((a, b) =>
+              int.tryParse(a.toJson()[key].toString()).isNull
+                  ? -a
+                      .toJson()[key]
+                      .toString()
+                      .compareTo(b.toJson()[key].toString())
+                  : -int.parse(a.toJson()[key].toString())
+                      .compareTo(int.parse(b.toJson()[key].toString())));
+        }
+      }
       if (value) {
         sortedLocker.sort((a, b) =>
             a.toJson()[key].hashCode.compareTo(b.toJson()[key].hashCode));
