@@ -18,8 +18,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   void initState() {
-    lockers = Provider.of<LockerStudentProvider>(context, listen: false)
-        .lastLockerItems;
+    lockers =
+        Provider.of<LockerStudentProvider>(context, listen: false).lockerItems;
     students =
         Provider.of<LockerStudentProvider>(context, listen: false).studentItems;
     super.initState();
