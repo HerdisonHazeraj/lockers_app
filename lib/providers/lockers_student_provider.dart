@@ -141,6 +141,13 @@ class LockerStudentProvider with ChangeNotifier {
     return _studentItems[studentIndex];
   }
 
+  Student getStudentByLocker(Locker locker) {
+    if (locker.isNull) return Student.base();
+    Student student = studentItems
+        .firstWhere((element) => element.lockerNumber == locker.lockerNumber);
+    return student;
+  }
+
   List<Student> getAvailableStudents() {
     List<Student> availableItem =
         studentItems.where((element) => element.lockerNumber == 0).toList();
@@ -220,16 +227,16 @@ class LockerStudentProvider with ChangeNotifier {
 
   Map<String, List<Locker>> mapLockerByFloor() {
     Map<String, List<Locker>> map = {};
-    map["d"] = lockerItems
+    map["d"] = getAccessibleLocker()
         .where((element) => element.floor.toLowerCase() == "d")
         .toList();
-    map["c"] = lockerItems
+    map["c"] = getAccessibleLocker()
         .where((element) => element.floor.toLowerCase() == "c")
         .toList();
-    map["b"] = lockerItems
+    map["b"] = getAccessibleLocker()
         .where((element) => element.floor.toLowerCase() == "b")
         .toList();
-    map["e"] = lockerItems
+    map["e"] = getAccessibleLocker()
         .where((element) => element.floor.toLowerCase() == "e")
         .toList();
     return map;
