@@ -25,8 +25,8 @@ class _AvailableStudentsListWidgetState
     extends State<AvailableStudentsListWidget> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      // height: 200,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.85,
       child: Scrollbar(
         thumbVisibility: true,
         child: SingleChildScrollView(

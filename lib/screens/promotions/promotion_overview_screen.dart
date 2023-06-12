@@ -167,57 +167,6 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                 ),
                               ),
                             ),
-                            // Expanded(
-                            //   child: SingleChildScrollView(
-                            //     child: Column(
-                            //       children: [
-                            //         ListView.builder(
-                            //           scrollDirection: Axis.vertical,
-                            //           shrinkWrap: true,
-                            //           itemCount: studentsListView.length,
-                            //           itemBuilder: (context, index) => Card(
-                            //             child: CheckboxListTile(
-                            //               enabled:
-                            //                   studentsListView[index].isEnabled,
-                            //               controlAffinity:
-                            //                   ListTileControlAffinity.leading,
-                            //               value: studentsListView[index]
-                            //                   .isSelected,
-                            //               title: Text(
-                            //                   '${studentsListView[index].firstName}  ${studentsListView[index].lastName}'),
-                            //               subtitle: Text(
-                            //                   '  ${studentsListView[index].classe}'),
-                            //               secondary: Text(
-                            //                   '${studentsListView[index].year}'),
-                            //               onChanged: (newValue) {
-                            //                 setState(() {
-                            //                   studentsListView[index]
-                            //                       .isSelected = newValue!;
-
-                            //                   if (studentsListView[index]
-                            //                       .isSelected) {
-                            //                     selectedStudents.add(
-                            //                         studentsListView[index]);
-                            //                     isPromoteButtonEnabled = true;
-                            //                   } else {
-                            //                     selectedStudents.remove(
-                            //                         studentsListView[index]);
-                            //                     areAllchecksChecked = false;
-                            //                     if (selectedStudents.length ==
-                            //                         0) {
-                            //                       isPromoteButtonEnabled =
-                            //                           false;
-                            //                     }
-                            //                   }
-                            //                 });
-                            //               },
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ],
@@ -286,27 +235,35 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 20.0, left: 10.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    keys.clear();
-                                    if (metiersKeys.isNotEmpty)
-                                      keys.add(metiersKeys);
-                                    if (anneesKeys.isNotEmpty)
-                                      keys.add(anneesKeys);
-                                    if (responsablesKeys.isNotEmpty)
-                                      keys.add(responsablesKeys);
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.black54),
+                                    ),
+                                    onPressed: () {
+                                      keys.clear();
+                                      if (metiersKeys.isNotEmpty)
+                                        keys.add(metiersKeys);
+                                      if (anneesKeys.isNotEmpty)
+                                        keys.add(anneesKeys);
+                                      if (responsablesKeys.isNotEmpty)
+                                        keys.add(responsablesKeys);
 
-                                    values.clear();
-                                    if (selectedMetiers.isNotEmpty)
-                                      values.add(selectedMetiers);
-                                    if (selectedAnnees.isNotEmpty)
-                                      values.add(selectedAnnees);
-                                    if (selectedResponsables.isNotEmpty)
-                                      values.add(selectedResponsables);
+                                      values.clear();
+                                      if (selectedMetiers.isNotEmpty)
+                                        values.add(selectedMetiers);
+                                      if (selectedAnnees.isNotEmpty)
+                                        values.add(selectedAnnees);
+                                      if (selectedResponsables.isNotEmpty)
+                                        values.add(selectedResponsables);
 
-                                    filterStudents(keys, values);
-                                  },
-                                  child: const Text('Appliquer'),
+                                      filterStudents(keys, values);
+                                    },
+                                    child: const Text('Appliquer'),
+                                  ),
                                 ),
                               )
                             ],
