@@ -205,7 +205,6 @@ class LockerStudentProvider with ChangeNotifier {
       "c": 2,
       "b": 3,
       "e": 4,
-      "f": 5,
     };
     final lockers = getAvailableLockers();
     lockers.sort(
@@ -218,6 +217,23 @@ class LockerStudentProvider with ChangeNotifier {
       }
       attributeLocker(lockers[i], students[i]);
     }
+  }
+
+  Map<String, List<Locker>> getLockerByFloor() {
+    Map<String, List<Locker>> map = {};
+    map["d"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "d")
+        .toList();
+    map["c"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "c")
+        .toList();
+    map["b"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "b")
+        .toList();
+    map["e"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "e")
+        .toList();
+    return map;
   }
 
   List<Locker> getLockerLessThen2Key() {
