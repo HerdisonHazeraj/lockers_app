@@ -18,8 +18,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   void initState() {
-    // lockers = Provider.of<LockerStudentProvider>(context, listen: false)
-    //     .getLastAddedLockers();
+    lockers = Provider.of<LockerStudentProvider>(context, listen: false)
+        .lastLockerItems;
     students =
         Provider.of<LockerStudentProvider>(context, listen: false).studentItems;
     super.initState();
@@ -193,6 +193,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         onPressed: () {
                                           setState(() {
                                             lockers.remove(locker);
+                                            locker.isFocus = false;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -213,6 +214,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         onPressed: () {
                                           setState(() {
                                             lockers.remove(locker);
+                                            locker.isFocus = false;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
