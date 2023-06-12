@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/lockers/widgets/locker_item.dart';
+import 'package:lockers_app/screens/lockers/widgets/locker_update.dart';
 import 'package:lockers_app/screens/lockers/widgets/lockers_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +16,9 @@ class LockersOverviewScreen extends StatefulWidget {
 }
 
 class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
-// Tools for lockers by search
+  bool isInit = false;
+
+  // Tools for lockers by search
   late bool isExpSearch = false;
   late List<Locker> searchedLockers = [];
   late String searchValue = "";
@@ -27,6 +31,45 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
   Widget build(BuildContext context) {
     lockersByFloor =
         Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
+
+    if (!isInit) {
+      isExpFloor = List.generate(lockersByFloor.length, (index) => true);
+      isInit = true;
+    }
+
+    searchLockers(String value) {
+      setState(() {
+        searchedLockers =
+            Provider.of<LockerStudentProvider>(context, listen: false)
+                .searchLockers(value);
+        searchValue = value;
+      });
+
+      if (searchValue.isNotEmpty) {
+        isExpSearch = true;
+      } else {
+        isExpSearch = false;
+      }
+    }
+
+    refreshList() {
+      setState(() {
+        searchLockers(searchValue);
+      });
+    }
+
+    showUpdateForm(Locker l) {
+      setState(() {
+        l.isUpdating = !l.isUpdating;
+        refreshList();
+      });
+    }
+
+    showUpdateFormSearch(Locker l) {
+      setState(() {
+        l.isUpdatingSearch = !l.isUpdatingSearch;
+      });
+    }
 
     return Scaffold(
       body: SafeArea(
@@ -68,54 +111,137 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                       ),
                                     );
                                   },
-                                  body: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                            hintText: "Rechercher",
-                                            suffixIcon: IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  searchValue = "";
-                                                  searchedLockers = [];
-                                                });
-                                              },
-                                              icon: const Icon(Icons.clear),
-                                            ),
+                                  body: searchedLockers.isEmpty
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              const Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Aucun résultat",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          onChanged: (value) {
+                                        )
+                                      : ExpansionPanelList(
+                                          expansionCallback:
+                                              (int index, bool isExpanded) {
                                             setState(() {
-                                              searchValue = value;
-                                              searchedLockers = Provider.of<
-                                                          LockerStudentProvider>(
-                                                      context)
-                                                  .searchLockers(value);
+                                              searchedLockers[index]
+                                                      .isUpdatingSearch =
+                                                  !searchedLockers[index]
+                                                      .isUpdatingSearch;
                                             });
                                           },
-                                        ),
-                                      ),
-                                      if (searchedLockers.isNotEmpty)
-                                        ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: searchedLockers.length,
-                                          itemBuilder: (context, index) {
-                                            return ListTile(
-                                              title: Text(
-                                                searchedLockers[index]
-                                                    .lockerNumber
-                                                    .toString(),
+                                          expandedHeaderPadding:
+                                              const EdgeInsets.all(0),
+                                          animationDuration:
+                                              const Duration(milliseconds: 500),
+                                          children: [
+                                            ...searchedLockers.map(
+                                              (l) => ExpansionPanel(
+                                                isExpanded: l.isUpdatingSearch,
+                                                canTapOnHeader: true,
+                                                headerBuilder:
+                                                    (context, isExpanded) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            6.0),
+                                                    child: LockerItem(
+                                                      locker: l,
+                                                    ),
+                                                  );
+                                                },
+                                                body: l.isUpdatingSearch
+                                                    ? LockerUpdate(
+                                                        locker: l,
+                                                        showUpdateForm: () =>
+                                                            showUpdateFormSearch(
+                                                                l),
+                                                      )
+                                                    : const SizedBox(),
                                               ),
-                                              subtitle: Text(
-                                                searchedLockers[index]
-                                                    .floor
-                                                    .toString(),
-                                              ),
-                                            );
-                                          },
+                                            )
+                                          ],
                                         ),
-                                    ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpFloor[index] = !isExpFloor[index];
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6.0),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ...lockersByFloor.entries.map(
+                                  (e) => ExpansionPanel(
+                                    isExpanded: isExpFloor[lockersByFloor.keys
+                                        .toList()
+                                        .indexOf(e.key)],
+                                    canTapOnHeader: true,
+                                    headerBuilder: (context, isExpanded) {
+                                      return ListTile(
+                                        title: Text(
+                                          'Tous les casiers de l\'étage ${e.key.toUpperCase()}',
+                                          style: const TextStyle(fontSize: 18),
+                                        ),
+                                      );
+                                    },
+                                    body: ExpansionPanelList(
+                                      expansionCallback:
+                                          (int index, bool isExpanded) {
+                                        setState(() {
+                                          e.value[index].isUpdating =
+                                              !e.value[index].isUpdating;
+                                        });
+                                      },
+                                      expandedHeaderPadding:
+                                          const EdgeInsets.all(0),
+                                      animationDuration:
+                                          const Duration(milliseconds: 500),
+                                      children: [
+                                        ...e.value.map(
+                                          (l) => ExpansionPanel(
+                                            isExpanded: l.isUpdating,
+                                            canTapOnHeader: true,
+                                            headerBuilder:
+                                                (context, isExpanded) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(6.0),
+                                                child: LockerItem(
+                                                  locker: l,
+                                                  refreshList: () =>
+                                                      refreshList(),
+                                                ),
+                                              );
+                                            },
+                                            body: l.isUpdating == true
+                                                ? LockerUpdate(
+                                                    locker: l,
+                                                    showUpdateForm: () =>
+                                                        showUpdateForm(l),
+                                                  )
+                                                : const SizedBox(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -128,7 +254,9 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                 ),
               ),
             ),
-            LockersMenu(),
+            LockersMenu(
+              searchLockers: (value) => searchLockers(value),
+            ),
           ],
         ),
       ),
