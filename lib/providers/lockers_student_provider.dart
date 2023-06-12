@@ -181,7 +181,6 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   void autoAttributeLocker(List<Student> students) {
-    final _random = Random();
     Map<String, int> index = {
       "d": 1,
       "c": 2,

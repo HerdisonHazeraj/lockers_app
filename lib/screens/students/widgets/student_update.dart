@@ -21,7 +21,9 @@ class _StudentUpdateState extends State<StudentUpdate> {
       TextEditingController(text: widget.student.firstName);
   late final lastnameController =
       TextEditingController(text: widget.student.lastName);
-  late final mailController = TextEditingController(text: "");
+  late final mailController = TextEditingController(
+      text:
+          "${widget.student.firstName.replaceAll(' ', '').toLowerCase()}.${widget.student.lastName.replaceAll(' ', '').toLowerCase()}@ceff.ch");
   late final jobController = TextEditingController(text: widget.student.job);
   late final loginController =
       TextEditingController(text: widget.student.login);
@@ -116,20 +118,24 @@ class _StudentUpdateState extends State<StudentUpdate> {
                 ),
               ),
               Expanded(
-                child: DropDownMenu(
-                  items: const {
-                    "1": "1ère année",
-                    "2": "2ème année",
-                    "3": "3ème année",
-                    "4": "4ème année",
-                  },
-                  icon: Icons.calendar_today,
-                  onChanged: (value) {
-                    setState(() {
-                      yearController.text = value!;
-                    });
-                  },
-                  defaultItem: yearController.text,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: DropDownMenu(
+                    items: const {
+                      "1": "1ère année",
+                      "2": "2ème année",
+                      "3": "3ème année",
+                      "4": "4ème année",
+                    },
+                    defaultItem: "Année...",
+                    icon: Icons.calendar_today,
+                    onChanged: (value) {
+                      setState(() {
+                        yearController.text = value!;
+                      });
+                    },
+                    defaultChoosedItem: yearController.text,
+                  ),
                 ),
               ),
               Expanded(
@@ -185,13 +191,14 @@ class _StudentUpdateState extends State<StudentUpdate> {
                       backgroundColor:
                           MaterialStateProperty.all(Colors.black54),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       Student student = Provider.of<LockerStudentProvider>(
                               context,
                               listen: false)
                           .getStudent(widget.student.id!);
 
-                      Provider.of<LockerStudentProvider>(context, listen: false)
+                      await Provider.of<LockerStudentProvider>(context,
+                              listen: false)
                           .updateStudent(student.copyWith(
                         firstName: firstnameController.text,
                         lastName: lastnameController.text,

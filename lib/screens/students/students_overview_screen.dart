@@ -63,12 +63,6 @@ class _StudentsListViewState extends State<StudentsListView> {
       isInit = true;
     }
 
-    showUpdateForm(Student s) {
-      setState(() {
-        s.isUpdating = !s.isUpdating;
-      });
-    }
-
     searchStudents(String value) {
       setState(() {
         searchedStudents =
@@ -82,6 +76,25 @@ class _StudentsListViewState extends State<StudentsListView> {
       } else {
         isExpSearch = false;
       }
+    }
+
+    refreshList() {
+      setState(() {
+        searchStudents(searchValue);
+      });
+    }
+
+    showUpdateForm(Student s) {
+      setState(() {
+        s.isUpdating = !s.isUpdating;
+        refreshList();
+      });
+    }
+
+    showUpdateFormSearch(Student s) {
+      setState(() {
+        s.isUpdatingSearch = !s.isUpdatingSearch;
+      });
     }
 
     return Scaffold(
@@ -140,30 +153,49 @@ class _StudentsListViewState extends State<StudentsListView> {
                                             ],
                                           ),
                                         )
-                                      : ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: searchedStudents.length,
-                                          itemBuilder: (context, index) =>
-                                              Column(
-                                            children: [
-                                              StudentItem(
-                                                  student:
-                                                      searchedStudents[index]),
-                                              const Divider(),
+                                      : ExpansionPanelList(
+                                          expansionCallback:
+                                              (int index, bool isExpanded) {
+                                            setState(() {
                                               searchedStudents[index]
-                                                          .isUpdating ==
-                                                      true
-                                                  ? StudentUpdate(
-                                                      student: searchedStudents[
-                                                          index],
-                                                      showUpdateForm: () =>
-                                                          showUpdateForm(
-                                                        searchedStudents[index],
-                                                      ),
-                                                    )
-                                                  : const SizedBox(),
-                                            ],
-                                          ),
+                                                      .isUpdatingSearch =
+                                                  !searchedStudents[index]
+                                                      .isUpdatingSearch;
+                                            });
+                                          },
+                                          expandedHeaderPadding:
+                                              const EdgeInsets.all(0),
+                                          animationDuration:
+                                              const Duration(milliseconds: 500),
+                                          children: [
+                                            ...searchedStudents.map(
+                                              (s) => ExpansionPanel(
+                                                isExpanded: s.isUpdatingSearch,
+                                                canTapOnHeader: true,
+                                                headerBuilder:
+                                                    (context, isExpanded) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            6.0),
+                                                    child: StudentItem(
+                                                      student: s,
+                                                      refreshList: () =>
+                                                          refreshList(),
+                                                    ),
+                                                  );
+                                                },
+                                                body: s.isUpdatingSearch == true
+                                                    ? StudentUpdate(
+                                                        student: s,
+                                                        showUpdateForm: () =>
+                                                            showUpdateFormSearch(
+                                                                s),
+                                                      )
+                                                    : const SizedBox(),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                 ),
                               ],
@@ -198,27 +230,45 @@ class _StudentsListViewState extends State<StudentsListView> {
                                         ),
                                       );
                                     },
-                                    body: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: e.value.length,
-                                      itemBuilder: (context, index) => Column(
-                                        children: [
-                                          StudentItem(
-                                            showUpdateForm: () =>
-                                                showUpdateForm(e.value[index]),
-                                            student: e.value[index],
+                                    body: ExpansionPanelList(
+                                      expansionCallback:
+                                          (int index, bool isExpanded) {
+                                        setState(() {
+                                          e.value[index].isUpdating =
+                                              !e.value[index].isUpdating;
+                                        });
+                                      },
+                                      expandedHeaderPadding:
+                                          const EdgeInsets.all(0),
+                                      animationDuration:
+                                          const Duration(milliseconds: 500),
+                                      children: [
+                                        ...e.value.map(
+                                          (s) => ExpansionPanel(
+                                            isExpanded: s.isUpdating,
+                                            canTapOnHeader: true,
+                                            headerBuilder:
+                                                (context, isExpanded) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(6.0),
+                                                child: StudentItem(
+                                                  student: s,
+                                                  refreshList: () =>
+                                                      refreshList(),
+                                                ),
+                                              );
+                                            },
+                                            body: s.isUpdating == true
+                                                ? StudentUpdate(
+                                                    student: s,
+                                                    showUpdateForm: () =>
+                                                        showUpdateForm(s),
+                                                  )
+                                                : const SizedBox(),
                                           ),
-                                          const Divider(),
-                                          e.value[index].isUpdating == true
-                                              ? StudentUpdate(
-                                                  student: e.value[index],
-                                                  showUpdateForm: () =>
-                                                      showUpdateForm(
-                                                          e.value[index]),
-                                                )
-                                              : const SizedBox(),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
