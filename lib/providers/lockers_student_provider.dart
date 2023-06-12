@@ -62,14 +62,14 @@ class LockerStudentProvider with ChangeNotifier {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
     _lockerItems.remove(item);
-    deleteLatestLocker();
+    // deleteLatestLocker();
     notifyListeners();
   }
 
   Future<void> insertLocker(int index, Locker locker) async {
     await dbService.updateLocker(locker);
     _lockerItems.insert(index, locker);
-    insertLatestLocker();
+    // insertLatestLocker();
     notifyListeners();
   }
 
@@ -122,14 +122,14 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
-    deleteLatestStudent;
+    // deleteLatestStudent();
     notifyListeners();
   }
 
   Future<void> insertStudent(int index, Student student) async {
     await dbService.updateStudent(student);
     _studentItems.insert(index, student);
-    insertLatestStudent();
+    // insertLatestStudent();
     notifyListeners();
   }
 
@@ -258,6 +258,18 @@ class LockerStudentProvider with ChangeNotifier {
     }
   }
 
+  Future<void> deleteLatestStudent(String id) async {
+    await dbService.deleteStudent(id);
+    _studentItems.removeWhere((student) => student.id == id);
+    notifyListeners();
+  }
+
+  Future<void> insertLatestStudent(int index, Student student) async {
+    await dbService.updateStudent(student);
+    _studentItems.insert(index, student);
+    notifyListeners();
+  }
+
   Future<void> updateLatestLocker() async {
     for (var lastStudent in lastStudentItems) {
       for (var student in studentItems) {
@@ -266,6 +278,19 @@ class LockerStudentProvider with ChangeNotifier {
         }
       }
     }
+  }
+
+  Future<void> deleteLatestLocker(String id) async {
+    await dbService.deleteLocker(id);
+    Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
+    _lockerItems.remove(item);
+    notifyListeners();
+  }
+
+  Future<void> insertLatestLocker(int index, Locker locker) async {
+    await dbService.updateLocker(locker);
+    _lockerItems.insert(index, locker);
+    notifyListeners();
   }
 
   List<Locker> getLockerbyFloor(String floor) {
@@ -391,6 +416,22 @@ class LockerStudentProvider with ChangeNotifier {
                   .contains(value.toString().toLowerCase().trim()))
           .toList();
       return filtredStudent;
+    }
+    return [];
+  }
+
+  List<Locker> searchLockers(value) {
+    List<Locker> filtredLocker = [];
+    List<Locker> lockers = [];
+    if (value != "") {
+      lockers = _lockerItems;
+      filtredLocker = lockers
+          .where((element) => element.lockerNumber
+              .toString()
+              .toLowerCase()
+              .contains(value.toString().toLowerCase().trim()))
+          .toList();
+      return filtredLocker;
     }
     return [];
   }
