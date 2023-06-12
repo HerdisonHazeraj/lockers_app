@@ -102,7 +102,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         });
                                       },
                                       icon: const Icon(
-                                        Icons.check,
+                                        Icons.check_outlined,
                                         color: Colors.black54,
                                       ),
                                     ),
@@ -123,7 +123,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         });
                                       },
                                       icon: const Icon(
-                                        Icons.close,
+                                        Icons.close_outlined,
                                         color: Colors.black54,
                                       ),
                                     )
@@ -203,7 +203,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         });
                                       },
                                       icon: const Icon(
-                                        Icons.check,
+                                        Icons.check_outlined,
                                         color: Colors.black54,
                                       ),
                                     ),
@@ -224,7 +224,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         });
                                       },
                                       icon: const Icon(
-                                        Icons.close,
+                                        Icons.close_outlined,
                                         color: Colors.black54,
                                       ),
                                     )

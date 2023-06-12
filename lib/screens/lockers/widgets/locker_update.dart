@@ -50,7 +50,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                     controller: lockerNumberController,
                     decoration: const InputDecoration(
                       labelText: "N° de casier",
-                      prefixIcon: Icon(Icons.lock),
+                      prefixIcon: Icon(Icons.lock_outlined),
                     ),
                     keyboardType: TextInputType.number,
                   ),
@@ -63,7 +63,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                     controller: lockNumberController,
                     decoration: const InputDecoration(
                       labelText: "N° de serrure",
-                      prefixIcon: Icon(Icons.numbers),
+                      prefixIcon: Icon(Icons.numbers_outlined),
                     ),
                     keyboardType: TextInputType.number,
                   ),
@@ -102,7 +102,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                     controller: nbKeyController,
                     decoration: const InputDecoration(
                       labelText: "Nombre de clés",
-                      prefixIcon: Icon(Icons.key),
+                      prefixIcon: Icon(Icons.key_outlined),
                     ),
                     keyboardType: TextInputType.number,
                   ),
@@ -115,7 +115,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                     controller: jobController,
                     decoration: const InputDecoration(
                       labelText: "Métier",
-                      prefixIcon: Icon(Icons.work),
+                      prefixIcon: Icon(Icons.work_outlined),
                     ),
                     keyboardType: TextInputType.name,
                   ),
@@ -128,7 +128,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                     controller: remarkController,
                     decoration: const InputDecoration(
                       labelText: "Remarque (facultatif)",
-                      prefixIcon: Icon(Icons.note),
+                      prefixIcon: Icon(Icons.note_outlined),
                     ),
                     keyboardType: TextInputType.name,
                   ),

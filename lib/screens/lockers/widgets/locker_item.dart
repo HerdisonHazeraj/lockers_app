@@ -41,8 +41,8 @@ class _LockerItemState extends State<LockerItem> {
       child: ListTile(
         leading: Icon(
           widget.locker.isAvailable == true
-              ? Icons.lock_open_sharp
-              : Icons.lock_outline_sharp,
+              ? Icons.lock_open_outlined
+              : Icons.lock_outlined,
           color: Colors.black,
           size: 40,
         ),
@@ -54,78 +54,88 @@ class _LockerItemState extends State<LockerItem> {
             : Text(widget.locker.remark),
         trailing: Visibility(
           visible: widget.locker.isFocus,
-          child: Tooltip(
-            message: "Supprimer le casier",
-            child: IconButton(
-              onPressed: () async {
-                // Suppression avec une snackbar qui permet de cancel la suppression
-                Locker locker = widget.locker;
-                indexDeletedLocker =
-                    Provider.of<LockerStudentProvider>(context, listen: false)
-                        .findIndexOfLockerById(locker.id!);
-                deletedLocker = locker;
-
-                await Provider.of<LockerStudentProvider>(context, listen: false)
-                    .deleteLocker(locker.id!);
-
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      "Le casier n°${locker.lockerNumber} a bien été supprimé !",
-                    ),
-                    duration: const Duration(seconds: 3),
-                    action: SnackBarAction(
-                        label: "Annuler",
-                        onPressed: () async {
-                          await Provider.of<LockerStudentProvider>(context,
-                                  listen: false)
-                              .insertLocker(
-                            indexDeletedLocker,
-                            deletedLocker,
-                          );
-
-                          widget.refreshList!();
-
-                          locker.isFocus = false;
-                        }),
-                  ),
-                );
-
-                // Suppression avec une boite de dialogue qui permet de confirmer
-                // showDialog(
-                //   context: context,
-                //   builder: (context) {
-                //     return AlertDialog(
-                //       title: const Text('Supprimer un casier'),
-                //       content: Text(
-                //           'Êtes-vous sûr de vouloir supprimer le casier n°${widget.locker.lockerNumber} ?'),
-                //       actions: [
-                //         TextButton(
-                //           onPressed: () {
-                //             Navigator.of(context).pop();
-                //           },
-                //           child: const Text('Annuler'),
-                //         ),
-                //         TextButton(
-                //           onPressed: () {
-                //             Provider.of<LockerStudentProvider>(context,
-                //                     listen: false)
-                //                 .deleteLocker(widget.locker.id!);
-                //             Navigator.of(context).pop();
-                //             widget.refreshList!();
-                //           },
-                //           child: const Text('Supprimer'),
-                //         ),
-                //       ],
-                //     );
-                //   },
-                // );
-              },
-              icon: const Icon(
-                Icons.delete,
-                color: Colors.red,
+          child: Wrap(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.info_outlined,
+                  color: Colors.black,
+                ),
               ),
-            ),
+              IconButton(
+                onPressed: () async {
+                  // Suppression avec une snackbar qui permet de cancel la suppression
+                  Locker locker = widget.locker;
+                  indexDeletedLocker =
+                      Provider.of<LockerStudentProvider>(context, listen: false)
+                          .findIndexOfLockerById(locker.id!);
+                  deletedLocker = locker;
+
+                  await Provider.of<LockerStudentProvider>(context,
+                          listen: false)
+                      .deleteLocker(locker.id!);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Le casier n°${locker.lockerNumber} a bien été supprimé !",
+                      ),
+                      duration: const Duration(seconds: 3),
+                      action: SnackBarAction(
+                          label: "Annuler",
+                          onPressed: () async {
+                            await Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .insertLocker(
+                              indexDeletedLocker,
+                              deletedLocker,
+                            );
+
+                            widget.refreshList!();
+
+                            locker.isFocus = false;
+                          }),
+                    ),
+                  );
+
+                  // Suppression avec une boite de dialogue qui permet de confirmer
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (context) {
+                  //     return AlertDialog(
+                  //       title: const Text('Supprimer un casier'),
+                  //       content: Text(
+                  //           'Êtes-vous sûr de vouloir supprimer le casier n°${widget.locker.lockerNumber} ?'),
+                  //       actions: [
+                  //         TextButton(
+                  //           onPressed: () {
+                  //             Navigator.of(context).pop();
+                  //           },
+                  //           child: const Text('Annuler'),
+                  //         ),
+                  //         TextButton(
+                  //           onPressed: () {
+                  //             Provider.of<LockerStudentProvider>(context,
+                  //                     listen: false)
+                  //                 .deleteLocker(widget.locker.id!);
+                  //             Navigator.of(context).pop();
+                  //             widget.refreshList!();
+                  //           },
+                  //           child: const Text('Supprimer'),
+                  //         ),
+                  //       ],
+                  //     );
+                  //   },
+                  // );
+                },
+                tooltip: "Supprimer le casier",
+                icon: const Icon(
+                  Icons.delete_outlined,
+                  color: Colors.red,
+                ),
+              ),
+            ],
           ),
           // child: IconButton(
           //   onPressed: widget.locker.isAvailable!

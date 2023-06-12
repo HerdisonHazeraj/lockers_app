@@ -103,7 +103,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                   child: Wrap(
                     children: [
                       FilterElement(
-                        icon: Icons.work,
+                        icon: Icons.work_outlined,
                         keys: metiersKeys,
                         dropDownList: metiers,
                         selectedFilters: selectedMetiers,
@@ -111,7 +111,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         filterNod: 'job',
                       ),
                       FilterElement(
-                        icon: Icons.calendar_month,
+                        icon: Icons.calendar_month_outlined,
                         keys: anneesKeys,
                         dropDownList: annees,
                         selectedFilters: selectedAnnees,
@@ -119,7 +119,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         filterNod: 'year',
                       ),
                       FilterElement(
-                        icon: Icons.admin_panel_settings,
+                        icon: Icons.admin_panel_settings_outlined,
                         keys: responsablesKeys,
                         dropDownList: responsables,
                         selectedFilters: selectedResponsables,
@@ -127,7 +127,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         filterNod: 'manager',
                       ),
                       FilterElement(
-                        icon: Icons.attach_money,
+                        icon: Icons.attach_money_outlined,
                         keys: cautionsKeys,
                         dropDownList: caution,
                         selectedFilters: selectedCautions,

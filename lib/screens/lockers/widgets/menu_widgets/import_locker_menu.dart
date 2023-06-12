@@ -35,7 +35,7 @@ class ImportLockerMenu extends StatelessWidget {
                 controller: fileController,
                 decoration: const InputDecoration(
                   labelText: "Choisir...",
-                  prefixIcon: Icon(Icons.file_upload),
+                  prefixIcon: Icon(Icons.file_upload_outlined),
                 ),
                 readOnly: true,
                 onTap: () async {

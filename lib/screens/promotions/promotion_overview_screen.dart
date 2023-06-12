@@ -210,7 +210,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                           child: Wrap(
                             children: [
                               FilterElement(
-                                icon: Icons.calendar_today,
+                                icon: Icons.calendar_today_outlined,
                                 keys: anneesKeys,
                                 dropDownList: annees,
                                 selectedFilters: selectedAnnees,
@@ -218,7 +218,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                 filterNod: 'year',
                               ),
                               FilterElement(
-                                icon: Icons.work,
+                                icon: Icons.work_outlined,
                                 keys: metiersKeys,
                                 dropDownList: metiers,
                                 selectedFilters: selectedMetiers,
@@ -226,7 +226,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                                 filterNod: 'metier',
                               ),
                               FilterElement(
-                                icon: Icons.admin_panel_settings,
+                                icon: Icons.admin_panel_settings_outlined,
                                 keys: responsablesKeys,
                                 dropDownList: responsables,
                                 selectedFilters: selectedResponsables,
@@ -270,7 +270,7 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                           ),
                         ),
                         ElevatedButton.icon(
-                            icon: Icon(Icons.done),
+                            icon: const Icon(Icons.done_outlined),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green),
                             onPressed: isPromoteButtonEnabled

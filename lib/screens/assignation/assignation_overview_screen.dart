@@ -214,7 +214,7 @@ class _AssignListViewState extends State<AssignListView> {
                             ),
                             ElevatedButton.icon(
                               label: const Text('Attribuer'),
-                              icon: const Icon(Icons.done_all),
+                              icon: const Icon(Icons.done_all_outlined),
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all(Colors.black54),
