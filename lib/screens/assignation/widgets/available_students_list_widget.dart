@@ -53,24 +53,25 @@ class _AvailableStudentsListWidgetState
                               widget.studentsListView[index].isSelected =
                                   newValue!;
 
-                            if (widget.studentsListView[index].isSelected) {
-                              widget.selectedStudents
-                                  .add(widget.studentsListView[index]);
-                            } else {
-                              widget.selectedStudents
-                                  .remove(widget.studentsListView[index]);
-                              widget.areAllchecksChecked = false;
-                            }
+                              if (widget.studentsListView[index].isSelected) {
+                                widget.selectedStudents
+                                    .add(widget.studentsListView[index]);
+                              } else {
+                                widget.selectedStudents
+                                    .remove(widget.studentsListView[index]);
+                                widget.areAllchecksChecked = false;
+                              }
 
-                            widget.checkIfWeCanAssignVoid();
-                            widget.checkIfWeCanAutoAssignVoid();
-                          });
-                        },
+                              widget.checkIfWeCanAssignVoid();
+                              widget.checkIfWeCanAutoAssignVoid();
+                            });
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+        ),
       ),
     );
   }

@@ -39,10 +39,12 @@ class _LockerItemState extends State<LockerItem> {
         );
       },
       child: ListTile(
-        leading: CircleAvatar(
-          radius: 30,
-          backgroundColor:
-              widget.locker.isAvailable! ? Colors.green : Colors.red,
+        leading: Icon(
+          widget.locker.isAvailable == true
+              ? Icons.lock_open_sharp
+              : Icons.lock_outline_sharp,
+          color: Colors.black,
+          size: 40,
         ),
         title: Text(
           'Casier n°${widget.locker.lockerNumber}',

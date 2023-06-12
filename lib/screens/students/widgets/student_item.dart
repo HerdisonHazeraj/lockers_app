@@ -41,7 +41,11 @@ class _StudentItemState extends State<StudentItem> {
         );
       },
       child: ListTile(
-        leading: Image.asset('assets/images/photoprofil.png'),
+        leading: Image.asset(
+          'assets/images/photoprofil.png',
+          width: 40,
+          height: 40,
+        ),
         title: Text("${widget.student.firstName} ${widget.student.lastName}"),
         subtitle: Text(widget.student.job),
         trailing: Visibility(
