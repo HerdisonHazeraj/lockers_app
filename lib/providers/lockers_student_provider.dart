@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:js_interop';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -138,6 +139,8 @@ class LockerStudentProvider with ChangeNotifier {
     if (id == "") return Student.base();
 
     final studentIndex = findIndexOfStudentById(id);
+    sortStudentBy("floor", true);
+    sortStudentBy("floor", false);
     return _studentItems[studentIndex];
   }
 
@@ -305,6 +308,36 @@ class LockerStudentProvider with ChangeNotifier {
       return filtredStudent;
     }
     return startList;
+  }
+
+  List<Locker> sortStudentBy(String key, bool value, List<Locker> lockers) {
+    List<Locker> sortedLocker = lockers;
+    if (key.isNotEmpty && value.isDefinedAndNotNull) {
+      if (value) {
+        sortedLocker.sort(
+            (a, b) => a.toJson()[key].toString().compareTo(b.toJson()[key]));
+      } else {
+        sortedLocker.sort(
+            (a, b) => -a.toJson()[key].toString().compareTo(b.toJson()[key]));
+      }
+      return sortedLocker;
+    }
+    return [];
+  }
+
+  List<Student> sortLockerBy(String key, bool value, List<Student> students) {
+    List<Student> sortedStudent = students;
+    if (key.isNotEmpty && value.isDefinedAndNotNull) {
+      if (value) {
+        sortedStudent.sort(
+            (a, b) => a.toJson()[key].toString().compareTo(b.toJson()[key]));
+      } else {
+        sortedStudent.sort(
+            (a, b) => -a.toJson()[key].toString().compareTo(b.toJson()[key]));
+      }
+      return sortedStudent;
+    }
+    return [];
   }
 
   Future<void> promoteStudent(List<Student> students) async {
