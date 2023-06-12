@@ -141,6 +141,13 @@ class LockerStudentProvider with ChangeNotifier {
     return _studentItems[studentIndex];
   }
 
+  Student getStudentByLocker(Locker locker) {
+    if (locker.isNull) return Student.base();
+    Student student = studentItems
+        .firstWhere((element) => element.lockerNumber == locker.lockerNumber);
+    return student;
+  }
+
   List<Student> getAvailableStudents() {
     List<Student> availableItem =
         studentItems.where((element) => element.lockerNumber == 0).toList();
