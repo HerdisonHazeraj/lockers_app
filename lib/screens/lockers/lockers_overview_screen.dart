@@ -26,7 +26,7 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     lockersByFloor =
-        Provider.of<LockerStudentProvider>(context).getLockerByFloor();
+        Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
 
     return Scaffold(
       body: SafeArea(

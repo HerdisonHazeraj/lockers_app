@@ -1,7 +1,7 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lockers_app/screens/shared/components/prepare_database_app.dart';
+import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
 
 class SideMenuApp extends StatelessWidget {
   const SideMenuApp({

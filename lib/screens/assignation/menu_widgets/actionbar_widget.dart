@@ -214,11 +214,14 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     width: double.infinity,
                     child: ElevatedButton(
                         onPressed: () {
-                          Provider.of<LockerStudentProvider>(context)
-                              .sortLockerBy(
-                                  sortController.text,
-                                  orderController.text == "1" ? true : false,
-                                  widget.availableLockers);
+                          setState(() {
+                            Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .sortLockerBy(
+                                    sortController.text,
+                                    orderController.text == "1" ? true : false,
+                                    widget.availableLockers);
+                          });
                         },
                         style: ButtonStyle(
                           backgroundColor:
