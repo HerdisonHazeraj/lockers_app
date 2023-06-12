@@ -62,14 +62,14 @@ class LockerStudentProvider with ChangeNotifier {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
     _lockerItems.remove(item);
-    deleteLatestLocker();
+    // deleteLatestLocker();
     notifyListeners();
   }
 
   Future<void> insertLocker(int index, Locker locker) async {
     await dbService.updateLocker(locker);
     _lockerItems.insert(index, locker);
-    insertLatestLocker();
+    // insertLatestLocker();
     notifyListeners();
   }
 
@@ -122,14 +122,14 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
-    deleteLatestStudent;
+    // deleteLatestStudent;
     notifyListeners();
   }
 
   Future<void> insertStudent(int index, Student student) async {
     await dbService.updateStudent(student);
     _studentItems.insert(index, student);
-    insertLatestStudent();
+    // insertLatestStudent();
     notifyListeners();
   }
 

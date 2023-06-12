@@ -18,8 +18,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   void initState() {
-    lockers = Provider.of<LockerStudentProvider>(context, listen: false)
-        .getLastAddedLockers();
+    // lockers = Provider.of<LockerStudentProvider>(context, listen: false)
+    //     .getLastAddedLockers();
     students =
         Provider.of<LockerStudentProvider>(context, listen: false).studentItems;
     super.initState();
@@ -90,51 +90,50 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         setState(() {
                                           students.remove(student);
 
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été confirmer avec succès!'),
-                                                duration:
-                                                    const Duration(seconds: 3),
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          Icons.check,
-                                          color: Colors.black54,
-                                        ),
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été confirmer avec succès!'),
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                            ),
+                                          );
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.check,
+                                        color: Colors.black54,
                                       ),
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            students.remove(student);
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          students.remove(student);
 
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été annuler avec succès !'),
-                                                duration:
-                                                    const Duration(seconds: 3),
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          Icons.close,
-                                          color: Colors.black54,
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été annuler avec succès !'),
+                                              duration:
+                                                  const Duration(seconds: 3),
+                                            ),
+                                          );
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.close,
+                                        color: Colors.black54,
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

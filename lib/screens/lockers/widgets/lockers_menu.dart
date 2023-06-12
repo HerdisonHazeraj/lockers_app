@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/locker.dart';
+import 'package:lockers_app/screens/lockers/widgets/menu_widgets/add_locker_menu.dart';
+import 'package:lockers_app/screens/lockers/widgets/menu_widgets/import_locker_menu.dart';
+import 'package:lockers_app/screens/lockers/widgets/menu_widgets/search_locker_menu.dart';
+import 'package:lockers_app/screens/shared/widgets/divider_menu.dart';
 
 class LockersMenu extends StatefulWidget {
-  const LockersMenu({super.key});
+  const LockersMenu({required this.searchLockers, super.key});
+
+  final Function(String value) searchLockers;
 
   @override
   State<LockersMenu> createState() => _LockersMenuState();
 }
 
 class _LockersMenuState extends State<LockersMenu> {
+  // List of lockers searched
+  List<Locker> searchedLockers = [];
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -19,13 +29,21 @@ class _LockersMenuState extends State<LockersMenu> {
           decoration: const BoxDecoration(
             color: Color(0xffececf6),
           ),
-          child: const SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
               vertical: 30,
               horizontal: 30,
             ),
             child: Column(
-              children: [],
+              children: [
+                SearchLockerMenu(
+                  searchLockers: (value) => widget.searchLockers(value),
+                ),
+                const dividerMenu(),
+                const AddLockerMenu(),
+                const dividerMenu(),
+                ImportLockerMenu(),
+              ],
             ),
           ),
         ),

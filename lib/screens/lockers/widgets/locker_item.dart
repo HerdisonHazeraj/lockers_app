@@ -5,11 +5,17 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/student.dart';
-import '../locker_details_screen.dart';
 
 class LockerItem extends StatefulWidget {
   final Locker locker;
-  const LockerItem(this.locker, {super.key});
+  final Function()? showUpdateForm;
+  final Function()? refreshList;
+  const LockerItem({
+    super.key,
+    required this.locker,
+    this.refreshList,
+    this.showUpdateForm,
+  });
 
   @override
   State<LockerItem> createState() => _LockerItemState();
@@ -34,12 +40,6 @@ class _LockerItemState extends State<LockerItem> {
         );
       },
       child: ListTile(
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            LockerDetailsScreen.routeName,
-            arguments: widget.locker.id,
-          );
-        },
         leading: CircleAvatar(
           backgroundColor:
               widget.locker.isAvailable! ? Colors.green : Colors.red,
