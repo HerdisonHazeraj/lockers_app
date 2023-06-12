@@ -4,6 +4,7 @@ import 'dart:js_interop';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../infrastructure/db_service.dart';
@@ -219,14 +220,17 @@ class LockerStudentProvider with ChangeNotifier {
 
   Map<String, List<Locker>> mapLockerByFloor() {
     Map<String, List<Locker>> map = {};
-    map["d"] = lockerItems
-        .where((element) => element.floor.toLowerCase() == "d")
+    map["a"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "a")
+        .toList();
+    map["b"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "b")
         .toList();
     map["c"] = lockerItems
         .where((element) => element.floor.toLowerCase() == "c")
         .toList();
-    map["b"] = lockerItems
-        .where((element) => element.floor.toLowerCase() == "b")
+    map["d"] = lockerItems
+        .where((element) => element.floor.toLowerCase() == "d")
         .toList();
     map["e"] = lockerItems
         .where((element) => element.floor.toLowerCase() == "e")
@@ -238,14 +242,6 @@ class LockerStudentProvider with ChangeNotifier {
     List<Locker> lockers =
         lockerItems.where((element) => element.nbKey < 2).toList();
     return lockers;
-  }
-
-  List<Locker> getLastAddedLockers() {
-    List<Locker> lastLocker = [];
-    for (var i = lockerItems.length - 10; i < lockerItems.length; i++) {
-      lastLocker.add(lockerItems[i]);
-    }
-    return lastLocker;
   }
 
   Future<void> updateLatestStudent() async {
@@ -352,10 +348,10 @@ class LockerStudentProvider with ChangeNotifier {
     if (key.isNotEmpty && value.isDefinedAndNotNull) {
       if (value) {
         sortedLocker.sort((a, b) =>
-            a.toJson()[key].toString().compareTo(b.toJson()[key].toString()));
+            a.toJson()[key].hashCode.compareTo(b.toJson()[key].hashCode));
       } else {
         sortedLocker.sort((a, b) =>
-            -a.toJson()[key].toString().compareTo(b.toJson()[key].toString()));
+            -a.toJson()[key].hashCode.compareTo(b.toJson()[key].hashCode));
       }
       return sortedLocker;
     }

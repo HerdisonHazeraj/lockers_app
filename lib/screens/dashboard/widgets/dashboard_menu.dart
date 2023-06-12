@@ -19,7 +19,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
   @override
   void initState() {
     lockers = Provider.of<LockerStudentProvider>(context, listen: false)
-        .getLastAddedLockers();
+        .lastLockerItems;
     students =
         Provider.of<LockerStudentProvider>(context, listen: false).studentItems;
     super.initState();
@@ -173,9 +173,6 @@ class _DashboardMenuState extends State<DashboardMenu> {
                               }),
                               onExit: (event) => setState(() {
                                 locker.isFocus = false;
-                              }),
-                              onHover: (event) => setState(() {
-                                locker.isFocus = true;
                               }),
                               child: ListTile(
                                 title: Text(
