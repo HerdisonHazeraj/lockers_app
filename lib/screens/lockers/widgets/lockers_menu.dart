@@ -30,7 +30,7 @@ class _LockersMenuState extends State<LockersMenu> {
           decoration: const BoxDecoration(
             color: Color(0xffececf6),
           ),
-          child: SingleChildScrollView(
+          child: Container(
             padding: const EdgeInsets.symmetric(
               vertical: 30,
               horizontal: 30,
