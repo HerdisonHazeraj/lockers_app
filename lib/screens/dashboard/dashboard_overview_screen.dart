@@ -4,6 +4,7 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/dashboard/widgets/barchart_widget.dart';
 import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
 import 'package:lockers_app/screens/dashboard/widgets/info_card.dart';
+import 'package:lockers_app/screens/dashboard/widgets/piechart_caution_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../responsive.dart';
@@ -98,6 +99,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             children: [
                                               PieChart(
                                                 PieChartData(
+                                                  // startDegreeOffset: 0,
                                                   pieTouchData: PieTouchData(
                                                     touchCallback:
                                                         (FlTouchEvent event,
@@ -152,17 +154,18 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                         const Column(
                                           children: [
                                             Indicator(
-                                              color: Colors.green,
+                                              color: Color(0xFF01FBCF),
                                               text: 'Casiers libres',
                                               isSquare: true,
                                             ),
                                             Indicator(
-                                              color: Colors.red,
+                                              color: Color(0xFFFB3274),
                                               text: 'Casiers occupés',
                                               isSquare: true,
                                             ),
                                             Indicator(
-                                              color: Colors.orange,
+                                              color: Color.fromARGB(
+                                                  255, 255, 153, 0),
                                               text: 'Casiers défectueux',
                                               isSquare: true,
                                             ),
@@ -230,7 +233,28 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                 ),
                               ],
                             ),
-                            BarChartWidget(),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Wrap(
+                                          spacing: Responsive.isMobile(context)
+                                              ? 8
+                                              : 20,
+                                          runSpacing:
+                                              Responsive.isMobile(context)
+                                                  ? 8
+                                                  : 20,
+                                          children: [
+                                            BarChartWidget(),
+                                            CautionPieChartWidget(),
+                                          ]),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -262,7 +286,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
           case 0:
             // Casiers libres
             return PieChartSectionData(
-              color: Colors.green,
+              color: Color(0xFF01FBCF),
               value: Provider.of<LockerStudentProvider>(context)
                   .getAvailableLockers()
                   .length
@@ -282,7 +306,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
           case 1:
             // Casiers occupés
             return PieChartSectionData(
-              color: Colors.red,
+              color: Color(0xFFFB3274),
               value: Provider.of<LockerStudentProvider>(context)
                   .getUnAvailableLockers()
                   .length
