@@ -1,6 +1,7 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) =>
               LockerStudentProvider(FirebaseRTDBService.instance),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => HistoryProvider(FirebaseRTDBService.instance),
         ),
       ],
       child: MaterialApp(

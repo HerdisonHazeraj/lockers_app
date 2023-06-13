@@ -36,6 +36,10 @@ class FirebaseRTDBService implements DBService {
       final newStudentKey = _db.child(studentNode).push().key;
       updatesStudent['/$studentNode/$newStudentKey'] = v;
     });
+    await json[historyNode].forEach((v) {
+      final newHistoryKey = _db.child(historyNode).push().key;
+      updatesStudent['/$historyNode/$newHistoryKey'] = v;
+    });
 
     updatesLockers.forEach((lockerKey, lockerValue) {
       updatesStudent.forEach((studentKey, studentValue) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js_interop';
+import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -22,7 +23,6 @@ class LockerStudentProvider with ChangeNotifier {
 
   LockerStudentProvider(this.dbService);
   final DBService dbService;
-
   List<Locker> get lockerItems {
     return [..._lockerItems];
   }
@@ -114,11 +114,7 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
-    History history = History(
-        title:
-            "${student.firstName} ${student.lastName} à été ajouté à la base de donnée",
-        date: DateTime.now());
-    HistoryProvider(dbService).addHistory(history);
+
     notifyListeners();
   }
 
@@ -346,6 +342,15 @@ class LockerStudentProvider with ChangeNotifier {
         isInaccessible: false,
       ),
     );
+  }
+
+  int getLengthFromLargestFloor() {
+    int floorLength = 0;
+    mapLockerByFloor().forEach((key, value) {
+      if (value.length > floorLength) floorLength = value.length;
+    });
+
+    return floorLength;
   }
 
   List<Student> filterStudentsBy(List<List> key, List<List> value,
