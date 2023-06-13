@@ -65,9 +65,9 @@ class _StudentItemState extends State<StudentItem> {
               widget.student.lockerNumber == 0
                   ? IconButton(
                       onPressed: () async {
-                        // await Provider.of<LockerStudentProvider>(context,
-                        //         listen: false)
-                        //     .autoAttributeLocker([widget.student]);
+                        await Provider.of<LockerStudentProvider>(context,
+                                listen: false)
+                            .autoAttributeOneLocker(widget.student);
 
                         Student updatedStudent =
                             Provider.of<LockerStudentProvider>(context,
@@ -92,7 +92,7 @@ class _StudentItemState extends State<StudentItem> {
                       tooltip: "Attribuer automatiquement un casier",
                       icon: const Icon(
                         Icons.bookmark_add_outlined,
-                        color: Colors.black54,
+                        color: Colors.black,
                       ),
                     )
                   : IconButton(
