@@ -36,7 +36,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
       TextEditingController(text: widget.student.responsable);
 
   // Tools for student details
-  late final Locker locker;
+  late Locker locker;
 
   @override
   Widget build(BuildContext context) {
