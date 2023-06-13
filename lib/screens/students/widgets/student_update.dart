@@ -35,10 +35,15 @@ class _StudentUpdateState extends State<StudentUpdate> {
   late final responsableController =
       TextEditingController(text: widget.student.responsable);
 
+  // Tools for student details
+  late final Locker locker;
+
   @override
   Widget build(BuildContext context) {
-    final Locker locker = Provider.of<LockerStudentProvider>(context)
-        .getLockerByLockerNumber(widget.student.lockerNumber);
+    if (widget.student.lockerNumber != 0) {
+      locker = Provider.of<LockerStudentProvider>(context)
+          .getLockerByLockerNumber(widget.student.lockerNumber);
+    }
 
     return Padding(
       padding: const EdgeInsets.only(

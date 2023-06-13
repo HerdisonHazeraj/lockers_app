@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class ImportLockerMenu extends StatelessWidget {
   ImportLockerMenu({super.key});
 
@@ -65,12 +66,14 @@ class ImportLockerMenu extends StatelessWidget {
                   ).importLockersWithCSV(filePicker!);
 
                   if (error != null) {
+                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(error),
                       ),
                     );
                   } else {
+                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text("Importation réussie"),
