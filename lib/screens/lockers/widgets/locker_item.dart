@@ -175,6 +175,7 @@ class _LockerItemState extends State<LockerItem> {
                                   ],
                                 );
                               });
+                          // ignore: use_build_context_synchronously
                           Provider.of<LockerStudentProvider>(context,
                                   listen: false)
                               .updateStudent(owner.copyWith(lockerNumber: 0));
@@ -182,16 +183,19 @@ class _LockerItemState extends State<LockerItem> {
 
                         // Suppression avec une snackbar qui permet de cancel la suppression
                         Locker locker = widget.locker;
+                        // ignore: use_build_context_synchronously
                         indexDeletedLocker = Provider.of<LockerStudentProvider>(
                                 context,
                                 listen: false)
                             .findIndexOfLockerById(locker.id!);
                         deletedLocker = locker;
 
+                        // ignore: use_build_context_synchronously
                         await Provider.of<LockerStudentProvider>(context,
                                 listen: false)
                             .deleteLocker(locker.id!);
 
+                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -208,6 +212,23 @@ class _LockerItemState extends State<LockerItem> {
                                     indexDeletedLocker,
                                     deletedLocker,
                                   );
+
+                                  if (deletedLocker.isAvailable == false) {
+                                    Student owner =
+                                        // ignore: use_build_context_synchronously
+                                        Provider.of<LockerStudentProvider>(
+                                                context,
+                                                listen: false)
+                                            .getStudentByLocker(widget.locker);
+
+                                    // ignore: use_build_context_synchronously
+                                    await Provider.of<LockerStudentProvider>(
+                                            context,
+                                            listen: false)
+                                        .updateStudent(owner.copyWith(
+                                            lockerNumber:
+                                                deletedLocker.lockerNumber));
+                                  }
 
                                   widget.refreshList!();
 
