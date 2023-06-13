@@ -54,6 +54,7 @@ class Student extends IStudent {
   }
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'firstName': firstName,
         'lastName': lastName,
         'job': job,
