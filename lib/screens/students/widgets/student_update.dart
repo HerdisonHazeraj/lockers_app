@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +37,9 @@ class _StudentUpdateState extends State<StudentUpdate> {
 
   @override
   Widget build(BuildContext context) {
+    final Locker locker = Provider.of<LockerStudentProvider>(context)
+        .getLockerByLockerNumber(widget.student.lockerNumber);
+
     return Padding(
       padding: const EdgeInsets.only(
         left: 100,
@@ -55,7 +59,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                     controller: firstnameController,
                     decoration: const InputDecoration(
                       labelText: "Prénom",
-                      prefixIcon: Icon(Icons.person),
+                      prefixIcon: Icon(Icons.person_outlined),
                     ),
                     keyboardType: TextInputType.name,
                   ),
@@ -68,7 +72,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                     controller: lastnameController,
                     decoration: const InputDecoration(
                       labelText: "Nom",
-                      prefixIcon: Icon(Icons.person),
+                      prefixIcon: Icon(Icons.person_outlined),
                     ),
                     keyboardType: TextInputType.name,
                   ),
@@ -81,7 +85,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                     controller: loginController,
                     decoration: const InputDecoration(
                       labelText: "Login",
-                      prefixIcon: Icon(Icons.login),
+                      prefixIcon: Icon(Icons.login_outlined),
                     ),
                     keyboardType: TextInputType.name,
                   ),
@@ -94,7 +98,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                     controller: mailController,
                     decoration: const InputDecoration(
                       labelText: "Mail",
-                      prefixIcon: Icon(Icons.mail),
+                      prefixIcon: Icon(Icons.mail_outlined),
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
@@ -111,7 +115,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                     controller: classeController,
                     decoration: const InputDecoration(
                       labelText: "Classe",
-                      prefixIcon: Icon(Icons.school),
+                      prefixIcon: Icon(Icons.school_outlined),
                     ),
                     keyboardType: TextInputType.name,
                   ),
@@ -128,7 +132,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                       "4": "4ème année",
                     },
                     defaultItem: "Année...",
-                    icon: Icons.calendar_today,
+                    icon: Icons.calendar_today_outlined,
                     onChanged: (value) {
                       setState(() {
                         yearController.text = value!;
@@ -145,7 +149,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                     controller: jobController,
                     decoration: const InputDecoration(
                       labelText: "Formation",
-                      prefixIcon: Icon(Icons.work),
+                      prefixIcon: Icon(Icons.work_outlined),
                     ),
                     keyboardType: TextInputType.name,
                   ),
@@ -158,7 +162,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                     controller: responsableController,
                     decoration: const InputDecoration(
                       labelText: "Maître de classe",
-                      prefixIcon: Icon(Icons.admin_panel_settings),
+                      prefixIcon: Icon(Icons.admin_panel_settings_outlined),
                     ),
                     keyboardType: TextInputType.name,
                   ),
@@ -225,6 +229,51 @@ class _StudentUpdateState extends State<StudentUpdate> {
             ],
           ),
           const Divider(),
+          if (widget.student.lockerNumber != 0)
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: TextField(
+                      readOnly: true,
+                      enableInteractiveSelection: false,
+                      decoration: InputDecoration(
+                        hintText: "Casier n°${locker.lockerNumber.toString()}",
+                        prefixIcon:
+                            const Icon(Icons.admin_panel_settings_outlined),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: TextField(
+                      readOnly: true,
+                      enableInteractiveSelection: false,
+                      decoration: InputDecoration(
+                        hintText: "Étage ${locker.floor.toUpperCase()}",
+                        prefixIcon: const Icon(Icons.location_on_outlined),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: TextField(
+                      readOnly: true,
+                      enableInteractiveSelection: false,
+                      decoration: InputDecoration(
+                        hintText: "${locker.nbKey.toString()} clés",
+                        prefixIcon: const Icon(Icons.vpn_key_outlined),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
         ],
       ),
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../models/locker.dart';
 import '../../../models/student.dart';
 
 class StudentItem extends StatefulWidget {
@@ -26,20 +28,15 @@ class _StudentItemState extends State<StudentItem> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (event) {
-        setState(
-          () {
-            widget.student.isFocus = true;
-          },
-        );
-      },
-      onExit: (event) {
-        setState(
-          () {
-            widget.student.isFocus = false;
-          },
-        );
-      },
+      onExit: (event) => setState(() {
+        widget.student.isFocus = false;
+      }),
+      onEnter: (event) => setState(() {
+        widget.student.isFocus = false;
+      }),
+      onHover: (event) => setState(() {
+        widget.student.isFocus = true;
+      }),
       child: ListTile(
         leading: Image.asset(
           'assets/images/photoprofil.png',
@@ -50,89 +47,173 @@ class _StudentItemState extends State<StudentItem> {
         subtitle: Text(widget.student.job),
         trailing: Visibility(
           visible: widget.student.isFocus,
-          child: Tooltip(
-            message: "Supprimer l'élève",
-            child: IconButton(
-              icon: const Icon(
-                Icons.delete,
-                color: Colors.red,
-              ),
-              onPressed: () async {
-                // Suppression avec une snackbar qui permet de cancel la suppression
-                Student student = widget.student;
+          child: Wrap(
+            children: [
+              widget.student.lockerNumber == 0
+                  ? IconButton(
+                      onPressed: () async {
+                        // await Provider.of<LockerStudentProvider>(context,
+                        //         listen: false)
+                        //     .autoAttributeLocker([widget.student]);
 
-                indexDeletedStudent =
-                    Provider.of<LockerStudentProvider>(context, listen: false)
-                        .findIndexOfStudentById(student.id!);
-                deletedStudent = student;
+                        // Student student = Provider.of<LockerStudentProvider>(
+                        //         context,
+                        //         listen: false)
+                        //     .getStudent(widget.student.id!);
 
-                await Provider.of<LockerStudentProvider>(context, listen: false)
-                    .deleteStudent(student.id!);
+                        // Locker locker = Provider.of<LockerStudentProvider>(
+                        //         context,
+                        //         listen: false)
+                        //     .getAccessibleLocker()
+                        //     .where((element) =>
+                        //         element.lockerNumber == student.lockerNumber)
+                        //     .first;
 
-                widget.refreshList!();
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text(
+                        //       "Le casier n°${locker.lockerNumber} a bien été attribué à l'élève ${student.firstName} ${student.lastName} !",
+                        //     ),
+                        //     duration: const Duration(seconds: 3),
+                        //   ),
+                        // );
+                      },
+                      tooltip: "Attribuer automatiquement un casier à l'élève",
+                      icon: const Icon(
+                        Icons.bookmark_add_outlined,
+                        color: Colors.black,
+                      ),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        Locker locker = Provider.of<LockerStudentProvider>(
+                                context,
+                                listen: false)
+                            .getAccessibleLocker()
+                            .where((element) =>
+                                element.lockerNumber ==
+                                widget.student.lockerNumber)
+                            .first;
+                        Provider.of<LockerStudentProvider>(context,
+                                listen: false)
+                            .unAttributeLocker(locker, widget.student);
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      "L'élève ${student.firstName} ${student.lastName} a bien été supprimé !",
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Le casier n°${locker.lockerNumber} a bien été désattribué à l'élève ${widget.student.firstName} ${widget.student.lastName} !",
+                            ),
+                            duration: const Duration(seconds: 3),
+                          ),
+                        );
+                      },
+                      tooltip: "Désattribuer le casier de l'élève",
+                      icon: const Icon(
+                        Icons.bookmark_remove_outlined,
+                        color: Colors.black,
+                      ),
                     ),
-                    duration: const Duration(seconds: 3),
-                    action: SnackBarAction(
-                        label: "Annuler",
-                        onPressed: () async {
-                          await Provider.of<LockerStudentProvider>(context,
-                                  listen: false)
-                              .insertStudent(
-                            indexDeletedStudent,
-                            deletedStudent,
-                          );
+              IconButton(
+                onPressed: () async {
+                  String email = Uri.encodeComponent(
+                      "${widget.student.firstName.replaceAll(' ', '')}.${widget.student.lastName.replaceAll(' ', '')}@ceff.ch");
+                  String subject = Uri.encodeComponent(
+                      "Rappel de votre casier n°${widget.student.lockerNumber}");
+                  String body = Uri.encodeComponent("");
+                  Uri mail =
+                      Uri.parse("mailto:$email?subject=$subject&body=$body");
+                  await launchUrl(mail);
+                },
+                tooltip: "Envoyer un mail à l'élève",
+                icon: const Icon(
+                  Icons.mail_outlined,
+                  color: Colors.black,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.delete_outlined,
+                  color: Colors.red,
+                ),
+                tooltip: "Supprimer l'élève",
+                onPressed: () async {
+                  // Suppression avec une snackbar qui permet de cancel la suppression
+                  Student student = widget.student;
 
-                          widget.refreshList!();
+                  indexDeletedStudent =
+                      Provider.of<LockerStudentProvider>(context, listen: false)
+                          .findIndexOfStudentById(student.id!);
+                  deletedStudent = student;
 
-                          student.isFocus = false;
-                        }),
-                  ),
-                );
+                  await Provider.of<LockerStudentProvider>(context,
+                          listen: false)
+                      .deleteStudent(student.id!);
 
-                // Suppression avec une boite de dialogue qui permet de confirmer
-                //   showDialog(
-                //       context: context,
-                //       builder: (context) {
-                //         return AlertDialog(
-                //           title: const Text("Supprimer un élève"),
-                //           content: const Text(
-                //               "Voulez-vous vraiment supprimer cet élève ?"),
-                //           actions: [
-                //             TextButton(
-                //               onPressed: () {
-                //                 Navigator.of(context).pop();
-                //               },
-                //               child: const Text("Annuler"),
-                //             ),
-                //             TextButton(
-                //               onPressed: () {
-                //                 Provider.of<LockerStudentProvider>(context,
-                //                         listen: false)
-                //                     .deleteStudent(widget.student.id!);
+                  widget.refreshList!();
 
-                //                 ScaffoldMessenger.of(context).showSnackBar(
-                //                   SnackBar(
-                //                     content: Text(
-                //                       "L'élève ${widget.student.firstName} ${widget.student.lastName} a bien été supprimé !",
-                //                     ),
-                //                     duration: const Duration(seconds: 2),
-                //                   ),
-                //                 );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "L'élève ${student.firstName} ${student.lastName} a bien été supprimé !",
+                      ),
+                      duration: const Duration(seconds: 3),
+                      action: SnackBarAction(
+                          label: "Annuler",
+                          onPressed: () async {
+                            await Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .insertStudent(
+                              indexDeletedStudent,
+                              deletedStudent,
+                            );
 
-                //                 Navigator.of(context).pop();
-                //               },
-                //               child: const Text("Supprimer"),
-                //             ),
-                //           ],
-                //         );
-                //       });
-              },
-            ),
+                            widget.refreshList!();
+
+                            student.isFocus = false;
+                          }),
+                    ),
+                  );
+
+                  // Suppression avec une boite de dialogue qui permet de confirmer
+                  //   showDialog(
+                  //       context: context,
+                  //       builder: (context) {
+                  //         return AlertDialog(
+                  //           title: const Text("Supprimer un élève"),
+                  //           content: const Text(
+                  //               "Voulez-vous vraiment supprimer cet élève ?"),
+                  //           actions: [
+                  //             TextButton(
+                  //               onPressed: () {
+                  //                 Navigator.of(context).pop();
+                  //               },
+                  //               child: const Text("Annuler"),
+                  //             ),
+                  //             TextButton(
+                  //               onPressed: () {
+                  //                 Provider.of<LockerStudentProvider>(context,
+                  //                         listen: false)
+                  //                     .deleteStudent(widget.student.id!);
+
+                  //                 ScaffoldMessenger.of(context).showSnackBar(
+                  //                   SnackBar(
+                  //                     content: Text(
+                  //                       "L'élève ${widget.student.firstName} ${widget.student.lastName} a bien été supprimé !",
+                  //                     ),
+                  //                     duration: const Duration(seconds: 2),
+                  //                   ),
+                  //                 );
+
+                  //                 Navigator.of(context).pop();
+                  //               },
+                  //               child: const Text("Supprimer"),
+                  //             ),
+                  //           ],
+                  //         );
+                  //       });
+                },
+              ),
+            ],
           ),
         ),
       ),

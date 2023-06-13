@@ -63,11 +63,14 @@ class _DashboardMenuState extends State<DashboardMenu> {
                       children: [
                         ...students.map(
                           (student) => MouseRegion(
-                            onEnter: (event) => setState(() {
-                              student.isFocus = true;
-                            }),
                             onExit: (event) => setState(() {
                               student.isFocus = false;
+                            }),
+                            onEnter: (event) => setState(() {
+                              student.isFocus = false;
+                            }),
+                            onHover: (event) => setState(() {
+                              student.isFocus = true;
                             }),
                             child: ListTile(
                               title: Text(
@@ -102,7 +105,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         });
                                       },
                                       icon: const Icon(
-                                        Icons.check,
+                                        Icons.check_outlined,
                                         color: Colors.black54,
                                       ),
                                     ),
@@ -123,7 +126,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         });
                                       },
                                       icon: const Icon(
-                                        Icons.close,
+                                        Icons.close_outlined,
                                         color: Colors.black54,
                                       ),
                                     )

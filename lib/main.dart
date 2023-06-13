@@ -8,7 +8,6 @@ import 'package:lockers_app/screens/core/components/drawer_app.dart';
 import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/core/components/side_menu_app.dart';
 import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
-import 'package:lockers_app/screens/lockers/locker_details_screen.dart';
 import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/promotions/promotion_overview_screen.dart';
 import 'package:lockers_app/screens/students/students_overview_screen.dart';
@@ -56,8 +55,6 @@ class MyApp extends StatelessWidget {
               const AssignationOverviewScreen(),
           StudentsOverviewScreen.routeName: (context) =>
               StudentsOverviewScreen(),
-          LockerDetailsScreen.routeName: (context) =>
-              const LockerDetailsScreen(),
         },
         home: const MyWidget(),
       ),

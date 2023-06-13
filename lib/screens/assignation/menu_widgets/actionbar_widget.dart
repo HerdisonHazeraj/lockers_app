@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lockers_app/screens/assignation/menu_widgets/dropdown_item_widget.dart';
+// import 'package:lockers_app/screens/assignation/menu_widgets/dropdown_item_widget.dart';
+import 'package:lockers_app/screens/assignation/menu_widgets/sort_element_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/filter_element.dart';
+import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
 import '../../../models/locker.dart';
 import '../../../models/student.dart';
 
@@ -13,8 +15,10 @@ class ActionBarWidget extends StatefulWidget {
       required this.studentsListView,
       required this.selectedStudents,
       required this.isStudentsListViewInit,
+      required this.isSortLockersShown,
       required this.filterStudentsVoid,
-      required this.changeLockerListStateVoid});
+      required this.changeLockerListStateVoid,
+      required this.isOrderCheckChecked});
 
   List<Locker> availableLockers;
   List<Student> studentsListView;
@@ -22,10 +26,12 @@ class ActionBarWidget extends StatefulWidget {
   List<List> values;
   List<Student> selectedStudents;
   bool isStudentsListViewInit;
+  bool isSortLockersShown;
+  bool isOrderCheckChecked;
 
   final Function(List<List> keys, List<List> values) filterStudentsVoid;
-  final Function(TextEditingController sortController,
-      TextEditingController orderController) changeLockerListStateVoid;
+  final Function(TextEditingController sortController, bool isOrderCheckChecked)
+      changeLockerListStateVoid;
 
   @override
   State<ActionBarWidget> createState() => _ActionBarWidgetState();
@@ -103,7 +109,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                   child: Wrap(
                     children: [
                       FilterElement(
-                        icon: Icons.work,
+                        icon: Icons.work_outlined,
                         keys: metiersKeys,
                         dropDownList: metiers,
                         selectedFilters: selectedMetiers,
@@ -111,7 +117,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         filterNod: 'job',
                       ),
                       FilterElement(
-                        icon: Icons.calendar_month,
+                        icon: Icons.calendar_month_outlined,
                         keys: anneesKeys,
                         dropDownList: annees,
                         selectedFilters: selectedAnnees,
@@ -119,7 +125,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         filterNod: 'year',
                       ),
                       FilterElement(
-                        icon: Icons.admin_panel_settings,
+                        icon: Icons.admin_panel_settings_outlined,
                         keys: responsablesKeys,
                         dropDownList: responsables,
                         selectedFilters: selectedResponsables,
@@ -127,7 +133,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         filterNod: 'manager',
                       ),
                       FilterElement(
-                        icon: Icons.attach_money,
+                        icon: Icons.attach_money_outlined,
                         keys: cautionsKeys,
                         dropDownList: caution,
                         selectedFilters: selectedCautions,
@@ -183,6 +189,8 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     ],
                   ),
                 ),
+
+                dividerMenu(),
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: SizedBox(
@@ -197,37 +205,22 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    DropDownItemWidget(
-                      list: sortList,
-                      controller: sortController,
-                      hintText: "Trier par...",
-                    ),
-                    DropDownItemWidget(
-                      list: orderList,
-                      controller: orderController,
-                      hintText: "Ordre...",
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20.0, left: 10.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          widget.changeLockerListStateVoid(
-                              sortController, orderController);
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.black54),
-                        ),
-                        child: const Text('Trier')),
-                  ),
-                )
+                // Visibility(
+                // visible: widget.isSortLockersShown,
+                // child:
+
+                SortElementWidget(
+                    sortList: sortList,
+                    orderList: orderList,
+                    orderController: orderController,
+                    sortController: sortController,
+                    isOrderCheckChecked: widget.isOrderCheckChecked,
+                    changeLockerListStateVoid:
+                        (sortController, orderController) =>
+                            widget.changeLockerListStateVoid(
+                                sortController, widget.isOrderCheckChecked)),
+
+                // )
               ],
             ),
           ),

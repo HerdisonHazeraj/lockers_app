@@ -52,7 +52,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                         controller: firstnameController,
                         decoration: const InputDecoration(
                           labelText: "Prénom",
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.person_outlined),
                         ),
                         keyboardType: TextInputType.name,
                       ),
@@ -60,21 +60,21 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                         controller: loginController,
                         decoration: const InputDecoration(
                           labelText: "Login",
-                          prefixIcon: Icon(Icons.login),
+                          prefixIcon: Icon(Icons.login_outlined),
                         ),
                       ),
                       TextField(
                         controller: classeController,
                         decoration: const InputDecoration(
                           labelText: "Classe",
-                          prefixIcon: Icon(Icons.school),
+                          prefixIcon: Icon(Icons.school_outlined),
                         ),
                       ),
                       TextField(
                         controller: jobController,
                         decoration: const InputDecoration(
                           labelText: "Formation",
-                          prefixIcon: Icon(Icons.work),
+                          prefixIcon: Icon(Icons.work_outlined),
                         ),
                         keyboardType: TextInputType.name,
                       ),
@@ -91,7 +91,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                         controller: lastnameController,
                         decoration: const InputDecoration(
                           labelText: "Nom",
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.person_outlined),
                         ),
                         keyboardType: TextInputType.name,
                       ),
@@ -99,7 +99,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                         controller: mailController,
                         decoration: const InputDecoration(
                           labelText: "Mail",
-                          prefixIcon: Icon(Icons.mail),
+                          prefixIcon: Icon(Icons.mail_outlined),
                         ),
                         keyboardType: TextInputType.emailAddress,
                       ),
@@ -111,7 +111,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                           "4": "4ème année",
                         },
                         defaultItem: "Année...",
-                        icon: Icons.calendar_today,
+                        icon: Icons.calendar_today_outlined,
                         onChanged: (value) {
                           setState(() {
                             yearController.text = value!;
@@ -122,7 +122,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                         controller: responsableController,
                         decoration: const InputDecoration(
                           labelText: "Maître de classe",
-                          prefixIcon: Icon(Icons.admin_panel_settings),
+                          prefixIcon: Icon(Icons.admin_panel_settings_outlined),
                         ),
                         keyboardType: TextInputType.name,
                       ),
