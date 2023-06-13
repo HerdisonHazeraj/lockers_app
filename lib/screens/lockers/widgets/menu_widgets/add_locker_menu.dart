@@ -21,6 +21,9 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
   final jobController = TextEditingController();
   final remarkController = TextEditingController();
 
+  // Form key
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return ListBody(
@@ -37,126 +40,155 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
             ),
           ),
         ),
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: lockerNumberController,
-                        decoration: const InputDecoration(
-                          labelText: "N° de casier",
-                          prefixIcon: Icon(Icons.lock_outlined),
+        Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez remplir ce champ';
+                            }
+                            return null;
+                          },
+                          controller: lockerNumberController,
+                          decoration: const InputDecoration(
+                            labelText: "N° de casier",
+                            prefixIcon: Icon(Icons.lock_outlined),
+                          ),
+                          keyboardType: TextInputType.number,
                         ),
-                        keyboardType: TextInputType.number,
-                      ),
-                      TextField(
-                        controller: lockNumberController,
-                        decoration: const InputDecoration(
-                          labelText: "N° de serrure",
-                          prefixIcon: Icon(Icons.numbers_outlined),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez remplir ce champ';
+                            }
+                            return null;
+                          },
+                          controller: lockNumberController,
+                          decoration: const InputDecoration(
+                            labelText: "N° de serrure",
+                            prefixIcon: Icon(Icons.numbers_outlined),
+                          ),
+                          keyboardType: TextInputType.number,
                         ),
-                        keyboardType: TextInputType.number,
-                      ),
-                      DropDownMenu(
-                        items: const {
-                          "b": "Étage B",
-                          "c": "Étage C",
-                          "d": "Étage D",
-                          "e": "Étage E",
-                        },
-                        defaultItem: "Étage...",
-                        icon: Icons.calendar_today_outlined,
-                        onChanged: (value) {
-                          setState(() {
-                            floorController.text = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.02,
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: nbKeyController,
-                        decoration: const InputDecoration(
-                          labelText: "Nombre de clés",
-                          prefixIcon: Icon(Icons.key_outlined),
+                        DropDownMenu(
+                          items: const {
+                            "b": "Étage B",
+                            "c": "Étage C",
+                            "d": "Étage D",
+                            "e": "Étage E",
+                          },
+                          defaultItem: "Étage...",
+                          icon: Icons.calendar_today_outlined,
+                          onChanged: (value) {
+                            setState(() {
+                              floorController.text = value!;
+                            });
+                          },
                         ),
-                        keyboardType: TextInputType.number,
-                      ),
-                      TextField(
-                        controller: jobController,
-                        decoration: const InputDecoration(
-                          labelText: "Métier",
-                          prefixIcon: Icon(Icons.work_outlined),
-                        ),
-                        keyboardType: TextInputType.name,
-                      ),
-                      TextField(
-                        controller: remarkController,
-                        decoration: const InputDecoration(
-                          labelText: "Remarque (facultatif)",
-                          prefixIcon: Icon(Icons.note_outlined),
-                        ),
-                        keyboardType: TextInputType.name,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black54),
-                ),
-                onPressed: () {
-                  Locker locker = Locker(
-                    lockNumber: int.parse(lockNumberController.text),
-                    lockerNumber: int.parse(lockerNumberController.text),
-                    nbKey: int.parse(nbKeyController.text),
-                    floor: floorController.text,
-                    job: jobController.text,
-                    remark: remarkController.text,
-                    isAvailable: true,
-                  );
-
-                  Provider.of<LockerStudentProvider>(context, listen: false)
-                      .addLocker(locker);
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                          'Le casier n°${locker.lockerNumber} a été ajouté avec succès !'),
-                      duration: const Duration(seconds: 3),
+                      ],
                     ),
-                  );
-
-                  lockNumberController.clear();
-                  lockerNumberController.clear();
-                  nbKeyController.clear();
-                  floorController.clear();
-                  jobController.clear();
-                  remarkController.clear();
-                },
-                child: const Text("Ajouter"),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.02,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez remplir ce champ';
+                            }
+                            return null;
+                          },
+                          controller: nbKeyController,
+                          decoration: const InputDecoration(
+                            labelText: "Nombre de clés",
+                            prefixIcon: Icon(Icons.key_outlined),
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez remplir ce champ';
+                            }
+                            return null;
+                          },
+                          controller: jobController,
+                          decoration: const InputDecoration(
+                            labelText: "Métier",
+                            prefixIcon: Icon(Icons.work_outlined),
+                          ),
+                          keyboardType: TextInputType.name,
+                        ),
+                        TextFormField(
+                          controller: remarkController,
+                          decoration: const InputDecoration(
+                            labelText: "Remarque (facultatif)",
+                            prefixIcon: Icon(Icons.note_outlined),
+                          ),
+                          keyboardType: TextInputType.name,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black54),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Locker locker = Locker(
+                        lockNumber: int.parse(lockNumberController.text),
+                        lockerNumber: int.parse(lockerNumberController.text),
+                        nbKey: int.parse(nbKeyController.text),
+                        floor: floorController.text,
+                        job: jobController.text,
+                        remark: remarkController.text,
+                        isAvailable: true,
+                      );
+
+                      Provider.of<LockerStudentProvider>(context, listen: false)
+                          .addLocker(locker);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Le casier n°${locker.lockerNumber} a été ajouté avec succès !'),
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+
+                      lockNumberController.clear();
+                      lockerNumberController.clear();
+                      nbKeyController.clear();
+                      floorController.clear();
+                      jobController.clear();
+                      remarkController.clear();
+                    }
+                  },
+                  child: const Text("Ajouter"),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
