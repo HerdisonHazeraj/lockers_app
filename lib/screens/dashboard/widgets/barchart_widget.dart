@@ -24,133 +24,139 @@ class BarChartWidgetState extends State<BarChartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 10,
-              offset: const Offset(0, 5),
-            ),
-          ],
-        ),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.5,
-          height: MediaQuery.of(context).size.height * 0.5,
-          child: Container(
-            margin: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Expanded(
-                  child: BarChart(BarChartData(
-                    barTouchData: BarTouchData(
-                      touchTooltipData: BarTouchTooltipData(
-                        tooltipBgColor: Colors.blueGrey,
-                        tooltipHorizontalAlignment: FLHorizontalAlignment.right,
-                        tooltipMargin: -10,
-                        getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                          String etage;
-                          switch (group.x) {
-                            case 0:
-                              etage = 'b';
-                              break;
-                            case 1:
-                              etage = 'c';
-                              break;
-                            case 2:
-                              etage = 'd';
-                              break;
-                            case 3:
-                              etage = 'e';
-                              break;
+    return Align(
+      alignment: Alignment.centerRight,
+      child: InkWell(
+        child: Container(
+          margin:
+              EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.028),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 30,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: BarChart(BarChartData(
+                      barTouchData: BarTouchData(
+                        touchTooltipData: BarTouchTooltipData(
+                          tooltipBgColor: Colors.blueGrey,
+                          tooltipHorizontalAlignment:
+                              FLHorizontalAlignment.right,
+                          tooltipMargin: -10,
+                          getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                            String etage;
+                            switch (group.x) {
+                              case 0:
+                                etage = 'b';
+                                break;
+                              case 1:
+                                etage = 'c';
+                                break;
+                              case 2:
+                                etage = 'd';
+                                break;
+                              case 3:
+                                etage = 'e';
+                                break;
 
-                            default:
-                              throw Error();
-                          }
-                          return BarTooltipItem(
-                            '$etage\n',
-                            const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: (rod.toY - 1).toString(),
-                                style: TextStyle(
-                                  color: Colors.green[100],
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              default:
+                                throw Error();
+                            }
+                            return BarTooltipItem(
+                              '$etage\n',
+                              const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
-                            ],
-                          );
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: (rod.toY - 1).toString(),
+                                  style: TextStyle(
+                                    color: Colors.green[100],
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                        touchCallback: (FlTouchEvent event, barTouchResponse) {
+                          setState(() {
+                            if (!event.isInterestedForInteractions ||
+                                barTouchResponse == null ||
+                                barTouchResponse.spot == null) {
+                              touchedIndex = -1;
+                              return;
+                            }
+                            touchedIndex =
+                                barTouchResponse.spot!.touchedBarGroupIndex;
+                          });
                         },
                       ),
-                      touchCallback: (FlTouchEvent event, barTouchResponse) {
-                        setState(() {
-                          if (!event.isInterestedForInteractions ||
-                              barTouchResponse == null ||
-                              barTouchResponse.spot == null) {
-                            touchedIndex = -1;
-                            return;
-                          }
-                          touchedIndex =
-                              barTouchResponse.spot!.touchedBarGroupIndex;
-                        });
-                      },
-                    ),
-                    titlesData: FlTitlesData(
-                      show: true,
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          getTitlesWidget: getBottomTitles,
-                          reservedSize: 38,
+                      titlesData: FlTitlesData(
+                        show: true,
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: getBottomTitles,
+                            reservedSize: 38,
+                          ),
+                        ),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: getLeftTitles,
+                          ),
                         ),
                       ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          getTitlesWidget: getLeftTitles,
-                        ),
+                      borderData: FlBorderData(
+                        show: false,
                       ),
-                    ),
-                    borderData: FlBorderData(
-                      show: false,
-                    ),
-                    barGroups: showingGroups(),
-                    gridData: FlGridData(show: false),
-                  )),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: const Column(
-                    children: [
-                      Indicator(
-                        color: Color(0xFF01FBCF),
-                        text: 'Casiers totaux par étage',
-                        isSquare: true,
-                      ),
-                      Indicator(
-                        color: Color(0xFFFB3274),
-                        text: 'Casiers occupés par étage',
-                        isSquare: true,
-                      ),
-                    ],
+                      barGroups: showingGroups(),
+                      gridData: FlGridData(show: false),
+                    )),
                   ),
-                ),
-              ],
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const Column(
+                      children: [
+                        Indicator(
+                          color: Color(0xFF01FBCF),
+                          text: 'Casiers totaux par étage',
+                          isSquare: true,
+                        ),
+                        Indicator(
+                          color: Color(0xFFFB3274),
+                          text: 'Casiers occupés par étage',
+                          isSquare: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -164,7 +170,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
     double y2, {
     bool isTouched = false,
     Color? barColor,
-    double width = 32,
+    double width = 30,
     List<int> showTooltips = const [],
   }) {
     return BarChartGroupData(
@@ -254,12 +260,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
       });
 
   Widget getBottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['b', 'c', 'd', 'e'];
-    const style = TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      fontSize: 14,
-    );
+    final titles = <String>['B', 'C', 'D', 'E'];
     final Widget text = Text(
       titles[value.toInt()],
       style: const TextStyle(
