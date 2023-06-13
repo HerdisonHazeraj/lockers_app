@@ -273,14 +273,16 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   List<Student> getPaidCaution() {
-    List<Student> students =
-        getArchivedStudent().where((element) => element.caution == 20).toList();
+    List<Student> students = getNotArchivedStudent()
+        .where((element) => element.caution == 20)
+        .toList();
     return students;
   }
 
   List<Student> getNonPaidCaution() {
-    List<Student> students =
-        getArchivedStudent().where((element) => element.caution == 0).toList();
+    List<Student> students = getNotArchivedStudent()
+        .where((element) => element.caution == 0)
+        .toList();
     return students;
   }
 

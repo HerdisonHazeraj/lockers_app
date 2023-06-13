@@ -17,6 +17,16 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
   int touchedIndex = -1;
   @override
   Widget build(BuildContext context) {
+    final paidCautionsList =
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .getPaidCaution()
+            .length
+            .toDouble();
+    final unPaidCautionsList =
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .getNonPaidCaution()
+            .length
+            .toDouble();
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
@@ -43,37 +53,39 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                     RadialAxis(
                         maximumLabels: 5,
                         minimum: 0,
-                        maximum: 33,
+                        maximum: paidCautionsList + unPaidCautionsList == 0
+                            ? 1
+                            : paidCautionsList + unPaidCautionsList,
                         ranges: <GaugeRange>[
                           GaugeRange(
                               startWidth: 20,
                               endWidth: 20,
                               startValue: 0,
-                              endValue: 25,
+                              endValue: paidCautionsList,
                               color: const Color(0xFF01FBCF)),
                           GaugeRange(
                               startWidth: 20,
                               endWidth: 20,
-                              startValue: 25,
-                              endValue: 33,
+                              startValue: paidCautionsList,
+                              endValue: paidCautionsList + unPaidCautionsList,
                               color: Color(0xFFFB3274)),
                         ],
-                        pointers: const <GaugePointer>[
+                        pointers: <GaugePointer>[
                           MarkerPointer(
-                            value: 25,
+                            value: paidCautionsList,
                             markerHeight: 15,
                             markerOffset: 2,
                             color: Colors.black,
                           )
                         ],
-                        annotations: const <GaugeAnnotation>[
+                        annotations: <GaugeAnnotation>[
                           GaugeAnnotation(
                               widget: Column(children: [
-                                Text('25',
-                                    style: TextStyle(
+                                Text(paidCautionsList.toString(),
+                                    style: const TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold)),
-                                Text('caution payées',
+                                const Text('cautions payées',
                                     style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w400,
