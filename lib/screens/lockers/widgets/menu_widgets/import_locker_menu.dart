@@ -1,7 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:lockers_app/screens/students/widgets/student_item.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/student.dart';
@@ -30,8 +29,27 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("${student.firstName} ${student.lastName}"),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black54),
+                  ),
+                  onPressed: () {
+                    final student2add = student.copyWith(
+                        job: "Informaticien-ne CFC",
+                        manager: "JHI",
+                        caution: 20,
+                        lockerNumber: 0,
+                        login: "",
+                        classe: "",
+                        year: 1);
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .addStudent(student2add);
+                  },
+                  child: const Text("Ajouter"),
+                )
               ],
             ),
           ),
