@@ -74,19 +74,6 @@ class _StudentsListViewState extends State<StudentsListView> {
       });
     }
 
-    showUpdateForm(Student s) {
-      setState(() {
-        s.isUpdating = !s.isUpdating;
-        refreshList();
-      });
-    }
-
-    showUpdateFormSearch(Student s) {
-      setState(() {
-        s.isUpdatingSearch = !s.isUpdatingSearch;
-      });
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Row(
@@ -179,8 +166,10 @@ class _StudentsListViewState extends State<StudentsListView> {
                                                     ? StudentUpdate(
                                                         student: s,
                                                         showUpdateForm: () =>
-                                                            showUpdateFormSearch(
-                                                                s),
+                                                            setState(() {
+                                                          s.isUpdatingSearch = !s
+                                                              .isUpdatingSearch;
+                                                        }),
                                                       )
                                                     : const SizedBox(),
                                               ),
@@ -253,7 +242,10 @@ class _StudentsListViewState extends State<StudentsListView> {
                                                 ? StudentUpdate(
                                                     student: s,
                                                     showUpdateForm: () =>
-                                                        showUpdateForm(s),
+                                                        setState(() {
+                                                      s.isUpdating =
+                                                          !s.isUpdating;
+                                                    }),
                                                   )
                                                 : const SizedBox(),
                                           ),

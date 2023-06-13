@@ -43,7 +43,20 @@ class _StudentItemState extends State<StudentItem> {
           width: 40,
           height: 40,
         ),
-        title: Text("${widget.student.firstName} ${widget.student.lastName}"),
+        title: Row(
+          children: [
+            Text("${widget.student.firstName} ${widget.student.lastName}"),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, top: 2),
+              child: CircleAvatar(
+                backgroundColor: widget.student.lockerNumber == 0
+                    ? Colors.green
+                    : Colors.red,
+                radius: 5,
+              ),
+            )
+          ],
+        ),
         subtitle: Text(widget.student.job),
         trailing: Visibility(
           visible: widget.student.isFocus,

@@ -81,7 +81,7 @@ class SideMenuApp extends StatelessWidget {
         ),
         SideMenuItem(
           priority: 2,
-          title: 'Elèves',
+          title: 'Élèves',
           onTap: (page, _) {
             sideMenuController.changePage(page);
           },

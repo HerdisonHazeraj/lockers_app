@@ -64,19 +64,6 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
       });
     }
 
-    showUpdateForm(Locker l) {
-      setState(() {
-        l.isUpdating = !l.isUpdating;
-        refreshList();
-      });
-    }
-
-    showUpdateFormSearch(Locker l) {
-      setState(() {
-        l.isUpdatingSearch = !l.isUpdatingSearch;
-      });
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Row(
@@ -167,8 +154,10 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                                     ? LockerUpdate(
                                                         locker: l,
                                                         showUpdateForm: () =>
-                                                            showUpdateFormSearch(
-                                                                l),
+                                                            setState(() {
+                                                          l.isUpdatingSearch = !l
+                                                              .isUpdatingSearch;
+                                                        }),
                                                       )
                                                     : const SizedBox(),
                                               ),
@@ -241,7 +230,10 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                                 ? LockerUpdate(
                                                     locker: l,
                                                     showUpdateForm: () =>
-                                                        showUpdateForm(l),
+                                                        setState(() {
+                                                      l.isUpdating =
+                                                          !l.isUpdating;
+                                                    }),
                                                   )
                                                 : const SizedBox(),
                                           ),
