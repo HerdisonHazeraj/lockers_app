@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/dashboard/widgets/barchart_widget.dart';
 import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
 import 'package:lockers_app/screens/dashboard/widgets/info_card.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,8 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
   var _isInit = true;
   var _isLoading = false;
   int touchedIndex = -1;
+
+  // List<BarChartGroupData> list =['elias', 'tromos', 'elisa']
 
   @override
   Future<void> didChangeDependencies() async {
@@ -227,6 +230,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                 ),
                               ],
                             ),
+                            BarChartWidget(),
                           ],
                         ),
                       ),
