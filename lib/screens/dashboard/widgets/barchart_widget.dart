@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:html';
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
 import 'package:provider/provider.dart';
 
 class BarChartWidget extends StatefulWidget {
@@ -40,95 +42,116 @@ class BarChartWidgetState extends State<BarChartWidget> {
           width: MediaQuery.of(context).size.width * 0.5,
           height: MediaQuery.of(context).size.height * 0.5,
           child: Container(
-            margin: EdgeInsets.all(20),
-            child: BarChart(BarChartData(
-              barTouchData: BarTouchData(
-                touchTooltipData: BarTouchTooltipData(
-                  tooltipBgColor: Colors.blueGrey,
-                  tooltipHorizontalAlignment: FLHorizontalAlignment.right,
-                  tooltipMargin: -10,
-                  getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                    String etage;
-                    switch (group.x) {
-                      case 0:
-                        etage = 'a';
-                        break;
-                      case 1:
-                        etage = 'b';
-                        break;
-                      case 2:
-                        etage = 'c';
-                        break;
-                      case 3:
-                        etage = 'd';
-                        break;
-                      case 4:
-                        etage = 'e';
-                        break;
+            margin: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Expanded(
+                  child: BarChart(BarChartData(
+                    barTouchData: BarTouchData(
+                      touchTooltipData: BarTouchTooltipData(
+                        tooltipBgColor: Colors.blueGrey,
+                        tooltipHorizontalAlignment: FLHorizontalAlignment.right,
+                        tooltipMargin: -10,
+                        getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                          String etage;
+                          switch (group.x) {
+                            case 0:
+                              etage = 'b';
+                              break;
+                            case 1:
+                              etage = 'c';
+                              break;
+                            case 2:
+                              etage = 'd';
+                              break;
+                            case 3:
+                              etage = 'e';
+                              break;
 
-                      default:
-                        throw Error();
-                    }
-                    return BarTooltipItem(
-                      '$etage\n',
-                      const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                            default:
+                              throw Error();
+                          }
+                          return BarTooltipItem(
+                            '$etage\n',
+                            const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: (rod.toY - 1).toString(),
+                                style: TextStyle(
+                                  color: Colors.green[100],
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: (rod.toY - 1).toString(),
-                          style: TextStyle(
-                            color: Colors.green[100],
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      touchCallback: (FlTouchEvent event, barTouchResponse) {
+                        setState(() {
+                          if (!event.isInterestedForInteractions ||
+                              barTouchResponse == null ||
+                              barTouchResponse.spot == null) {
+                            touchedIndex = -1;
+                            return;
+                          }
+                          touchedIndex =
+                              barTouchResponse.spot!.touchedBarGroupIndex;
+                        });
+                      },
+                    ),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: getBottomTitles,
+                          reservedSize: 38,
                         ),
-                      ],
-                    );
-                  },
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: getLeftTitles,
+                        ),
+                      ),
+                    ),
+                    borderData: FlBorderData(
+                      show: false,
+                    ),
+                    barGroups: showingGroups(),
+                    gridData: FlGridData(show: false),
+                  )),
                 ),
-                touchCallback: (FlTouchEvent event, barTouchResponse) {
-                  setState(() {
-                    if (!event.isInterestedForInteractions ||
-                        barTouchResponse == null ||
-                        barTouchResponse.spot == null) {
-                      touchedIndex = -1;
-                      return;
-                    }
-                    touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
-                  });
-                },
-              ),
-              titlesData: FlTitlesData(
-                show: true,
-                rightTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                topTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: getBottomTitles,
-                    reservedSize: 38,
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: const Column(
+                    children: [
+                      Indicator(
+                        color: Color(0xFF01FBCF),
+                        text: 'Casiers totaux par étage',
+                        isSquare: true,
+                      ),
+                      Indicator(
+                        color: Color(0xFFFB3274),
+                        text: 'Casiers occupés par étage',
+                        isSquare: true,
+                      ),
+                    ],
                   ),
                 ),
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: getLeftTitles,
-                  ),
-                ),
-              ),
-              borderData: FlBorderData(
-                show: false,
-              ),
-              barGroups: showingGroups(),
-              gridData: FlGridData(show: false),
-            )),
+              ],
+            ),
           ),
         ),
       ),
@@ -139,8 +162,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
     int x,
     double y1,
     double y2, {
-    bool isTouched1 = false,
-    bool isTouched2 = false,
+    bool isTouched = false,
     Color? barColor,
     double width = 32,
     List<int> showTooltips = const [],
@@ -149,29 +171,29 @@ class BarChartWidgetState extends State<BarChartWidget> {
       x: x,
       barRods: [
         BarChartRodData(
-          toY: isTouched1 ? y1 + 1 : y1,
-          color: isTouched1 ? Color(0xFF01FBCF) : Color(0xFF01FBCF),
+          toY: isTouched ? y1 + 1 : y1,
+          color: isTouched ? const Color(0xFF01FBCF) : const Color(0xFF01FBCF),
           width: width,
-          borderSide: isTouched1
-              ? BorderSide(color: Color(0xFFDAE9F2))
+          borderSide: isTouched
+              ? const BorderSide(color: Color(0xFFDAE9F2))
               : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 40,
-            color: Color(0xFFF2F2F2),
+            toY: 17,
+            color: const Color(0xFFF2F2F2),
           ),
         ),
         BarChartRodData(
-          toY: isTouched2 ? y2 + 1 : y2,
-          color: isTouched2 ? Color(0xFFFB3274) : Color(0xFFFB3274),
+          toY: isTouched ? y2 + 1 : y2,
+          color: isTouched ? const Color(0xFFFB3274) : const Color(0xFFFB3274),
           width: width,
-          borderSide: isTouched2
-              ? BorderSide(color: Color(0xFFDAE9F2))
+          borderSide: isTouched
+              ? const BorderSide(color: Color(0xFFDAE9F2))
               : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 40,
-            color: Color(0xFFF2F2F2),
+            toY: 17,
+            color: const Color(0xFFF2F2F2),
           ),
         ),
       ],
@@ -179,114 +201,77 @@ class BarChartWidgetState extends State<BarChartWidget> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(5, (i) {
-        final aLockers =
+  List<BarChartGroupData> showingGroups() => List.generate(4, (i) {
+        final lockers =
             Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('a');
-        final bLockers =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('b');
-        final cLockers =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('c');
-        final dLockers =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('d');
-        final eLockers =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('e');
-        final aLockersAvailable =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('a');
-        final bLockersAvailable =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('b');
-        final cLockersAvailable =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('c');
-        final dLockersAvailable =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('d');
-        final eLockersAvailable =
-            Provider.of<LockerStudentProvider>(context, listen: false)
-                .getLockerbyFloor('e');
+                .mapLockerByFloor();
+
         switch (i) {
           case 0:
             return makeGroupData(
               0,
-              aLockers.length.toDouble(),
-              aLockersAvailable.length.toDouble(),
-              isTouched1: i == touchedIndex,
-              isTouched2: i == touchedIndex,
+              lockers['b']!.length.toDouble(),
+              lockers['b']!
+                  .where((element) => element.isAvailable == false)
+                  .length
+                  .toDouble(),
+              isTouched: i == touchedIndex,
             );
           case 1:
             return makeGroupData(
-              1,
-              bLockers.length.toDouble(),
-              bLockersAvailable.length.toDouble(),
-              isTouched1: i == touchedIndex,
-              isTouched2: i == touchedIndex,
+              i,
+              lockers['c']!.length.toDouble(),
+              lockers['c']!
+                  .where((element) => element.isAvailable == false)
+                  .length
+                  .toDouble(),
+              isTouched: i == touchedIndex,
             );
           case 2:
             return makeGroupData(
               2,
-              cLockers.length.toDouble(),
-              cLockersAvailable.length.toDouble(),
-              isTouched1: i == touchedIndex,
-              isTouched2: i == touchedIndex,
+              lockers['d']!.length.toDouble(),
+              lockers['d']!
+                  .where((element) => element.isAvailable == false)
+                  .length
+                  .toDouble(),
+              isTouched: i == touchedIndex,
             );
           case 3:
             return makeGroupData(
               3,
-              dLockers.length.toDouble(),
-              dLockersAvailable.length.toDouble(),
-              isTouched1: i == touchedIndex,
-              isTouched2: i == touchedIndex,
-            );
-          case 4:
-            return makeGroupData(
-              4,
-              eLockers.length.toDouble(),
-              eLockersAvailable.length.toDouble(),
-              isTouched1: i == touchedIndex,
-              isTouched2: i == touchedIndex,
+              lockers['e']!.length.toDouble(),
+              lockers['e']!
+                  .where((element) => element.isAvailable == false)
+                  .length
+                  .toDouble(),
+              isTouched: i == touchedIndex,
             );
 
           default:
-            return makeGroupData(0, 0, 0, isTouched1: i == touchedIndex);
+            return makeGroupData(0, 0, 0, isTouched: i == touchedIndex);
         }
       });
 
   Widget getBottomTitles(double value, TitleMeta meta) {
+    final titles = <String>['b', 'c', 'd', 'e'];
     const style = TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.bold,
       fontSize: 14,
     );
-    Widget text;
-    switch (value.toInt()) {
-      case 0:
-        text = const Text('a', style: style);
-        break;
-      case 1:
-        text = const Text('b', style: style);
-        break;
-      case 2:
-        text = const Text('c', style: style);
-        break;
-      case 3:
-        text = const Text('d', style: style);
-        break;
-      case 4:
-        text = const Text('e', style: style);
-        break;
-      default:
-        text = const Text('', style: style);
-        break;
-    }
+    final Widget text = Text(
+      titles[value.toInt()],
+      style: const TextStyle(
+        color: Color(0xff7589a2),
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
+      ),
+    );
+
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 16,
+      space: 16, //margin top
       child: text,
     );
   }
@@ -299,8 +284,8 @@ class BarChartWidgetState extends State<BarChartWidget> {
     );
     String text;
 
-    if (value % 10 == 1) {
-      text = '10';
+    if (value % 4 == 0) {
+      text = value.toString();
     } else {
       return Container();
     }
