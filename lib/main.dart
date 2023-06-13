@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           AssignationOverviewScreen.routeName: (context) =>
               const AssignationOverviewScreen(),
           StudentsOverviewScreen.routeName: (context) =>
-              StudentsOverviewScreen(),
+              const StudentsOverviewScreen(),
         },
         home: const MyWidget(),
       ),

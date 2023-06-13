@@ -94,6 +94,7 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(error)));
                   } else {
+                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text("Importation réussie"),

@@ -6,6 +6,7 @@ import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
 import '../../../models/locker.dart';
 import '../../../models/student.dart';
 
+// ignore: must_be_immutable
 class ActionBarWidget extends StatefulWidget {
   ActionBarWidget(
       {super.key,
@@ -190,7 +191,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                   ),
                 ),
 
-                dividerMenu(),
+                const dividerMenu(),
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: SizedBox(

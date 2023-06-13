@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/screens/assignation/menu_widgets/dropdown_item_widget.dart';
 
+// ignore: must_be_immutable
 class SortElementWidget extends StatefulWidget {
   SortElementWidget(
       {super.key,
@@ -51,7 +52,7 @@ class _SortElementWidgetState extends State<SortElementWidget> {
                         widget.isOrderCheckChecked = newValue!;
                       });
                     }),
-                Text('Croissant')
+                const Text('Croissant')
               ],
             ),
             // DropDownItemWidget(
