@@ -33,6 +33,13 @@ class LockerStudentProvider with ChangeNotifier {
     return [..._notFoundStudents];
   }
 
+  Map<String, int> index = {
+    "d": 1,
+    "c": 2,
+    "b": 3,
+    "e": 4,
+  };
+
   Future<void> fetchAndSetLockers() async {
     _lockerItems.clear();
     final data = await dbService.getAllLockers();
@@ -225,12 +232,6 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   void autoAttributeLocker(List<Student> students) {
-    Map<String, int> index = {
-      "d": 1,
-      "c": 2,
-      "b": 3,
-      "e": 4,
-    };
     final lockers = getAvailableLockers();
     lockers.sort(
       (a, b) => index[a.floor.toLowerCase()]!
@@ -242,6 +243,16 @@ class LockerStudentProvider with ChangeNotifier {
       }
       attributeLocker(lockers[i], students[i]);
     }
+  }
+
+  Future<void> autoAttributeOneLocker(Student student) async {
+    final lockers = getAvailableLockers();
+    Locker firstLocker = lockers.firstWhere((element) =>
+        element.floor == "d" ||
+        element.floor == "c" ||
+        element.floor == "b" ||
+        element.floor == "e");
+    await attributeLocker(firstLocker, student);
   }
 
   Map<String, List<Locker>> mapLockerByFloor() {
