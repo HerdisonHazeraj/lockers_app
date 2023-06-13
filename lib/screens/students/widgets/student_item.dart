@@ -63,11 +63,35 @@ class _StudentItemState extends State<StudentItem> {
           child: Wrap(
             children: [
               widget.student.lockerNumber == 0
-                  ? const IconButton(
-                      onPressed: null,
-                      tooltip: "Indisponible",
-                      icon: Icon(
-                        Icons.bookmark_remove_outlined,
+                  ? IconButton(
+                      onPressed: () async {
+                        // await Provider.of<LockerStudentProvider>(context,
+                        //         listen: false)
+                        //     .autoAttributeLocker([widget.student]);
+
+                        Student updatedStudent =
+                            Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .getStudent(widget.student.id!);
+
+                        Locker locker = Provider.of<LockerStudentProvider>(
+                                context,
+                                listen: false)
+                            .getLockerByLockerNumber(
+                                updatedStudent.lockerNumber);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Le casier n°${locker.lockerNumber} a bien été attribué à l'élève ${widget.student.firstName} ${widget.student.lastName} !",
+                            ),
+                            duration: const Duration(seconds: 3),
+                          ),
+                        );
+                      },
+                      tooltip: "Attribuer automatiquement un casier",
+                      icon: const Icon(
+                        Icons.bookmark_add_outlined,
                         color: Colors.black54,
                       ),
                     )

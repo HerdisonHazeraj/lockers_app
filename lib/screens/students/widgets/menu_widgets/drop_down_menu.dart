@@ -19,6 +19,12 @@ class DropDownMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Veuillez remplir ce champ';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
       ),
