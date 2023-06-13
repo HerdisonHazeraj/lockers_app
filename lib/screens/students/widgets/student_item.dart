@@ -50,38 +50,12 @@ class _StudentItemState extends State<StudentItem> {
           child: Wrap(
             children: [
               widget.student.lockerNumber == 0
-                  ? IconButton(
-                      onPressed: () async {
-                        // await Provider.of<LockerStudentProvider>(context,
-                        //         listen: false)
-                        //     .autoAttributeLocker([widget.student]);
-
-                        // Student student = Provider.of<LockerStudentProvider>(
-                        //         context,
-                        //         listen: false)
-                        //     .getStudent(widget.student.id!);
-
-                        // Locker locker = Provider.of<LockerStudentProvider>(
-                        //         context,
-                        //         listen: false)
-                        //     .getAccessibleLocker()
-                        //     .where((element) =>
-                        //         element.lockerNumber == student.lockerNumber)
-                        //     .first;
-
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: Text(
-                        //       "Le casier n°${locker.lockerNumber} a bien été attribué à l'élève ${student.firstName} ${student.lastName} !",
-                        //     ),
-                        //     duration: const Duration(seconds: 3),
-                        //   ),
-                        // );
-                      },
-                      tooltip: "Attribuer automatiquement un casier à l'élève",
-                      icon: const Icon(
-                        Icons.bookmark_add_outlined,
-                        color: Colors.black,
+                  ? const IconButton(
+                      onPressed: null,
+                      tooltip: "Indisponible",
+                      icon: Icon(
+                        Icons.bookmark_remove_outlined,
+                        color: Colors.black54,
                       ),
                     )
                   : IconButton(

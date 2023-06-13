@@ -146,6 +146,40 @@ class _LockerItemState extends State<LockerItem> {
                     ),
                     IconButton(
                       onPressed: () async {
+                        if (widget.locker.isAvailable == false) {
+                          Student owner = Provider.of<LockerStudentProvider>(
+                                  context,
+                                  listen: false)
+                              .getStudentByLocker(widget.locker);
+                          await showDialog(
+                              context: context,
+                              builder: (builder) {
+                                return AlertDialog(
+                                  title: const Text('Attention !'),
+                                  content: Text(
+                                      "Ce casier appartient actuellement à '${owner.firstName} ${owner.lastName}', voulez-vous qu'un nouveau casier lui soit attribué ?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Non'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        // Mettre en place que celui qui possède le casier en reçoit un nouveau
+                                      },
+                                      child: const Text('Confirmer'),
+                                    ),
+                                  ],
+                                );
+                              });
+                          Provider.of<LockerStudentProvider>(context,
+                                  listen: false)
+                              .updateStudent(owner.copyWith(lockerNumber: 0));
+                        }
+
                         // Suppression avec une snackbar qui permet de cancel la suppression
                         Locker locker = widget.locker;
                         indexDeletedLocker = Provider.of<LockerStudentProvider>(
