@@ -1,4 +1,6 @@
-class History {
+import 'package:lockers_app/models/IHistory.dart';
+
+class History extends IHistory {
   final String? id;
   final String title;
   final DateTime date;
