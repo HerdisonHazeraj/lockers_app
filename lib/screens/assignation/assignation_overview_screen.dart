@@ -8,6 +8,7 @@ import 'package:lockers_app/screens/assignation/widgets/available_students_list_
 import 'package:provider/provider.dart';
 
 import '../../models/locker.dart';
+// import 'menu_widgets/sort_element_widget.dart';
 
 class AssignationOverviewScreen extends StatefulWidget {
   static const routeName = '/assignation';
@@ -39,10 +40,16 @@ class _AssignListViewState extends State<AssignListView> {
   List<Student> studentsListView = [];
   List<Locker> lockersListView = [];
 
+  // final sortController = TextEditingController();
+  // final orderController = TextEditingController();
+
   bool _isAutoAttributeButtonEnabled = false;
   bool _isConfirmButtonEnabled = false;
   bool areAllchecksChecked = false;
   bool isALockerSelected = false;
+  bool isSortLockersShown = false;
+  bool isSortStudentsShown = false;
+  bool isOrderCheckChecked = true;
 
   bool isStudentsListViewInit = false;
   bool isLockersListViewInit = false;
@@ -60,6 +67,18 @@ class _AssignListViewState extends State<AssignListView> {
   List<Student> filtredStudent = [];
 
   List<Student> sortedLockers = [];
+
+  // final sortList = {
+  //   "lockerNumber": 'Numéro de casier',
+  //   "lockNumber": 'Numéro de serrure',
+  //   "floor": 'Étage',
+  //   "nbKey": 'Nombre de clé(s)'
+  // };
+
+  // final orderList = {
+  //   "1": 'Croissant',
+  //   "2": 'Décroissant',
+  // };
 
   @override
   Widget build(BuildContext context) {
@@ -153,14 +172,12 @@ class _AssignListViewState extends State<AssignListView> {
       });
     }
 
-    void changeLockerListState(sortController, orderController) {
+    void changeLockerListState(sortController, isOrderCheckChecked) {
       setState(() {
         lockersListView =
             Provider.of<LockerStudentProvider>(context, listen: false)
                 .sortLockerBy(
-                    sortController.text,
-                    orderController.text == "1" ? true : false,
-                    lockersListView);
+                    sortController.text, isOrderCheckChecked, lockersListView);
       });
     }
 
@@ -268,6 +285,23 @@ class _AssignListViewState extends State<AssignListView> {
                             )
                           ],
                         ),
+                        // Row(
+                        //   children: [
+                        //     Visibility(
+                        //       visible: isSortLockersShown,
+                        //       child: SortElementWidget(
+                        //           sortList: sortList,
+                        //           orderList: orderList,
+                        //           orderController: orderController,
+                        //           sortController: sortController,
+                        //           changeLockerListStateVoid:
+                        //               (sortController, orderController) =>
+                        //                   changeLockerListState(
+                        //                       sortController, orderController)),
+                        //     ),
+
+                        //   ],
+                        // ),
                         Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -301,6 +335,8 @@ class _AssignListViewState extends State<AssignListView> {
                 studentsListView: studentsListView,
                 selectedStudents: selectedStudents,
                 isStudentsListViewInit: isStudentsListViewInit,
+                isSortLockersShown: isSortLockersShown,
+                isOrderCheckChecked: isOrderCheckChecked,
                 filterStudentsVoid: (keys, values) =>
                     filterStudents(keys, values),
                 changeLockerListStateVoid: (sortController, orderController) =>
