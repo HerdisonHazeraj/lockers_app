@@ -16,6 +16,8 @@ class LockerStudentProvider with ChangeNotifier {
   final List<Student> _studentItems = [];
   final List<Student> _lastStudentItems = [];
 
+  final List<Student> _notFoundStudents = [];
+
   LockerStudentProvider(this.dbService);
   final DBService dbService;
 
@@ -33,6 +35,10 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Student> get lastStudentItems {
     return [..._lastStudentItems];
+  }
+
+  List<Student> get notFoundStudents {
+    return [..._notFoundStudents];
   }
 
   Future<void> fetchAndSetLockers() async {
@@ -448,6 +454,7 @@ class LockerStudentProvider with ChangeNotifier {
 
         rows.removeAt(0);
         rows.removeLast();
+        _notFoundStudents.clear();
         for (String row in rows) {
           final rowTable = row.split(';');
           Map<String, dynamic> jsonRow = {};
@@ -463,30 +470,40 @@ class LockerStudentProvider with ChangeNotifier {
                 .isEmpty;
             if (lockerExists) {
               final locker = Locker.fromCSV(jsonRow);
-              await addLocker(locker);
+              // await addLocker(locker);
               if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
                   (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
                 List<Student> studentInList = filterStudentsBy([
                   ["firstName"],
                   ["lastName"]
                 ], [
-                  jsonRow['Prénom'],
-                  jsonRow['Nom']
+                  [jsonRow['Prénom']],
+                  [jsonRow['Nom']]
                 ]);
-                final newLocker = _lockerItems
-                    .where((element) =>
-                        element.lockerNumber == locker.lockerNumber)
-                    .first;
+
                 if (studentInList.isEmpty) {
-                  deleteLocker(newLocker.id!);
-                  throw Exception(
-                      "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué");
+                  _notFoundStudents.add(Student.base().copyWith(
+                      firstName: jsonRow['Prénom'], lastName: jsonRow['Nom']));
+
+                  notifyListeners();
+                  // return "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué";
+                } else {
+                  await addLocker(locker);
+                  final newLocker = _lockerItems
+                      .where((element) =>
+                          element.lockerNumber == locker.lockerNumber)
+                      .first;
+                  final student = studentInList.first;
+                  attributeLocker(newLocker, student);
                 }
-                final student = studentInList.first;
-                attributeLocker(newLocker, student);
+              } else {
+                await addLocker(locker);
               }
             }
           }
+        }
+        if (notFoundStudents.isNotEmpty) {
+          return "${_notFoundStudents.length} casiers n'ont pas pu être ajouter car leurs élèves correspondants sont introuvables dans la base de données";
         }
       } else {
         throw Exception('Fichier non trouvé');

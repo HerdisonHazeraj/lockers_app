@@ -1,17 +1,44 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/students/widgets/student_item.dart';
 import 'package:provider/provider.dart';
 
-class ImportLockerMenu extends StatelessWidget {
-  ImportLockerMenu({super.key});
+import '../../../../models/student.dart';
 
+class ImportLockerMenu extends StatefulWidget {
+  ImportLockerMenu({super.key});
+  final List<Widget> items = [];
+
+  @override
+  State<ImportLockerMenu> createState() => _ImportLockerMenuState();
+}
+
+class _ImportLockerMenuState extends State<ImportLockerMenu> {
   // Controllers for the importing student form
   final fileController = TextEditingController();
+
   late FilePickerResult? filePicker;
 
   @override
   Widget build(BuildContext context) {
+    for (Student student in Provider.of<LockerStudentProvider>(
+      context,
+    ).notFoundStudents) {
+      widget.items.add(
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Text("${student.firstName} ${student.lastName}"),
+              ],
+            ),
+          ),
+          // child: StudentItem(student: student),
+        ),
+      );
+    }
     return ListBody(
       children: [
         const SizedBox(
@@ -63,13 +90,9 @@ class ImportLockerMenu extends StatelessWidget {
                     context,
                     listen: false,
                   ).importLockersWithCSV(filePicker!);
-
                   if (error != null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(error),
-                      ),
-                    );
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(error)));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -84,6 +107,18 @@ class ImportLockerMenu extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        Container(
+          margin: EdgeInsets.all(20),
+          child: SizedBox(
+            height: 400,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: widget.items,
+              ),
+            ),
+          ),
         ),
       ],
     );
