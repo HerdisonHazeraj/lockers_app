@@ -86,7 +86,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   padding: const EdgeInsets.all(20),
                   child: DropDownMenu(
                     items: const {
-                      "a": "Étage A",
                       "b": "Étage B",
                       "c": "Étage C",
                       "d": "Étage D",

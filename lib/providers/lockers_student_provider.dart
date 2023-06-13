@@ -1,17 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js_interop';
-import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../infrastructure/db_service.dart';
 import '../models/locker.dart';
-import 'history_provider.dart';
 
 class LockerStudentProvider with ChangeNotifier {
   final List<Locker> _lockerItems = [];
@@ -148,7 +145,8 @@ class LockerStudentProvider with ChangeNotifier {
 
   Student getStudentByLocker(Locker locker) {
     if (locker.isNull) return Student.base();
-    Student student = getNotArchivedStudent()
+    List<Student> test = getNotArchivedStudent();
+    Student student = test
         .firstWhere((element) => element.lockerNumber == locker.lockerNumber);
     return student;
   }

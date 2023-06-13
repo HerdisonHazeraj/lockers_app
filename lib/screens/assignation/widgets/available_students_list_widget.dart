@@ -46,7 +46,7 @@ class _AvailableStudentsListWidgetState
                           controlAffinity: ListTileControlAffinity.leading,
                           value: widget.studentsListView[index].isSelected,
                           title: Text(
-                              '${widget.studentsListView[index].firstName}  ${widget.studentsListView[index].lastName}'),
+                              '${widget.studentsListView[index].firstName} ${widget.studentsListView[index].lastName}'),
                           subtitle: Text(widget.studentsListView[index].job),
                           onChanged: (newValue) {
                             setState(() {

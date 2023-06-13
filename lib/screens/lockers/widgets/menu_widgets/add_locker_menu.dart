@@ -64,7 +64,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                       ),
                       DropDownMenu(
                         items: const {
-                          "a": "Étage A",
                           "b": "Étage B",
                           "c": "Étage C",
                           "d": "Étage D",
