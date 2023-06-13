@@ -1,13 +1,1 @@
-<<<<<<< HEAD
-{"sts":[{"expiry":1718116187.336789,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686580187.336791}],"version":2}
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-{"sts":[{"expiry":1718099504.656501,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686563504.656506}],"version":2}
-=======
-{"sts":[{"expiry":1718107164.937831,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686571164.937833}],"version":2}
->>>>>>> Timo
-=======
-{"sts":[{"expiry":1718107389.896314,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686571389.896318}],"version":2}
->>>>>>> 90124a12a6ef8a7a8a2c96a6c7e81a72e9a76536
->>>>>>> d3b14d588d3cc3ce73f96a7ee1915af6ed879842
+{"sts":[{"expiry":1689231276.956893,"host":"EDaVpPgD6jLqbY9TZW3aNxeHnTpfB+0+pfRU2vvq+oI=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686639276.9569},{"expiry":1702418094.879983,"host":"E10e7Gwg5+phsYD4E8qNYFsQySXnIHPAfo4zloUPESc=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686638094.879984},{"expiry":1697525651.519886,"host":"LAZkYS46RVRcFiZAzmUJrz6TJHBd4nwE6VxPWfPLYHs=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686639251.519888},{"expiry":1718175267.471728,"host":"M4bfUnCmQAi4PNb3B8aI/2+SVJhHKsMfMMT7fzi6ij4=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686639267.471731},{"expiry":1702191267.538335,"host":"Xc7cAsRjFQUXG8/xQb0o1ow0EUOMwBW74DhuET/ajqs=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686639267.538337},{"expiry":1718174094.872536,"host":"YtDKDhlkEVJorMQHk/Aiy+XoLiJPIel9wmHRXreOMMY=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686638094.872537},{"expiry":1702190138.880356,"host":"cS2OuniSJowLJI9rmYXCexUl2sFL0RZkXbxFS6G/sPg=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686638138.880359},{"expiry":1697524495.897543,"host":"fJjUrPqhktMfiTHJX3Q0pJi/P12Q72DBgzzJqjlNC4o=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686638095.897546},{"expiry":1718175251.465351,"host":"k8kk8ejUNnoUDlVK+rFeYgltVgU+egOIz5pzmGceVhs=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686639251.465353},{"expiry":1718175250.858892,"host":"nAuqgR4iEWti7SOdT3UHPl6rmZU/DeaIm38P2O2OkgA=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686639250.858894},{"expiry":1718175267.206856,"host":"5EdUoB7YUY9zZV+2DkgVXgho8WUvp+D+6KpeUOhNQIM=","mode":"force-https","sts_include_subdomains":false,"sts_observed":1686639267.206857},{"expiry":1718171729.289614,"host":"8/RrMmQlCD2Gsp14wUCE1P8r7B2C5+yE0+g79IPyRsc=","mode":"force-https","sts_include_subdomains":true,"sts_observed":1686635729.289617}],"version":2}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 
+// ignore: must_be_immutable
 class AvailableStudentsListWidget extends StatefulWidget {
   AvailableStudentsListWidget(
       {super.key,
