@@ -27,43 +27,40 @@ class _AvailableLockersListWidgetState
     return Expanded(
       child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.85,
-          child: Scrollbar(
-            thumbVisibility: true,
-            child: SingleChildScrollView(
-              child: widget.availableLockers.isEmpty
-                  ? const Center(
-                      heightFactor: 50, child: Text('Aucun casier disponible '))
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: widget.availableLockers.length,
-                          itemBuilder: (context, index) => Card(
-                            child: CheckboxListTile(
-                              enabled: widget.availableLockers[index].isEnabled,
-                              controlAffinity: ListTileControlAffinity.leading,
-                              value: widget.availableLockers[index].isSelected,
-                              title: Text(widget
-                                  .availableLockers[index].lockerNumber
-                                  .toString()),
-                              subtitle: Text(
-                                  'Étage ${widget.availableLockers[index].floor.toUpperCase()}'),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  widget.changeCheckBoxesLockerStatesVoid(
-                                      index, newValue);
+          child: SingleChildScrollView(
+            child: widget.availableLockers.isEmpty
+                ? const Center(
+                    heightFactor: 50, child: Text('Aucun casier disponible '))
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: widget.availableLockers.length,
+                        itemBuilder: (context, index) => Card(
+                          child: CheckboxListTile(
+                            enabled: widget.availableLockers[index].isEnabled,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            value: widget.availableLockers[index].isSelected,
+                            title: Text(widget
+                                .availableLockers[index].lockerNumber
+                                .toString()),
+                            subtitle: Text(
+                                'Étage ${widget.availableLockers[index].floor.toUpperCase()}'),
+                            onChanged: (newValue) {
+                              setState(() {
+                                widget.changeCheckBoxesLockerStatesVoid(
+                                    index, newValue);
 
-                                  widget.checkIfWeCanAssignVoid();
-                                });
-                              },
-                            ),
+                                widget.checkIfWeCanAssignVoid();
+                              });
+                            },
                           ),
                         ),
-                      ],
-                    ),
-            ),
+                      ),
+                    ],
+                  ),
           )),
     );
   }

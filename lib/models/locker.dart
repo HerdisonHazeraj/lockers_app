@@ -11,18 +11,21 @@ class Locker extends ILocker {
   final String remark;
   bool? isAvailable;
   bool? isDefective;
+  bool? isInaccessible;
 
-  Locker(
-      {this.id,
-      required this.nbKey,
-      required this.lockNumber,
-      required this.lockerNumber,
-      required this.floor,
-      this.idEleve,
-      required this.job,
-      required this.remark,
-      this.isAvailable,
-      this.isDefective});
+  Locker({
+    this.id,
+    required this.nbKey,
+    required this.lockNumber,
+    required this.lockerNumber,
+    required this.floor,
+    this.idEleve,
+    required this.job,
+    required this.remark,
+    this.isAvailable,
+    this.isDefective,
+    this.isInaccessible = false,
+  });
 
   factory Locker.fromCSV(Map<String, dynamic> csv) {
     if (csv['Nb clé'] != "" &&
@@ -36,6 +39,7 @@ class Locker extends ILocker {
         job: csv['Métier'],
         remark: "",
         isAvailable: true,
+        isInaccessible: false,
         lockNumber: int.parse(csv["N° serrure"]),
       );
     } else {
@@ -54,7 +58,8 @@ class Locker extends ILocker {
         job: json['job'],
         remark: json['remark'],
         isAvailable: json['isAvailable'],
-        isDefective: json['isDefective']);
+        isDefective: json['isDefective'],
+        isInaccessible: json['isInaccessible']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -68,6 +73,7 @@ class Locker extends ILocker {
         'remark': remark,
         'isAvailable': isAvailable,
         'isDefective': isDefective,
+        'isInaccessible': isInaccessible,
       };
 
   factory Locker.base() {
@@ -105,6 +111,7 @@ class Locker extends ILocker {
     String? remark,
     bool? isAvailable,
     bool? isDefective,
+    bool? isInaccessible,
   }) {
     return Locker(
         id: id ?? this.id,
@@ -116,7 +123,8 @@ class Locker extends ILocker {
         job: job ?? this.job,
         remark: remark ?? this.remark,
         isAvailable: isAvailable ?? this.isAvailable,
-        isDefective: isDefective ?? this.isDefective);
+        isDefective: isDefective ?? this.isDefective,
+        isInaccessible: isInaccessible ?? this.isInaccessible);
   }
 
   @override
@@ -131,6 +139,7 @@ class Locker extends ILocker {
         job == other.job &&
         remark == other.remark &&
         isAvailable == other.isAvailable &&
-        isDefective == other.isDefective;
+        isDefective == other.isDefective &&
+        isInaccessible == other.isInaccessible;
   }
 }

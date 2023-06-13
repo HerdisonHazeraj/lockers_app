@@ -29,7 +29,7 @@ class _SearchLockerMenuState extends State<SearchLockerMenu> {
         TextField(
           decoration: const InputDecoration(
             labelText: "Rechercher...",
-            prefixIcon: Icon(Icons.search),
+            prefixIcon: Icon(Icons.search_outlined),
           ),
           onChanged: (value) => widget.searchLockers(value),
         ),

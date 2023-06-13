@@ -28,51 +28,48 @@ class _AvailableStudentsListWidgetState
     return Expanded(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.85,
-        child: Scrollbar(
-          thumbVisibility: true,
-          child: SingleChildScrollView(
-            child: widget.studentsListView.isEmpty
-                ? const Center(
-                    heightFactor: 50, child: Text('Aucun élève disponible'))
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: widget.studentsListView.length,
-                        itemBuilder: (context, index) => Card(
-                          child: CheckboxListTile(
-                            enabled: widget.studentsListView[index].isEnabled,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            value: widget.studentsListView[index].isSelected,
-                            title: Text(
-                                '${widget.studentsListView[index].firstName}  ${widget.studentsListView[index].lastName}'),
-                            subtitle: Text(widget.studentsListView[index].job),
-                            onChanged: (newValue) {
-                              setState(() {
-                                widget.studentsListView[index].isSelected =
-                                    newValue!;
+        child: SingleChildScrollView(
+          child: widget.studentsListView.isEmpty
+              ? const Center(
+                  heightFactor: 50, child: Text('Aucun élève disponible'))
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: widget.studentsListView.length,
+                      itemBuilder: (context, index) => Card(
+                        child: CheckboxListTile(
+                          enabled: widget.studentsListView[index].isEnabled,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          value: widget.studentsListView[index].isSelected,
+                          title: Text(
+                              '${widget.studentsListView[index].firstName}  ${widget.studentsListView[index].lastName}'),
+                          subtitle: Text(widget.studentsListView[index].job),
+                          onChanged: (newValue) {
+                            setState(() {
+                              widget.studentsListView[index].isSelected =
+                                  newValue!;
 
-                                if (widget.studentsListView[index].isSelected) {
-                                  widget.selectedStudents
-                                      .add(widget.studentsListView[index]);
-                                } else {
-                                  widget.selectedStudents
-                                      .remove(widget.studentsListView[index]);
-                                  widget.areAllchecksChecked = false;
-                                }
+                              if (widget.studentsListView[index].isSelected) {
+                                widget.selectedStudents
+                                    .add(widget.studentsListView[index]);
+                              } else {
+                                widget.selectedStudents
+                                    .remove(widget.studentsListView[index]);
+                                widget.areAllchecksChecked = false;
+                              }
 
-                                widget.checkIfWeCanAssignVoid();
-                                widget.checkIfWeCanAutoAssignVoid();
-                              });
-                            },
-                          ),
+                              widget.checkIfWeCanAssignVoid();
+                              widget.checkIfWeCanAutoAssignVoid();
+                            });
+                          },
                         ),
                       ),
-                    ],
-                  ),
-          ),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

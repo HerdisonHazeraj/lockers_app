@@ -25,7 +25,7 @@ class DropDownMenu extends StatelessWidget {
       hint: Text(defaultItem),
       iconSize: 36,
       icon: const Icon(
-        Icons.arrow_drop_down,
+        Icons.arrow_drop_down_outlined,
         color: Colors.black54,
       ),
       value: defaultChoosedItem,
