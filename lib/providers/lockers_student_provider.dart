@@ -5,10 +5,12 @@ import 'dart:js_interop';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../infrastructure/db_service.dart';
 import '../models/locker.dart';
+import 'history_provider.dart';
 
 class LockerStudentProvider with ChangeNotifier {
   final List<Locker> _lockerItems = [];
@@ -96,6 +98,11 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
+    History history = History(
+        title:
+            "${student.firstName} ${student.lastName} à été ajouté à la base de donnée",
+        date: DateTime.now());
+    HistoryProvider(dbService).addHistory(history);
     notifyListeners();
   }
 
@@ -254,6 +261,13 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Locker> getLockerbyFloor(String floor) {
     List<Locker> lockers = getAccessibleLocker()
+        .where((element) => element.floor.toLowerCase() == floor.toLowerCase())
+        .toList();
+    return lockers;
+  }
+
+  List<Locker> getUnavailableLockerbyFloor(String floor) {
+    List<Locker> lockers = getUnAvailableLockers()
         .where((element) => element.floor.toLowerCase() == floor.toLowerCase())
         .toList();
     return lockers;
