@@ -23,6 +23,10 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
   late List<Locker> searchedLockers = [];
   late String searchValue = "";
 
+  // Tools for lockers inaccessible
+  late bool isExpInaccessible = false;
+  late List<Locker> inaccessibleLockers = [];
+
   // Tools for lockers by year
   late List<bool> isExpFloor;
   late Map<String, List<Locker>> lockersByFloor;
@@ -31,6 +35,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
   Widget build(BuildContext context) {
     lockersByFloor =
         Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
+    inaccessibleLockers =
+        Provider.of<LockerStudentProvider>(context).getInaccessibleLocker();
 
     if (!isInit) {
       isExpFloor = List.generate(lockersByFloor.length, (index) => true);
@@ -243,6 +249,89 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                       ],
                                     ),
                                   ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpInaccessible = !isExpInaccessible;
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6.0),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ExpansionPanel(
+                                  isExpanded: isExpInaccessible,
+                                  canTapOnHeader: true,
+                                  headerBuilder: (context, isExpanded) {
+                                    return ListTile(
+                                      title: Text(
+                                        "Casiers inaccessibles (${inaccessibleLockers.length.toString()})",
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    );
+                                  },
+                                  body: inaccessibleLockers.isEmpty
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              const Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Aucun casier inaccessible",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : ExpansionPanelList(
+                                          expansionCallback:
+                                              (int index, bool isExpanded) {
+                                            setState(() {
+                                              inaccessibleLockers[index]
+                                                      .isUpdating =
+                                                  !inaccessibleLockers[index]
+                                                      .isUpdating;
+                                            });
+                                          },
+                                          expandedHeaderPadding:
+                                              const EdgeInsets.all(0),
+                                          animationDuration:
+                                              const Duration(milliseconds: 500),
+                                          children: [
+                                            ...inaccessibleLockers.map(
+                                              (l) => ExpansionPanel(
+                                                isExpanded: l.isUpdating,
+                                                canTapOnHeader: true,
+                                                headerBuilder:
+                                                    (context, isExpanded) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    child:
+                                                        LockerItem(locker: l),
+                                                  );
+                                                },
+                                                body: l.isUpdating
+                                                    ? LockerUpdate(
+                                                        locker: l,
+                                                      )
+                                                    : const SizedBox(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                 ),
                               ],
                             ),

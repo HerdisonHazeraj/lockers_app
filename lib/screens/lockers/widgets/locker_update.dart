@@ -47,6 +47,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextField(
+                    readOnly: widget.locker.isInaccessible ?? true,
                     controller: lockerNumberController,
                     decoration: const InputDecoration(
                       labelText: "N° de casier",
@@ -60,6 +61,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextField(
+                    readOnly: widget.locker.isInaccessible ?? true,
                     controller: lockNumberController,
                     decoration: const InputDecoration(
                       labelText: "N° de serrure",
@@ -99,6 +101,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextField(
+                    readOnly: widget.locker.isInaccessible ?? true,
                     controller: nbKeyController,
                     decoration: const InputDecoration(
                       labelText: "Nombre de clés",
@@ -112,6 +115,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextField(
+                    readOnly: widget.locker.isInaccessible ?? true,
                     controller: jobController,
                     decoration: const InputDecoration(
                       labelText: "Métier",
@@ -125,6 +129,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextField(
+                    readOnly: widget.locker.isInaccessible ?? true,
                     controller: remarkController,
                     decoration: const InputDecoration(
                       labelText: "Remarque (facultatif)",
@@ -146,9 +151,14 @@ class _LockerUpdateState extends State<LockerUpdate> {
                       backgroundColor:
                           MaterialStateProperty.all(Colors.black54),
                     ),
-                    onPressed: () {
-                      widget.showUpdateForm!();
-                    },
+                    // onPressed: () {
+                    //   widget.showUpdateForm!();
+                    // },
+                    onPressed: widget.locker.isInaccessible == true
+                        ? null
+                        : () {
+                            widget.showUpdateForm!();
+                          },
                     child: const Text("Annuler"),
                   ),
                 ),
@@ -161,32 +171,35 @@ class _LockerUpdateState extends State<LockerUpdate> {
                       backgroundColor:
                           MaterialStateProperty.all(Colors.black54),
                     ),
-                    onPressed: () async {
-                      Locker locker = Provider.of<LockerStudentProvider>(
-                              context,
-                              listen: false)
-                          .getLocker(widget.locker.id!);
+                    onPressed: widget.locker.isInaccessible == true
+                        ? null
+                        : () async {
+                            Locker locker = Provider.of<LockerStudentProvider>(
+                                    context,
+                                    listen: false)
+                                .getLocker(widget.locker.id!);
 
-                      await Provider.of<LockerStudentProvider>(context,
-                              listen: false)
-                          .updateLocker(locker.copyWith(
-                        lockerNumber: int.parse(lockerNumberController.text),
-                        lockNumber: int.parse(lockNumberController.text),
-                        nbKey: int.parse(nbKeyController.text),
-                        floor: floorController.text,
-                        job: jobController.text,
-                        remark: remarkController.text,
-                      ));
+                            await Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .updateLocker(locker.copyWith(
+                              lockerNumber:
+                                  int.parse(lockerNumberController.text),
+                              lockNumber: int.parse(lockNumberController.text),
+                              nbKey: int.parse(nbKeyController.text),
+                              floor: floorController.text,
+                              job: jobController.text,
+                              remark: remarkController.text,
+                            ));
 
-                      widget.showUpdateForm!();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              "Le casier n°${widget.locker.lockerNumber}  a été modifié avec succès !"),
-                          duration: const Duration(seconds: 3),
-                        ),
-                      );
-                    },
+                            widget.showUpdateForm!();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    "Le casier n°${widget.locker.lockerNumber}  a été modifié avec succès !"),
+                                duration: const Duration(seconds: 3),
+                              ),
+                            );
+                          },
                     child: const Text("Enregistrer"),
                   ),
                 ),

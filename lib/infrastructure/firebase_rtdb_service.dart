@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
@@ -13,6 +14,7 @@ class FirebaseRTDBService implements DBService {
   final lockerNode = "lockers";
   final studentNode = 'students';
   final problemNode = 'problems';
+  final historyNode = 'history';
   static final instance = FirebaseRTDBService._();
   FirebaseRTDBService._() {
     db.useDatabaseEmulator("127.0.0.1", 9000);
@@ -148,11 +150,11 @@ class FirebaseRTDBService implements DBService {
   }
 
   @override
-  Future<Problem> addProblem(Problem student) {
+  Future<Problem> addProblem(Problem problem) {
     final id = _db.child(problemNode).push().key;
-    return _db.child('$studentNode/$id').set(student.toJson()).then((_) {
+    return _db.child('$problemNode/$id').set(problem.toJson()).then((_) {
       developer.log("OK");
-      return student.copyWith(id: id);
+      return problem.copyWith(id: id);
     }).catchError((error) {
       developer.log(error);
       return Problem.error();
@@ -172,5 +174,47 @@ class FirebaseRTDBService implements DBService {
   @override
   Future<void> deleteProblem(String id) {
     return _db.child('$problemNode/$id').remove();
+  }
+
+  @override
+  Future<void> deleteHistory(String id) {
+    return _db.child('$historyNode/$id').remove();
+  }
+
+  @override
+  Future<List<History>> getAllHistory() async {
+    final snapshot = await _db.child(historyNode).get();
+    if (snapshot.exists) {
+      final history = <History>[];
+      for (dynamic v in snapshot.children) {
+        final id = v.key.toString();
+        final map = v.value as Map<String, dynamic>;
+        history.add(History.fromJson(map).copyWith(id: id));
+      }
+      return history;
+    }
+    return [];
+  }
+
+  @override
+  Future<History> updateHistory(History history) async {
+    _db.child('$historyNode/${history.id}').update(history.toJson()).then((_) {
+      developer.log("OK");
+    }).catchError((error) {
+      developer.log(error);
+    });
+    return history;
+  }
+
+  @override
+  Future<History> addHistory(History history) {
+    final id = _db.child(historyNode).push().key;
+    return _db.child('$historyNode/$id').set(history.toJson()).then((_) {
+      developer.log("OK");
+      return history.copyWith(id: id);
+    }).catchError((error) {
+      developer.log(error);
+      return History.error();
+    });
   }
 }

@@ -18,8 +18,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   void initState() {
-    lockers = Provider.of<LockerStudentProvider>(context, listen: false)
-        .lastLockerItems;
+    lockers =
+        Provider.of<LockerStudentProvider>(context, listen: false).lockerItems;
     students =
         Provider.of<LockerStudentProvider>(context, listen: false).studentItems;
     super.initState();
@@ -46,7 +46,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
-                    "Derniers élèves ajoutés",
+                    "Historique",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black54,
@@ -56,18 +56,21 @@ class _DashboardMenuState extends State<DashboardMenu> {
                   ),
                 ),
                 SizedBox(
-                  height: 220,
+                  height: 500,
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        ...students.reversed.map(
+                        ...students.map(
                           (student) => MouseRegion(
-                            onEnter: (event) => setState(() {
-                              student.isFocus = true;
-                            }),
                             onExit: (event) => setState(() {
                               student.isFocus = false;
+                            }),
+                            onEnter: (event) => setState(() {
+                              student.isFocus = false;
+                            }),
+                            onHover: (event) => setState(() {
+                              student.isFocus = true;
                             }),
                             child: ListTile(
                               title: Text(
@@ -139,104 +142,6 @@ class _DashboardMenuState extends State<DashboardMenu> {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
-                ),
-                const SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    "Derniers casiers ajoutés",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                      height: 1.3,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 200,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ...lockers.reversed.map(
-                          (locker) => MouseRegion(
-                            onEnter: (event) => setState(() {
-                              locker.isFocus = true;
-                            }),
-                            onExit: (event) => setState(() {
-                              locker.isFocus = false;
-                            }),
-                            child: ListTile(
-                              title: Text(
-                                "Casier n°${locker.lockerNumber} (Étage ${locker.floor.toUpperCase()})",
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                              subtitle: Text(
-                                locker.remark == ''
-                                    ? 'Aucune remarque'
-                                    : locker.remark.toString(),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              trailing: Visibility(
-                                visible: locker.isFocus,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          lockers.remove(locker);
-                                          locker.isFocus = false;
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  'L\'ajout du casier numéro ${locker.lockerNumber} à été confirmer avec succès!'),
-                                              duration:
-                                                  const Duration(seconds: 3),
-                                            ),
-                                          );
-                                        });
-                                      },
-                                      icon: const Icon(
-                                        Icons.check_outlined,
-                                        color: Colors.black54,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          lockers.remove(locker);
-                                          locker.isFocus = false;
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  'L\'ajout du casier numéro ${locker.lockerNumber} à été annuler avec succès !'),
-                                              duration:
-                                                  const Duration(seconds: 3),
-                                            ),
-                                          );
-                                        });
-                                      },
-                                      icon: const Icon(
-                                        Icons.close_outlined,
-                                        color: Colors.black54,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ],
             ),

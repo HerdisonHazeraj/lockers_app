@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +37,9 @@ class _StudentUpdateState extends State<StudentUpdate> {
 
   @override
   Widget build(BuildContext context) {
+    final Locker locker = Provider.of<LockerStudentProvider>(context)
+        .getLockerByLockerNumber(widget.student.lockerNumber);
+
     return Padding(
       padding: const EdgeInsets.only(
         left: 100,
@@ -225,6 +229,51 @@ class _StudentUpdateState extends State<StudentUpdate> {
             ],
           ),
           const Divider(),
+          if (widget.student.lockerNumber != 0)
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: TextField(
+                      readOnly: true,
+                      enableInteractiveSelection: false,
+                      decoration: InputDecoration(
+                        hintText: "Casier n°${locker.lockerNumber.toString()}",
+                        prefixIcon:
+                            const Icon(Icons.admin_panel_settings_outlined),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: TextField(
+                      readOnly: true,
+                      enableInteractiveSelection: false,
+                      decoration: InputDecoration(
+                        hintText: "Étage ${locker.floor.toUpperCase()}",
+                        prefixIcon: const Icon(Icons.location_on_outlined),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: TextField(
+                      readOnly: true,
+                      enableInteractiveSelection: false,
+                      decoration: InputDecoration(
+                        hintText: "${locker.nbKey.toString()} clés",
+                        prefixIcon: const Icon(Icons.vpn_key_outlined),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
         ],
       ),
     );
