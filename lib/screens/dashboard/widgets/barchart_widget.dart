@@ -168,6 +168,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
     int x,
     double y1,
     double y2, {
+    double toY = 0,
     bool isTouched = false,
     Color? barColor,
     double width = 30,
@@ -185,7 +186,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
               : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 17,
+            toY: toY,
             color: const Color(0xFFF2F2F2),
           ),
         ),
@@ -198,7 +199,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
               : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 17,
+            toY: toY,
             color: const Color(0xFFF2F2F2),
           ),
         ),
@@ -211,6 +212,9 @@ class BarChartWidgetState extends State<BarChartWidget> {
         final lockers =
             Provider.of<LockerStudentProvider>(context, listen: false)
                 .mapLockerByFloor();
+        final toY = Provider.of<LockerStudentProvider>(context, listen: false)
+                .getLengthFromLargestFloor() +
+            1;
 
         switch (i) {
           case 0:
@@ -221,6 +225,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
                   .where((element) => element.isAvailable == false)
                   .length
                   .toDouble(),
+              toY: toY.toDouble(),
               isTouched: i == touchedIndex,
             );
           case 1:
@@ -231,6 +236,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
                   .where((element) => element.isAvailable == false)
                   .length
                   .toDouble(),
+              toY: toY.toDouble(),
               isTouched: i == touchedIndex,
             );
           case 2:
@@ -241,6 +247,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
                   .where((element) => element.isAvailable == false)
                   .length
                   .toDouble(),
+              toY: toY.toDouble(),
               isTouched: i == touchedIndex,
             );
           case 3:
@@ -251,6 +258,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
                   .where((element) => element.isAvailable == false)
                   .length
                   .toDouble(),
+              toY: toY.toDouble(),
               isTouched: i == touchedIndex,
             );
 
