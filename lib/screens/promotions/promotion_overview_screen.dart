@@ -270,23 +270,23 @@ class _PromotionOverviewScreenState extends State<PromotionOverviewScreen> {
                           ),
                         ),
                         ElevatedButton.icon(
-                            icon: const Icon(Icons.done_outlined),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green),
-                            onPressed: isPromoteButtonEnabled
-                                ? () {
-                                    setState(() {
-                                      Provider.of<LockerStudentProvider>(
-                                              context,
-                                              listen: false)
-                                          .promoteStudent(selectedStudents);
-                                      isStudentsListViewInit = false;
-                                      isPromoteButtonEnabled = false;
-                                      areAllchecksChecked = false;
-                                    });
-                                  }
-                                : null,
-                            label: Text('Promouvoir')),
+                          icon: const Icon(Icons.done_outlined),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green),
+                          onPressed: isPromoteButtonEnabled
+                              ? () {
+                                  setState(() {
+                                    Provider.of<LockerStudentProvider>(context,
+                                            listen: false)
+                                        .promoteStudent(selectedStudents);
+                                    isStudentsListViewInit = false;
+                                    isPromoteButtonEnabled = false;
+                                    areAllchecksChecked = false;
+                                  });
+                                }
+                              : null,
+                          label: const Text('Promouvoir'),
+                        ),
                       ],
                     ),
                   ),
