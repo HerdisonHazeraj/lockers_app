@@ -14,7 +14,7 @@ class FirebaseRTDBService implements DBService {
   final lockerNode = "lockers";
   final studentNode = 'students';
   final problemNode = 'problems';
-  final historyNode = 'history';
+  final historyNode = 'histories';
   static final instance = FirebaseRTDBService._();
   FirebaseRTDBService._() {
     db.useDatabaseEmulator("127.0.0.1", 9000);
@@ -27,6 +27,7 @@ class FirebaseRTDBService implements DBService {
     final Map<String, dynamic> json = jsonDecode(dataString);
     final Map<String, Map> updatesLockers = {};
     final Map<String, Map> updatesStudent = {};
+    final Map<String, Map> updatesHistory = {};
 
     await json[lockerNode].forEach((v) {
       final newLockerKey = _db.child(lockerNode).push().key;
@@ -37,8 +38,8 @@ class FirebaseRTDBService implements DBService {
       updatesStudent['/$studentNode/$newStudentKey'] = v;
     });
     await json[historyNode].forEach((v) {
-      final newHistoryKey = _db.child(historyNode).push().key;
-      updatesStudent['/$historyNode/$newHistoryKey'] = v;
+      final newHistoryKey = _db.child(studentNode).push().key;
+      updatesHistory['/$historyNode/$newHistoryKey'] = v;
     });
 
     updatesLockers.forEach((lockerKey, lockerValue) {

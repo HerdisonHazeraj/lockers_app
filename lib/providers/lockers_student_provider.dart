@@ -6,20 +6,21 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 
 import '../infrastructure/db_service.dart';
 import '../models/locker.dart';
 
 class LockerStudentProvider with ChangeNotifier {
   final List<Locker> _lockerItems = [];
-  // final List<Locker> _lastLockerItems = [];
   final List<Student> _studentItems = [];
-  // final List<Student> _lastStudentItems = [];
 
   final List<Student> _notFoundStudents = [];
 
   LockerStudentProvider(this.dbService);
   final DBService dbService;
+  late HistoryProvider histories = HistoryProvider(dbService);
+
   List<Locker> get lockerItems {
     return [..._lockerItems];
   }
@@ -27,10 +28,6 @@ class LockerStudentProvider with ChangeNotifier {
   List<Student> get studentItems {
     return [..._studentItems];
   }
-
-  // List<Student> get lastStudentItems {
-  //   return [..._lastStudentItems];
-  // }
 
   List<Student> get notFoundStudents {
     return [..._notFoundStudents];
@@ -111,7 +108,6 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
-
     notifyListeners();
   }
 
@@ -128,6 +124,8 @@ class LockerStudentProvider with ChangeNotifier {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
     notifyListeners();
+    // History history = History(title: "", date: "", action: "Ajout");
+    // histories.addHistory(history);
   }
 
   Future<void> insertStudent(int index, Student student) async {
@@ -261,6 +259,18 @@ class LockerStudentProvider with ChangeNotifier {
         .where((element) => element.floor.toLowerCase() == "e")
         .toList();
     return map;
+  }
+
+  List<Student> getPaidCaution() {
+    List<Student> students =
+        getArchivedStudent().where((element) => element.caution == 20).toList();
+    return students;
+  }
+
+  List<Student> getNonPaidCaution() {
+    List<Student> students =
+        getArchivedStudent().where((element) => element.caution == 0).toList();
+    return students;
   }
 
   List<Locker> getLockerLessThen2Key() {
