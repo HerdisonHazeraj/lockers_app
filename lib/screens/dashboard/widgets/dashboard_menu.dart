@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lockers_app/models/history.dart';
-import 'package:lockers_app/models/locker.dart';
-import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/history_provider.dart';
-import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
 class DashboardMenu extends StatefulWidget {
@@ -18,8 +16,9 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   void initState() {
-    histories =
-        Provider.of<HistoryProvider>(context, listen: false).historyItems;
+    histories = Provider.of<HistoryProvider>(context, listen: false)
+        .historyItems
+        .toList();
     histories.sort((a, b) => a.date.compareTo(b.date));
     super.initState();
   }
@@ -42,6 +41,12 @@ class _DashboardMenuState extends State<DashboardMenu> {
             ),
             child: Column(
               children: [
+                ElevatedButton(
+                    onPressed: () =>
+                        Provider.of<HistoryProvider>(context, listen: false)
+                            .addHistory(
+                                History(title: "", date: "", action: "Ajout")),
+                    child: Text("AHMED")),
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
@@ -74,7 +79,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                     }),
                                     child: ListTile(
                                       title: Text(
-                                        history.title,
+                                        history.action,
                                         style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500),

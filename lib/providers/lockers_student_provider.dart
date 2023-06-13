@@ -1,28 +1,26 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js_interop';
-import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 
 import '../infrastructure/db_service.dart';
 import '../models/locker.dart';
-import 'history_provider.dart';
 
 class LockerStudentProvider with ChangeNotifier {
   final List<Locker> _lockerItems = [];
-  // final List<Locker> _lastLockerItems = [];
   final List<Student> _studentItems = [];
-  // final List<Student> _lastStudentItems = [];
 
   final List<Student> _notFoundStudents = [];
 
   LockerStudentProvider(this.dbService);
   final DBService dbService;
+  late HistoryProvider histories = HistoryProvider(dbService);
+
   List<Locker> get lockerItems {
     return [..._lockerItems];
   }
@@ -31,13 +29,16 @@ class LockerStudentProvider with ChangeNotifier {
     return [..._studentItems];
   }
 
-  // List<Student> get lastStudentItems {
-  //   return [..._lastStudentItems];
-  // }
-
   List<Student> get notFoundStudents {
     return [..._notFoundStudents];
   }
+
+  Map<String, int> index = {
+    "d": 1,
+    "c": 2,
+    "b": 3,
+    "e": 4,
+  };
 
   Future<void> fetchAndSetLockers() async {
     _lockerItems.clear();
@@ -114,7 +115,6 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
-
     notifyListeners();
   }
 
@@ -131,6 +131,8 @@ class LockerStudentProvider with ChangeNotifier {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
     notifyListeners();
+    // History history = History(title: "", date: "", action: "Ajout");
+    // histories.addHistory(history);
   }
 
   Future<void> insertStudent(int index, Student student) async {
@@ -148,7 +150,8 @@ class LockerStudentProvider with ChangeNotifier {
 
   Student getStudentByLocker(Locker locker) {
     if (locker.isNull) return Student.base();
-    Student student = getNotArchivedStudent()
+    List<Student> test = getNotArchivedStudent();
+    Student student = test
         .firstWhere((element) => element.lockerNumber == locker.lockerNumber);
     return student;
   }
@@ -229,12 +232,6 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   void autoAttributeLocker(List<Student> students) {
-    Map<String, int> index = {
-      "d": 1,
-      "c": 2,
-      "b": 3,
-      "e": 4,
-    };
     final lockers = getAvailableLockers();
     lockers.sort(
       (a, b) => index[a.floor.toLowerCase()]!
@@ -246,6 +243,16 @@ class LockerStudentProvider with ChangeNotifier {
       }
       attributeLocker(lockers[i], students[i]);
     }
+  }
+
+  Future<void> autoAttributeOneLocker(Student student) async {
+    final lockers = getAvailableLockers();
+    Locker firstLocker = lockers.firstWhere((element) =>
+        element.floor == "d" ||
+        element.floor == "c" ||
+        element.floor == "b" ||
+        element.floor == "e");
+    await attributeLocker(firstLocker, student);
   }
 
   Map<String, List<Locker>> mapLockerByFloor() {
@@ -263,6 +270,18 @@ class LockerStudentProvider with ChangeNotifier {
         .where((element) => element.floor.toLowerCase() == "e")
         .toList();
     return map;
+  }
+
+  List<Student> getPaidCaution() {
+    List<Student> students =
+        getArchivedStudent().where((element) => element.caution == 20).toList();
+    return students;
+  }
+
+  List<Student> getNonPaidCaution() {
+    List<Student> students =
+        getArchivedStudent().where((element) => element.caution == 0).toList();
+    return students;
   }
 
   List<Locker> getLockerLessThen2Key() {

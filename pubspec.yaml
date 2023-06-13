@@ -46,8 +46,12 @@ dependencies:
   file_picker: ^5.3.1
   mocktail: ^0.3.0
   multiselect: ^0.1.0
+<<<<<<< HEAD
   syncfusion_flutter_charts: ^21.2.10
   syncfusion_flutter_gauges: ^21.2.10
+=======
+  intl: ^0.18.0
+>>>>>>> 5f827938bbaf6c6a9c0910455dfa016f113d39ca
 
 dev_dependencies:
   flutter_test:

@@ -44,8 +44,21 @@ class _LockerItemState extends State<LockerItem> {
           color: Colors.black,
           size: 40,
         ),
-        title: Text(
-          'Casier n°${widget.locker.lockerNumber}',
+        title: Row(
+          children: [
+            Text(
+              'Casier n°${widget.locker.lockerNumber}',
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, top: 2),
+              child: CircleAvatar(
+                backgroundColor: widget.locker.isAvailable == true
+                    ? Colors.green
+                    : Colors.red,
+                radius: 5,
+              ),
+            )
+          ],
         ),
         subtitle: widget.locker.remark == ''
             ? const Text('Aucune remarque')
@@ -182,6 +195,13 @@ class _LockerItemState extends State<LockerItem> {
 
                         // Suppression avec une snackbar qui permet de cancel la suppression
                         Locker locker = widget.locker;
+                        Student updatedStudent = Student.base();
+                        if (locker.isAvailable == false) {
+                          updatedStudent = Provider.of<LockerStudentProvider>(
+                                  context,
+                                  listen: false)
+                              .getStudentByLocker(locker);
+                        }
                         indexDeletedLocker = Provider.of<LockerStudentProvider>(
                                 context,
                                 listen: false)
@@ -208,6 +228,14 @@ class _LockerItemState extends State<LockerItem> {
                                     indexDeletedLocker,
                                     deletedLocker,
                                   );
+
+                                  if (deletedLocker.isAvailable == false) {
+                                    Provider.of<LockerStudentProvider>(context,
+                                            listen: false)
+                                        .updateStudent(updatedStudent.copyWith(
+                                            lockerNumber:
+                                                deletedLocker.lockerNumber));
+                                  }
 
                                   widget.refreshList!();
 

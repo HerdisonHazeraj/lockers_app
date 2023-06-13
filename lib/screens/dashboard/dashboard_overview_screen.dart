@@ -164,9 +164,8 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                               isSquare: true,
                                             ),
                                             Indicator(
-                                              color: Color.fromARGB(
-                                                  255, 255, 153, 0),
-                                              text: 'Casiers défectueux',
+                                              color: Colors.orange,
+                                              text: 'Casiers inaccessibles',
                                               isSquare: true,
                                             ),
                                           ],
@@ -324,15 +323,15 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
               ),
             );
           case 2:
-            // Casiers défectueux
+            // Casiers inaccessibles
             return PieChartSectionData(
               color: Colors.orange,
               value: Provider.of<LockerStudentProvider>(context)
-                  .getDefectiveLockers()
+                  .getInaccessibleLocker()
                   .length
                   .toDouble(),
               title: Provider.of<LockerStudentProvider>(context)
-                  .getDefectiveLockers()
+                  .getInaccessibleLocker()
                   .length
                   .toString(),
               radius: radius,
