@@ -29,7 +29,6 @@ class DropDownMenu extends StatelessWidget {
         color: Colors.black54,
       ),
       value: defaultChoosedItem,
-      isExpanded: true,
       items: items.entries
           .map(
             (e) => DropdownMenuItem(

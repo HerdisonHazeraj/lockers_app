@@ -3,6 +3,7 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../models/locker.dart';
 import '../../../models/student.dart';
 
 class StudentItem extends StatefulWidget {
@@ -27,20 +28,15 @@ class _StudentItemState extends State<StudentItem> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (event) {
-        setState(
-          () {
-            widget.student.isFocus = true;
-          },
-        );
-      },
-      onExit: (event) {
-        setState(
-          () {
-            widget.student.isFocus = false;
-          },
-        );
-      },
+      onExit: (event) => setState(() {
+        widget.student.isFocus = false;
+      }),
+      onEnter: (event) => setState(() {
+        widget.student.isFocus = false;
+      }),
+      onHover: (event) => setState(() {
+        widget.student.isFocus = true;
+      }),
       child: ListTile(
         leading: Image.asset(
           'assets/images/photoprofil.png',
@@ -53,6 +49,70 @@ class _StudentItemState extends State<StudentItem> {
           visible: widget.student.isFocus,
           child: Wrap(
             children: [
+              widget.student.lockerNumber == 0
+                  ? IconButton(
+                      onPressed: () async {
+                        // await Provider.of<LockerStudentProvider>(context,
+                        //         listen: false)
+                        //     .autoAttributeLocker([widget.student]);
+
+                        // Student student = Provider.of<LockerStudentProvider>(
+                        //         context,
+                        //         listen: false)
+                        //     .getStudent(widget.student.id!);
+
+                        // Locker locker = Provider.of<LockerStudentProvider>(
+                        //         context,
+                        //         listen: false)
+                        //     .getAccessibleLocker()
+                        //     .where((element) =>
+                        //         element.lockerNumber == student.lockerNumber)
+                        //     .first;
+
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text(
+                        //       "Le casier n°${locker.lockerNumber} a bien été attribué à l'élève ${student.firstName} ${student.lastName} !",
+                        //     ),
+                        //     duration: const Duration(seconds: 3),
+                        //   ),
+                        // );
+                      },
+                      tooltip: "Attribuer automatiquement un casier à l'élève",
+                      icon: const Icon(
+                        Icons.bookmark_add_outlined,
+                        color: Colors.black,
+                      ),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        Locker locker = Provider.of<LockerStudentProvider>(
+                                context,
+                                listen: false)
+                            .getAccessibleLocker()
+                            .where((element) =>
+                                element.lockerNumber ==
+                                widget.student.lockerNumber)
+                            .first;
+                        Provider.of<LockerStudentProvider>(context,
+                                listen: false)
+                            .unAttributeLocker(locker, widget.student);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Le casier n°${locker.lockerNumber} a bien été désattribué à l'élève ${widget.student.firstName} ${widget.student.lastName} !",
+                            ),
+                            duration: const Duration(seconds: 3),
+                          ),
+                        );
+                      },
+                      tooltip: "Désattribuer le casier de l'élève",
+                      icon: const Icon(
+                        Icons.bookmark_remove_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
               IconButton(
                 onPressed: () async {
                   String email = Uri.encodeComponent(

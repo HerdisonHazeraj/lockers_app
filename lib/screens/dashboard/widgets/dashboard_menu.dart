@@ -63,11 +63,14 @@ class _DashboardMenuState extends State<DashboardMenu> {
                       children: [
                         ...students.reversed.map(
                           (student) => MouseRegion(
-                            onEnter: (event) => setState(() {
-                              student.isFocus = true;
-                            }),
                             onExit: (event) => setState(() {
                               student.isFocus = false;
+                            }),
+                            onEnter: (event) => setState(() {
+                              student.isFocus = false;
+                            }),
+                            onHover: (event) => setState(() {
+                              student.isFocus = true;
                             }),
                             child: ListTile(
                               title: Text(
@@ -160,11 +163,14 @@ class _DashboardMenuState extends State<DashboardMenu> {
                       children: [
                         ...lockers.reversed.map(
                           (locker) => MouseRegion(
-                            onEnter: (event) => setState(() {
-                              locker.isFocus = true;
-                            }),
                             onExit: (event) => setState(() {
                               locker.isFocus = false;
+                            }),
+                            onEnter: (event) => setState(() {
+                              locker.isFocus = false;
+                            }),
+                            onHover: (event) => setState(() {
+                              locker.isFocus = true;
                             }),
                             child: ListTile(
                               title: Text(
