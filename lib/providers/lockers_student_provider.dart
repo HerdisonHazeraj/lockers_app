@@ -1,25 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js_interop';
-import 'dart:math';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
 
 import '../infrastructure/db_service.dart';
 import '../models/locker.dart';
-import 'history_provider.dart';
 
 class LockerStudentProvider with ChangeNotifier {
   final List<Locker> _lockerItems = [];
   // final List<Locker> _lastLockerItems = [];
   final List<Student> _studentItems = [];
   // final List<Student> _lastStudentItems = [];
-
-  final List<Student> _notFoundStudents = [];
 
   LockerStudentProvider(this.dbService);
   final DBService dbService;
@@ -34,10 +28,6 @@ class LockerStudentProvider with ChangeNotifier {
   // List<Student> get lastStudentItems {
   //   return [..._lastStudentItems];
   // }
-
-  List<Student> get notFoundStudents {
-    return [..._notFoundStudents];
-  }
 
   Future<void> fetchAndSetLockers() async {
     _lockerItems.clear();
@@ -480,7 +470,6 @@ class LockerStudentProvider with ChangeNotifier {
 
         rows.removeAt(0);
         rows.removeLast();
-        _notFoundStudents.clear();
         for (String row in rows) {
           final rowTable = row.split(';');
           Map<String, dynamic> jsonRow = {};
@@ -508,11 +497,37 @@ class LockerStudentProvider with ChangeNotifier {
                 ]);
 
                 if (studentInList.isEmpty) {
-                  _notFoundStudents.add(Student.base().copyWith(
-                      firstName: jsonRow['Prénom'], lastName: jsonRow['Nom']));
+                  var metier = (jsonRow['Métier'] as String).substring(0, 3);
+                  final annee = (jsonRow['Métier'] as String).substring(4);
+                  if (metier == "ICT" || metier == "ICH") {
+                    metier = "Informaticien-ne CFC dès ${annee}";
+                  } else if (metier == "OIC") {
+                    metier == "Opérateur-trice CFC dès ${annee}";
+                  }
+                  final year = DateTime.now().year - int.parse(annee);
+                  await addStudent(Student.base().copyWith(
+                      firstName: jsonRow['Prénom'],
+                      lastName: jsonRow['Nom'],
+                      job: metier,
+                      year: year));
 
                   notifyListeners();
-                  // return "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué";
+
+                  studentInList = filterStudentsBy([
+                    ["firstName"],
+                    ["lastName"]
+                  ], [
+                    [jsonRow['Prénom']],
+                    [jsonRow['Nom']]
+                  ]);
+
+                  await addLocker(locker);
+                  final newLocker = _lockerItems
+                      .where((element) =>
+                          element.lockerNumber == locker.lockerNumber)
+                      .first;
+                  final student = studentInList.first;
+                  attributeLocker(newLocker, student);
                 } else {
                   await addLocker(locker);
                   final newLocker = _lockerItems
@@ -527,9 +542,6 @@ class LockerStudentProvider with ChangeNotifier {
               }
             }
           }
-        }
-        if (notFoundStudents.isNotEmpty) {
-          return "${_notFoundStudents.length} casiers n'ont pas pu être ajouter car leurs élèves correspondants sont introuvables dans la base de données";
         }
       } else {
         throw Exception('Fichier non trouvé');
