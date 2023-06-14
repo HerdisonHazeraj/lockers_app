@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lockers_app/models/history.dart';
@@ -23,6 +25,11 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> map = {
+      "add": "ajouté",
+      "update": "modifié",
+      "delete": "suprimmé"
+    };
     List<History> histories = [];
 
     histories = Provider.of<HistoryProvider>(context).historyItems.toList();
@@ -85,14 +92,26 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                       history.isFocus = true;
                                     }),
                                     child: ListTile(
-                                      title: Text(
-                                        history.studentName.toString(),
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                      ),
+                                      title: history.lockerNumber.isNull
+                                          ? Text(
+                                              "${history.studentName} à été " +
+                                                  map[history.action.toString()]
+                                                      .toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                            )
+                                          : Text(
+                                              "Le casier n°${history.lockerNumber} à été " +
+                                                  map[history.action.toString()]
+                                                      .toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
                                       subtitle: Text(
-                                        history.date.toString(),
+                                        DateFormat('MMM. dd, yyyy').format(
+                                            DateTime.parse(history.date)),
                                         style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500),
