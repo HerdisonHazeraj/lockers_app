@@ -556,11 +556,16 @@ class LockerStudentProvider with ChangeNotifier {
                     metier == "Opérateur-trice CFC dès ${annee}";
                   }
                   final year = DateTime.now().year - int.parse(annee);
+                  var caution = 0;
+                  if (jsonRow['Caution'] != "") {
+                    caution = int.parse(jsonRow['Caution']);
+                  }
                   await addStudent(Student.base().copyWith(
                       firstName: jsonRow['Prénom'],
                       lastName: jsonRow['Nom'],
                       job: metier,
-                      year: year));
+                      year: year,
+                      caution: caution));
 
                   notifyListeners();
 
