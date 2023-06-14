@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/history_provider.dart';
+import 'package:lockers_app/screens/dashboard/widgets/import_all_menu.dart';
 
 import '../infrastructure/db_service.dart';
 import '../models/history.dart';
@@ -668,5 +669,9 @@ class LockerStudentProvider with ChangeNotifier {
       return exceptionString;
     }
     return null;
+  }
+
+  Future<String?> importAllWithCSV(FilePickerResult? result) async {
+    return "Cette Fonctionnalité n'est pas encore implémentée";
   }
 }
