@@ -1,19 +1,21 @@
+import 'dart:js_interop';
+
 import 'package:lockers_app/models/IHistory.dart';
 
 class History extends IHistory {
   final String? id;
   final String action;
   final String date;
-  final String? lockerNumber;
-  final String? studentName;
+  final Map? locker;
+  final Map? student;
   // final int lockerNumber;
 
   History(
       {this.id,
       required this.date,
       required this.action,
-      this.lockerNumber,
-      this.studentName
+      this.locker,
+      this.student
       // required this.lockerNumber,
       });
 
@@ -21,18 +23,49 @@ class History extends IHistory {
     return History(
         date: json['date'],
         action: json['action'],
-        lockerNumber: json['lockerNumber'],
-        studentName: json['studentName']
+        locker: json['locker'],
+        student: json['student']
         // lockerNumber: json['lockerNumber'],
         );
+  }
+
+  String getAction() {
+    switch (action) {
+      case "add":
+        return "ajouté";
+      case "update":
+        return "modifié";
+      case "delete":
+        return "supprimé";
+      case "attribution":
+        return "attribué";
+      case "unattribution":
+        return "désattribué";
+      default:
+        return "";
+    }
+  }
+
+  String getSentence() {
+    switch (action) {
+      case "attribution" || "unattribution":
+        return "L'élève ${student!["firstName"]} ${student!["lastName"]} à bien été ${getAction()} au casier n°${locker!["lockerNumber"]}";
+      default:
+        switch (locker.isNull) {
+          case true:
+            return "L'élève ${student!["firstName"]} ${student!["lastName"]} à été ${getAction()}";
+          case false:
+            return "Le casier n°${locker!["lockerNumber"]} à été ${getAction()}";
+        }
+    }
   }
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'date': date.toString(),
         'action': action,
-        'lockerNumber': lockerNumber,
-        'studentName': studentName,
+        'locker': locker,
+        'student': student,
         // 'lockerNumber': lockerNumber,
       };
 
@@ -55,16 +88,16 @@ class History extends IHistory {
     String? title,
     String? date,
     String? action,
-    String? lockerNumber,
-    String? studentName,
+    Map? locker,
+    Map? student,
     // int? lockerNumber,
   }) {
     return History(
         id: id ?? this.id,
         date: date ?? this.date,
         action: action ?? this.action,
-        lockerNumber: lockerNumber ?? this.lockerNumber,
-        studentName: studentName ?? this.studentName
+        locker: locker ?? this.locker,
+        student: student ?? this.student
         // lockerNumber: lockerNumber ?? this.lockerNumber,
         );
   }
@@ -75,8 +108,8 @@ class History extends IHistory {
         id == other.id &&
         date == other.date &&
         action == other.action &&
-        lockerNumber == other.lockerNumber &&
-        studentName == other.studentName;
+        locker == other.locker &&
+        student == other.student;
     // lockerNumber == other.lockerNumber;
   }
 }

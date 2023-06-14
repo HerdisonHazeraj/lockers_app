@@ -25,11 +25,6 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> map = {
-      "add": "ajouté",
-      "update": "modifié",
-      "delete": "suprimmé"
-    };
     List<History> histories = [];
 
     histories = Provider.of<HistoryProvider>(context).historyItems.toList();
@@ -51,16 +46,6 @@ class _DashboardMenuState extends State<DashboardMenu> {
             ),
             child: Column(
               children: [
-                // ElevatedButton(
-                //     onPressed: () => setState(() {
-                //           Provider.of<HistoryProvider>(context, listen: false)
-                //               .addHistory(
-                //             History(
-                //                 date: DateTime.now().toString(),
-                //                 action: "ajouté"),
-                //           );
-                //         }),
-                //     child: Text("AHMED")),
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
@@ -92,19 +77,12 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                       history.isFocus = true;
                                     }),
                                     child: ListTile(
-                                      title: history.lockerNumber.isNull
-                                          ? Text(
-                                              "L'élève ${history.studentName} à été ${map[history.action.toString()].toString()}",
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500),
-                                            )
-                                          : Text(
-                                              "Le casier n°${history.lockerNumber} à été ${map[history.action.toString()].toString()}",
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
+                                      title: Text(
+                                        history.getSentence(),
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500),
+                                      ),
                                       subtitle: Text(
                                         DateFormat('MMM. dd, yyyy').format(
                                             DateTime.parse(history.date)),
