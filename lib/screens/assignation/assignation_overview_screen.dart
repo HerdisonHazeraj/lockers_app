@@ -40,9 +40,6 @@ class _AssignListViewState extends State<AssignListView> {
   List<Student> studentsListView = [];
   List<Locker> lockersListView = [];
 
-  // final sortController = TextEditingController();
-  // final orderController = TextEditingController();
-
   bool _isAutoAttributeButtonEnabled = false;
   bool _isConfirmButtonEnabled = false;
   bool areAllchecksChecked = false;
@@ -56,7 +53,7 @@ class _AssignListViewState extends State<AssignListView> {
 
   bool isExpandedVisible = false;
 
-//listes des filtres complets
+//listes des filtres complets qui vont être envoyé au provider
   List<List> values = [];
   List<List> keys = [];
 
@@ -64,27 +61,13 @@ class _AssignListViewState extends State<AssignListView> {
   List<Student> selectedStudents = [];
 
 //Liste allant recevoir les différents filtres voulus
+//les listview vont jongler entre ces différentes listes pour choisir quoi affciher (exemple: élèves de base ou élèves filtrés)
   List<Student> filtredStudent = [];
-
   List<Student> sortedLockers = [];
-
-  // final sortList = {
-  //   "lockerNumber": 'Numéro de casier',
-  //   "lockNumber": 'Numéro de serrure',
-  //   "floor": 'Étage',
-  //   "nbKey": 'Nombre de clé(s)'
-  // };
-
-  // final orderList = {
-  //   "1": 'Croissant',
-  //   "2": 'Décroissant',
-  // };
 
   @override
   Widget build(BuildContext context) {
-    // final lockersListView =
-    //     Provider.of<LockerStudentProvider>(context).getAvailableLockers();
-
+//permet l'affichage de la liste filtré
     void filterStudents(keys, values) {
       setState(() {
         filtredStudent = Provider.of<LockerStudentProvider>(context,
@@ -142,6 +125,8 @@ class _AssignListViewState extends State<AssignListView> {
       });
     }
 
+    //check si 1 élève et un casier ont été checké
+    //si oui on peut attribuer l'élève au casier
     void checkIfWeCanAssign() {
       setState(() {
         if (isALockerSelected && selectedStudents.length == 1) {
@@ -154,6 +139,8 @@ class _AssignListViewState extends State<AssignListView> {
       });
     }
 
+//permet de changer l'état des checkbox
+//(permet de changer l'état de la page depuis une autre page)
     void changeCheckBoxesLockerStates(index, newValue) {
       setState(() {
         lockersListView[index].isSelected = newValue!;
@@ -172,6 +159,8 @@ class _AssignListViewState extends State<AssignListView> {
       });
     }
 
+//permet de changer l'état de la liste de casier
+//(permet de changer l'état de la page depuis une autre page)
     void changeLockerListState(sortController, isOrderCheckChecked) {
       setState(() {
         lockersListView =
@@ -181,6 +170,7 @@ class _AssignListViewState extends State<AssignListView> {
       });
     }
 
+//gère la fonctionnalité de pouvoir tout sélectionner
     void checkAllChecks(newValue) {
       areAllchecksChecked = newValue!;
       //controle si toutes les checkbox ont été checké (checkbox tout selectionner)
@@ -285,23 +275,6 @@ class _AssignListViewState extends State<AssignListView> {
                             )
                           ],
                         ),
-                        // Row(
-                        //   children: [
-                        //     Visibility(
-                        //       visible: isSortLockersShown,
-                        //       child: SortElementWidget(
-                        //           sortList: sortList,
-                        //           orderList: orderList,
-                        //           orderController: orderController,
-                        //           sortController: sortController,
-                        //           changeLockerListStateVoid:
-                        //               (sortController, orderController) =>
-                        //                   changeLockerListState(
-                        //                       sortController, orderController)),
-                        //     ),
-
-                        //   ],
-                        // ),
                         Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
