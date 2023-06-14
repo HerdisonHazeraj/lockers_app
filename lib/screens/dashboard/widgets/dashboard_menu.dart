@@ -94,17 +94,13 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                     child: ListTile(
                                       title: history.lockerNumber.isNull
                                           ? Text(
-                                              "${history.studentName} à été " +
-                                                  map[history.action.toString()]
-                                                      .toString(),
+                                              "${history.studentName} à été ${map[history.action.toString()].toString()}",
                                               style: const TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w500),
                                             )
                                           : Text(
-                                              "Le casier n°${history.lockerNumber} à été " +
-                                                  map[history.action.toString()]
-                                                      .toString(),
+                                              "Le casier n°${history.lockerNumber} à été ${map[history.action.toString()].toString()}",
                                               style: const TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w500),
