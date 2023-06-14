@@ -230,11 +230,23 @@ class _AssignListViewState extends State<AssignListView> {
                                       _isConfirmButtonEnabled
                                   ? () {
                                       if (_isAutoAttributeButtonEnabled) {
-                                        Provider.of<LockerStudentProvider>(
-                                                context,
-                                                listen: false)
-                                            .autoAttributeLocker(
-                                                selectedStudents);
+                                        int count =
+                                            Provider.of<LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .autoAttributeLocker(
+                                                    selectedStudents);
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Casiers attribués avec succès (${count.toString()}x)',
+                                            ),
+                                            duration:
+                                                const Duration(seconds: 3),
+                                          ),
+                                        );
                                       } else if (_isConfirmButtonEnabled) {
                                         late Locker locker;
                                         late Student student;
@@ -253,6 +265,17 @@ class _AssignListViewState extends State<AssignListView> {
                                                 context,
                                                 listen: false)
                                             .attributeLocker(locker, student);
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'L\'élève ${student.firstName} ${student.lastName} a été attribué avec succès au casier n°${locker.lockerNumber.toString()}',
+                                            ),
+                                            duration:
+                                                const Duration(seconds: 3),
+                                          ),
+                                        );
 
                                         for (var e in lockersListView) {
                                           e.isEnabled = true;

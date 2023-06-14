@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/history_provider.dart';
-import 'package:lockers_app/screens/dashboard/widgets/import_all_menu.dart';
 
 import '../infrastructure/db_service.dart';
 import '../models/history.dart';
@@ -252,8 +251,9 @@ class LockerStudentProvider with ChangeNotifier {
     );
   }
 
-  void autoAttributeLocker(List<Student> students) {
+  int autoAttributeLocker(List<Student> students) {
     final lockers = getAvailableLockers();
+    int count = 0;
     lockers.sort(
       (a, b) => index[a.floor.toLowerCase()]!
           .compareTo(index[b.floor.toLowerCase()]!),
@@ -263,7 +263,10 @@ class LockerStudentProvider with ChangeNotifier {
         break;
       }
       attributeLocker(lockers[i], students[i]);
+      count++;
     }
+
+    return count;
   }
 
   Future<void> autoAttributeOneLocker(Student student) async {
