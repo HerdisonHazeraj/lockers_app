@@ -312,8 +312,9 @@ class _AssignListViewState extends State<AssignListView> {
                 isOrderCheckChecked: isOrderCheckChecked,
                 filterStudentsVoid: (keys, values) =>
                     filterStudents(keys, values),
-                changeLockerListStateVoid: (sortController, orderController) =>
-                    changeLockerListState(sortController, orderController)),
+                changeLockerListStateVoid: (sortController,
+                        isOrderCheckChecked) =>
+                    changeLockerListState(sortController, isOrderCheckChecked)),
           ],
         ),
       ),

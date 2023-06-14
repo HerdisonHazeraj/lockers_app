@@ -3,6 +3,8 @@ import 'package:lockers_app/models/student.dart';
 
 // ignore: must_be_immutable
 class AvailableStudentsListWidget extends StatefulWidget {
+//liste des élèves dans la page d'attribution
+
   AvailableStudentsListWidget(
       {super.key,
       required this.studentsListView,

@@ -56,6 +56,8 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                         maximum: paidCautionsList + unPaidCautionsList == 0
                             ? 1
                             : paidCautionsList + unPaidCautionsList,
+                        majorTickStyle: MajorTickStyle(length: 17),
+                        minorTickStyle: MinorTickStyle(length: 11),
                         ranges: <GaugeRange>[
                           GaugeRange(
                               startWidth: 20,
@@ -72,6 +74,8 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                         ],
                         pointers: <GaugePointer>[
                           MarkerPointer(
+                            enableAnimation: true,
+                            animationType: AnimationType.ease,
                             value: paidCautionsList,
                             markerHeight: 15,
                             markerOffset: 2,

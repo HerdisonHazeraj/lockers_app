@@ -190,7 +190,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     ],
                   ),
                 ),
-
                 const dividerMenu(),
                 const Align(
                   alignment: Alignment.centerLeft,
@@ -206,10 +205,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     ),
                   ),
                 ),
-                // Visibility(
-                // visible: widget.isSortLockersShown,
-                // child:
-
                 SortElementWidget(
                     sortList: sortList,
                     orderList: orderList,
@@ -217,11 +212,9 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     sortController: sortController,
                     isOrderCheckChecked: widget.isOrderCheckChecked,
                     changeLockerListStateVoid:
-                        (sortController, orderController) =>
+                        (sortController, isOrderCheckChecked) =>
                             widget.changeLockerListStateVoid(
-                                sortController, widget.isOrderCheckChecked)),
-
-                // )
+                                sortController, isOrderCheckChecked)),
               ],
             ),
           ),
