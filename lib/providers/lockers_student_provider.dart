@@ -8,6 +8,7 @@ import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 
 import '../infrastructure/db_service.dart';
+import '../models/history.dart';
 import '../models/locker.dart';
 
 class LockerStudentProvider with ChangeNotifier {
