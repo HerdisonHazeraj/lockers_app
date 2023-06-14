@@ -26,6 +26,7 @@ class LockerStudentProvider with ChangeNotifier {
   List<Student> get studentItems {
     return [..._studentItems];
   }
+
   Map<String, int> index = {
     "d": 1,
     "c": 2,
@@ -633,13 +634,17 @@ class LockerStudentProvider with ChangeNotifier {
           for (int i = 0; i < indexes.length; i++) {
             jsonRow.addAll({indexes[i]: rowTable[i]});
           }
-          final studentExists = _studentItems
-              .where((student) =>
-                  jsonRow['Nom'] == student.lastName &&
-                  jsonRow['Prénom'] == student.firstName)
-              .isEmpty;
-          if (studentExists) {
+          final students = _studentItems.where((student) =>
+              jsonRow['Nom'] == student.lastName &&
+              jsonRow['Prénom'] == student.firstName);
+          if (students.isEmpty) {
             addStudent(Student.fromCSV(jsonRow));
+          } else {
+            final student = students.first;
+            updateStudent(Student.fromCSV(jsonRow).copyWith(
+                id: student.id,
+                caution: student.caution,
+                lockerNumber: student.lockerNumber));
           }
         }
       } else {
