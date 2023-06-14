@@ -1,21 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js_interop';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/history_provider.dart';
+import 'package:lockers_app/screens/dashboard/widgets/import_all_menu.dart';
 
 import '../infrastructure/db_service.dart';
+import '../models/history.dart';
 import '../models/locker.dart';
 
 class LockerStudentProvider with ChangeNotifier {
   final List<Locker> _lockerItems = [];
   final List<Student> _studentItems = [];
-
-  final List<Student> _notFoundStudents = [];
 
   LockerStudentProvider(this.dbService);
   final DBService dbService;
@@ -27,10 +26,6 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Student> get studentItems {
     return [..._studentItems];
-  }
-
-  List<Student> get notFoundStudents {
-    return [..._notFoundStudents];
   }
 
   Map<String, int> index = {
@@ -50,6 +45,11 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addLocker(Locker locker) async {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);
+    histories.addHistory(History(
+      date: DateTime.now().toString(),
+      action: "add",
+      lockerNumber: locker.lockerNumber.toString(),
+    ));
     notifyListeners();
   }
 
@@ -58,6 +58,11 @@ class LockerStudentProvider with ChangeNotifier {
     if (lockerIndex >= 0) {
       final newLocker = await dbService.updateLocker(updatedLocker);
       _lockerItems[lockerIndex] = newLocker;
+      histories.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "update",
+        lockerNumber: updatedLocker.lockerNumber.toString(),
+      ));
       notifyListeners();
     }
   }
@@ -66,6 +71,11 @@ class LockerStudentProvider with ChangeNotifier {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
     _lockerItems.remove(item);
+    histories.addHistory(History(
+      date: DateTime.now().toString(),
+      action: "delete",
+      lockerNumber: getLocker(id).lockerNumber.toString(),
+    ));
     notifyListeners();
   }
 
@@ -115,6 +125,10 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
+    histories.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "add",
+        studentName: "${student.firstName} ${student.lastName}"));
     notifyListeners();
   }
 
@@ -123,6 +137,11 @@ class LockerStudentProvider with ChangeNotifier {
     if (studentIndex >= 0) {
       final newStudent = await dbService.updateStudent(updatedStudent);
       _studentItems[studentIndex] = newStudent;
+      histories.addHistory(History(
+          date: DateTime.now().toString(),
+          action: "update",
+          studentName:
+              "${updatedStudent.firstName} ${updatedStudent.lastName}"));
       notifyListeners();
     }
   }
@@ -130,9 +149,11 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
+    histories.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "delete",
+        studentName: "${getStudent(id).firstName} ${getStudent(id).lastName}"));
     notifyListeners();
-    // History history = History(title: "", date: "", action: "Ajout");
-    // histories.addHistory(history);
   }
 
   Future<void> insertStudent(int index, Student student) async {
@@ -273,14 +294,14 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   List<Student> getPaidCaution() {
-    List<Student> students = getNotArchivedStudent()
+    List<Student> students = getUnavailableStudents()
         .where((element) => element.caution == 20)
         .toList();
     return students;
   }
 
   List<Student> getNonPaidCaution() {
-    List<Student> students = getNotArchivedStudent()
+    List<Student> students = getUnavailableStudents()
         .where((element) => element.caution == 0)
         .toList();
     return students;
@@ -501,7 +522,6 @@ class LockerStudentProvider with ChangeNotifier {
 
         rows.removeAt(0);
         rows.removeLast();
-        _notFoundStudents.clear();
         for (String row in rows) {
           final rowTable = row.split(';');
           Map<String, dynamic> jsonRow = {};
@@ -529,11 +549,42 @@ class LockerStudentProvider with ChangeNotifier {
                 ]);
 
                 if (studentInList.isEmpty) {
-                  _notFoundStudents.add(Student.base().copyWith(
-                      firstName: jsonRow['Prénom'], lastName: jsonRow['Nom']));
+                  var metier = (jsonRow['Métier'] as String).substring(0, 3);
+                  final annee = (jsonRow['Métier'] as String).substring(4);
+                  if (metier == "ICT" || metier == "ICH") {
+                    metier = "Informaticien-ne CFC dès ${annee}";
+                  } else if (metier == "OIC") {
+                    metier == "Opérateur-trice CFC dès ${annee}";
+                  }
+                  final year = DateTime.now().year - int.parse(annee);
+                  var caution = 0;
+                  if (jsonRow['Caution'] != "") {
+                    caution = int.parse(jsonRow['Caution']);
+                  }
+                  await addStudent(Student.base().copyWith(
+                      firstName: jsonRow['Prénom'],
+                      lastName: jsonRow['Nom'],
+                      job: metier,
+                      year: year,
+                      caution: caution));
 
                   notifyListeners();
-                  // return "L'élève ${jsonRow['Prénom']} ${jsonRow['Nom']} est introuvable, veuillez vous assurer qu'il existe et qu'il n'ait pas de casier déjà attribué";
+
+                  studentInList = filterStudentsBy([
+                    ["firstName"],
+                    ["lastName"]
+                  ], [
+                    [jsonRow['Prénom']],
+                    [jsonRow['Nom']]
+                  ]);
+
+                  await addLocker(locker);
+                  final newLocker = _lockerItems
+                      .where((element) =>
+                          element.lockerNumber == locker.lockerNumber)
+                      .first;
+                  final student = studentInList.first;
+                  attributeLocker(newLocker, student);
                 } else {
                   await addLocker(locker);
                   final newLocker = _lockerItems
@@ -548,9 +599,6 @@ class LockerStudentProvider with ChangeNotifier {
               }
             }
           }
-        }
-        if (notFoundStudents.isNotEmpty) {
-          return "${_notFoundStudents.length} casiers n'ont pas pu être ajouter car leurs élèves correspondants sont introuvables dans la base de données";
         }
       } else {
         throw Exception('Fichier non trouvé');
@@ -592,13 +640,17 @@ class LockerStudentProvider with ChangeNotifier {
           for (int i = 0; i < indexes.length; i++) {
             jsonRow.addAll({indexes[i]: rowTable[i]});
           }
-          final studentExists = _studentItems
-              .where((student) =>
-                  jsonRow['Nom'] == student.lastName &&
-                  jsonRow['Prénom'] == student.firstName)
-              .isEmpty;
-          if (studentExists) {
+          final students = _studentItems.where((student) =>
+              jsonRow['Nom'] == student.lastName &&
+              jsonRow['Prénom'] == student.firstName);
+          if (students.isEmpty) {
             addStudent(Student.fromCSV(jsonRow));
+          } else {
+            final student = students.first;
+            updateStudent(Student.fromCSV(jsonRow).copyWith(
+                id: student.id,
+                caution: student.caution,
+                lockerNumber: student.lockerNumber));
           }
         }
       } else {
@@ -617,5 +669,9 @@ class LockerStudentProvider with ChangeNotifier {
       return exceptionString;
     }
     return null;
+  }
+
+  Future<String?> importAllWithCSV(FilePickerResult? result) async {
+    return "Cette Fonctionnalité n'est pas encore implémentée";
   }
 }

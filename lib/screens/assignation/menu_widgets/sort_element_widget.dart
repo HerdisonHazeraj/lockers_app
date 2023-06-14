@@ -26,8 +26,6 @@ class SortElementWidget extends StatefulWidget {
 }
 
 class _SortElementWidgetState extends State<SortElementWidget> {
-  // bool isOrderCheckChecked = false;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,11 +53,6 @@ class _SortElementWidgetState extends State<SortElementWidget> {
                 const Text('Croissant')
               ],
             ),
-            // DropDownItemWidget(
-            //   list: widget.orderList,
-            //   controller: widget.orderController,
-            //   hintText: "Ordre...",
-            // ),
           ],
         ),
         Container(

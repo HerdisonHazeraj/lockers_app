@@ -1,7 +1,11 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/providers/history_provider.dart';
+import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
+import 'package:lockers_app/screens/dashboard/widgets/import_all_menu.dart';
 import 'package:provider/provider.dart';
 
 class DashboardMenu extends StatefulWidget {
@@ -12,19 +16,27 @@ class DashboardMenu extends StatefulWidget {
 }
 
 class _DashboardMenuState extends State<DashboardMenu> {
-  List<History> histories = [];
-
-  @override
-  void initState() {
-    histories = Provider.of<HistoryProvider>(context, listen: false)
-        .historyItems
-        .toList();
-    histories.sort((a, b) => a.date.compareTo(b.date));
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   histories = Provider.of<HistoryProvider>(context, listen: false)
+  //       .historyItems
+  //       .toList();
+  //   histories.sort((a, b) => a.date.compareTo(b.date));
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> map = {
+      "add": "ajouté",
+      "update": "modifié",
+      "delete": "suprimmé"
+    };
+    List<History> histories = [];
+
+    histories = Provider.of<HistoryProvider>(context).historyItems.toList();
+    histories.sort((a, b) => a.date.compareTo(b.date));
+
     return Expanded(
       flex: 4,
       child: SafeArea(
@@ -41,6 +53,16 @@ class _DashboardMenuState extends State<DashboardMenu> {
             ),
             child: Column(
               children: [
+                // ElevatedButton(
+                //     onPressed: () => setState(() {
+                //           Provider.of<HistoryProvider>(context, listen: false)
+                //               .addHistory(
+                //             History(
+                //                 date: DateTime.now().toString(),
+                //                 action: "ajouté"),
+                //           );
+                //         }),
+                //     child: Text("AHMED")),
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
@@ -60,7 +82,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                ...histories.map(
+                                ...histories.reversed.map(
                                   (history) => MouseRegion(
                                     onExit: (event) => setState(() {
                                       history.isFocus = false;
@@ -72,14 +94,22 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                       history.isFocus = true;
                                     }),
                                     child: ListTile(
-                                      title: Text(
-                                        history.action,
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                      ),
+                                      title: history.lockerNumber.isNull
+                                          ? Text(
+                                              "L'élève ${history.studentName} à été ${map[history.action.toString()].toString()}",
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                            )
+                                          : Text(
+                                              "Le casier n°${history.lockerNumber} à été ${map[history.action.toString()].toString()}",
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
                                       subtitle: Text(
-                                        history.date.toString(),
+                                        DateFormat('MMM. dd, yyyy').format(
+                                            DateTime.parse(history.date)),
                                         style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500),
@@ -89,31 +119,14 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            // IconButton(
-                                            //   onPressed: () {
-                                            //     setState(() {
-                                            //       students.remove(student);
-
-                                            //       ScaffoldMessenger.of(context)
-                                            //           .showSnackBar(
-                                            //         SnackBar(
-                                            //           content: Text(
-                                            //               'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été confirmer avec succès!'),
-                                            //           duration:
-                                            //               const Duration(seconds: 3),
-                                            //         ),
-                                            //       );
-                                            //     });
-                                            //   },
-                                            //   icon: const Icon(
-                                            //     Icons.check_outlined,
-                                            //     color: Colors.black54,
-                                            //   ),
-                                            // ),
                                             IconButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  histories.remove(history);
+                                                  Provider.of<HistoryProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .deleteHisotry(
+                                                          history.id!);
 
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
@@ -141,6 +154,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
                             )
                           : const Text("Historique Vide")),
                 ),
+                dividerMenu(),
+                ImportAllMenu()
               ],
             ),
           ),

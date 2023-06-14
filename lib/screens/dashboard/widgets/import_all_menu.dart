@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
-class ImportLockerMenu extends StatefulWidget {
-  ImportLockerMenu({super.key});
+class ImportAllMenu extends StatefulWidget {
+  ImportAllMenu({super.key});
   final List<Widget> items = [];
 
   @override
-  State<ImportLockerMenu> createState() => _ImportLockerMenuState();
+  State<ImportAllMenu> createState() => _ImportAllMenuState();
 }
 
-class _ImportLockerMenuState extends State<ImportLockerMenu> {
+class _ImportAllMenuState extends State<ImportAllMenu> {
   // Controllers for the importing student form
   final fileController = TextEditingController();
 
@@ -66,10 +66,11 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
                   backgroundColor: MaterialStateProperty.all(Colors.black54),
                 ),
                 onPressed: () async {
+                  //écrire la méthode
                   final error = await Provider.of<LockerStudentProvider>(
                     context,
                     listen: false,
-                  ).importLockersWithCSV(filePicker!);
+                  ).importAllWithCSV(filePicker!);
                   if (error != null) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(error)));
