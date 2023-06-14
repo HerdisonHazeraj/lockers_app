@@ -41,12 +41,6 @@ class _DashboardMenuState extends State<DashboardMenu> {
             ),
             child: Column(
               children: [
-                ElevatedButton(
-                    onPressed: () =>
-                        Provider.of<HistoryProvider>(context, listen: false)
-                            .addHistory(
-                                History(title: "", date: "", action: "Ajout")),
-                    child: Text("AHMED")),
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
