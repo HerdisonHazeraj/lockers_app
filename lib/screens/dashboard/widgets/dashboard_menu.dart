@@ -12,23 +12,22 @@ class DashboardMenu extends StatefulWidget {
 }
 
 class _DashboardMenuState extends State<DashboardMenu> {
-  List<History> histories = [];
-
-  @override
-  void initState() {
-    histories = Provider.of<HistoryProvider>(context, listen: false)
-        .historyItems
-        .toList();
-    histories.sort((a, b) => a.date.compareTo(b.date));
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   histories = Provider.of<HistoryProvider>(context, listen: false)
+  //       .historyItems
+  //       .toList();
+  //   histories.sort((a, b) => a.date.compareTo(b.date));
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    histories = Provider.of<HistoryProvider>(context, listen: false)
-        .historyItems
-        .toList();
+    List<History> histories = [];
+
+    histories = Provider.of<HistoryProvider>(context).historyItems.toList();
     histories.sort((a, b) => a.date.compareTo(b.date));
+
     return Expanded(
       flex: 4,
       child: SafeArea(

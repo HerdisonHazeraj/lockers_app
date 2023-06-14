@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/dashboard/widgets/barchart_widget.dart';
 import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
@@ -35,6 +36,8 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
           .fetchAndSetLockers();
       await Provider.of<LockerStudentProvider>(context, listen: false)
           .fetchAndSetStudents();
+      await Provider.of<HistoryProvider>(context, listen: false)
+          .fetchAndSetHistory();
       setState(() {
         _isLoading = false;
       });
