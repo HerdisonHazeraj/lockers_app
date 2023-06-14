@@ -29,6 +29,7 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
             .toDouble();
     return InkWell(
       child: Container(
+        height: MediaQuery.of(context).size.height * 0.4,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -42,16 +43,16 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
           ],
         ),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.14,
-          height: MediaQuery.of(context).size.height * 0.32,
+          width: MediaQuery.of(context).size.width * 0.15,
           child: Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(20),
             child: Column(
               children: [
                 Expanded(
-                  child: SfRadialGauge(axes: <RadialAxis>[
-                    RadialAxis(
-                        maximumLabels: 5,
+                  child: SfRadialGauge(
+                    axes: <RadialAxis>[
+                      RadialAxis(
+                        maximumLabels: 3,
                         minimum: 0,
                         maximum: paidCautionsList + unPaidCautionsList == 0
                             ? 1
@@ -68,7 +69,7 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                               endWidth: 20,
                               startValue: paidCautionsList,
                               endValue: paidCautionsList + unPaidCautionsList,
-                              color: Color(0xFFFB3274)),
+                              color: const Color(0xFFFB3274)),
                         ],
                         pointers: <GaugePointer>[
                           MarkerPointer(
@@ -80,22 +81,31 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                         ],
                         annotations: <GaugeAnnotation>[
                           GaugeAnnotation(
-                              widget: Column(children: [
-                                Text(paidCautionsList.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold)),
-                                const Text('cautions payées',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.3,
-                                    ))
-                              ]),
-                              angle: 90,
-                              positionFactor: 1)
-                        ])
-                  ]),
+                            widget: Column(
+                              children: [
+                                Text(
+                                  paidCautionsList.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Text(
+                                  'cautions payées',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    height: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            angle: 90,
+                            positionFactor: 1.2,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20, left: 5, bottom: 5),

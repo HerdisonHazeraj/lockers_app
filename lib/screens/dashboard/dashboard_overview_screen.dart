@@ -217,14 +217,22 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             .toString(),
                                         "assets/icons/locker.svg",
                                       ),
-                                      const InfoCard(
+                                      InfoCard(
                                         "Nombre de casiers défectueux",
-                                        "1",
+                                        Provider.of<LockerStudentProvider>(
+                                                context)
+                                            .getDefectiveLockers()
+                                            .length
+                                            .toString(),
                                         "assets/icons/locker.svg",
                                       ),
-                                      const InfoCard(
+                                      InfoCard(
                                         "Nombre de casiers avec clés manquantes",
-                                        "2",
+                                        Provider.of<LockerStudentProvider>(
+                                                context)
+                                            .getLockerLessThen2Key()
+                                            .length
+                                            .toString(),
                                         "assets/icons/key.svg",
                                       )
                                     ],
