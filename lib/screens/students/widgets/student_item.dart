@@ -62,6 +62,51 @@ class _StudentItemState extends State<StudentItem> {
           visible: widget.student.isFocus,
           child: Wrap(
             children: [
+              widget.student.caution == 20
+                  ? IconButton(
+                      onPressed: () {
+                        Provider.of<LockerStudentProvider>(context,
+                                listen: false)
+                            .updateStudent(
+                          widget.student.copyWith(caution: 0),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'La caution de ${widget.student.firstName} ${widget.student.lastName} a bien été rendue !'),
+                            duration: const Duration(seconds: 3),
+                          ),
+                        );
+                      },
+                      tooltip: "La caution a été rendue",
+                      icon: const Icon(
+                        Icons.money_off_outlined,
+                        color: Colors.black,
+                      ),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        Provider.of<LockerStudentProvider>(context,
+                                listen: false)
+                            .updateStudent(
+                          widget.student.copyWith(caution: 20),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'La caution de ${widget.student.firstName} ${widget.student.lastName} a bien été payée !'),
+                            duration: const Duration(seconds: 3),
+                          ),
+                        );
+                      },
+                      tooltip: "L'élève a payé la caution",
+                      icon: const Icon(
+                        Icons.attach_money_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
               widget.student.lockerNumber == 0
                   ? IconButton(
                       onPressed: () async {
