@@ -23,11 +23,12 @@ class BarChartWidgetState extends State<BarChartWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       child: InkWell(
         child: Container(
           margin:
-              EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.028),
+              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.013),
+// EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.028),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -41,8 +42,8 @@ class BarChartWidgetState extends State<BarChartWidget> {
             ],
           ),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.5,
-            height: MediaQuery.of(context).size.height * 0.5,
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.height * 0.4,
             child: Container(
               margin: const EdgeInsets.all(20),
               child: Column(
