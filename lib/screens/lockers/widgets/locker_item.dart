@@ -150,14 +150,6 @@ class _LockerItemState extends State<LockerItem> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
-                      tooltip: "Ajouter une remarque",
-                      icon: const Icon(
-                        Icons.add_comment_outlined,
-                        color: Colors.black,
-                      ),
-                    ),
-                    IconButton(
                       onPressed: () async {
                         if (widget.locker.isAvailable == false) {
                           Student owner = Provider.of<LockerStudentProvider>(

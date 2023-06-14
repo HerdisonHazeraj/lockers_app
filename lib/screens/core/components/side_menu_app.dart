@@ -101,17 +101,17 @@ class SideMenuApp extends StatelessWidget {
             height: 24,
           ),
         ),
-        SideMenuItem(
-          priority: 4,
-          title: 'Promotion',
-          onTap: (page, _) {
-            sideMenuController.changePage(page);
-          },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/assign.svg",
-            height: 24,
-          ),
-        ),
+        // SideMenuItem(
+        //   priority: 4,
+        //   title: 'Promotion',
+        //   onTap: (page, _) {
+        //     sideMenuController.changePage(page);
+        //   },
+        //   iconWidget: SvgPicture.asset(
+        //     "assets/icons/assign.svg",
+        //     height: 24,
+        //   ),
+        // ),
       ],
     );
   }

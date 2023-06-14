@@ -103,7 +103,7 @@ class _MyWidgetState extends State<MyWidget> {
                       LockersOverviewScreen(),
                       StudentsOverviewScreen(),
                       AssignationOverviewScreen(),
-                      PromotionOverviewScreen()
+                      // PromotionOverviewScreen()
                     ],
                   ),
                 ),

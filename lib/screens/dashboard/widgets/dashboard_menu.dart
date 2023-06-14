@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/providers/history_provider.dart';
+import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
+import 'package:lockers_app/screens/dashboard/widgets/import_all_menu.dart';
 import 'package:provider/provider.dart';
 
 class DashboardMenu extends StatefulWidget {
@@ -130,6 +132,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
                             )
                           : const Text("Historique Vide")),
                 ),
+                dividerMenu(),
+                ImportAllMenu()
               ],
             ),
           ),

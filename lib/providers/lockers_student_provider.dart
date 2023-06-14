@@ -277,8 +277,9 @@ class LockerStudentProvider with ChangeNotifier {
     );
   }
 
-  void autoAttributeLocker(List<Student> students) {
+  int autoAttributeLocker(List<Student> students) {
     final lockers = getAvailableLockers();
+    int count = 0;
     lockers.sort(
       (a, b) => index[a.floor.toLowerCase()]!
           .compareTo(index[b.floor.toLowerCase()]!),
@@ -288,7 +289,10 @@ class LockerStudentProvider with ChangeNotifier {
         break;
       }
       attributeLocker(lockers[i], students[i]);
+      count++;
     }
+
+    return count;
   }
 
   Future<void> autoAttributeOneLocker(Student student) async {
@@ -582,11 +586,16 @@ class LockerStudentProvider with ChangeNotifier {
                     metier == "Opérateur-trice CFC dès ${annee}";
                   }
                   final year = DateTime.now().year - int.parse(annee);
+                  var caution = 0;
+                  if (jsonRow['Caution'] != "") {
+                    caution = int.parse(jsonRow['Caution']);
+                  }
                   await addStudent(Student.base().copyWith(
                       firstName: jsonRow['Prénom'],
                       lastName: jsonRow['Nom'],
                       job: metier,
-                      year: year));
+                      year: year,
+                      caution: caution));
 
                   notifyListeners();
 
@@ -689,5 +698,9 @@ class LockerStudentProvider with ChangeNotifier {
       return exceptionString;
     }
     return null;
+  }
+
+  Future<String?> importAllWithCSV(FilePickerResult? result) async {
+    return "Cette Fonctionnalité n'est pas encore implémentée";
   }
 }

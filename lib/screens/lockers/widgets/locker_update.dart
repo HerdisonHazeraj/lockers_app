@@ -68,7 +68,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.locker.isInaccessible ?? true,
+                      readOnly: true,
                       controller: lockerNumberController,
                       decoration: const InputDecoration(
                         labelText: "N° de casier",
@@ -88,7 +88,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.locker.isInaccessible ?? true,
+                      readOnly: true,
                       controller: lockNumberController,
                       decoration: const InputDecoration(
                         labelText: "N° de serrure",

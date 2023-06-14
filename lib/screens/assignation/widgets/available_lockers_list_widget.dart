@@ -4,6 +4,7 @@ import '../../../models/locker.dart';
 
 // ignore: must_be_immutable
 class AvailableLockersListWidget extends StatefulWidget {
+  //liste des casiers dans la page d'attribution
   AvailableLockersListWidget(
       {super.key,
       required this.availableLockers,

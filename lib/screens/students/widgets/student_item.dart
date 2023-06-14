@@ -193,43 +193,6 @@ class _StudentItemState extends State<StudentItem> {
                 ),
                 tooltip: "Supprimer l'élève",
                 onPressed: () async {
-                  // Suppression avec une snackbar qui permet de cancel la suppression
-                  // Student student = widget.student;
-
-                  // indexDeletedStudent =
-                  //     Provider.of<LockerStudentProvider>(context, listen: false)
-                  //         .findIndexOfStudentById(student.id!);
-                  // deletedStudent = student;
-
-                  // await Provider.of<LockerStudentProvider>(context,
-                  //         listen: false)
-                  //     .deleteStudent(student.id!);
-
-                  // widget.refreshList!();
-
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   SnackBar(
-                  //     content: Text(
-                  //       "L'élève ${student.firstName} ${student.lastName} a bien été supprimé !",
-                  //     ),
-                  //     duration: const Duration(seconds: 3),
-                  //     action: SnackBarAction(
-                  //         label: "Annuler",
-                  //         onPressed: () async {
-                  //           await Provider.of<LockerStudentProvider>(context,
-                  //                   listen: false)
-                  //               .insertStudent(
-                  //             indexDeletedStudent,
-                  //             deletedStudent,
-                  //           );
-
-                  //           widget.refreshList!();
-
-                  //           student.isFocus = false;
-                  //         }),
-                  //   ),
-                  // );
-
                   // Suppression avec une boite de dialogue qui permet de confirmer
                   showDialog(
                       context: context,
@@ -251,18 +214,9 @@ class _StudentItemState extends State<StudentItem> {
                                         listen: false)
                                     .deleteStudent(widget.student.id!);
 
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      "L'élève ${widget.student.firstName} ${widget.student.lastName} a bien été supprimé !",
-                                    ),
-                                    duration: const Duration(seconds: 2),
-                                  ),
-                                );
-
                                 Navigator.of(context).pop();
                               },
-                              child: const Text("Supprimer"),
+                              child: const Text("Confirmer"),
                             ),
                           ],
                         );

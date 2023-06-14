@@ -1,7 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 
-// ignore: must_be_immutable
+//affichage d'un élément de filtre
+
 class FilterElement extends StatefulWidget {
   FilterElement(
       {super.key,
@@ -34,7 +37,6 @@ class _FilterElementState extends State<FilterElement> {
           onChanged: (value) {
             setState(() {
               widget.keys.clear();
-              // ignore: unused_local_variable
               for (var i = 0; i < value.length; i++) {
                 widget.keys.add(widget.filterNod);
               }
