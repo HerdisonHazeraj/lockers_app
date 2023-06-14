@@ -47,7 +47,7 @@ class LockerStudentProvider with ChangeNotifier {
     histories.addHistory(History(
       date: DateTime.now().toString(),
       action: "add",
-      lockerNumber: locker.lockerNumber.toString(),
+      locker: locker.toJson(),
     ));
     notifyListeners();
   }
@@ -60,7 +60,7 @@ class LockerStudentProvider with ChangeNotifier {
       histories.addHistory(History(
         date: DateTime.now().toString(),
         action: "update",
-        lockerNumber: updatedLocker.lockerNumber.toString(),
+        locker: updatedLocker.toJson(),
       ));
       notifyListeners();
     }
@@ -73,7 +73,7 @@ class LockerStudentProvider with ChangeNotifier {
     histories.addHistory(History(
       date: DateTime.now().toString(),
       action: "delete",
-      lockerNumber: getLocker(id).lockerNumber.toString(),
+      locker: getLocker(id).toJson(),
     ));
     notifyListeners();
   }
@@ -124,10 +124,13 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
-    histories.addHistory(History(
+    histories.addHistory(
+      History(
         date: DateTime.now().toString(),
         action: "add",
-        studentName: "${student.firstName} ${student.lastName}"));
+        student: student.toJson(),
+      ),
+    );
     notifyListeners();
   }
 
@@ -136,11 +139,13 @@ class LockerStudentProvider with ChangeNotifier {
     if (studentIndex >= 0) {
       final newStudent = await dbService.updateStudent(updatedStudent);
       _studentItems[studentIndex] = newStudent;
-      histories.addHistory(History(
+      histories.addHistory(
+        History(
           date: DateTime.now().toString(),
           action: "update",
-          studentName:
-              "${updatedStudent.firstName} ${updatedStudent.lastName}"));
+          student: updatedStudent.toJson(),
+        ),
+      );
       notifyListeners();
     }
   }
@@ -148,10 +153,13 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
-    histories.addHistory(History(
+    histories.addHistory(
+      History(
         date: DateTime.now().toString(),
         action: "delete",
-        studentName: "${getStudent(id).firstName} ${getStudent(id).lastName}"));
+        student: getStudent(id).toJson(),
+      ),
+    );
     notifyListeners();
   }
 
@@ -234,6 +242,15 @@ class LockerStudentProvider with ChangeNotifier {
         lockerNumber: locker.lockerNumber,
       ),
     );
+
+    histories.addHistory(
+      History(
+        date: DateTime.now().toString(),
+        action: "attribution",
+        locker: locker.toJson(),
+        student: student.toJson(),
+      ),
+    );
   }
 
   Future<void> unAttributeLocker(Locker locker, Student student) async {
@@ -247,6 +264,15 @@ class LockerStudentProvider with ChangeNotifier {
     await updateStudent(
       student.copyWith(
         lockerNumber: 0,
+      ),
+    );
+
+    histories.addHistory(
+      History(
+        date: DateTime.now().toString(),
+        action: "unattribution",
+        locker: locker.toJson(),
+        student: student.toJson(),
       ),
     );
   }
