@@ -80,7 +80,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                ...histories.map(
+                                ...histories.reversed.map(
                                   (history) => MouseRegion(
                                     onExit: (event) => setState(() {
                                       history.isFocus = false;
@@ -94,7 +94,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                     child: ListTile(
                                       title: history.lockerNumber.isNull
                                           ? Text(
-                                              "${history.studentName} à été ${map[history.action.toString()].toString()}",
+                                              "L'élève ${history.studentName} à été ${map[history.action.toString()].toString()}",
                                               style: const TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w500),
