@@ -25,6 +25,10 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   Widget build(BuildContext context) {
+    histories = Provider.of<HistoryProvider>(context, listen: false)
+        .historyItems
+        .toList();
+    histories.sort((a, b) => a.date.compareTo(b.date));
     return Expanded(
       flex: 4,
       child: SafeArea(
@@ -41,12 +45,16 @@ class _DashboardMenuState extends State<DashboardMenu> {
             ),
             child: Column(
               children: [
-                ElevatedButton(
-                    onPressed: () =>
-                        Provider.of<HistoryProvider>(context, listen: false)
-                            .addHistory(
-                                History(title: "", date: "", action: "Ajout")),
-                    child: Text("AHMED")),
+                // ElevatedButton(
+                //     onPressed: () => setState(() {
+                //           Provider.of<HistoryProvider>(context, listen: false)
+                //               .addHistory(
+                //             History(
+                //                 date: DateTime.now().toString(),
+                //                 action: "ajouté"),
+                //           );
+                //         }),
+                //     child: Text("AHMED")),
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
@@ -79,7 +87,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                     }),
                                     child: ListTile(
                                       title: Text(
-                                        history.action,
+                                        history.studentName.toString(),
                                         style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500),
@@ -95,31 +103,14 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            // IconButton(
-                                            //   onPressed: () {
-                                            //     setState(() {
-                                            //       students.remove(student);
-
-                                            //       ScaffoldMessenger.of(context)
-                                            //           .showSnackBar(
-                                            //         SnackBar(
-                                            //           content: Text(
-                                            //               'L\'ajout de l\'élève ${student.firstName} ${student.lastName} à été confirmer avec succès!'),
-                                            //           duration:
-                                            //               const Duration(seconds: 3),
-                                            //         ),
-                                            //       );
-                                            //     });
-                                            //   },
-                                            //   icon: const Icon(
-                                            //     Icons.check_outlined,
-                                            //     color: Colors.black54,
-                                            //   ),
-                                            // ),
                                             IconButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  histories.remove(history);
+                                                  Provider.of<HistoryProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .deleteHisotry(
+                                                          history.id!);
 
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(

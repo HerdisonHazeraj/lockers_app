@@ -5,6 +5,7 @@ import 'dart:js_interop';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 
@@ -50,6 +51,11 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addLocker(Locker locker) async {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);
+    histories.addHistory(History(
+      date: DateTime.now().toString(),
+      action: "add",
+      lockerNumber: locker.lockerNumber.toString(),
+    ));
     notifyListeners();
   }
 
@@ -58,6 +64,11 @@ class LockerStudentProvider with ChangeNotifier {
     if (lockerIndex >= 0) {
       final newLocker = await dbService.updateLocker(updatedLocker);
       _lockerItems[lockerIndex] = newLocker;
+      histories.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "update",
+        lockerNumber: updatedLocker.lockerNumber.toString(),
+      ));
       notifyListeners();
     }
   }
@@ -66,6 +77,11 @@ class LockerStudentProvider with ChangeNotifier {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
     _lockerItems.remove(item);
+    histories.addHistory(History(
+      date: DateTime.now().toString(),
+      action: "delete",
+      lockerNumber: getLocker(id).lockerNumber.toString(),
+    ));
     notifyListeners();
   }
 
@@ -115,6 +131,10 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
+    histories.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "add",
+        studentName: "${student.firstName} ${student.lastName}"));
     notifyListeners();
   }
 
@@ -123,6 +143,11 @@ class LockerStudentProvider with ChangeNotifier {
     if (studentIndex >= 0) {
       final newStudent = await dbService.updateStudent(updatedStudent);
       _studentItems[studentIndex] = newStudent;
+      histories.addHistory(History(
+          date: DateTime.now().toString(),
+          action: "update",
+          studentName:
+              "${updatedStudent.firstName} ${updatedStudent.lastName}"));
       notifyListeners();
     }
   }
@@ -130,9 +155,11 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
     _studentItems.removeWhere((student) => student.id == id);
+    histories.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "delete",
+        studentName: "${getStudent(id).firstName} ${getStudent(id).lastName}"));
     notifyListeners();
-    // History history = History(title: "", date: "", action: "Ajout");
-    // histories.addHistory(history);
   }
 
   Future<void> insertStudent(int index, Student student) async {
