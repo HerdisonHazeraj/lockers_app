@@ -10,7 +10,6 @@ import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/core/components/side_menu_app.dart';
 import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
-import 'package:lockers_app/screens/promotions/promotion_overview_screen.dart';
 import 'package:lockers_app/screens/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 

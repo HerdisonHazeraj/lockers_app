@@ -40,7 +40,7 @@ class ActionBarWidget extends StatefulWidget {
 
 class _ActionBarWidgetState extends State<ActionBarWidget> {
 //filtres afficher dans les select du filtre
-  final metiers = ['Informaticien-ne CFC (dès 2021)', 'Opérateur-trice CFC'];
+  final metiers = ['Informaticien-ne CFC (dès 2021)', 'OIC'];
   // final annees = {"1ère": 1, "2ème": 2, "3ème": 3, "4ème": 4};
   final annees = [1, 2, 3, 4];
   final responsables = ['JHI', 'CGU', 'MIV', 'PGA'];
