@@ -48,16 +48,26 @@ class _AvailableLockersListWidgetState
                             title: Text(widget
                                 .availableLockers[index].lockerNumber
                                 .toString()),
-                            subtitle: Text(
-                                'Étage ${widget.availableLockers[index].floor.toUpperCase()}'),
+                            subtitle: Row(
+                              
+                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                    'Étage ${widget.availableLockers[index].floor.toUpperCase()}'),
+                                    Text(' - '),
+                                    Text('${widget
+                                                                  .availableLockers[index].nbKey.toString()} clés')
+                              ],
+                            ),
                             onChanged: (newValue) {
                               setState(() {
                                 widget.changeCheckBoxesLockerStatesVoid(
                                     index, newValue);
-
+                          
                                 widget.checkIfWeCanAssignVoid();
                               });
                             },
+                            
                           ),
                         ),
                       ),
