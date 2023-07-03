@@ -1,9 +1,5 @@
 {
   "projects": {
-<<<<<<< HEAD
     "default": "lockerapp-3b54f"
-=======
-    "default": "lockers-app-d6caa"
->>>>>>> 15a8b89e1eb109b0366235f34edf532d6417fd28
   }
 }
