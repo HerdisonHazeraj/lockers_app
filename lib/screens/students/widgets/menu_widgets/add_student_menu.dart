@@ -145,6 +145,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                         DropDownMenu(
+                          enabled: true,
                           items: const {
                             "1": "1ère année",
                             "2": "2ème année",

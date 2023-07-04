@@ -37,28 +37,26 @@ class _LockerItemState extends State<LockerItem> {
       }),
       child: ListTile(
         enabled: widget.locker.isInaccessible == false ? true : false,
-        leading: Icon(
-          widget.locker.isAvailable == true
-              ? Icons.lock_open_outlined
-              : Icons.lock_outlined,
-          color: Colors.black,
-          size: 40,
-        ),
-        title: Row(
-          children: [
-            Text(
-              'Casier n°${widget.locker.lockerNumber}',
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, top: 2),
-              child: CircleAvatar(
-                backgroundColor: widget.locker.isAvailable == true
-                    ? Colors.green
-                    : Colors.red,
-                radius: 5,
+        // leading: Icon(
+        //   widget.locker.isAvailable == true
+        //       ? Icons.lock_open_outlined
+        //       : Icons.lock_outlined,
+        //   color: Colors.black,
+        //   size: 40,
+        // ),
+        leading: widget.locker.isAvailable == true
+            ? const Icon(
+                Icons.lock_open_outlined,
+                color: Colors.green,
+                size: 40,
+              )
+            : const Icon(
+                Icons.lock_outlined,
+                color: Colors.red,
+                size: 40,
               ),
-            )
-          ],
+        title: Text(
+          'Casier n°${widget.locker.lockerNumber}',
         ),
         subtitle: widget.locker.remark == ''
             ? const Text('Aucune remarque')

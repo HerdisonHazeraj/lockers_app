@@ -86,6 +86,7 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             "d": "Étage D",
                             "e": "Étage E",
                           },
+                          enabled: true,
                           defaultItem: "Étage...",
                           icon: Icons.calendar_today_outlined,
                           onChanged: (value) {

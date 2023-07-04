@@ -9,7 +9,7 @@
     },
     {
       "name": "_flutterfire_internals",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.0",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.3",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -21,9 +21,9 @@
     },
     {
       "name": "args",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.4.1",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.4.2",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.19"
     },
     {
       "name": "async",
@@ -33,9 +33,9 @@
     },
     {
       "name": "badges",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/badges-2.0.3",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/badges-3.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "boolean_selector",
@@ -87,7 +87,7 @@
     },
     {
       "name": "easy_sidemenu",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/easy_sidemenu-0.4.1+1",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/easy_sidemenu-0.4.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -117,13 +117,13 @@
     },
     {
       "name": "file_picker",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-5.3.1",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-5.3.2",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.12.0",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.14.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -135,25 +135,25 @@
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.5.0",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.6.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_database",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database-10.2.0",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database-10.2.3",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_database_platform_interface",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_platform_interface-0.2.5",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_platform_interface-0.2.5+3",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_database_web",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_web-0.2.3",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_web-0.2.3+3",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -171,9 +171,9 @@
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.1",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "flutter_localizations",
@@ -189,7 +189,7 @@
     },
     {
       "name": "flutter_svg",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.6",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.7",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -261,7 +261,7 @@
     },
     {
       "name": "lints",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.0",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -363,9 +363,9 @@
     },
     {
       "name": "path_provider_linux",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.1.10",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.1.11",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "path_provider_platform_interface",
@@ -375,9 +375,9 @@
     },
     {
       "name": "path_provider_windows",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.1.6",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.1.7",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "petitparser",
@@ -549,7 +549,7 @@
     },
     {
       "name": "url_launcher_android",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.0.33",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.0.36",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -573,15 +573,15 @@
     },
     {
       "name": "url_launcher_platform_interface",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_platform_interface-2.1.2",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_platform_interface-2.1.3",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "url_launcher_web",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_web-2.0.16",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_web-2.0.17",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "url_launcher_windows",
@@ -591,19 +591,19 @@
     },
     {
       "name": "vector_graphics",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics-1.1.6",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics-1.1.7",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "vector_graphics_codec",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_codec-1.1.6",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_codec-1.1.7",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "vector_graphics_compiler",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_compiler-1.1.6",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_compiler-1.1.7",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -615,7 +615,7 @@
     },
     {
       "name": "vm_service",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-11.6.0",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-11.7.2",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -639,9 +639,9 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/win32-4.1.4",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.0.5",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "xdg_directories",
@@ -668,7 +668,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-06-14T08:56:17.474093Z",
+  "generated": "2023-07-03T06:34:14.114219Z",
   "generator": "pub",
-  "generatorVersion": "3.0.0"
+  "generatorVersion": "3.0.5"
 }

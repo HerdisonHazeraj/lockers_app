@@ -72,6 +72,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      readOnly: widget.student.year == -1,
                       controller: firstnameController,
                       decoration: const InputDecoration(
                         labelText: "Prénom",
@@ -91,6 +92,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      readOnly: widget.student.year == -1,
                       controller: lastnameController,
                       decoration: const InputDecoration(
                         labelText: "Nom",
@@ -110,6 +112,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      readOnly: widget.student.year == -1,
                       controller: loginController,
                       decoration: const InputDecoration(
                         labelText: "Login",
@@ -129,6 +132,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      readOnly: widget.student.year == -1,
                       controller: mailController,
                       decoration: const InputDecoration(
                         labelText: "Mail",
@@ -171,6 +175,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         "3": "3ème année",
                         "4": "4ème année",
                       },
+                      enabled: widget.student.year == -1 ? true : false,
                       defaultItem: "Année...",
                       icon: Icons.calendar_today_outlined,
                       onChanged: (value) {
@@ -178,7 +183,9 @@ class _StudentUpdateState extends State<StudentUpdate> {
                           yearController.text = value!;
                         });
                       },
-                      defaultChoosedItem: yearController.text,
+                      defaultChoosedItem: widget.student.year == -1
+                          ? null
+                          : yearController.text,
                     ),
                   ),
                 ),
@@ -192,6 +199,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      readOnly: widget.student.year == -1,
                       controller: jobController,
                       decoration: const InputDecoration(
                         labelText: "Formation",
@@ -211,6 +219,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      readOnly: widget.student.year == -1,
                       controller: responsableController,
                       decoration: const InputDecoration(
                         labelText: "Maître de classe",
@@ -232,9 +241,11 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.black54),
                       ),
-                      onPressed: () {
-                        widget.showUpdateForm!();
-                      },
+                      onPressed: widget.student.year == -1
+                          ? null
+                          : () {
+                              widget.showUpdateForm!();
+                            },
                       child: const Text("Annuler"),
                     ),
                   ),
@@ -247,35 +258,38 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.black54),
                       ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          Student student = Provider.of<LockerStudentProvider>(
-                                  context,
-                                  listen: false)
-                              .getStudent(widget.student.id!);
+                      onPressed: widget.student.year == -1
+                          ? null
+                          : () async {
+                              if (_formKey.currentState!.validate()) {
+                                Student student =
+                                    Provider.of<LockerStudentProvider>(context,
+                                            listen: false)
+                                        .getStudent(widget.student.id!);
 
-                          await Provider.of<LockerStudentProvider>(context,
-                                  listen: false)
-                              .updateStudent(student.copyWith(
-                            firstName: firstnameController.text,
-                            lastName: lastnameController.text,
-                            login: loginController.text,
-                            job: jobController.text,
-                            classe: classeController.text,
-                            manager: responsableController.text,
-                            year: int.parse(yearController.text),
-                          ));
+                                await Provider.of<LockerStudentProvider>(
+                                        context,
+                                        listen: false)
+                                    .updateStudent(student.copyWith(
+                                  firstName: firstnameController.text,
+                                  lastName: lastnameController.text,
+                                  login: loginController.text,
+                                  job: jobController.text,
+                                  classe: classeController.text,
+                                  manager: responsableController.text,
+                                  year: int.parse(yearController.text),
+                                ));
 
-                          widget.showUpdateForm!();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  "L'étudiant ${student.firstName} ${student.lastName} a été modifié avec succès !"),
-                              duration: const Duration(seconds: 3),
-                            ),
-                          );
-                        }
-                      },
+                                widget.showUpdateForm!();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        "L'étudiant ${student.firstName} ${student.lastName} a été modifié avec succès !"),
+                                    duration: const Duration(seconds: 3),
+                                  ),
+                                );
+                              }
+                            },
                       child: const Text("Enregistrer"),
                     ),
                   ),

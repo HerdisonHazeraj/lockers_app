@@ -108,6 +108,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         "d": "Étage D",
                         "e": "Étage E",
                       },
+                      enabled: widget.locker.isInaccessible ?? true,
                       defaultItem: "Étage...",
                       icon: Icons.location_on_outlined,
                       onChanged: (value) {
