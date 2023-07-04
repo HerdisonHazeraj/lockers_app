@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../models/locker.dart';
 
@@ -45,9 +46,25 @@ class _AvailableLockersListWidgetState
                             enabled: widget.availableLockers[index].isEnabled,
                             controlAffinity: ListTileControlAffinity.leading,
                             value: widget.availableLockers[index].isSelected,
-                            title: Text(widget
-                                .availableLockers[index].lockerNumber
-                                .toString()),
+                            title: Text(
+                                'Casier n°${widget.availableLockers[index].lockerNumber.toString()}'),
+                            secondary:
+                                // Expanded(
+                                Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(widget.availableLockers[index].nbKey
+                                    .toString()),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5.0),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/key.svg',
+                                    height: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            // ),
                             subtitle: Text(
                                 'Étage ${widget.availableLockers[index].floor.toUpperCase()}'),
                             onChanged: (newValue) {

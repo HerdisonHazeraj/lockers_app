@@ -19,26 +19,30 @@ class DropDownItemWidget extends StatefulWidget {
 class _DropDownItemWidgetState extends State<DropDownItemWidget> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.all(20),
-        child: DropdownButtonFormField(
-          items: widget.list.entries
-              .map(
-                (e) => DropdownMenuItem(
-                  value: e.key,
-                  child: Text(e.value),
-                ),
-              )
-              .toList(),
-          onChanged: (value) {
-            setState(() {
-              widget.controller.text = value!;
-            });
-          },
-          hint: Text(widget.hintText),
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.all(20),
+            child: DropdownButtonFormField(
+              items: widget.list.entries
+                  .map(
+                    (e) => DropdownMenuItem(
+                      value: e.key,
+                      child: Text(e.value),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  widget.controller.text = value!;
+                });
+              },
+              hint: Text(widget.hintText),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

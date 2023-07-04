@@ -1,9 +1,9 @@
-2023/06/14-08:00:44.970 2540 Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.9f9f463c\flutter_tools_chrome_device.857e3cbc\Default\Session Storage/MANIFEST-000001
-2023/06/14-08:00:44.971 2540 Recovering log #7
-2023/06/14-08:00:44.971 2540 (ignoring error) C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.9f9f463c\flutter_tools_chrome_device.857e3cbc\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
-2023/06/14-08:00:44.971 2540 (ignoring error) C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.9f9f463c\flutter_tools_chrome_device.857e3cbc\Default\Session Storage/000007.log: dropping 122 bytes; Corruption: missing start of fragmented record(2)
-2023/06/14-08:00:44.971 2540 Reusing old log C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.9f9f463c\flutter_tools_chrome_device.857e3cbc\Default\Session Storage/000007.log 
-2023/06/14-08:00:44.972 2540 Delete type=0 #3
-2023/06/14-08:00:44.972 2540 Delete type=0 #4
-2023/06/14-08:00:44.972 2540 Delete type=2 #5
-2023/06/14-08:00:44.972 2540 Delete type=2 #8
+2023/07/04-08:44:14.146 26fc Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.bf36fb37\flutter_tools_chrome_device.4f2b3f50\Default\Session Storage/MANIFEST-000001
+2023/07/04-08:44:14.147 26fc Recovering log #7
+2023/07/04-08:44:14.147 26fc (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.bf36fb37\flutter_tools_chrome_device.4f2b3f50\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
+2023/07/04-08:44:14.147 26fc (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.bf36fb37\flutter_tools_chrome_device.4f2b3f50\Default\Session Storage/000007.log: dropping 122 bytes; Corruption: missing start of fragmented record(2)
+2023/07/04-08:44:14.148 26fc Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.bf36fb37\flutter_tools_chrome_device.4f2b3f50\Default\Session Storage/000007.log 
+2023/07/04-08:44:14.148 26fc Delete type=0 #3
+2023/07/04-08:44:14.148 26fc Delete type=0 #4
+2023/07/04-08:44:14.148 26fc Delete type=2 #5
+2023/07/04-08:44:14.148 26fc Delete type=2 #8

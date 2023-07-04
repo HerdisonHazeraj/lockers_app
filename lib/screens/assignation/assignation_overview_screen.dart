@@ -46,6 +46,7 @@ class _AssignListViewState extends State<AssignListView> {
   bool isALockerSelected = false;
   bool isSortLockersShown = false;
   bool isSortStudentsShown = false;
+
   bool isOrderCheckChecked = true;
 
   bool isStudentsListViewInit = false;
@@ -110,11 +111,12 @@ class _AssignListViewState extends State<AssignListView> {
         if (selectedStudents.length >= 2) {
           _isAutoAttributeButtonEnabled = true;
           _isConfirmButtonEnabled = false;
+          isALockerSelected = false;
           for (var locker in lockersListView) {
             locker.isEnabled = false;
             locker.isSelected = false;
           }
-        } else if (selectedStudents.isEmpty && !isALockerSelected) {
+        } else if (selectedStudents.length < 2 && !isALockerSelected) {
           for (var locker in lockersListView) {
             // if(lock)
 
@@ -189,6 +191,51 @@ class _AssignListViewState extends State<AssignListView> {
       checkIfWeCanAutoAssign();
     }
 
+    void showSnackBarMessage(
+      String text,
+    ) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            text,
+          ),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
+
+    void autoAttribute() {
+      if (areAllchecksChecked) {
+        areAllchecksChecked = false;
+      }
+      int count = Provider.of<LockerStudentProvider>(context, listen: false)
+          .autoAttributeLocker(selectedStudents);
+
+      showSnackBarMessage(
+          'Casiers attribués avec succès (${count.toString()}x)');
+    }
+
+    void attribute() {
+      late Locker locker;
+      late Student student;
+
+      for (var l in lockersListView) {
+        if (l.isSelected) {
+          locker = l;
+        }
+      }
+      for (var s in studentsListView) {
+        if (s.isSelected) {
+          student = s;
+        }
+      }
+      Provider.of<LockerStudentProvider>(context, listen: false)
+          .attributeLocker(locker, student);
+
+      showSnackBarMessage(
+          'L\'élève ${student.firstName} ${student.lastName} a été attribué avec succès au casier n°${locker.lockerNumber.toString()}');
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Row(
@@ -230,61 +277,14 @@ class _AssignListViewState extends State<AssignListView> {
                                       _isConfirmButtonEnabled
                                   ? () {
                                       if (_isAutoAttributeButtonEnabled) {
-                                        int count =
-                                            Provider.of<LockerStudentProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .autoAttributeLocker(
-                                                    selectedStudents);
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Casiers attribués avec succès (${count.toString()}x)',
-                                            ),
-                                            duration:
-                                                const Duration(seconds: 3),
-                                          ),
-                                        );
+                                        autoAttribute();
                                       } else if (_isConfirmButtonEnabled) {
-                                        late Locker locker;
-                                        late Student student;
-
-                                        for (var l in lockersListView) {
-                                          if (l.isSelected) {
-                                            locker = l;
-                                          }
-                                        }
-                                        for (var s in studentsListView) {
-                                          if (s.isSelected) {
-                                            student = s;
-                                          }
-                                        }
-                                        Provider.of<LockerStudentProvider>(
-                                                context,
-                                                listen: false)
-                                            .attributeLocker(locker, student);
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'L\'élève ${student.firstName} ${student.lastName} a été attribué avec succès au casier n°${locker.lockerNumber.toString()}',
-                                            ),
-                                            duration:
-                                                const Duration(seconds: 3),
-                                          ),
-                                        );
-
+                                        attribute();
+                                      }
+                                      setState(() {
                                         for (var e in lockersListView) {
                                           e.isEnabled = true;
                                         }
-                                        for (var e in studentsListView) {
-                                          e.isEnabled = true;
-                                        }
-                                      }
-                                      setState(() {
                                         _isAutoAttributeButtonEnabled = false;
                                         _isConfirmButtonEnabled = false;
 

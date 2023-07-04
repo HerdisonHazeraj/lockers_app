@@ -41,14 +41,12 @@ class ActionBarWidget extends StatefulWidget {
 class _ActionBarWidgetState extends State<ActionBarWidget> {
 //filtres afficher dans les select du filtre
   final metiers = ['Informaticien-ne CFC (dès 2021)', 'OIC'];
-  // final annees = {"1ère": 1, "2ème": 2, "3ème": 3, "4ème": 4};
   final annees = [1, 2, 3, 4];
   final responsables = ['JHI', 'CGU', 'MIV', 'PGA'];
   final caution = [0, 20];
 
   final sortList = {
     "lockerNumber": 'Numéro de casier',
-    "lockNumber": 'Numéro de serrure',
     "floor": 'Étage',
     "nbKey": 'Nombre de clé(s)'
   };
@@ -62,13 +60,11 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
   List metiersKeys = [];
   List anneesKeys = [];
   List responsablesKeys = [];
-  List cautionsKeys = [];
 
 //listes des filtres sélectionné
   List selectedMetiers = [];
   List selectedAnnees = [];
   List selectedResponsables = [];
-  List selectedCautions = [];
 
   final sortController = TextEditingController();
   final orderController = TextEditingController();
@@ -133,14 +129,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                         filterName: 'Responsable(s): ',
                         filterNod: 'manager',
                       ),
-                      FilterElement(
-                        icon: Icons.attach_money_outlined,
-                        keys: cautionsKeys,
-                        dropDownList: caution,
-                        selectedFilters: selectedCautions,
-                        filterName: 'Caution: ',
-                        filterNod: 'caution',
-                      ),
                       Container(
                         margin: const EdgeInsets.only(top: 20.0, left: 10.0),
                         child: SizedBox(
@@ -162,9 +150,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                               if (responsablesKeys.isNotEmpty) {
                                 widget.keys.add(responsablesKeys);
                               }
-                              if (cautionsKeys.isNotEmpty) {
-                                widget.keys.add(cautionsKeys);
-                              }
 
                               widget.values.clear();
                               if (selectedMetiers.isNotEmpty) {
@@ -175,9 +160,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                               }
                               if (selectedResponsables.isNotEmpty) {
                                 widget.values.add(selectedResponsables);
-                              }
-                              if (selectedCautions.isNotEmpty) {
-                                widget.values.add(selectedCautions);
                               }
 
                               widget.filterStudentsVoid(
