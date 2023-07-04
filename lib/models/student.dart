@@ -11,6 +11,7 @@ class Student extends IStudent {
   final String login;
   final String classe;
   final int year;
+  bool? isArchived;
 
   Student({
     this.id,
@@ -23,6 +24,7 @@ class Student extends IStudent {
     required this.login,
     required this.classe,
     required this.year,
+    this.isArchived = false,
   });
 
   factory Student.fromCSV(Map<String, dynamic> csv) {
@@ -50,6 +52,7 @@ class Student extends IStudent {
       login: json['login'],
       classe: json['classe'],
       year: json['year'],
+      isArchived: json['isArchived'],
     );
   }
 
@@ -64,6 +67,7 @@ class Student extends IStudent {
         'login': login,
         'classe': classe,
         'year': year,
+        'isArchived': isArchived,
       };
 
   factory Student.base() {
@@ -105,6 +109,7 @@ class Student extends IStudent {
     String? login,
     String? classe,
     int? year,
+    bool? isArchived,
   }) {
     return Student(
       id: id ?? this.id,
@@ -117,6 +122,7 @@ class Student extends IStudent {
       login: login ?? this.login,
       classe: classe ?? this.classe,
       year: year ?? this.year,
+      isArchived: isArchived ?? this.isArchived,
     );
   }
 
@@ -132,6 +138,7 @@ class Student extends IStudent {
         caution == other.caution &&
         login == other.login &&
         classe == other.classe &&
-        year == other.year;
+        year == other.year &&
+        isArchived == other.isArchived;
   }
 }
