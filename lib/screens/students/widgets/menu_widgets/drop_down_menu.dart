@@ -45,7 +45,7 @@ class DropDownMenu extends StatelessWidget {
             ),
           )
           .toList(),
-      onChanged: enabled ? null : onChanged,
+      onChanged: enabled ? onChanged : null,
     );
   }
 }

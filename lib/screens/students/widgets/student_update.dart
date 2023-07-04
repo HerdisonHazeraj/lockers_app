@@ -74,7 +74,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.isArchived!,
+                      enabled: !widget.student.isArchived!,
                       controller: firstnameController,
                       decoration: const InputDecoration(
                         labelText: "Prénom",
@@ -94,7 +94,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.isArchived!,
+                      enabled: !widget.student.isArchived!,
                       controller: lastnameController,
                       decoration: const InputDecoration(
                         labelText: "Nom",
@@ -114,7 +114,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.isArchived!,
+                      enabled: !widget.student.isArchived!,
                       controller: loginController,
                       decoration: const InputDecoration(
                         labelText: "Login",
@@ -134,7 +134,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.isArchived!,
+                      enabled: !widget.student.isArchived!,
                       controller: mailController,
                       decoration: const InputDecoration(
                         labelText: "Mail",
@@ -158,6 +158,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      enabled: !widget.student.isArchived!,
                       controller: classeController,
                       decoration: const InputDecoration(
                         labelText: "Classe",
@@ -177,7 +178,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         "3": "3ème année",
                         "4": "4ème année",
                       },
-                      enabled: widget.student.isArchived!,
+                      enabled: !widget.student.isArchived!,
                       defaultItem: "Année...",
                       icon: Icons.calendar_today_outlined,
                       onChanged: (value) {
@@ -199,7 +200,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.isArchived!,
+                      enabled: !widget.student.isArchived!,
                       controller: jobController,
                       decoration: const InputDecoration(
                         labelText: "Formation",
@@ -219,7 +220,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.isArchived!,
+                      enabled: !widget.student.isArchived!,
                       controller: responsableController,
                       decoration: const InputDecoration(
                         labelText: "Maître de classe",
@@ -312,7 +313,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: TextField(
                         readOnly: true,
                         enableInteractiveSelection: false,
                         decoration: InputDecoration(
@@ -327,7 +328,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: TextField(
                         readOnly: true,
                         enableInteractiveSelection: false,
                         decoration: InputDecoration(
@@ -340,7 +341,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: TextField(
                         readOnly: true,
                         enableInteractiveSelection: false,
                         decoration: InputDecoration(
@@ -350,6 +351,32 @@ class _StudentUpdateState extends State<StudentUpdate> {
                       ),
                     ),
                   ),
+                  // Expanded(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(20),
+                  //     child: TextFormField(
+                  //       enabled: true,
+                  //       enableInteractiveSelection: false,
+                  //       decoration: InputDecoration(
+                  //         hintText: "Étage ${locker.floor.toUpperCase()}",
+                  //         prefixIcon: const Icon(Icons.location_on_outlined),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // Expanded(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(20),
+                  //     child: TextFormField(
+                  //       enabled: true,
+                  //       enableInteractiveSelection: false,
+                  //       decoration: InputDecoration(
+                  //         hintText: "${locker.nbKey.toString()} clés",
+                  //         prefixIcon: const Icon(Icons.vpn_key_outlined),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               )
           ],
