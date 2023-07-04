@@ -55,6 +55,11 @@ class _AvailableStudentsListWidgetState
                               widget.studentsListView[index].isSelected =
                                   newValue!;
 
+                              // if (newValue == false &&
+                              //     widget.areAllchecksChecked) {
+                              //   widget.areAllchecksChecked = false;
+                              // }
+
                               if (widget.studentsListView[index].isSelected) {
                                 widget.selectedStudents
                                     .add(widget.studentsListView[index]);
