@@ -351,32 +351,6 @@ class _StudentUpdateState extends State<StudentUpdate> {
                       ),
                     ),
                   ),
-                  // Expanded(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(20),
-                  //     child: TextFormField(
-                  //       enabled: true,
-                  //       enableInteractiveSelection: false,
-                  //       decoration: InputDecoration(
-                  //         hintText: "Étage ${locker.floor.toUpperCase()}",
-                  //         prefixIcon: const Icon(Icons.location_on_outlined),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Expanded(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(20),
-                  //     child: TextFormField(
-                  //       enabled: true,
-                  //       enableInteractiveSelection: false,
-                  //       decoration: InputDecoration(
-                  //         hintText: "${locker.nbKey.toString()} clés",
-                  //         prefixIcon: const Icon(Icons.vpn_key_outlined),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               )
           ],
