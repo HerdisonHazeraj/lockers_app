@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2023/07/04-08:50:05.424 1168 Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.c630c369\flutter_tools_chrome_device.c8211866\Default\Session Storage/MANIFEST-000001
 2023/07/04-08:50:05.424 1168 Recovering log #7
 2023/07/04-08:50:05.424 1168 (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.c630c369\flutter_tools_chrome_device.c8211866\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
@@ -7,3 +8,7 @@
 2023/07/04-08:50:05.426 1168 Delete type=0 #4
 2023/07/04-08:50:05.426 1168 Delete type=2 #5
 2023/07/04-08:50:05.426 1168 Delete type=2 #8
+=======
+2023/07/04-08:13:18.763 2358 Creating DB C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.f90df671\flutter_tools_chrome_device.76f87e5b\Default\Session Storage since it was missing.
+2023/07/04-08:13:18.776 2358 Reusing MANIFEST C:\Users\cp-20elt\AppData\Local\Temp\flutter_tools.f90df671\flutter_tools_chrome_device.76f87e5b\Default\Session Storage/MANIFEST-000001
+>>>>>>> 0e4cf0be024b522dc3055176bced8d87fd0c7f44
