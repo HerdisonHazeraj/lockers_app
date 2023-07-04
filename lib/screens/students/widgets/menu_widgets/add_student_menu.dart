@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -205,6 +207,14 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
 
                       Provider.of<LockerStudentProvider>(context, listen: false)
                           .addStudent(student);
+                      Provider.of<HistoryProvider>(context, listen: false)
+                          .addHistory(
+                        History(
+                          date: DateTime.now().toString(),
+                          action: "add",
+                          student: student.toJson(),
+                        ),
+                      );
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

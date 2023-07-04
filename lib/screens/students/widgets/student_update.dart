@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -72,7 +74,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.year == -1,
+                      readOnly: widget.student.isArchived!,
                       controller: firstnameController,
                       decoration: const InputDecoration(
                         labelText: "Prénom",
@@ -92,7 +94,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.year == -1,
+                      readOnly: widget.student.isArchived!,
                       controller: lastnameController,
                       decoration: const InputDecoration(
                         labelText: "Nom",
@@ -112,7 +114,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.year == -1,
+                      readOnly: widget.student.isArchived!,
                       controller: loginController,
                       decoration: const InputDecoration(
                         labelText: "Login",
@@ -132,7 +134,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.year == -1,
+                      readOnly: widget.student.isArchived!,
                       controller: mailController,
                       decoration: const InputDecoration(
                         labelText: "Mail",
@@ -175,7 +177,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         "3": "3ème année",
                         "4": "4ème année",
                       },
-                      enabled: widget.student.year == -1 ? true : false,
+                      enabled: widget.student.isArchived!,
                       defaultItem: "Année...",
                       icon: Icons.calendar_today_outlined,
                       onChanged: (value) {
@@ -183,9 +185,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                           yearController.text = value!;
                         });
                       },
-                      defaultChoosedItem: widget.student.year == -1
-                          ? null
-                          : yearController.text,
+                      defaultChoosedItem: yearController.text,
                     ),
                   ),
                 ),
@@ -199,7 +199,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.year == -1,
+                      readOnly: widget.student.isArchived!,
                       controller: jobController,
                       decoration: const InputDecoration(
                         labelText: "Formation",
@@ -219,7 +219,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.student.year == -1,
+                      readOnly: widget.student.isArchived!,
                       controller: responsableController,
                       decoration: const InputDecoration(
                         labelText: "Maître de classe",
@@ -241,7 +241,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.black54),
                       ),
-                      onPressed: widget.student.year == -1
+                      onPressed: widget.student.isArchived!
                           ? null
                           : () {
                               widget.showUpdateForm!();
@@ -258,7 +258,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.black54),
                       ),
-                      onPressed: widget.student.year == -1
+                      onPressed: widget.student.isArchived!
                           ? null
                           : () async {
                               if (_formKey.currentState!.validate()) {
@@ -279,6 +279,15 @@ class _StudentUpdateState extends State<StudentUpdate> {
                                   manager: responsableController.text,
                                   year: int.parse(yearController.text),
                                 ));
+                                Provider.of<HistoryProvider>(context,
+                                        listen: false)
+                                    .addHistory(
+                                  History(
+                                    date: DateTime.now().toString(),
+                                    action: "update",
+                                    student: student.toJson(),
+                                  ),
+                                );
 
                                 widget.showUpdateForm!();
                                 ScaffoldMessenger.of(context).showSnackBar(

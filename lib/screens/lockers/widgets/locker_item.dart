@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -235,6 +237,7 @@ class _LockerItemState extends State<LockerItem> {
                         // );
 
                         // Suppression avec une boite de dialogue qui permet de confirmer
+                        // ignore: use_build_context_synchronously
                         showDialog(
                           context: context,
                           builder: (context) {
@@ -254,6 +257,13 @@ class _LockerItemState extends State<LockerItem> {
                                     Provider.of<LockerStudentProvider>(context,
                                             listen: false)
                                         .deleteLocker(widget.locker.id!);
+                                    Provider.of<HistoryProvider>(context,
+                                            listen: false)
+                                        .addHistory(History(
+                                      date: DateTime.now().toString(),
+                                      action: "delete",
+                                      locker: widget.locker.toJson(),
+                                    ));
                                     Navigator.of(context).pop();
                                     widget.refreshList!();
                                   },

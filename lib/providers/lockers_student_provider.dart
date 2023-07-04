@@ -67,14 +67,15 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<void> deleteLocker(String id) async {
-
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
-    histories.addHistory(History(
-      date: DateTime.now().toString(),
-      action: "delete",
-      locker: getLocker(id).toJson(),
-    ),);
+    histories.addHistory(
+      History(
+        date: DateTime.now().toString(),
+        action: "delete",
+        locker: getLocker(id).toJson(),
+      ),
+    );
     _lockerItems.remove(item);
 
     notifyListeners();
@@ -91,10 +92,9 @@ class LockerStudentProvider with ChangeNotifier {
     return _lockerItems[lockerIndex];
   }
 
-
   Locker getLockerByLockerNumber(int lockerNumber) {
-    Locker locker =
-        getAccessibleLocker().firstWhere((locker) => locker.lockerNumber == lockerNumber);
+    Locker locker = getAccessibleLocker()
+        .firstWhere((locker) => locker.lockerNumber == lockerNumber);
     return locker;
   }
 
@@ -155,7 +155,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
-        histories.addHistory(
+    histories.addHistory(
       History(
         date: DateTime.now().toString(),
         action: "delete",
@@ -176,10 +176,10 @@ class LockerStudentProvider with ChangeNotifier {
   Student getStudent(String id) {
     if (id == "") return Student.base();
 
-    final studentIndex = _studentItems.indexWhere((student) => student.id == id);
+    final studentIndex =
+        _studentItems.indexWhere((student) => student.id == id);
     return _studentItems[studentIndex];
   }
-
 
   Student getStudentByLocker(Locker locker) {
     if (locker.isNull) return Student.base();
@@ -361,11 +361,10 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
-
-
   List<Locker> getInaccessibleLocker() {
-    List<Locker> lockers =
-        _lockerItems.where((element) => element.isInaccessible == true).toList();
+    List<Locker> lockers = _lockerItems
+        .where((element) => element.isInaccessible == true)
+        .toList();
     return lockers;
   }
 
@@ -383,7 +382,7 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
-    List<Locker> getDefectiveLockers() {
+  List<Locker> getDefectiveLockers() {
     List<Locker> lockers = getAccessibleLocker()
         .where((element) => element.isDefective == true)
         .toList();

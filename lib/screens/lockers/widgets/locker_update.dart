@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/student.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/students/widgets/menu_widgets/drop_down_menu.dart';
 import 'package:provider/provider.dart';
@@ -228,6 +230,13 @@ class _LockerUpdateState extends State<LockerUpdate> {
                                   floor: floorController.text,
                                   job: jobController.text,
                                   remark: remarkController.text,
+                                ));
+                                Provider.of<HistoryProvider>(context,
+                                        listen: false)
+                                    .addHistory(History(
+                                  date: DateTime.now().toString(),
+                                  action: "update",
+                                  locker: locker.toJson(),
                                 ));
 
                                 widget.showUpdateForm!();

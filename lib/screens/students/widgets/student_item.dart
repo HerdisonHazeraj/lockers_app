@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,7 +40,7 @@ class _StudentItemState extends State<StudentItem> {
         widget.student.isFocus = true;
       }),
       child: ListTile(
-        enabled: widget.student.year != -1,
+        enabled: !widget.student.isArchived!,
         leading: Image.asset(
           'assets/images/photoprofil.png',
           width: 40,
@@ -59,27 +61,26 @@ class _StudentItemState extends State<StudentItem> {
           ],
         ),
         subtitle: Text(widget.student.job),
-        trailing: widget.student.year == -1
+        trailing: widget.student.isArchived == true
             ? Visibility(
                 visible: widget.student.isFocus,
                 child: IconButton(
                   onPressed: () {
-                    // widget.student.year == true;
-                    // widget.student.year = false;
-                    // Provider.of<LockerStudentProvider>(context, listen: false)
-                    //     .updateLocker(widget.student);
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(
-                    //     content: Text(
-                    //       "Le casier n°${widget.student.lockerNumber} est de nouveau accessible !",
-                    //     ),
-                    //     duration: const Duration(seconds: 2),
-                    //   ),
-                    // );
+                    widget.student.isArchived == false;
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .updateStudent(widget.student);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          "L'élève ${widget.student.firstName} ${widget.student.lastName} a bien été désarchivé !",
+                        ),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
                   },
-                  tooltip: "Rendre ce casier à nouveau accessible",
+                  tooltip: "Désarchiver l'élève",
                   icon: const Icon(
-                    Icons.switch_access_shortcut_add_outlined,
+                    Icons.unarchive_outlined,
                     color: Colors.black,
                   ),
                 ),
@@ -92,7 +93,8 @@ class _StudentItemState extends State<StudentItem> {
                       onPressed: () {
                         Provider.of<LockerStudentProvider>(context,
                                 listen: false)
-                            .updateStudent(widget.student.copyWith(year: -1));
+                            .updateStudent(
+                                widget.student.copyWith(isArchived: true));
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -170,6 +172,17 @@ class _StudentItemState extends State<StudentItem> {
                                       .getLockerByLockerNumber(
                                           updatedStudent.lockerNumber);
 
+                              Provider.of<HistoryProvider>(context,
+                                      listen: false)
+                                  .addHistory(
+                                History(
+                                  date: DateTime.now().toString(),
+                                  action: "attribution",
+                                  locker: locker.toJson(),
+                                  student: updatedStudent.toJson(),
+                                ),
+                              );
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
@@ -198,6 +211,17 @@ class _StudentItemState extends State<StudentItem> {
                               Provider.of<LockerStudentProvider>(context,
                                       listen: false)
                                   .unAttributeLocker(locker, widget.student);
+
+                              Provider.of<HistoryProvider>(context,
+                                      listen: false)
+                                  .addHistory(
+                                History(
+                                  date: DateTime.now().toString(),
+                                  action: "unattribution",
+                                  locker: locker.toJson(),
+                                  student: widget.student.toJson(),
+                                ),
+                              );
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -259,6 +283,15 @@ class _StudentItemState extends State<StudentItem> {
                                               context,
                                               listen: false)
                                           .deleteStudent(widget.student.id!);
+                                      Provider.of<HistoryProvider>(context,
+                                              listen: false)
+                                          .addHistory(
+                                        History(
+                                          date: DateTime.now().toString(),
+                                          action: "delete",
+                                          student: widget.student.toJson(),
+                                        ),
+                                      );
 
                                       Navigator.of(context).pop();
                                     },
