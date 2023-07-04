@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/providers/history_provider.dart';
@@ -41,10 +42,21 @@ class _StudentItemState extends State<StudentItem> {
       }),
       child: ListTile(
         enabled: !widget.student.isArchived!,
-        leading: Image.asset(
-          'assets/images/photoprofil.png',
-          width: 40,
-          height: 40,
+        leading: CachedNetworkImage(
+          imageUrl:
+              "https://intranet.ceff.ch/Image/PhotosPortraits/photos/Carré/${widget.student.login}.jpg",
+          imageBuilder: (context, imageProvider) => CircleAvatar(
+            backgroundImage: imageProvider,
+          ),
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Tooltip(
+            message: "L'image n'a pas réussi à se charger",
+            child: Icon(
+              Icons.error_outlined,
+              color: Colors.red,
+              size: 40,
+            ),
+          ),
         ),
         title: Row(
           children: [
