@@ -71,6 +71,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         return null;
                       },
                       readOnly: true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: lockerNumberController,
                       decoration: const InputDecoration(
                         labelText: "N° de casier",
@@ -91,6 +92,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         return null;
                       },
                       readOnly: true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: lockNumberController,
                       decoration: const InputDecoration(
                         labelText: "N° de serrure",
@@ -110,7 +112,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         "d": "Étage D",
                         "e": "Étage E",
                       },
-                      enabled: widget.locker.isInaccessible ?? true,
+                      enabled: !widget.locker.isInaccessible!,
                       defaultItem: "Étage...",
                       icon: Icons.location_on_outlined,
                       onChanged: (value) {
@@ -136,7 +138,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.locker.isInaccessible ?? true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: nbKeyController,
                       decoration: const InputDecoration(
                         labelText: "Nombre de clés",
@@ -156,7 +158,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.locker.isInaccessible ?? true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: jobController,
                       decoration: const InputDecoration(
                         labelText: "Métier",
@@ -170,7 +172,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: TextFormField(
-                      readOnly: widget.locker.isInaccessible ?? true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: remarkController,
                       decoration: const InputDecoration(
                         labelText: "Remarque (facultatif)",
