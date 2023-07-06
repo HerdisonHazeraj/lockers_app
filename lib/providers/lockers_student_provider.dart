@@ -585,7 +585,7 @@ class LockerStudentProvider with ChangeNotifier {
                     metier =
                         "Informaticien-ne CFC dès ${int.parse(annee) >= 2021 ? 2021 : 2014}";
                   } else if (metier == "OIC") {
-                    metier == "Opérateur-trice CFC";
+                    metier = "Opérateur-trice en informatique CFC";
                   }
                   final year = DateTime.now().year - int.parse(annee);
                   var caution = 0;
@@ -757,7 +757,7 @@ class LockerStudentProvider with ChangeNotifier {
                       metier =
                           "Informaticien-ne CFC dès ${int.parse(annee) >= 2021 ? 2021 : 2014}";
                     } else if (metier == "OIC") {
-                      metier == "Opérateur-trice CFC";
+                      metier = "Opérateur-trice en informatique CFC";
                     }
                     final year = DateTime.now().year - int.parse(annee);
                     var caution = 0;
