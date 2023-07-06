@@ -50,6 +50,7 @@ class Locker extends ILocker {
 
   factory Locker.fromJson(Map<String, dynamic> json) {
     return Locker(
+        id: json["id"],
         nbKey: json['nbKey'],
         lockNumber: json['lockNumber'],
         lockerNumber: json['lockerNumber'],
