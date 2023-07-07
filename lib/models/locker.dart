@@ -23,7 +23,7 @@ class Locker extends ILocker {
     required this.job,
     required this.remark,
     this.isAvailable,
-    this.isDefective,
+    this.isDefective = false,
     this.isInaccessible = false,
   });
 

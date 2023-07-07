@@ -263,6 +263,11 @@ class _LockerItemState extends State<LockerItem> {
                                       date: DateTime.now().toString(),
                                       action: "delete",
                                       locker: widget.locker.toJson(),
+                                      index: Provider.of<LockerStudentProvider>(
+                                              context,
+                                              listen: false)
+                                          .findIndexOfLockerById(
+                                              widget.locker.id!),
                                     ));
                                     Navigator.of(context).pop();
                                     widget.refreshList!();

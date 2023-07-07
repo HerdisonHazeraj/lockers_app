@@ -281,16 +281,32 @@ class LockerStudentProvider with ChangeNotifier {
 
   Map<String, List<Locker>> mapLockerByFloor() {
     Map<String, List<Locker>> map = {};
-    map["d"] = getAccessibleLocker()
+
+    List<Locker> lockers = [];
+    List<Locker> filtredLocker = [];
+    lockers = getAccessibleLocker();
+
+    filtredLocker +=
+        lockers.where((element) => element.isDefective == true).toList();
+    filtredLocker += lockers
+        .where((element) =>
+            element.isAvailable == true && element.isDefective == false)
+        .toList();
+    filtredLocker += lockers
+        .where((element) =>
+            element.isAvailable == false && element.isDefective == false)
+        .toList();
+
+    map["d"] = filtredLocker
         .where((element) => element.floor.toLowerCase() == "d")
         .toList();
-    map["c"] = getAccessibleLocker()
+    map["c"] = filtredLocker
         .where((element) => element.floor.toLowerCase() == "c")
         .toList();
-    map["b"] = getAccessibleLocker()
+    map["b"] = filtredLocker
         .where((element) => element.floor.toLowerCase() == "b")
         .toList();
-    map["e"] = getAccessibleLocker()
+    map["e"] = filtredLocker
         .where((element) => element.floor.toLowerCase() == "e")
         .toList();
     return map;
