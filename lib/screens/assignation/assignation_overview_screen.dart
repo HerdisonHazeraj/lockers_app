@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/assignation/menu_widgets/actionBar_widget.dart';
@@ -8,6 +9,7 @@ import 'package:lockers_app/screens/assignation/widgets/available_students_list_
 import 'package:provider/provider.dart';
 
 import '../../models/locker.dart';
+import '../../providers/history_provider.dart';
 // import 'menu_widgets/sort_element_widget.dart';
 
 class AssignationOverviewScreen extends StatefulWidget {
@@ -231,6 +233,13 @@ class _AssignListViewState extends State<AssignListView> {
       }
       Provider.of<LockerStudentProvider>(context, listen: false)
           .attributeLocker(locker, student);
+      Provider.of<HistoryProvider>(context, listen: false).addHistory(
+        History(
+            date: DateTime.now().toString(),
+            action: "attribution",
+            locker: locker.toJson(),
+            student: student.toJson()),
+      );
 
       showSnackBarMessage(
           'L\'élève ${student.firstName} ${student.lastName} a été attribué avec succès au casier n°${locker.lockerNumber.toString()}');
