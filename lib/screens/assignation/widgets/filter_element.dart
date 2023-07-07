@@ -17,7 +17,7 @@ class FilterElement extends StatefulWidget {
 
   List keys;
 
-  List dropDownList;
+  Map<dynamic, String> dropDownList;
   List selectedFilters;
   String filterName;
   String filterNod;
@@ -28,6 +28,13 @@ class FilterElement extends StatefulWidget {
 }
 
 class _FilterElementState extends State<FilterElement> {
+  List selectedFiltersMap = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

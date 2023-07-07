@@ -28,6 +28,17 @@ class _AvailableStudentsListWidgetState
     extends State<AvailableStudentsListWidget> {
   @override
   Widget build(BuildContext context) {
+    late String suffixe = '';
+
+    String suffixeFinder(int) {
+      switch (int) {
+        case 1:
+          return suffixe = 'ère';
+      }
+
+      return suffixe = 'ème';
+    }
+
     return Expanded(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.85,
@@ -49,7 +60,10 @@ class _AvailableStudentsListWidgetState
                           value: widget.studentsListView[index].isSelected,
                           title: Text(
                               '${widget.studentsListView[index].firstName} ${widget.studentsListView[index].lastName}'),
-                          subtitle: Text(widget.studentsListView[index].job),
+                          subtitle: Text(
+                              '${widget.studentsListView[index].job}  ${widget.studentsListView[index].year.toString() + suffixeFinder(widget.studentsListView[index].year)}'),
+                          secondary: Text(
+                              '${widget.studentsListView[index].responsable}'),
                           onChanged: (newValue) {
                             setState(() {
                               widget.studentsListView[index].isSelected =

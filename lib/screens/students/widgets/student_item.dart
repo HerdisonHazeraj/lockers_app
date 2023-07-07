@@ -330,6 +330,12 @@ class _StudentItemState extends State<StudentItem> {
                                           date: DateTime.now().toString(),
                                           action: "delete",
                                           student: widget.student.toJson(),
+                                          index: Provider.of<
+                                                      LockerStudentProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .findIndexOfLockerById(
+                                                  widget.student.id!),
                                         ),
                                       );
 

@@ -40,10 +40,33 @@ class ActionBarWidget extends StatefulWidget {
 
 class _ActionBarWidgetState extends State<ActionBarWidget> {
 //filtres afficher dans les select du filtre
-  final metiers = ['Informaticien-ne CFC (dès 2021)', 'OIC'];
-  final annees = [1, 2, 3, 4];
-  final responsables = ['JHI', 'CGU', 'MIV', 'PGA'];
-  final caution = [0, 20];
+  // final metiersList = ['Informaticien-ne CFC (dès 2021)', 'OIC'];
+  Map<dynamic, String> metiers = {
+    'Informaticien-ne CFC (dès 2021)': 'ICT',
+    'OIC': 'OIC'
+  };
+  // final anneesList = [1, 2, 3, 4];
+  Map<dynamic, String> annees = {1: '1ère', 2: '2ème', 3: '3ème', 4: '4ème'};
+  // final responsablesList = [
+  //   'CGU',
+  //   'JHI',
+  //   'JCM',
+  //   'JMO',
+  //   'JOS',
+  //   'MIV',
+  //   'PGA',
+  //   'RMU'
+  // ];
+  Map<dynamic, String> responsables = {
+    'CGU': 'Cédric Guerdat',
+    'JHI': 'Jacques Hirtzel',
+    'JCM': 'Jean-Christophe Mathez',
+    'JMO': 'Jean-Pierre Monbaron',
+    'JOS': 'Joachim Stalder',
+    'MIV': 'Michael Vogel',
+    'PGA': 'Pascal Gagnebin',
+    'RMU': 'Raymond Musy'
+  };
 
   final sortList = {
     "lockerNumber": 'Numéro de casier',
@@ -65,6 +88,10 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
   List selectedMetiers = [];
   List selectedAnnees = [];
   List selectedResponsables = [];
+
+  List selectedResponsablesFromMap = [];
+  List selectedMetiersFromMap = [];
+  List selectedAnneesFromMap = [];
 
   final sortController = TextEditingController();
   final orderController = TextEditingController();
@@ -152,14 +179,36 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                               }
 
                               widget.values.clear();
+                              selectedMetiersFromMap.clear();
+                              for (var metier in selectedMetiers) {
+                                selectedMetiersFromMap.add(metiers.keys
+                                    .firstWhere(
+                                        (element) => metiers[element] == metier)
+                                    .toString());
+                              }
+                              selectedAnneesFromMap.clear();
+                              for (var annee in selectedAnnees) {
+                                selectedAnneesFromMap.add(int.parse(annees.keys
+                                    .firstWhere(
+                                        (element) => annees[element] == annee)
+                                    .toString()));
+                              }
+                              selectedResponsablesFromMap.clear();
+                              for (var responsable in selectedResponsables) {
+                                selectedResponsablesFromMap.add(responsables
+                                    .keys
+                                    .firstWhere((element) =>
+                                        responsables[element] == responsable)
+                                    .toString());
+                              }
                               if (selectedMetiers.isNotEmpty) {
-                                widget.values.add(selectedMetiers);
+                                widget.values.add(selectedMetiersFromMap);
                               }
                               if (selectedAnnees.isNotEmpty) {
-                                widget.values.add(selectedAnnees);
+                                widget.values.add(selectedAnneesFromMap);
                               }
                               if (selectedResponsables.isNotEmpty) {
-                                widget.values.add(selectedResponsables);
+                                widget.values.add(selectedResponsablesFromMap);
                               }
 
                               widget.filterStudentsVoid(
