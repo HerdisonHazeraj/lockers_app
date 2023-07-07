@@ -61,17 +61,6 @@ class DrawerApp extends StatelessWidget {
                     .pushNamed(AssignationOverviewScreen.routeName);
               },
             ),
-            ListTile(
-              leading: SvgPicture.asset(
-                "assets/icons/assign.svg",
-                height: 24,
-              ),
-              title: const Text("Promotions"),
-              onTap: () {
-                Navigator.of(context)
-                    .pushNamed(PromotionOverviewScreen.routeName);
-              },
-            ),
           ],
         ),
       ),
