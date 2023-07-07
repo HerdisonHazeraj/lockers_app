@@ -50,7 +50,7 @@ class _FilterElementState extends State<FilterElement> {
           });
         },
         selectedValues: widget.selectedFilters,
-        options: widget.dropDownList,
+        options: widget.dropDownList.values.toList(),
         decoration: InputDecoration(
           labelText: widget.filterName,
           floatingLabelBehavior: FloatingLabelBehavior.never,

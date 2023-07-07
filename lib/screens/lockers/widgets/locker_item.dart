@@ -48,7 +48,7 @@ class _LockerItemState extends State<LockerItem> {
         // ),
         leading: widget.locker.isDefective == true
             ? const Icon(
-                Icons.lock_open_outlined,
+                Icons.lock_outlined,
                 color: Colors.orange,
                 size: 40,
               )
