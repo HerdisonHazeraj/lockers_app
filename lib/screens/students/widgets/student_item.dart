@@ -25,9 +25,6 @@ class StudentItem extends StatefulWidget {
 }
 
 class _StudentItemState extends State<StudentItem> {
-  int indexDeletedStudent = 999999;
-  Student deletedStudent = Student.base();
-
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -42,34 +39,65 @@ class _StudentItemState extends State<StudentItem> {
       }),
       child: ListTile(
         enabled: !widget.student.isArchived!,
-        leading: CachedNetworkImage(
-          imageUrl:
-              "https://intranet.ceff.ch/Image/PhotosPortraits/photos/Carré/${widget.student.login}.jpg",
-          imageBuilder: (context, imageProvider) => CircleAvatar(
-            backgroundImage: imageProvider,
-          ),
-          placeholder: (context, url) => const CircularProgressIndicator(),
-          errorWidget: (context, url, error) => const Tooltip(
-            message: "L'image n'a pas réussi à se charger",
-            child: Icon(
-              Icons.error_outlined,
-              color: Colors.red,
-              size: 40,
+        leading: GestureDetector(
+          child: Hero(
+            tag: widget.student.login,
+            child: CachedNetworkImage(
+              imageUrl:
+                  "https://intranet.ceff.ch/Image/PhotosPortraits/photos/Carré/${widget.student.login}.jpg",
+              imageBuilder: (context, imageProvider) => CircleAvatar(
+                backgroundImage: imageProvider,
+              ),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Tooltip(
+                message: "L'image n'a pas réussi à se charger",
+                child: Icon(
+                  Icons.error_outlined,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
             ),
           ),
+          onTap: () {
+            showGeneralDialog(
+              context: context,
+              barrierColor: Colors.black38,
+              barrierLabel: "Photo de l'élève",
+              barrierDismissible: true,
+              pageBuilder: (_, __, ___) => Center(
+                child: Container(
+                  color: Colors.transparent,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: CachedNetworkImage(
+                      width: 500,
+                      height: 500,
+                      imageUrl:
+                          "https://intranet.ceff.ch/Image/PhotosPortraits/photos/Carré/${widget.student.login}.jpg",
+                      imageBuilder: (context, imageProvider) => CircleAvatar(
+                        backgroundImage: imageProvider,
+                      ),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => const Tooltip(
+                        message: "L'image n'a pas réussi à se charger",
+                        child: Icon(
+                          Icons.error_outlined,
+                          color: Colors.red,
+                          size: 500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
         ),
         title: Row(
           children: [
             Text("${widget.student.firstName} ${widget.student.lastName}"),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, top: 2),
-              child: CircleAvatar(
-                backgroundColor: widget.student.lockerNumber == 0
-                    ? Colors.green
-                    : Colors.red,
-                radius: 5,
-              ),
-            )
           ],
         ),
         subtitle: Text(widget.student.job),
