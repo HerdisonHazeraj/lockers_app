@@ -256,6 +256,13 @@ class LockerStudentProvider with ChangeNotifier {
         break;
       }
       attributeLocker(lockers[i], students[i]);
+      historyProvider.addHistory(
+        History(
+            date: DateTime.now().toString(),
+            action: "attribution",
+            locker: lockers[i].toJson(),
+            student: students[i].toJson()),
+      );
       count++;
     }
 
