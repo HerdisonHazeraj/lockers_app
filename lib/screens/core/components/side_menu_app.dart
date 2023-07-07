@@ -2,6 +2,7 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SideMenuApp extends StatelessWidget {
   const SideMenuApp({
@@ -45,8 +46,9 @@ class SideMenuApp extends StatelessWidget {
       footer: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(PrepareDatabaseScreen.routeName);
+          onPressed: () async {
+            // Navigator.of(context).pushNamed(PrepareDatabaseScreen.routeName);
+            !await launchUrl(Uri.parse('https://www.ceff.ch/ceff'));
           },
           child: const Text(
             'ceff - 2023',
