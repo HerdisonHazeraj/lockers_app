@@ -1,7 +1,12 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/history.dart';
+import 'package:lockers_app/providers/lockers_student_provider.dart';
 
 import '../infrastructure/db_service.dart';
+import '../models/locker.dart';
+import '../models/student.dart';
 
 class HistoryProvider with ChangeNotifier {
   final List<History> _historyItems = [];
@@ -49,4 +54,48 @@ class HistoryProvider with ChangeNotifier {
         _historyItems.indexWhere((hisotry) => hisotry.id == id);
     return historyIndex;
   }
+
+  // void cancelHistory(History history) {
+  //   switch (history.action) {
+  //     case "add":
+  //       if (history.locker.isUndefinedOrNull) {
+  //         lockerAndStudentProvider.deleteStudent(
+  //           history.student!['id'],
+  //         );
+  //       } else {
+  //         lockerAndStudentProvider.deleteLocker(
+  //           history.locker!['id'],
+  //         );
+  //       }
+  //       break;
+  //     case "delete":
+  //       if (history.locker.isUndefinedOrNull) {
+  //         lockerAndStudentProvider.insertStudent(
+  //           history.index!,
+  //           Student.fromJson(history.student!),
+  //         );
+  //       } else {
+  //         lockerAndStudentProvider.insertLocker(
+  //           history.index!,
+  //           Locker.fromJson(history.locker!),
+  //         );
+  //       }
+  //       break;
+  //     case "update":
+  //       if (history.locker.isUndefinedOrNull) {
+  //         lockerAndStudentProvider.updateStudent(
+  //           Student.fromJson(history.student!),
+  //         );
+  //       } else {
+  //         lockerAndStudentProvider.updateLocker(
+  //           Locker.fromJson(history.locker!),
+  //         );
+  //       }
+  //       break;
+  //     case "attribution":
+  //       break;
+  //     case "unattribution":
+  //       break;
+  //   }
+  // }
 }

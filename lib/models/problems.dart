@@ -13,6 +13,7 @@ class Problem {
 
   factory Problem.fromJson(Map<String, dynamic> json) {
     return Problem(
+      id: json["id"],
       firstName: json['firstName'],
       priority: json['priority'],
       lockerNumber: json['lockerNumber'],
@@ -20,6 +21,7 @@ class Problem {
   }
 
   Map<String, dynamic> toJson() => {
+        'id': firstName,
         'firstName': firstName,
         'priority': priority,
         'lockerNumber': lockerNumber,

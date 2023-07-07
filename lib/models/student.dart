@@ -43,6 +43,7 @@ class Student extends IStudent {
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
+      id: json["id"],
       firstName: json['firstName'],
       lastName: json['lastName'],
       job: json['job'],
