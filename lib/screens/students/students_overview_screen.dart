@@ -39,6 +39,10 @@ class _StudentsListViewState extends State<StudentsListView> {
   late List<Student> searchedStudents = [];
   late String searchValue = "";
 
+  // Tools for students inaccessible
+  late bool isExpArchived = false;
+  late List<Student> archivedStudents = [];
+
   // Tools for students by year
   late List<bool> isExpYear;
   late Map<String, List<Student>> studentsByYear;
@@ -47,6 +51,8 @@ class _StudentsListViewState extends State<StudentsListView> {
   Widget build(BuildContext context) {
     studentsByYear =
         Provider.of<LockerStudentProvider>(context).mapStudentByYear();
+    archivedStudents =
+        Provider.of<LockerStudentProvider>(context).getArchivedStudent();
 
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => true);
@@ -253,6 +259,89 @@ class _StudentsListViewState extends State<StudentsListView> {
                                       ],
                                     ),
                                   ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpArchived = !isExpArchived;
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6.0),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ExpansionPanel(
+                                  isExpanded: isExpArchived,
+                                  canTapOnHeader: true,
+                                  headerBuilder: (context, isExpanded) {
+                                    return ListTile(
+                                      title: Text(
+                                        "Élèves archivés (${archivedStudents.length.toString()})",
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    );
+                                  },
+                                  body: archivedStudents.isEmpty
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              const Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Aucun élève archivé",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : ExpansionPanelList(
+                                          expansionCallback:
+                                              (int index, bool isExpanded) {
+                                            setState(() {
+                                              archivedStudents[index]
+                                                      .isUpdating =
+                                                  !archivedStudents[index]
+                                                      .isUpdating;
+                                            });
+                                          },
+                                          expandedHeaderPadding:
+                                              const EdgeInsets.all(0),
+                                          animationDuration:
+                                              const Duration(milliseconds: 500),
+                                          children: [
+                                            ...archivedStudents.map(
+                                              (s) => ExpansionPanel(
+                                                isExpanded: s.isUpdating,
+                                                canTapOnHeader: true,
+                                                headerBuilder:
+                                                    (context, isExpanded) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    child:
+                                                        StudentItem(student: s),
+                                                  );
+                                                },
+                                                body: s.isUpdating
+                                                    ? StudentUpdate(
+                                                        student: s,
+                                                      )
+                                                    : const SizedBox(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                 ),
                               ],
                             ),

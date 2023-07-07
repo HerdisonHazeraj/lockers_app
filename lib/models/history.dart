@@ -6,25 +6,29 @@ class History extends IHistory {
   final String? id;
   final String action;
   final String date;
-  final Map? locker;
-  final Map? student;
+  final Map<String, dynamic>? locker;
+  final Map<String, dynamic>? student;
+  final int? index;
   // final int lockerNumber;
 
-  History(
-      {this.id,
-      required this.date,
-      required this.action,
-      this.locker,
-      this.student
-      // required this.lockerNumber,
-      });
+  History({
+    this.id,
+    required this.date,
+    required this.action,
+    this.locker,
+    this.student,
+    this.index,
+    // required this.lockerNumber,
+  });
 
   factory History.fromJson(Map<String, dynamic> json) {
     return History(
+        id: json["id"],
         date: json['date'],
         action: json['action'],
         locker: json['locker'],
-        student: json['student']
+        student: json['student'],
+        index: json['index']
         // lockerNumber: json['lockerNumber'],
         );
   }
@@ -66,6 +70,7 @@ class History extends IHistory {
         'action': action,
         'locker': locker,
         'student': student,
+        'index': index,
         // 'lockerNumber': lockerNumber,
       };
 
@@ -88,18 +93,20 @@ class History extends IHistory {
     String? title,
     String? date,
     String? action,
-    Map? locker,
-    Map? student,
+    Map<String, dynamic>? locker,
+    Map<String, dynamic>? student,
+    int? index,
     // int? lockerNumber,
   }) {
     return History(
-        id: id ?? this.id,
-        date: date ?? this.date,
-        action: action ?? this.action,
-        locker: locker ?? this.locker,
-        student: student ?? this.student
-        // lockerNumber: lockerNumber ?? this.lockerNumber,
-        );
+      id: id ?? this.id,
+      date: date ?? this.date,
+      action: action ?? this.action,
+      locker: locker ?? this.locker,
+      student: student ?? this.student,
+      index: index ?? this.index,
+      // lockerNumber: lockerNumber ?? this.lockerNumber,
+    );
   }
 
   @override
@@ -109,7 +116,8 @@ class History extends IHistory {
         date == other.date &&
         action == other.action &&
         locker == other.locker &&
-        student == other.student;
+        student == other.student &&
+        index == other.index;
     // lockerNumber == other.lockerNumber;
   }
 }

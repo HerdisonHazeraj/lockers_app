@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -72,6 +74,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      enabled: !widget.student.isArchived!,
                       controller: firstnameController,
                       decoration: const InputDecoration(
                         labelText: "Prénom",
@@ -91,6 +94,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      enabled: !widget.student.isArchived!,
                       controller: lastnameController,
                       decoration: const InputDecoration(
                         labelText: "Nom",
@@ -110,6 +114,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      enabled: !widget.student.isArchived!,
                       controller: loginController,
                       decoration: const InputDecoration(
                         labelText: "Login",
@@ -129,6 +134,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      enabled: !widget.student.isArchived!,
                       controller: mailController,
                       decoration: const InputDecoration(
                         labelText: "Mail",
@@ -152,6 +158,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      enabled: !widget.student.isArchived!,
                       controller: classeController,
                       decoration: const InputDecoration(
                         labelText: "Classe",
@@ -171,6 +178,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         "3": "3ème année",
                         "4": "4ème année",
                       },
+                      enabled: !widget.student.isArchived!,
                       defaultItem: "Année...",
                       icon: Icons.calendar_today_outlined,
                       onChanged: (value) {
@@ -192,6 +200,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      enabled: !widget.student.isArchived!,
                       controller: jobController,
                       decoration: const InputDecoration(
                         labelText: "Formation",
@@ -211,6 +220,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      enabled: !widget.student.isArchived!,
                       controller: responsableController,
                       decoration: const InputDecoration(
                         labelText: "Maître de classe",
@@ -232,9 +242,11 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.black54),
                       ),
-                      onPressed: () {
-                        widget.showUpdateForm!();
-                      },
+                      onPressed: widget.student.isArchived!
+                          ? null
+                          : () {
+                              widget.showUpdateForm!();
+                            },
                       child: const Text("Annuler"),
                     ),
                   ),
@@ -247,35 +259,47 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.black54),
                       ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          Student student = Provider.of<LockerStudentProvider>(
-                                  context,
-                                  listen: false)
-                              .getStudent(widget.student.id!);
+                      onPressed: widget.student.isArchived!
+                          ? null
+                          : () async {
+                              if (_formKey.currentState!.validate()) {
+                                Student student =
+                                    Provider.of<LockerStudentProvider>(context,
+                                            listen: false)
+                                        .getStudent(widget.student.id!);
 
-                          await Provider.of<LockerStudentProvider>(context,
-                                  listen: false)
-                              .updateStudent(student.copyWith(
-                            firstName: firstnameController.text,
-                            lastName: lastnameController.text,
-                            login: loginController.text,
-                            job: jobController.text,
-                            classe: classeController.text,
-                            manager: responsableController.text,
-                            year: int.parse(yearController.text),
-                          ));
+                                await Provider.of<LockerStudentProvider>(
+                                        context,
+                                        listen: false)
+                                    .updateStudent(student.copyWith(
+                                  firstName: firstnameController.text,
+                                  lastName: lastnameController.text,
+                                  login: loginController.text,
+                                  job: jobController.text,
+                                  classe: classeController.text,
+                                  manager: responsableController.text,
+                                  year: int.parse(yearController.text),
+                                ));
+                                Provider.of<HistoryProvider>(context,
+                                        listen: false)
+                                    .addHistory(
+                                  History(
+                                    date: DateTime.now().toString(),
+                                    action: "update",
+                                    student: student.toJson(),
+                                  ),
+                                );
 
-                          widget.showUpdateForm!();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  "L'étudiant ${student.firstName} ${student.lastName} a été modifié avec succès !"),
-                              duration: const Duration(seconds: 3),
-                            ),
-                          );
-                        }
-                      },
+                                widget.showUpdateForm!();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        "L'étudiant ${student.firstName} ${student.lastName} a été modifié avec succès !"),
+                                    duration: const Duration(seconds: 3),
+                                  ),
+                                );
+                              }
+                            },
                       child: const Text("Enregistrer"),
                     ),
                   ),
@@ -289,7 +313,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: TextField(
                         readOnly: true,
                         enableInteractiveSelection: false,
                         decoration: InputDecoration(
@@ -304,7 +328,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: TextField(
                         readOnly: true,
                         enableInteractiveSelection: false,
                         decoration: InputDecoration(
@@ -317,7 +341,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextFormField(
+                      child: TextField(
                         readOnly: true,
                         enableInteractiveSelection: false,
                         decoration: InputDecoration(

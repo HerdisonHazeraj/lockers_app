@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -37,28 +39,26 @@ class _LockerItemState extends State<LockerItem> {
       }),
       child: ListTile(
         enabled: widget.locker.isInaccessible == false ? true : false,
-        leading: Icon(
-          widget.locker.isAvailable == true
-              ? Icons.lock_open_outlined
-              : Icons.lock_outlined,
-          color: Colors.black,
-          size: 40,
-        ),
-        title: Row(
-          children: [
-            Text(
-              'Casier n°${widget.locker.lockerNumber}',
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8, top: 2),
-              child: CircleAvatar(
-                backgroundColor: widget.locker.isAvailable == true
-                    ? Colors.green
-                    : Colors.red,
-                radius: 5,
+        // leading: Icon(
+        //   widget.locker.isAvailable == true
+        //       ? Icons.lock_open_outlined
+        //       : Icons.lock_outlined,
+        //   color: Colors.black,
+        //   size: 40,
+        // ),
+        leading: widget.locker.isAvailable == true
+            ? const Icon(
+                Icons.lock_open_outlined,
+                color: Colors.green,
+                size: 40,
+              )
+            : const Icon(
+                Icons.lock_outlined,
+                color: Colors.red,
+                size: 40,
               ),
-            )
-          ],
+        title: Text(
+          'Casier n°${widget.locker.lockerNumber}',
         ),
         subtitle: widget.locker.remark == ''
             ? const Text('Aucune remarque')
@@ -237,6 +237,7 @@ class _LockerItemState extends State<LockerItem> {
                         // );
 
                         // Suppression avec une boite de dialogue qui permet de confirmer
+                        // ignore: use_build_context_synchronously
                         showDialog(
                           context: context,
                           builder: (context) {
@@ -256,6 +257,13 @@ class _LockerItemState extends State<LockerItem> {
                                     Provider.of<LockerStudentProvider>(context,
                                             listen: false)
                                         .deleteLocker(widget.locker.id!);
+                                    Provider.of<HistoryProvider>(context,
+                                            listen: false)
+                                        .addHistory(History(
+                                      date: DateTime.now().toString(),
+                                      action: "delete",
+                                      locker: widget.locker.toJson(),
+                                    ));
                                     Navigator.of(context).pop();
                                     widget.refreshList!();
                                   },

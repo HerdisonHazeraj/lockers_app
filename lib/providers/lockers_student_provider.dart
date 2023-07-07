@@ -17,7 +17,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   LockerStudentProvider(this.dbService);
   final DBService dbService;
-  late HistoryProvider histories = HistoryProvider(dbService);
+  late HistoryProvider historyProvider = HistoryProvider(dbService);
 
   List<Locker> get lockerItems {
     return [..._lockerItems];
@@ -44,11 +44,6 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addLocker(Locker locker) async {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);
-    histories.addHistory(History(
-      date: DateTime.now().toString(),
-      action: "add",
-      locker: locker.toJson(),
-    ));
     notifyListeners();
   }
 
@@ -57,24 +52,13 @@ class LockerStudentProvider with ChangeNotifier {
     if (lockerIndex >= 0) {
       final newLocker = await dbService.updateLocker(updatedLocker);
       _lockerItems[lockerIndex] = newLocker;
-      histories.addHistory(History(
-        date: DateTime.now().toString(),
-        action: "update",
-        locker: updatedLocker.toJson(),
-      ));
       notifyListeners();
     }
   }
 
   Future<void> deleteLocker(String id) async {
-
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
-    histories.addHistory(History(
-      date: DateTime.now().toString(),
-      action: "delete",
-      locker: getLocker(id).toJson(),
-    ),);
     _lockerItems.remove(item);
 
     notifyListeners();
@@ -91,10 +75,9 @@ class LockerStudentProvider with ChangeNotifier {
     return _lockerItems[lockerIndex];
   }
 
-
   Locker getLockerByLockerNumber(int lockerNumber) {
-    Locker locker =
-        getAccessibleLocker().firstWhere((locker) => locker.lockerNumber == lockerNumber);
+    Locker locker = getAccessibleLocker()
+        .firstWhere((locker) => locker.lockerNumber == lockerNumber);
     return locker;
   }
 
@@ -127,13 +110,6 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
-    histories.addHistory(
-      History(
-        date: DateTime.now().toString(),
-        action: "add",
-        student: student.toJson(),
-      ),
-    );
     notifyListeners();
   }
 
@@ -142,26 +118,12 @@ class LockerStudentProvider with ChangeNotifier {
     if (studentIndex >= 0) {
       final newStudent = await dbService.updateStudent(updatedStudent);
       _studentItems[studentIndex] = newStudent;
-      histories.addHistory(
-        History(
-          date: DateTime.now().toString(),
-          action: "update",
-          student: updatedStudent.toJson(),
-        ),
-      );
       notifyListeners();
     }
   }
 
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
-        histories.addHistory(
-      History(
-        date: DateTime.now().toString(),
-        action: "delete",
-        student: getStudent(id).toJson(),
-      ),
-    );
     _studentItems.removeWhere((student) => student.id == id);
 
     notifyListeners();
@@ -176,10 +138,10 @@ class LockerStudentProvider with ChangeNotifier {
   Student getStudent(String id) {
     if (id == "") return Student.base();
 
-    final studentIndex = _studentItems.indexWhere((student) => student.id == id);
+    final studentIndex =
+        _studentItems.indexWhere((student) => student.id == id);
     return _studentItems[studentIndex];
   }
-
 
   Student getStudentByLocker(Locker locker) {
     if (locker.isNull) return Student.base();
@@ -248,14 +210,14 @@ class LockerStudentProvider with ChangeNotifier {
       ),
     );
 
-    histories.addHistory(
-      History(
-        date: DateTime.now().toString(),
-        action: "attribution",
-        locker: locker.toJson(),
-        student: student.toJson(),
-      ),
-    );
+    // historyProvider.addHistory(
+    //   History(
+    //     date: DateTime.now().toString(),
+    //     action: "attribution",
+    //     locker: locker.toJson(),
+    //     student: student.toJson(),
+    //   ),
+    // );
   }
 
   Future<void> unAttributeLocker(Locker locker, Student student) async {
@@ -272,14 +234,14 @@ class LockerStudentProvider with ChangeNotifier {
       ),
     );
 
-    histories.addHistory(
-      History(
-        date: DateTime.now().toString(),
-        action: "unattribution",
-        locker: locker.toJson(),
-        student: student.toJson(),
-      ),
-    );
+    // historyProvider.addHistory(
+    //   History(
+    //     date: DateTime.now().toString(),
+    //     action: "unattribution",
+    //     locker: locker.toJson(),
+    //     student: student.toJson(),
+    //   ),
+    // );
   }
 
   int autoAttributeLocker(List<Student> students) {
@@ -302,11 +264,11 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> autoAttributeOneLocker(Student student) async {
     final lockers = getAvailableLockers();
-    Locker firstLocker = lockers.firstWhere((element) =>
-        element.floor == "d" ||
-        element.floor == "c" ||
-        element.floor == "b" ||
-        element.floor == "e");
+    lockers.sort(
+      (a, b) => index[a.floor.toLowerCase()]!
+          .compareTo(index[b.floor.toLowerCase()]!),
+    );
+    Locker firstLocker = lockers.first;
     await attributeLocker(firstLocker, student);
   }
 
@@ -361,11 +323,10 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
-
-
   List<Locker> getInaccessibleLocker() {
-    List<Locker> lockers =
-        _lockerItems.where((element) => element.isInaccessible == true).toList();
+    List<Locker> lockers = _lockerItems
+        .where((element) => element.isInaccessible == true)
+        .toList();
     return lockers;
   }
 
@@ -383,7 +344,7 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
-    List<Locker> getDefectiveLockers() {
+  List<Locker> getDefectiveLockers() {
     List<Locker> lockers = getAccessibleLocker()
         .where((element) => element.isDefective == true)
         .toList();
@@ -543,6 +504,54 @@ class LockerStudentProvider with ChangeNotifier {
       return filtredLocker;
     }
     return [];
+  }
+
+  void cancelHistory(History history) {
+    switch (history.action) {
+      case "add":
+        if (history.locker.isUndefinedOrNull) {
+          deleteStudent(
+            history.student!['id'],
+          );
+        } else {
+          deleteLocker(
+            history.locker!['id'],
+          );
+        }
+        break;
+      case "delete":
+        if (history.locker.isUndefinedOrNull) {
+          insertStudent(
+            history.index!,
+            Student.fromJson(history.student!),
+          );
+        } else {
+          insertLocker(
+            history.index!,
+            Locker.fromJson(history.locker!),
+          );
+        }
+        break;
+      case "update":
+        if (history.locker.isUndefinedOrNull) {
+          updateStudent(
+            Student.fromJson(history.student!),
+          );
+        } else {
+          updateLocker(
+            Locker.fromJson(history.locker!),
+          );
+        }
+        break;
+      case "attribution":
+        unAttributeLocker(Locker.fromJson(history.locker!),
+            Student.fromJson(history.student!));
+        break;
+      case "unattribution":
+        attributeLocker(Locker.fromJson(history.locker!),
+            Student.fromJson(history.student!));
+        break;
+    }
   }
 
   Future<String?> importLockersWithCSV(FilePickerResult? result) async {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/student.dart';
+import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/students/widgets/menu_widgets/drop_down_menu.dart';
 import 'package:provider/provider.dart';
@@ -69,6 +71,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         return null;
                       },
                       readOnly: true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: lockerNumberController,
                       decoration: const InputDecoration(
                         labelText: "N° de casier",
@@ -89,6 +92,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         return null;
                       },
                       readOnly: true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: lockNumberController,
                       decoration: const InputDecoration(
                         labelText: "N° de serrure",
@@ -108,6 +112,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         "d": "Étage D",
                         "e": "Étage E",
                       },
+                      enabled: !widget.locker.isInaccessible!,
                       defaultItem: "Étage...",
                       icon: Icons.location_on_outlined,
                       onChanged: (value) {
@@ -133,7 +138,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.locker.isInaccessible ?? true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: nbKeyController,
                       decoration: const InputDecoration(
                         labelText: "Nombre de clés",
@@ -153,7 +158,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                         }
                         return null;
                       },
-                      readOnly: widget.locker.isInaccessible ?? true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: jobController,
                       decoration: const InputDecoration(
                         labelText: "Métier",
@@ -167,7 +172,7 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: TextFormField(
-                      readOnly: widget.locker.isInaccessible ?? true,
+                      enabled: !widget.locker.isInaccessible!,
                       controller: remarkController,
                       decoration: const InputDecoration(
                         labelText: "Remarque (facultatif)",
@@ -227,6 +232,13 @@ class _LockerUpdateState extends State<LockerUpdate> {
                                   floor: floorController.text,
                                   job: jobController.text,
                                   remark: remarkController.text,
+                                ));
+                                Provider.of<HistoryProvider>(context,
+                                        listen: false)
+                                    .addHistory(History(
+                                  date: DateTime.now().toString(),
+                                  action: "update",
+                                  locker: locker.toJson(),
                                 ));
 
                                 widget.showUpdateForm!();

@@ -1,9 +1,8 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/providers/history_provider.dart';
+import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
 import 'package:lockers_app/screens/dashboard/widgets/import_all_menu.dart';
 import 'package:provider/provider.dart';
@@ -105,6 +104,35 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                           listen: false)
                                                       .deleteHisotry(
                                                           history.id!);
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text(
+                                                          'L\'action à été confirmer avec succès !'),
+                                                      duration:
+                                                          Duration(seconds: 3),
+                                                    ),
+                                                  );
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                Icons.done,
+                                                color: Colors.black54,
+                                              ),
+                                              tooltip: "Confirmer",
+                                            ),
+                                            IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  Provider.of<LockerStudentProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .cancelHistory(history);
+                                                  Provider.of<HistoryProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .deleteHisotry(
+                                                          history.id!);
 
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
@@ -121,6 +149,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                 Icons.close_outlined,
                                                 color: Colors.black54,
                                               ),
+                                              tooltip: "Annuler",
                                             )
                                           ],
                                         ),

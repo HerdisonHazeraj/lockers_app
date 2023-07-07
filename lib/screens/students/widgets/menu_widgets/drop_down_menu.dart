@@ -7,6 +7,7 @@ class DropDownMenu extends StatelessWidget {
     required this.defaultItem,
     required this.icon,
     required this.onChanged,
+    required this.enabled,
     this.defaultChoosedItem,
   });
 
@@ -15,6 +16,7 @@ class DropDownMenu extends StatelessWidget {
   final IconData icon;
   final Function(String?) onChanged;
   final String? defaultChoosedItem;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class DropDownMenu extends StatelessWidget {
             ),
           )
           .toList(),
-      onChanged: onChanged,
+      onChanged: enabled ? onChanged : null,
     );
   }
 }

@@ -46,19 +46,6 @@ class _StudentsMenuState extends State<StudentsMenu> {
                 // Form to import students
                 ImportStudentMenu(),
                 const dividerMenu(),
-                // Form to promote students
-                const SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    "Promotions",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                      height: 1.3,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
