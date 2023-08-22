@@ -100,39 +100,50 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                         Expanded(
                                           child: Stack(
                                             children: [
-                                              PieChart(
-                                                PieChartData(
-                                                  // startDegreeOffset: 0,
-                                                  pieTouchData: PieTouchData(
-                                                    touchCallback:
-                                                        (FlTouchEvent event,
-                                                            pieTouchResponse) {
-                                                      setState(() {
-                                                        if (!event
-                                                                .isInterestedForInteractions ||
-                                                            pieTouchResponse ==
-                                                                null ||
-                                                            pieTouchResponse
-                                                                    .touchedSection ==
-                                                                null) {
-                                                          touchedIndex = -1;
-                                                          return;
-                                                        }
-                                                        touchedIndex =
-                                                            pieTouchResponse
-                                                                .touchedSection!
-                                                                .touchedSectionIndex;
-                                                      });
-                                                    },
-                                                  ),
-                                                  borderData: FlBorderData(
-                                                    show: false,
-                                                  ),
-                                                  sectionsSpace: 0,
-                                                  sections:
-                                                      showingSections(context),
-                                                ),
-                                              ),
+                                              Provider.of<LockerStudentProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .lockerItems
+                                                      .isEmpty
+                                                  ? Container()
+                                                  : PieChart(
+                                                      PieChartData(
+                                                        // startDegreeOffset: 0,
+                                                        pieTouchData:
+                                                            PieTouchData(
+                                                          touchCallback:
+                                                              (FlTouchEvent
+                                                                      event,
+                                                                  pieTouchResponse) {
+                                                            setState(() {
+                                                              if (!event
+                                                                      .isInterestedForInteractions ||
+                                                                  pieTouchResponse ==
+                                                                      null ||
+                                                                  pieTouchResponse
+                                                                          .touchedSection ==
+                                                                      null) {
+                                                                touchedIndex =
+                                                                    -1;
+                                                                return;
+                                                              }
+                                                              touchedIndex =
+                                                                  pieTouchResponse
+                                                                      .touchedSection!
+                                                                      .touchedSectionIndex;
+                                                            });
+                                                          },
+                                                        ),
+                                                        borderData:
+                                                            FlBorderData(
+                                                          show: false,
+                                                        ),
+                                                        sectionsSpace: 0,
+                                                        sections:
+                                                            showingSections(
+                                                                context),
+                                                      ),
+                                                    ),
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
