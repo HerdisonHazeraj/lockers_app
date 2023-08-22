@@ -257,7 +257,7 @@ class _AssignListViewState extends State<AssignListView> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Container(
-                    margin: const EdgeInsets.all(55),
+                    margin: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         Row(
