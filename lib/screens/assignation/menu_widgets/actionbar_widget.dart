@@ -98,6 +98,49 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
 
   @override
   Widget build(BuildContext context) {
+    prepareFilterKeys() {
+      widget.keys.clear();
+      if (metiersKeys.isNotEmpty) {
+        widget.keys.add(metiersKeys);
+      }
+      if (anneesKeys.isNotEmpty) {
+        widget.keys.add(anneesKeys);
+      }
+      if (responsablesKeys.isNotEmpty) {
+        widget.keys.add(responsablesKeys);
+      }
+
+      widget.values.clear();
+      selectedMetiersFromMap.clear();
+      for (var metier in selectedMetiers) {
+        selectedMetiersFromMap.add(metiers.keys
+            .firstWhere((element) => metiers[element] == metier)
+            .toString());
+      }
+      selectedAnneesFromMap.clear();
+      for (var annee in selectedAnnees) {
+        selectedAnneesFromMap.add(int.parse(annees.keys
+            .firstWhere((element) => annees[element] == annee)
+            .toString()));
+      }
+      selectedResponsablesFromMap.clear();
+      for (var responsable in selectedResponsables) {
+        selectedResponsablesFromMap.add(responsables.keys
+            .firstWhere((element) => responsables[element] == responsable)
+            .toString());
+      }
+      if (selectedMetiers.isNotEmpty) {
+        widget.values.add(selectedMetiersFromMap);
+      }
+      if (selectedAnnees.isNotEmpty) {
+        widget.values.add(selectedAnneesFromMap);
+      }
+      if (selectedResponsables.isNotEmpty) {
+        widget.values.add(selectedResponsablesFromMap);
+      }
+      widget.filterStudentsVoid(widget.keys, widget.values);
+    }
+
     return Expanded(
       flex: 4,
       child: SafeArea(
@@ -166,53 +209,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                                   MaterialStateProperty.all(Colors.black54),
                             ),
                             onPressed: () {
-                              widget.keys.clear();
-
-                              if (metiersKeys.isNotEmpty) {
-                                widget.keys.add(metiersKeys);
-                              }
-                              if (anneesKeys.isNotEmpty) {
-                                widget.keys.add(anneesKeys);
-                              }
-                              if (responsablesKeys.isNotEmpty) {
-                                widget.keys.add(responsablesKeys);
-                              }
-
-                              widget.values.clear();
-                              selectedMetiersFromMap.clear();
-                              for (var metier in selectedMetiers) {
-                                selectedMetiersFromMap.add(metiers.keys
-                                    .firstWhere(
-                                        (element) => metiers[element] == metier)
-                                    .toString());
-                              }
-                              selectedAnneesFromMap.clear();
-                              for (var annee in selectedAnnees) {
-                                selectedAnneesFromMap.add(int.parse(annees.keys
-                                    .firstWhere(
-                                        (element) => annees[element] == annee)
-                                    .toString()));
-                              }
-                              selectedResponsablesFromMap.clear();
-                              for (var responsable in selectedResponsables) {
-                                selectedResponsablesFromMap.add(responsables
-                                    .keys
-                                    .firstWhere((element) =>
-                                        responsables[element] == responsable)
-                                    .toString());
-                              }
-                              if (selectedMetiers.isNotEmpty) {
-                                widget.values.add(selectedMetiersFromMap);
-                              }
-                              if (selectedAnnees.isNotEmpty) {
-                                widget.values.add(selectedAnneesFromMap);
-                              }
-                              if (selectedResponsables.isNotEmpty) {
-                                widget.values.add(selectedResponsablesFromMap);
-                              }
-
-                              widget.filterStudentsVoid(
-                                  widget.keys, widget.values);
+                              prepareFilterKeys();
                             },
                             child: const Text('Appliquer'),
                           ),

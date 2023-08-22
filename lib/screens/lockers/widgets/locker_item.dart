@@ -27,6 +27,17 @@ class _LockerItemState extends State<LockerItem> {
   Locker deletedLocker = Locker.base();
   @override
   Widget build(BuildContext context) {
+    desattributeLockerAndStudent(Student owner, Locker locker) {
+      Provider.of<LockerStudentProvider>(context, listen: false)
+          .updateStudent(owner.copyWith(lockerNumber: 0));
+
+      widget.locker.isAvailable = false;
+      widget.locker.isInaccessible = true;
+
+      Provider.of<LockerStudentProvider>(context, listen: false)
+          .updateLocker(widget.locker);
+    }
+
     return MouseRegion(
       onExit: (event) => setState(() {
         widget.locker.isFocus = false;
@@ -115,30 +126,31 @@ class _LockerItemState extends State<LockerItem> {
                                   actions: [
                                     TextButton(
                                       onPressed: () {
+                                        desattributeLockerAndStudent(
+                                            owner, widget.locker);
+
                                         Navigator.of(context).pop();
                                       },
                                       child: const Text('Non'),
                                     ),
                                     TextButton(
                                       onPressed: () {
+                                        desattributeLockerAndStudent(
+                                            owner, widget.locker);
+
+                                        Provider.of<LockerStudentProvider>(
+                                                context,
+                                                listen: false)
+                                            .autoAttributeOneLocker(owner);
+
                                         Navigator.of(context).pop();
-                                        // Mettre en place que celui qui possède le casier en reçoit un nouveau
                                       },
                                       child: const Text('Confirmer'),
                                     ),
                                   ],
                                 );
                               });
-                          Provider.of<LockerStudentProvider>(context,
-                                  listen: false)
-                              .updateStudent(owner.copyWith(lockerNumber: 0));
                         }
-
-                        widget.locker.isAvailable = false;
-                        widget.locker.isInaccessible = true;
-                        Provider.of<LockerStudentProvider>(context,
-                                listen: false)
-                            .updateLocker(widget.locker);
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
