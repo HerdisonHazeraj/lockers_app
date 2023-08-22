@@ -28,15 +28,15 @@ class _AvailableStudentsListWidgetState
     extends State<AvailableStudentsListWidget> {
   @override
   Widget build(BuildContext context) {
-    late String suffixe = '';
+
 
     String suffixeFinder(int) {
       switch (int) {
         case 1:
-          return suffixe = 'ère';
+          return 'ère';
       }
 
-      return suffixe = 'ème';
+      return 'ème';
     }
 
     return Expanded(
