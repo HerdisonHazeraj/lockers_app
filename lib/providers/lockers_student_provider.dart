@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:js_interop';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -256,6 +257,13 @@ class LockerStudentProvider with ChangeNotifier {
         break;
       }
       attributeLocker(lockers[i], students[i]);
+      historyProvider.addHistory(
+        History(
+            date: DateTime.now().toString(),
+            action: "attribution",
+            locker: lockers[i].toJson(),
+            student: students[i].toJson()),
+      );
       count++;
     }
 
@@ -274,16 +282,32 @@ class LockerStudentProvider with ChangeNotifier {
 
   Map<String, List<Locker>> mapLockerByFloor() {
     Map<String, List<Locker>> map = {};
-    map["d"] = getAccessibleLocker()
+
+    List<Locker> lockers = [];
+    List<Locker> filtredLocker = [];
+    lockers = getAccessibleLocker();
+
+    filtredLocker +=
+        lockers.where((element) => element.isDefective == true).toList();
+    filtredLocker += lockers
+        .where((element) =>
+            element.isAvailable == true && element.isDefective == false)
+        .toList();
+    filtredLocker += lockers
+        .where((element) =>
+            element.isAvailable == false && element.isDefective == false)
+        .toList();
+
+    map["d"] = filtredLocker
         .where((element) => element.floor.toLowerCase() == "d")
         .toList();
-    map["c"] = getAccessibleLocker()
+    map["c"] = filtredLocker
         .where((element) => element.floor.toLowerCase() == "c")
         .toList();
-    map["b"] = getAccessibleLocker()
+    map["b"] = filtredLocker
         .where((element) => element.floor.toLowerCase() == "b")
         .toList();
-    map["e"] = getAccessibleLocker()
+    map["e"] = filtredLocker
         .where((element) => element.floor.toLowerCase() == "e")
         .toList();
     return map;
@@ -597,9 +621,10 @@ class LockerStudentProvider with ChangeNotifier {
                   var metier = (jsonRow['Métier'] as String).substring(0, 3);
                   final annee = (jsonRow['Métier'] as String).substring(4);
                   if (metier == "ICT" || metier == "ICH") {
-                    metier = "Informaticien-ne CFC dès ${annee}";
+                    metier =
+                        "Informaticien-ne CFC dès ${int.parse(annee) >= 2021 ? 2021 : 2014}";
                   } else if (metier == "OIC") {
-                    metier == "Opérateur-trice CFC dès ${annee}";
+                    metier = "Opérateur-trice en informatique CFC";
                   }
                   final year = DateTime.now().year - int.parse(annee);
                   var caution = 0;
@@ -717,6 +742,129 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<String?> importAllWithCSV(FilePickerResult? result) async {
-    return "Cette Fonctionnalité n'est pas encore implémentée";
+    try {
+      if (result != null) {
+        final file = result.files.first;
+        final fileContent = utf8.decode(file.bytes!);
+        final rows = fileContent.split('\n');
+        final indexes = rows[0].split(';');
+
+        indexes[indexes.length - 1] = indexes[indexes.length - 1]
+            .substring(0, indexes[indexes.length - 1].length - 1);
+
+        rows.removeAt(0);
+        rows.removeLast();
+        for (String row in rows) {
+          final rowTable = row.split(';');
+          Map<String, dynamic> jsonRow = {};
+          for (int i = 0; i < indexes.length; i++) {
+            jsonRow.addAll({indexes[i]: rowTable[i]});
+          }
+          if (jsonRow["Nb clé"] != null &&
+              jsonRow["No Casier"] != null &&
+              jsonRow["Etage"] != null &&
+              jsonRow["Métier"] != null &&
+              jsonRow["N° serrure"] != null &&
+              jsonRow["Nb clé"] != "" &&
+              jsonRow["No Casier"] != "" &&
+              jsonRow["Etage"] != "" &&
+              jsonRow["Métier"] != "" &&
+              jsonRow["N° serrure"] != "") {
+            if (jsonRow["Responsable"] == "JHI" ||
+                jsonRow["Responsable"] == null) {
+              final lockerExists = _lockerItems
+                  .where((locker) =>
+                      int.parse(jsonRow['No Casier']) == locker.lockerNumber)
+                  .isEmpty;
+              if (lockerExists) {
+                final locker = Locker.fromCSV(jsonRow);
+                // await addLocker(locker);
+                if ((jsonRow['Nom'] != '' && jsonRow['Nom'] != null) &&
+                    (jsonRow['Prénom'] != '' && jsonRow['Prénom'] != null)) {
+                  List<Student> studentInList = filterStudentsBy([
+                    ["firstName"],
+                    ["lastName"]
+                  ], [
+                    [jsonRow['Prénom']],
+                    [jsonRow['Nom']]
+                  ]);
+
+                  if (studentInList.isEmpty) {
+                    var metier = (jsonRow['Métier'] as String).substring(0, 3);
+                    final annee = (jsonRow['Métier'] as String).substring(4);
+                    if (metier == "ICT" || metier == "ICH") {
+                      metier =
+                          "Informaticien-ne CFC dès ${int.parse(annee) >= 2021 ? 2021 : 2014}";
+                    } else if (metier == "OIC") {
+                      metier = "Opérateur-trice en informatique CFC";
+                    }
+                    final year = DateTime.now().year - int.parse(annee);
+                    var caution = 0;
+                    if (jsonRow['Caution'] != "") {
+                      caution = int.parse(jsonRow['Caution']);
+                    }
+                    await addStudent(Student.base().copyWith(
+                        firstName: jsonRow['Prénom'],
+                        lastName: jsonRow['Nom'],
+                        job: metier,
+                        year: year,
+                        caution: caution));
+
+                    notifyListeners();
+
+                    studentInList = filterStudentsBy([
+                      ["firstName"],
+                      ["lastName"]
+                    ], [
+                      [jsonRow['Prénom']],
+                      [jsonRow['Nom']]
+                    ]);
+
+                    await addLocker(locker);
+                    final newLocker = _lockerItems
+                        .where((element) =>
+                            element.lockerNumber == locker.lockerNumber)
+                        .first;
+                    final student = studentInList.first;
+                    attributeLocker(newLocker, student);
+                  } else {
+                    await addLocker(locker);
+                    final newLocker = _lockerItems
+                        .where((element) =>
+                            element.lockerNumber == locker.lockerNumber)
+                        .first;
+                    final student = studentInList.first;
+                    attributeLocker(newLocker, student);
+                  }
+                } else {
+                  await addLocker(locker);
+                }
+              }
+            }
+          }
+          if (jsonRow["Prénom"] != null &&
+              jsonRow["Nom"] != null &&
+              jsonRow["Formation"] != null &&
+              jsonRow["Maître Classe"] != null &&
+              jsonRow["Prénom"] != "" &&
+              jsonRow["Nom"] != "" &&
+              jsonRow["Formation"] != "" &&
+              jsonRow["Maître Classe"] != "") {
+            final students = _studentItems.where((student) =>
+                jsonRow['Nom'] == student.lastName &&
+                jsonRow['Prénom'] == student.firstName);
+            if (students.isEmpty) {
+              addStudent(Student.fromCSV(jsonRow));
+            } else {
+              final student = students.first;
+              updateStudent(Student.fromCSV(jsonRow).copyWith(
+                  id: student.id,
+                  caution: student.caution,
+                  lockerNumber: student.lockerNumber));
+            }
+          }
+        }
+      }
+    } catch (e) {}
   }
 }

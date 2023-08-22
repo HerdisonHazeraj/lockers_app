@@ -45,7 +45,6 @@ class _StudentsMenuState extends State<StudentsMenu> {
                 const dividerMenu(),
                 // Form to import students
                 ImportStudentMenu(),
-                const dividerMenu(),
               ],
             ),
           ),

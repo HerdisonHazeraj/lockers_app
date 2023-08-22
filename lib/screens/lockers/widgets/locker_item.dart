@@ -46,17 +46,23 @@ class _LockerItemState extends State<LockerItem> {
         //   color: Colors.black,
         //   size: 40,
         // ),
-        leading: widget.locker.isAvailable == true
+        leading: widget.locker.isDefective == true
             ? const Icon(
-                Icons.lock_open_outlined,
-                color: Colors.green,
+                Icons.lock_outlined,
+                color: Colors.orange,
                 size: 40,
               )
-            : const Icon(
-                Icons.lock_outlined,
-                color: Colors.red,
-                size: 40,
-              ),
+            : widget.locker.isAvailable == true
+                ? const Icon(
+                    Icons.lock_open_outlined,
+                    color: Colors.green,
+                    size: 40,
+                  )
+                : const Icon(
+                    Icons.lock_outlined,
+                    color: Colors.red,
+                    size: 40,
+                  ),
         title: Text(
           'Casier n°${widget.locker.lockerNumber}',
         ),
@@ -263,6 +269,11 @@ class _LockerItemState extends State<LockerItem> {
                                       date: DateTime.now().toString(),
                                       action: "delete",
                                       locker: widget.locker.toJson(),
+                                      index: Provider.of<LockerStudentProvider>(
+                                              context,
+                                              listen: false)
+                                          .findIndexOfLockerById(
+                                              widget.locker.id!),
                                     ));
                                     Navigator.of(context).pop();
                                     widget.refreshList!();
