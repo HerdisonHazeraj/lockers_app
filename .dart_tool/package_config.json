@@ -141,7 +141,7 @@
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.14.0",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.15.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -153,7 +153,7 @@
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.6.0",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -734,7 +734,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-07-07T06:33:34.049803Z",
+  "generated": "2023-08-22T06:06:59.819992Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
