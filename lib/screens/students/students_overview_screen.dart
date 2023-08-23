@@ -177,6 +177,8 @@ class _StudentsListViewState extends State<StudentsListView> {
                                                           s.isUpdatingSearch = !s
                                                               .isUpdatingSearch;
                                                         }),
+                                                        updateSearchStudentList:
+                                                            () => refreshList(),
                                                       )
                                                     : const SizedBox(),
                                               ),
@@ -253,6 +255,8 @@ class _StudentsListViewState extends State<StudentsListView> {
                                                       s.isUpdating =
                                                           !s.isUpdating;
                                                     }),
+                                                    updateSearchStudentList:
+                                                        () => refreshList(),
                                                   )
                                                 : const SizedBox(),
                                           ),
