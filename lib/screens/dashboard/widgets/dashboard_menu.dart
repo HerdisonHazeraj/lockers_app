@@ -85,7 +85,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                           ),
                         ),
                         preferBelow: false,
-                        verticalOffset: 10,
+                        verticalOffset: 20,
                         child: const Padding(
                           padding: EdgeInsets.all(4),
                           child: Icon(
@@ -117,88 +117,82 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                   onHover: (event) => setState(() {
                                     history.isFocus = true;
                                   }),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    child: ListTile(
-                                      contentPadding: const EdgeInsets.all(0),
-                                      dense: false,
-                                      title: Text(
-                                        history.getSentence(),
-                                        style: const TextStyle(
-                                          color: Colors.black87,
-                                          fontSize: 15,
-                                        ),
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(0),
+                                    dense: false,
+                                    title: Text(
+                                      history.getSentence(),
+                                      style: const TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 15,
                                       ),
-                                      subtitle: Text(
-                                        DateFormat("dd.MM.yyyy", "fr").format(
-                                            DateTime.parse(history.date)),
-                                        style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      trailing: Visibility(
-                                        visible: history.isFocus,
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  Provider.of<HistoryProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .deleteHisotry(
-                                                          history.id!);
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                          'L\'action à été confirmer avec succès !'),
-                                                      duration:
-                                                          Duration(seconds: 3),
-                                                    ),
-                                                  );
-                                                });
-                                              },
-                                              icon: const Icon(
-                                                Icons.done,
-                                                color: Colors.black54,
-                                              ),
-                                              tooltip: "Confirmer",
+                                    ),
+                                    subtitle: Text(
+                                      DateFormat("dd.MM.yyyy", "fr")
+                                          .format(DateTime.parse(history.date)),
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    trailing: Visibility(
+                                      visible: history.isFocus,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                Provider.of<HistoryProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .deleteHisotry(history.id!);
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        'L\'action à été confirmer avec succès !'),
+                                                    duration:
+                                                        Duration(seconds: 3),
+                                                  ),
+                                                );
+                                              });
+                                            },
+                                            icon: const Icon(
+                                              Icons.done,
+                                              color: Colors.black54,
                                             ),
-                                            IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  Provider.of<LockerStudentProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .cancelHistory(history);
-                                                  Provider.of<HistoryProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .deleteHisotry(
-                                                          history.id!);
+                                            tooltip: "Confirmer",
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                Provider.of<LockerStudentProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .cancelHistory(history);
+                                                Provider.of<HistoryProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .deleteHisotry(history.id!);
 
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                          'L\'action à été annuler avec succès !'),
-                                                      duration:
-                                                          Duration(seconds: 3),
-                                                    ),
-                                                  );
-                                                });
-                                              },
-                                              icon: const Icon(
-                                                Icons.close_outlined,
-                                                color: Colors.black54,
-                                              ),
-                                              tooltip: "Annuler",
-                                            )
-                                          ],
-                                        ),
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        'L\'action à été annuler avec succès !'),
+                                                    duration:
+                                                        Duration(seconds: 3),
+                                                  ),
+                                                );
+                                              });
+                                            },
+                                            icon: const Icon(
+                                              Icons.close_outlined,
+                                              color: Colors.black54,
+                                            ),
+                                            tooltip: "Annuler",
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ),

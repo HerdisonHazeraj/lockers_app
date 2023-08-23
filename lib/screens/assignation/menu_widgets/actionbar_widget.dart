@@ -40,23 +40,11 @@ class ActionBarWidget extends StatefulWidget {
 
 class _ActionBarWidgetState extends State<ActionBarWidget> {
 //filtres afficher dans les select du filtre
-  // final metiersList = ['Informaticien-ne CFC (dès 2021)', 'OIC'];
   Map<dynamic, String> metiers = {
     'Informaticien-ne CFC (dès 2021)': 'ICT',
     'OIC': 'OIC'
   };
-  // final anneesList = [1, 2, 3, 4];
   Map<dynamic, String> annees = {1: '1ère', 2: '2ème', 3: '3ème', 4: '4ème'};
-  // final responsablesList = [
-  //   'CGU',
-  //   'JHI',
-  //   'JCM',
-  //   'JMO',
-  //   'JOS',
-  //   'MIV',
-  //   'PGA',
-  //   'RMU'
-  // ];
   Map<dynamic, String> responsables = {
     'CGU': 'Cédric Guerdat',
     'JHI': 'Jacques Hirtzel',
@@ -170,53 +158,49 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     ),
                   ),
                 ),
-                Container(
-                  margin:
-                      const EdgeInsets.only(bottom: 80.0, left: 10, top: 10.0),
-                  child: Wrap(
-                    children: [
-                      FilterElement(
-                        icon: Icons.work_outlined,
-                        keys: metiersKeys,
-                        dropDownList: metiers,
-                        selectedFilters: selectedMetiers,
-                        filterName: 'Metier(s): ',
-                        filterNod: 'job',
-                      ),
-                      FilterElement(
-                        icon: Icons.calendar_month_outlined,
-                        keys: anneesKeys,
-                        dropDownList: annees,
-                        selectedFilters: selectedAnnees,
-                        filterName: 'Année(s): ',
-                        filterNod: 'year',
-                      ),
-                      FilterElement(
-                        icon: Icons.admin_panel_settings_outlined,
-                        keys: responsablesKeys,
-                        dropDownList: responsables,
-                        selectedFilters: selectedResponsables,
-                        filterName: 'Responsable(s): ',
-                        filterNod: 'manager',
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20.0, left: 10.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.black54),
-                            ),
-                            onPressed: () {
-                              prepareFilterKeys();
-                            },
-                            child: const Text('Appliquer'),
+                Wrap(
+                  children: [
+                    FilterElement(
+                      icon: Icons.work_outlined,
+                      keys: metiersKeys,
+                      dropDownList: metiers,
+                      selectedFilters: selectedMetiers,
+                      filterName: 'Métier(s): ',
+                      filterNod: 'job',
+                    ),
+                    FilterElement(
+                      icon: Icons.calendar_month_outlined,
+                      keys: anneesKeys,
+                      dropDownList: annees,
+                      selectedFilters: selectedAnnees,
+                      filterName: 'Année(s): ',
+                      filterNod: 'year',
+                    ),
+                    FilterElement(
+                      icon: Icons.admin_panel_settings_outlined,
+                      keys: responsablesKeys,
+                      dropDownList: responsables,
+                      selectedFilters: selectedResponsables,
+                      filterName: 'Responsable(s): ',
+                      filterNod: 'manager',
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20.0, left: 10.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.black54),
                           ),
+                          onPressed: () {
+                            prepareFilterKeys();
+                          },
+                          child: const Text('Appliquer'),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
                 const dividerMenu(),
                 const Align(
@@ -234,15 +218,18 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                   ),
                 ),
                 SortElementWidget(
-                    sortList: sortList,
-                    orderList: orderList,
-                    orderController: orderController,
-                    sortController: sortController,
-                    isOrderCheckChecked: widget.isOrderCheckChecked,
-                    changeLockerListStateVoid:
-                        (sortController, isOrderCheckChecked) =>
-                            widget.changeLockerListStateVoid(
-                                sortController, isOrderCheckChecked)),
+                  sortList: sortList,
+                  orderList: orderList,
+                  orderController: orderController,
+                  sortController: sortController,
+                  isOrderCheckChecked: widget.isOrderCheckChecked,
+                  changeLockerListStateVoid:
+                      (sortController, isOrderCheckChecked) =>
+                          widget.changeLockerListStateVoid(
+                    sortController,
+                    isOrderCheckChecked,
+                  ),
+                ),
               ],
             ),
           ),

@@ -6,13 +6,17 @@ import 'package:lockers_app/screens/dashboard/widgets/barchart_widget.dart';
 import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
 import 'package:lockers_app/screens/dashboard/widgets/info_card.dart';
 import 'package:lockers_app/screens/dashboard/widgets/piechart_caution_widget.dart';
+import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
+import 'package:lockers_app/screens/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../responsive.dart';
 import 'widgets/dashboard_menu.dart';
 
 class DashboardOverviewScreen extends StatefulWidget {
-  const DashboardOverviewScreen({super.key});
+  const DashboardOverviewScreen(this.changePage, {super.key});
+
+  final Function changePage;
 
   static String routeName = "/dashboard";
   static int pageIndex = 0;
@@ -195,14 +199,15 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                         Responsive.isMobile(context) ? 8 : 20,
                                     children: [
                                       InfoCard(
-                                        "Nombre total de casiers",
-                                        Provider.of<LockerStudentProvider>(
-                                                context)
-                                            .lockerItems
-                                            .length
-                                            .toString(),
-                                        "assets/icons/locker.svg",
-                                      ),
+                                          "Nombre total de casiers",
+                                          Provider.of<LockerStudentProvider>(
+                                                  context)
+                                              .lockerItems
+                                              .length
+                                              .toString(),
+                                          "assets/icons/locker.svg",
+                                          () => widget.changePage(
+                                              LockersOverviewScreen.pageIndex)),
                                       InfoCard(
                                         "Nombre total   d'élèves",
                                         Provider.of<LockerStudentProvider>(
@@ -211,6 +216,8 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             .length
                                             .toString(),
                                         'assets/icons/student.svg',
+                                        () => widget.changePage(
+                                            StudentsOverviewScreen.pageIndex),
                                       ),
                                       InfoCard(
                                         "Nombre d'élèves sans casiers",
@@ -220,6 +227,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             .length
                                             .toString(),
                                         "assets/icons/student.svg",
+                                        () => null,
                                       ),
                                       InfoCard(
                                         "Nombre de casiers libres",
@@ -229,6 +237,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             .length
                                             .toString(),
                                         "assets/icons/locker.svg",
+                                        () => null,
                                       ),
                                       InfoCard(
                                         "Nombre de casiers défectueux",
@@ -238,6 +247,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             .length
                                             .toString(),
                                         "assets/icons/locker.svg",
+                                        () => null,
                                       ),
                                       InfoCard(
                                         "Nombre de casiers avec clés manquantes",
@@ -247,6 +257,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             .length
                                             .toString(),
                                         "assets/icons/key.svg",
+                                        () => null,
                                       )
                                     ],
                                   ),
