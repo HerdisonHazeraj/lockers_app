@@ -6,33 +6,21 @@ class InfoCard extends StatelessWidget {
   const InfoCard(
     this.title,
     this.value,
-    this.svgSrc, {
+    this.svgSrc,
+    this.onTap, {
     super.key,
   });
 
   final String title;
   final String value;
   final String svgSrc;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(title),
-            content: Text(value),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          ),
-        );
+        onTap();
       },
       child: Container(
         height: Responsive.isMobile(context) ? 175 : 200,

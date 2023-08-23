@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
 import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
-import 'package:lockers_app/screens/promotions/promotion_overview_screen.dart';
 import 'package:lockers_app/screens/students/students_overview_screen.dart';
 
 class DrawerApp extends StatelessWidget {

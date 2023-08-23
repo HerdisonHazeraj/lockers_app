@@ -28,8 +28,6 @@ class _AvailableStudentsListWidgetState
     extends State<AvailableStudentsListWidget> {
   @override
   Widget build(BuildContext context) {
-
-
     String suffixeFinder(int) {
       switch (int) {
         case 1:
@@ -41,7 +39,7 @@ class _AvailableStudentsListWidgetState
 
     return Expanded(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.85,
+        height: MediaQuery.of(context).size.height * 0.925,
         child: SingleChildScrollView(
           child: widget.studentsListView.isEmpty
               ? const Center(

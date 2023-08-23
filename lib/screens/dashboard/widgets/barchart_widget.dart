@@ -28,7 +28,6 @@ class BarChartWidgetState extends State<BarChartWidget> {
         child: Container(
           margin:
               EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.013),
-// EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.028),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -60,16 +59,16 @@ class BarChartWidgetState extends State<BarChartWidget> {
                             String etage;
                             switch (group.x) {
                               case 0:
-                                etage = 'b';
+                                etage = 'B';
                                 break;
                               case 1:
-                                etage = 'c';
+                                etage = 'C';
                                 break;
                               case 2:
-                                etage = 'd';
+                                etage = 'D';
                                 break;
                               case 3:
-                                etage = 'e';
+                                etage = 'E';
                                 break;
 
                               default:

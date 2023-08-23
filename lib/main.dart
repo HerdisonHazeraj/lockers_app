@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           PrepareDatabaseScreen.routeName: (context) =>
               const PrepareDatabaseScreen(),
           DashboardOverviewScreen.routeName: (context) =>
-              const DashboardOverviewScreen(),
+              DashboardOverviewScreen(() => null),
           LockersOverviewScreen.routeName: (context) =>
               const LockersOverviewScreen(),
           AssignationOverviewScreen.routeName: (context) =>
@@ -84,12 +84,10 @@ class _MyWidgetState extends State<MyWidget> {
     super.initState();
   }
 
-  List<Widget> views = const [
-    DashboardOverviewScreen(),
-    LockersOverviewScreen(),
-    StudentsOverviewScreen(),
-    AssignationOverviewScreen(),
-  ];
+  changePage(int index) {
+    page.jumpToPage(index);
+    sideMenuController.changePage(index);
+  }
 
   int selectedIndex = 0;
 
@@ -105,9 +103,11 @@ class _MyWidgetState extends State<MyWidget> {
                 Expanded(
                   child: PageView(
                     controller: page,
-                    children: const [
+                    children: [
                       // PrepareDatabaseScreen(),
-                      DashboardOverviewScreen(),
+                      DashboardOverviewScreen(
+                        (index) => changePage(index),
+                      ),
                       LockersOverviewScreen(),
                       StudentsOverviewScreen(),
                       AssignationOverviewScreen(),
@@ -126,7 +126,9 @@ class _MyWidgetState extends State<MyWidget> {
               iconTheme: const IconThemeData(color: Colors.black),
             ),
             drawer: const DrawerApp(),
-            body: const DashboardOverviewScreen(),
+            body: DashboardOverviewScreen(
+              (index) => changePage(index),
+            ),
           );
   }
 }

@@ -1,9 +1,18 @@
-2023/08/22-14:37:23.725 3b4c Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.7dcf8a7b\flutter_tools_chrome_device.5038edc5\Default\Session Storage/MANIFEST-000001
-2023/08/22-14:37:23.726 3b4c Recovering log #7
-2023/08/22-14:37:23.726 3b4c (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.7dcf8a7b\flutter_tools_chrome_device.5038edc5\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
-2023/08/22-14:37:23.726 3b4c (ignoring error) C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.7dcf8a7b\flutter_tools_chrome_device.5038edc5\Default\Session Storage/000007.log: dropping 122 bytes; Corruption: missing start of fragmented record(2)
-2023/08/22-14:37:23.728 3b4c Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.7dcf8a7b\flutter_tools_chrome_device.5038edc5\Default\Session Storage/000007.log 
-2023/08/22-14:37:23.729 3b4c Delete type=0 #3
-2023/08/22-14:37:23.729 3b4c Delete type=0 #4
-2023/08/22-14:37:23.729 3b4c Delete type=2 #5
-2023/08/22-14:37:23.729 3b4c Delete type=2 #8
+2023/08/23-08:40:18.462 112c Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.7b72d073\flutter_tools_chrome_device.f07bdc09\Default\Session Storage/MANIFEST-000001
+2023/08/23-08:40:18.463 112c Recovering log #3
+2023/08/23-08:40:18.463 112c Level-0 table #3: started
+2023/08/23-08:40:18.469 112c Level-0 table #3: 281 bytes OK
+2023/08/23-08:40:18.469 112c Recovering log #4
+2023/08/23-08:40:18.469 112c Level-0 table #4: started
+2023/08/23-08:40:18.472 112c Level-0 table #4: 16727 bytes OK
+2023/08/23-08:40:18.472 112c Recovering log #7
+2023/08/23-08:40:18.472 112c (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.7b72d073\flutter_tools_chrome_device.f07bdc09\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
+2023/08/23-08:40:18.472 112c (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.7b72d073\flutter_tools_chrome_device.f07bdc09\Default\Session Storage/000007.log: dropping 122 bytes; Corruption: missing start of fragmented record(2)
+2023/08/23-08:40:18.474 112c Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.7b72d073\flutter_tools_chrome_device.f07bdc09\Default\Session Storage/000007.log 
+2023/08/23-08:40:18.478 112c Delete type=0 #3
+2023/08/23-08:40:18.478 112c Delete type=0 #4
+2023/08/23-08:40:18.478 112c Delete type=2 #5
+2023/08/23-08:40:18.478 112c Delete type=2 #8
+2023/08/23-08:58:38.857 112c Level-0 table #9: started
+2023/08/23-08:58:38.865 112c Level-0 table #9: 15016 bytes OK
+2023/08/23-08:58:38.869 112c Delete type=0 #7
