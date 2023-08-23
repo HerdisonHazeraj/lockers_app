@@ -159,6 +159,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                                           l.isUpdatingSearch = !l
                                                               .isUpdatingSearch;
                                                         }),
+                                                        updateSearchLockerList:
+                                                            () => refreshList(),
                                                       )
                                                     : const SizedBox(),
                                               ),
@@ -235,6 +237,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                                       l.isUpdating =
                                                           !l.isUpdating;
                                                     }),
+                                                    updateSearchLockerList:
+                                                        () => refreshList(),
                                                   )
                                                 : const SizedBox(),
                                           ),

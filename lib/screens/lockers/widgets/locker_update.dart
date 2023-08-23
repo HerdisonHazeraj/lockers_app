@@ -8,10 +8,15 @@ import 'package:lockers_app/screens/students/widgets/menu_widgets/drop_down_menu
 import 'package:provider/provider.dart';
 
 class LockerUpdate extends StatefulWidget {
-  const LockerUpdate({super.key, required this.locker, this.showUpdateForm});
+  const LockerUpdate(
+      {super.key,
+      required this.locker,
+      this.showUpdateForm,
+      this.updateSearchLockerList});
 
   final Function()? showUpdateForm;
   final Locker locker;
+  final Function()? updateSearchLockerList;
 
   @override
   State<LockerUpdate> createState() => _LockerUpdateState();
@@ -240,6 +245,8 @@ class _LockerUpdateState extends State<LockerUpdate> {
                                   action: "update",
                                   locker: locker.toJson(),
                                 ));
+
+                                widget.updateSearchLockerList!();
 
                                 widget.showUpdateForm!();
                                 ScaffoldMessenger.of(context).showSnackBar(
