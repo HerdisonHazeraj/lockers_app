@@ -17,8 +17,8 @@ class ActionBarWidget extends StatefulWidget {
       required this.selectedStudents,
       required this.isStudentsListViewInit,
       required this.isSortLockersShown,
-      required this.filterStudentsVoid,
-      required this.changeLockerListStateVoid,
+      this.filterStudentsVoid,
+      this.changeLockerListStateVoid,
       required this.isOrderCheckChecked});
 
   List<Locker> availableLockers;
@@ -30,8 +30,9 @@ class ActionBarWidget extends StatefulWidget {
   bool isSortLockersShown;
   bool isOrderCheckChecked;
 
-  final Function(List<List> keys, List<List> values) filterStudentsVoid;
-  final Function(TextEditingController sortController, bool isOrderCheckChecked)
+  final Function(List<List> keys, List<List> values)? filterStudentsVoid;
+  final Function(
+          TextEditingController sortController, bool isOrderCheckChecked)?
       changeLockerListStateVoid;
 
   @override
@@ -138,7 +139,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
       if (selectedResponsables.isNotEmpty) {
         widget.values.add(selectedResponsablesFromMap);
       }
-      widget.filterStudentsVoid(widget.keys, widget.values);
+      widget.filterStudentsVoid!(widget.keys, widget.values);
     }
 
     return Expanded(
@@ -241,7 +242,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     isOrderCheckChecked: widget.isOrderCheckChecked,
                     changeLockerListStateVoid:
                         (sortController, isOrderCheckChecked) =>
-                            widget.changeLockerListStateVoid(
+                            widget.changeLockerListStateVoid!(
                                 sortController, isOrderCheckChecked)),
               ],
             ),

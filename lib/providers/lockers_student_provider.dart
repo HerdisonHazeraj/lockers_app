@@ -320,6 +320,12 @@ class LockerStudentProvider with ChangeNotifier {
     return students;
   }
 
+  List<Locker> getLockersWithRemarks() {
+    List<Locker> lockers =
+        getAccessibleLocker().where((element) => element.remark != "").toList();
+    return lockers;
+  }
+
   List<Student> getNonPaidCaution() {
     List<Student> students = getUnavailableStudents()
         .where((element) => element.caution == 0)
