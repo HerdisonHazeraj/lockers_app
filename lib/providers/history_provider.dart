@@ -1,12 +1,7 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/history.dart';
-import 'package:lockers_app/providers/lockers_student_provider.dart';
 
 import '../infrastructure/db_service.dart';
-import '../models/locker.dart';
-import '../models/student.dart';
 
 class HistoryProvider with ChangeNotifier {
   final List<History> _historyItems = [];
