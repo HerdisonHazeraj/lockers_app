@@ -1,8 +1,10 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
+import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
+import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
+import 'package:lockers_app/screens/students/students_overview_screen.dart';
 
 class SideMenuApp extends StatelessWidget {
   const SideMenuApp({
@@ -86,7 +88,7 @@ class SideMenuApp extends StatelessWidget {
                             ),
                             Center(
                               child: Text(
-                                "Projet réalisé dans le cadre d'un projet du CEFF - 2023",
+                                "Projet réalisé dans le cadre d'un projet du CEFF Industrie.",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 14,
@@ -112,7 +114,7 @@ class SideMenuApp extends StatelessWidget {
       ),
       items: [
         SideMenuItem(
-          priority: 0,
+          priority: DashboardOverviewScreen.pageIndex,
           title: 'Dashboard',
           onTap: (page, _) {
             sideMenuController.changePage(page);
@@ -123,7 +125,7 @@ class SideMenuApp extends StatelessWidget {
           ),
         ),
         SideMenuItem(
-          priority: 1,
+          priority: LockersOverviewScreen.pageIndex,
           title: 'Casiers',
           onTap: (page, _) {
             sideMenuController.changePage(page);
@@ -134,7 +136,7 @@ class SideMenuApp extends StatelessWidget {
           ),
         ),
         SideMenuItem(
-          priority: 2,
+          priority: StudentsOverviewScreen.pageIndex,
           title: 'Élèves',
           onTap: (page, _) {
             sideMenuController.changePage(page);
@@ -145,7 +147,7 @@ class SideMenuApp extends StatelessWidget {
           ),
         ),
         SideMenuItem(
-          priority: 3,
+          priority: AssignationOverviewScreen.pageIndex,
           title: 'Attributions',
           onTap: (page, _) {
             sideMenuController.changePage(page);
@@ -155,17 +157,6 @@ class SideMenuApp extends StatelessWidget {
             height: 24,
           ),
         ),
-        // SideMenuItem(
-        //   priority: 4,
-        //   title: 'Promotion',
-        //   onTap: (page, _) {
-        //     sideMenuController.changePage(page);
-        //   },
-        //   iconWidget: SvgPicture.asset(
-        //     "assets/icons/assign.svg",
-        //     height: 24,
-        //   ),
-        // ),
       ],
     );
   }

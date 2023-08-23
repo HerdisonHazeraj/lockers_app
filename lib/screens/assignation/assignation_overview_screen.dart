@@ -14,6 +14,7 @@ import '../../providers/history_provider.dart';
 
 class AssignationOverviewScreen extends StatefulWidget {
   static const routeName = '/assignation';
+  static const pageIndex = 3;
   const AssignationOverviewScreen({super.key});
 
   @override

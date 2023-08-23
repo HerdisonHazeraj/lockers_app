@@ -15,6 +15,7 @@ class DashboardOverviewScreen extends StatefulWidget {
   const DashboardOverviewScreen({super.key});
 
   static String routeName = "/dashboard";
+  static int pageIndex = 0;
 
   @override
   State<DashboardOverviewScreen> createState() =>
@@ -25,8 +26,6 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
   var _isInit = true;
   var _isLoading = false;
   int touchedIndex = -1;
-
-  // List<BarChartGroupData> list =['elias', 'tromos', 'elisa']
 
   @override
   Future<void> didChangeDependencies() async {

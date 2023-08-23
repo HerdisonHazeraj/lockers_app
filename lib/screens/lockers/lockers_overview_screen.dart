@@ -10,6 +10,7 @@ class LockersOverviewScreen extends StatefulWidget {
   const LockersOverviewScreen({super.key});
 
   static String routeName = "/lockers";
+  static int pageIndex = 1;
 
   @override
   State<LockersOverviewScreen> createState() => _LockersOverviewScreenState();
