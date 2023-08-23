@@ -142,21 +142,26 @@ class SideMenuApp extends StatelessWidget {
           // badgeColor: const Color(0xFFFB3274),
           priority: LockersOverviewScreen.pageIndex,
           title: 'Casiers',
-          trailing: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.all(Radius.circular(6))),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3),
-                child: Text(
-                  Provider.of<LockerStudentProvider>(context)
+          trailing: Provider.of<LockerStudentProvider>(context)
                       .getDefectiveLockers()
-                      .length
-                      .toString(),
-                  style: TextStyle(fontSize: 11, color: Colors.grey[800]),
-                ),
-              )),
+                      .length >=
+                  1
+              ? Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0, vertical: 3),
+                    child: Text(
+                      Provider.of<LockerStudentProvider>(context)
+                          .getDefectiveLockers()
+                          .length
+                          .toString(),
+                      style: TextStyle(fontSize: 11, color: Colors.grey[800]),
+                    ),
+                  ))
+              : Text(''),
           onTap: (page, _) {
             sideMenuController.changePage(page);
           },

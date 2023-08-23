@@ -386,7 +386,7 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> setAllLockerToDefective() async {
     for (var locker in _lockerItems) {
       if (locker.nbKey < 2 || locker.remark != "") {
-        setLockerToDefective(locker);
+        await setLockerToDefective(locker);
       } else if (locker.nbKey > 2 && locker.remark == "") {
         unSetLockerToDefective(locker);
       }

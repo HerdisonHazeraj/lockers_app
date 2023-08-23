@@ -68,7 +68,7 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
       }
     }
 
-    refreshDefectiveList() {
+    refreshDefectiveList() async {
       // setState(() {
       defectiveLockers =
           Provider.of<LockerStudentProvider>(context, listen: false)
@@ -78,11 +78,11 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
     }
 
     refreshList() {
-      setState(() {
+      setState(() async {
         searchLockers(searchValue);
         Provider.of<LockerStudentProvider>(context, listen: false)
             .setAllLockerToDefective();
-        refreshDefectiveList();
+        await refreshDefectiveList();
       });
     }
 
@@ -229,7 +229,7 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                             children: [
                                               ListTile(
                                                 title: Text(
-                                                  "Aucun résultat",
+                                                  "Aucune tâche",
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),

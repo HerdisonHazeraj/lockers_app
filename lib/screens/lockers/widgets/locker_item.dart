@@ -112,9 +112,10 @@ class _LockerItemState extends State<LockerItem> {
                             widget.locker.nbKey < 2
                                 ? IconButton(
                                     onPressed: () {
-                                      setState(() {
+                                      setState(() async {
                                         widget.locker.isDefective = false;
-                                        Provider.of<LockerStudentProvider>(
+                                        await Provider.of<
+                                                    LockerStudentProvider>(
                                                 context,
                                                 listen: false)
                                             .updateLocker(widget.locker
@@ -124,7 +125,7 @@ class _LockerItemState extends State<LockerItem> {
                                             .showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                              "Le casier n°${widget.locker.lockerNumber} a bien été mis à jour !",
+                                              "Le casier n°${widget.locker.nbKey} a bien été mis à jour !",
                                             ),
                                             duration:
                                                 const Duration(seconds: 2),
@@ -133,6 +134,7 @@ class _LockerItemState extends State<LockerItem> {
                                         widget.refreshList!();
                                       });
                                     },
+                                    tooltip: "Ajouter une clé",
                                     icon: const Icon(
                                       Icons.vpn_key_outlined,
                                       color: Colors.black,
@@ -141,9 +143,10 @@ class _LockerItemState extends State<LockerItem> {
                             widget.locker.remark != ''
                                 ? IconButton(
                                     onPressed: () {
-                                      setState(() {
+                                      setState(() async {
                                         widget.locker.isDefective = false;
-                                        Provider.of<LockerStudentProvider>(
+                                        await Provider.of<
+                                                    LockerStudentProvider>(
                                                 context,
                                                 listen: false)
                                             .updateLocker(widget.locker
@@ -158,8 +161,9 @@ class _LockerItemState extends State<LockerItem> {
                                         widget.refreshList!();
                                       });
                                     },
+                                    tooltip: "Supprimer la remarque",
                                     icon: const Icon(
-                                      Icons.home_repair_service_outlined,
+                                      Icons.task_alt_outlined,
                                       color: Colors.black,
                                     ))
                                 : Text('')
