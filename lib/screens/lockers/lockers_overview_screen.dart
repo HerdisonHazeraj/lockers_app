@@ -18,7 +18,9 @@ class LockersOverviewScreen extends StatefulWidget {
 
 class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
   bool isInit = false;
-
+  // Tools for defective lockers elias
+  late bool isExpDefective = true;
+  late List<Locker> defectiveLockers = [];
   // Tools for lockers by search
   late bool isExpSearch = false;
   late List<Locker> searchedLockers = [];
@@ -38,9 +40,16 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
         Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
     inaccessibleLockers =
         Provider.of<LockerStudentProvider>(context).getInaccessibleLocker();
+    // defectiveLockers = Provider.of<LockerStudentProvider>(context)
+    //     .getDefectiveLockers()
+    //     .toList();
 
     if (!isInit) {
       isExpFloor = List.generate(lockersByFloor.length, (index) => true);
+      defectiveLockers =
+          Provider.of<LockerStudentProvider>(context, listen: false)
+              .getDefectiveLockers()
+              .toList();
       isInit = true;
     }
 
@@ -59,9 +68,21 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
       }
     }
 
+    refreshDefectiveList() {
+      // setState(() {
+      defectiveLockers =
+          Provider.of<LockerStudentProvider>(context, listen: false)
+              .getDefectiveLockers()
+              .toList();
+      // });
+    }
+
     refreshList() {
       setState(() {
         searchLockers(searchValue);
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .setAllLockerToDefective();
+        refreshDefectiveList();
       });
     }
 
@@ -148,6 +169,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                                             6.0),
                                                     child: LockerItem(
                                                       locker: l,
+                                                      isLockerInDefectiveList:
+                                                          false,
                                                     ),
                                                   );
                                                 },
@@ -168,6 +191,108 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                           ],
                                         ),
                                 ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpDefective = !isExpDefective;
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6.0),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ExpansionPanel(
+                                  isExpanded: isExpDefective,
+                                  canTapOnHeader: true,
+                                  headerBuilder: (context, isExpanded) {
+                                    return ListTile(
+                                      title: Text(
+                                        "Tâches (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    );
+                                  },
+                                  body: defectiveLockers.isEmpty
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              const Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Aucun résultat",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              Column(children: [
+                                                ...defectiveLockers.map(
+                                                  (l) => Container(
+                                                    child: LockerItem(
+                                                      locker: l,
+                                                      isLockerInDefectiveList:
+                                                          true,
+                                                      refreshList: () =>
+                                                          refreshList(),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ])),
+                                ),
+
+                                // ExpansionPanelList(
+                                //     expansionCallback:
+                                //         (int index, bool isExpanded) {
+                                //       setState(() {
+                                //         defectiveLockers[index]
+                                //                 .isUpdating =
+                                //             !defectiveLockers[index]
+                                //                 .isUpdating;
+                                //       });
+                                //     },
+                                //     expandedHeaderPadding:
+                                //         const EdgeInsets.all(0),
+                                //     animationDuration:
+                                //         const Duration(milliseconds: 500),
+                                //     children: [
+                                //       ...defectiveLockers.map(
+                                //         (l) => ExpansionPanel(
+                                //           isExpanded: l.isUpdating,
+                                //           canTapOnHeader: true,
+                                //           headerBuilder:
+                                //               (context, isExpanded) {
+                                //             return Padding(
+                                //               padding:
+                                //                   const EdgeInsets.all(
+                                //                       6.0),
+                                //               child: LockerItem(
+                                //                 locker: l,
+                                //               ),
+                                //             );
+                                //           },
+                                //           body: l.isUpdating
+                                //               ? Container()
+                                //               : const SizedBox(),
+                                //         ),
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -224,6 +349,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                                     const EdgeInsets.all(6.0),
                                                 child: LockerItem(
                                                   locker: l,
+                                                  isLockerInDefectiveList:
+                                                      false,
                                                   refreshList: () =>
                                                       refreshList(),
                                                 ),
@@ -316,8 +443,11 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                                   return Padding(
                                                     padding:
                                                         const EdgeInsets.all(2),
-                                                    child:
-                                                        LockerItem(locker: l),
+                                                    child: LockerItem(
+                                                      locker: l,
+                                                      isLockerInDefectiveList:
+                                                          false,
+                                                    ),
                                                   );
                                                 },
                                                 body: l.isUpdating

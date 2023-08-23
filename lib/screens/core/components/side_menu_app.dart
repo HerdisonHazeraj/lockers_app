@@ -18,12 +18,6 @@ class SideMenuApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int notifications = Provider.of<LockerStudentProvider>(context)
-            .getLockerLessThen2Key()
-            .length +
-        Provider.of<LockerStudentProvider>(context)
-            .getLockersWithRemarks()
-            .length;
     return SideMenu(
       controller: sideMenuController,
       style: SideMenuStyle(
@@ -156,7 +150,10 @@ class SideMenuApp extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3),
                 child: Text(
-                  notifications.toString(),
+                  Provider.of<LockerStudentProvider>(context)
+                      .getDefectiveLockers()
+                      .length
+                      .toString(),
                   style: TextStyle(fontSize: 11, color: Colors.grey[800]),
                 ),
               )),

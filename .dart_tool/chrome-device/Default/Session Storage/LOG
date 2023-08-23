@@ -1,18 +1,8 @@
-2023/08/23-08:40:18.462 112c Reusing MANIFEST C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.7b72d073\flutter_tools_chrome_device.f07bdc09\Default\Session Storage/MANIFEST-000001
-2023/08/23-08:40:18.463 112c Recovering log #3
-2023/08/23-08:40:18.463 112c Level-0 table #3: started
-2023/08/23-08:40:18.469 112c Level-0 table #3: 281 bytes OK
-2023/08/23-08:40:18.469 112c Recovering log #4
-2023/08/23-08:40:18.469 112c Level-0 table #4: started
-2023/08/23-08:40:18.472 112c Level-0 table #4: 16727 bytes OK
-2023/08/23-08:40:18.472 112c Recovering log #7
-2023/08/23-08:40:18.472 112c (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.7b72d073\flutter_tools_chrome_device.f07bdc09\Default\Session Storage/000007.log: dropping 23196 bytes; Corruption: checksum mismatch
-2023/08/23-08:40:18.472 112c (ignoring error) C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.7b72d073\flutter_tools_chrome_device.f07bdc09\Default\Session Storage/000007.log: dropping 122 bytes; Corruption: missing start of fragmented record(2)
-2023/08/23-08:40:18.474 112c Reusing old log C:\Users\cp-20heh\AppData\Local\Temp\flutter_tools.7b72d073\flutter_tools_chrome_device.f07bdc09\Default\Session Storage/000007.log 
-2023/08/23-08:40:18.478 112c Delete type=0 #3
-2023/08/23-08:40:18.478 112c Delete type=0 #4
-2023/08/23-08:40:18.478 112c Delete type=2 #5
-2023/08/23-08:40:18.478 112c Delete type=2 #8
-2023/08/23-08:58:38.857 112c Level-0 table #9: started
-2023/08/23-08:58:38.865 112c Level-0 table #9: 15016 bytes OK
-2023/08/23-08:58:38.869 112c Delete type=0 #7
+2023/08/23-13:13:43.204 1bc8 Reusing MANIFEST C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.79f71d71\flutter_tools_chrome_device.bd638db6\Default\Session Storage/MANIFEST-000001
+2023/08/23-13:13:43.204 1bc8 Recovering log #9
+2023/08/23-13:13:43.206 1bc8 Reusing old log C:\Users\cp-20tip\AppData\Local\Temp\flutter_tools.79f71d71\flutter_tools_chrome_device.bd638db6\Default\Session Storage/000009.log 
+2023/08/23-13:13:43.206 1bc8 Delete type=0 #3
+2023/08/23-13:13:43.206 1bc8 Delete type=0 #4
+2023/08/23-13:13:43.206 1bc8 Delete type=2 #5
+2023/08/23-13:13:43.206 1bc8 Delete type=0 #7
+2023/08/23-13:13:43.206 1bc8 Delete type=2 #8
