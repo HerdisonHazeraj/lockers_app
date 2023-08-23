@@ -9,7 +9,12 @@ import '../../../models/student.dart';
 import 'menu_widgets/drop_down_menu.dart';
 
 class StudentUpdate extends StatefulWidget {
-  const StudentUpdate({super.key, required this.student, this.showUpdateForm});
+  const StudentUpdate({
+    super.key,
+    required this.student,
+    this.showUpdateForm,
+    /*required this.updateSearchStudentList*/
+  });
 
   final Function()? showUpdateForm;
   final Student student;
@@ -19,6 +24,7 @@ class StudentUpdate extends StatefulWidget {
 }
 
 class _StudentUpdateState extends State<StudentUpdate> {
+  // final Function() updateSearchStudentList;
   // Tools for update student
   late final firstnameController =
       TextEditingController(text: widget.student.firstName);
@@ -289,6 +295,8 @@ class _StudentUpdateState extends State<StudentUpdate> {
                                     student: student.toJson(),
                                   ),
                                 );
+
+                                // widget.updateSearchStudentList!();
 
                                 widget.showUpdateForm!();
                                 ScaffoldMessenger.of(context).showSnackBar(
