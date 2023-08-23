@@ -50,6 +50,8 @@ dependencies:
   syncfusion_flutter_gauges: ^21.2.10
   intl: ^0.18.0
   cached_network_image: ^3.2.3
+  firedart: ^0.9.7
+  fluent_ui: ^4.7.3
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:js_interop';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';

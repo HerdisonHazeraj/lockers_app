@@ -108,9 +108,9 @@ class _MyWidgetState extends State<MyWidget> {
                       DashboardOverviewScreen(
                         (index) => changePage(index),
                       ),
-                      LockersOverviewScreen(),
-                      StudentsOverviewScreen(),
-                      AssignationOverviewScreen(),
+                      const LockersOverviewScreen(),
+                      const StudentsOverviewScreen(),
+                      const AssignationOverviewScreen(),
                     ],
                   ),
                 ),
