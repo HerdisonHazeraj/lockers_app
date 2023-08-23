@@ -33,7 +33,13 @@ class _AvailableLockersListWidgetState
           child: SingleChildScrollView(
             child: widget.availableLockers.isEmpty
                 ? const Center(
-                    heightFactor: 50, child: Text('Aucun casier disponible '))
+                    heightFactor: 25,
+                    child: Text(
+                      'Aucun casier disponible',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, color: Colors.black38),
+                    ),
+                  )
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

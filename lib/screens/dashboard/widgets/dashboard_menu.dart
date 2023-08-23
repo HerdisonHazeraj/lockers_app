@@ -16,18 +16,7 @@ class DashboardMenu extends StatefulWidget {
 }
 
 class _DashboardMenuState extends State<DashboardMenu> {
-  // @override
-  // void initState() {
-  //   histories = Provider.of<HistoryProvider>(context, listen: false)
-  //       .historyItems
-  //       .toList();
-  //   histories.sort((a, b) => a.date.compareTo(b.date));
-  //   super.initState();
-  // }
-
-  // DateFormat timeFormat = DateFormat.Hm("fr");
-
-  // @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();

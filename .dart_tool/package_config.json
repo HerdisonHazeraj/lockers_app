@@ -20,6 +20,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "archive",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.3.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "args",
       "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.4.2",
       "packageUri": "lib/",
@@ -176,10 +182,28 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "firedart",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/firedart-0.9.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "fixnum",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "fl_chart",
       "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/fl_chart-0.62.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "fluent_ui",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/fluent_ui-4.7.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "flutter",
@@ -254,10 +278,28 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "googleapis_auth",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/googleapis_auth-1.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "grpc",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/grpc-3.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "http",
       "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "http2",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/http2-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "http_multi_server",
@@ -312,6 +354,12 @@
       "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.13"
+    },
+    {
+      "name": "math_expressions",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/math_expressions-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "meta",
@@ -434,6 +482,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "pointycastle",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/pointycastle-3.7.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "pool",
       "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/pool-1.5.1",
       "packageUri": "lib/",
@@ -444,6 +498,12 @@
       "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/process-4.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "protobuf",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/protobuf-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "provider",
@@ -458,10 +518,22 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "recase",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/recase-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "rxdart",
       "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/rxdart-0.27.7",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "scroll_pos",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/scroll_pos-0.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "shelf",
@@ -734,7 +806,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-08-23T06:07:06.467637Z",
+  "generated": "2023-08-23T08:55:23.916802Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

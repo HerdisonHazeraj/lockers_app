@@ -43,7 +43,13 @@ class _AvailableStudentsListWidgetState
         child: SingleChildScrollView(
           child: widget.studentsListView.isEmpty
               ? const Center(
-                  heightFactor: 50, child: Text('Aucun élève disponible'))
+                  heightFactor: 25,
+                  child: Text(
+                    'Aucun élève disponible',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Colors.black38),
+                  ),
+                )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
