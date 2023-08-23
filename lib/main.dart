@@ -84,6 +84,15 @@ class _MyWidgetState extends State<MyWidget> {
     super.initState();
   }
 
+  List<Widget> views = const [
+    DashboardOverviewScreen(),
+    LockersOverviewScreen(),
+    StudentsOverviewScreen(),
+    AssignationOverviewScreen(),
+  ];
+
+  int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Responsive.isDesktop(context)
@@ -102,7 +111,6 @@ class _MyWidgetState extends State<MyWidget> {
                       LockersOverviewScreen(),
                       StudentsOverviewScreen(),
                       AssignationOverviewScreen(),
-                      // PromotionOverviewScreen()
                     ],
                   ),
                 ),

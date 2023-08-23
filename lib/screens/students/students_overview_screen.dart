@@ -10,6 +10,7 @@ class StudentsOverviewScreen extends StatefulWidget {
   const StudentsOverviewScreen({super.key});
 
   static String routeName = "/students";
+  static int pageIndex = 2;
 
   @override
   State<StudentsOverviewScreen> createState() => _StudentsOverviewScreenState();
