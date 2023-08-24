@@ -72,12 +72,15 @@ class _LockerItemState extends State<LockerItem> {
         title: Text(
           'Casier n°${widget.locker.lockerNumber}',
         ),
-        subtitle: widget.locker.remark == ''
-            ? widget.isLockerInDefectiveList
+        subtitle: widget.locker.isDefective == true
+            ? widget.locker.nbKey < 2 && widget.locker.remark == ""
                 ? Text(
                     'Le casier ne possède plus que ${widget.locker.nbKey} clé ')
-                : Text('Aucune remarque')
-            : Text(widget.locker.remark),
+                : widget.locker.remark != "" && widget.locker.nbKey < 2
+                    ? Text(
+                        '${widget.locker.remark} et ne possède plus que ${widget.locker.nbKey} clé ')
+                    : Text(widget.locker.remark)
+            : Text('Aucune remarque'),
         trailing: widget.locker.isInaccessible == true
             ? Visibility(
                 visible: widget.locker.isFocus,
@@ -113,13 +116,12 @@ class _LockerItemState extends State<LockerItem> {
                                 ? IconButton(
                                     onPressed: () {
                                       setState(() async {
-                                        widget.locker.isDefective = false;
                                         await Provider.of<
                                                     LockerStudentProvider>(
                                                 context,
                                                 listen: false)
-                                            .updateLocker(widget.locker
-                                                .copyWith(nbKey: 2));
+                                            .setLockerToUnDefectiveKeys(
+                                                widget.locker);
 
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -134,7 +136,7 @@ class _LockerItemState extends State<LockerItem> {
                                         widget.refreshList!();
                                       });
                                     },
-                                    tooltip: "Ajouter une clé",
+                                    tooltip: "Rajouter les clés manquantes",
                                     icon: const Icon(
                                       Icons.vpn_key_outlined,
                                       color: Colors.black,
@@ -144,13 +146,13 @@ class _LockerItemState extends State<LockerItem> {
                                 ? IconButton(
                                     onPressed: () {
                                       setState(() async {
-                                        widget.locker.isDefective = false;
                                         await Provider.of<
                                                     LockerStudentProvider>(
                                                 context,
                                                 listen: false)
-                                            .updateLocker(widget.locker
-                                                .copyWith(remark: ''));
+                                            .setLockerToUnDefectiveRemarks(
+                                                widget.locker);
+
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                           content: Text(

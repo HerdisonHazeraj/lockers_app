@@ -80,7 +80,7 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
     refreshList() {
       setState(() async {
         searchLockers(searchValue);
-        Provider.of<LockerStudentProvider>(context, listen: false)
+        await Provider.of<LockerStudentProvider>(context, listen: false)
             .setAllLockerToDefective();
         await refreshDefectiveList();
       });

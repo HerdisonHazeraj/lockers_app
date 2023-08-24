@@ -386,10 +386,64 @@ class LockerStudentProvider with ChangeNotifier {
     for (var locker in _lockerItems) {
       if (locker.nbKey < 2 || locker.remark != "") {
         await setLockerToDefective(locker);
-      } else if (locker.nbKey > 2 && locker.remark == "") {
-        unSetLockerToDefective(locker);
       }
     }
+  }
+
+  Future<void> setAllLockerToUnDefective() async {
+    for (var locker in _lockerItems) {
+      if (locker.nbKey >= 2 || locker.remark == "") {
+        await setLockerToUnDefective(locker);
+      }
+    }
+  }
+
+  Future<void> setLockerToUnDefectiveKeys(Locker locker) async {
+    if (locker.nbKey <= 2) {
+      if (locker.remark == "") {
+        await updateLocker(
+          locker.copyWith(
+            nbKey: 2,
+            isDefective: false,
+          ),
+        );
+      } else {
+        await updateLocker(
+          locker.copyWith(
+            nbKey: 2,
+            isDefective: true,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> setLockerToUnDefectiveRemarks(Locker locker) async {
+    if (locker.remark != "") {
+      if (locker.nbKey >= 2) {
+        await updateLocker(
+          locker.copyWith(
+            remark: "",
+            isDefective: false,
+          ),
+        );
+      } else {
+        await updateLocker(
+          locker.copyWith(
+            remark: "",
+            isDefective: true,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> setLockerToUnDefective(Locker locker) async {
+    await updateLocker(
+      locker.copyWith(
+        isDefective: false,
+      ),
+    );
   }
 
   Future<void> setLockerToDefective(Locker locker) async {
