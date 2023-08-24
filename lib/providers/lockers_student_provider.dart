@@ -38,6 +38,7 @@ class LockerStudentProvider with ChangeNotifier {
     _lockerItems.clear();
     final data = await dbService.getAllLockers();
     _lockerItems.addAll(data);
+    setAllLockerToDefective();
     notifyListeners();
   }
 
@@ -83,7 +84,8 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Locker> getAvailableLockers() {
     List<Locker> availableItem = getAccessibleLocker()
-        .where((element) => element.isAvailable == true)
+        .where((element) =>
+            element.isAvailable == true || element.isDefective == true)
         .toList();
     return availableItem;
   }
@@ -318,6 +320,12 @@ class LockerStudentProvider with ChangeNotifier {
     return students;
   }
 
+  List<Locker> getLockersWithRemarks() {
+    List<Locker> lockers =
+        getAccessibleLocker().where((element) => element.remark != "").toList();
+    return lockers;
+  }
+
   List<Student> getNonPaidCaution() {
     List<Student> students = getUnavailableStudents()
         .where((element) => element.caution == 0)
@@ -373,10 +381,28 @@ class LockerStudentProvider with ChangeNotifier {
     return lockers;
   }
 
+  Future<void> setAllLockerToDefective() async {
+    for (var locker in _lockerItems) {
+      if (locker.nbKey < 2 || locker.remark != "") {
+        await setLockerToDefective(locker);
+      } else if (locker.nbKey > 2 && locker.remark == "") {
+        unSetLockerToDefective(locker);
+      }
+    }
+  }
+
   Future<void> setLockerToDefective(Locker locker) async {
     await updateLocker(
       locker.copyWith(
         isDefective: true,
+      ),
+    );
+  }
+
+  Future<void> setNumberOfLockerKey(Locker locker, int nbKey) async {
+    await updateLocker(
+      locker.copyWith(
+        nbKey: nbKey,
       ),
     );
   }

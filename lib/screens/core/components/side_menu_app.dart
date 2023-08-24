@@ -1,10 +1,12 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
 import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/students/students_overview_screen.dart';
+import 'package:provider/provider.dart';
 
 class SideMenuApp extends StatelessWidget {
   const SideMenuApp({
@@ -114,6 +116,12 @@ class SideMenuApp extends StatelessWidget {
       ),
       items: [
         SideMenuItem(
+          badgeContent: const Text(
+            '3',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
           priority: DashboardOverviewScreen.pageIndex,
           title: 'Dashboard',
           onTap: (page, _) {
@@ -125,8 +133,35 @@ class SideMenuApp extends StatelessWidget {
           ),
         ),
         SideMenuItem(
+          badgeContent: const Text(
+            '3',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          // badgeColor: const Color(0xFFFB3274),
           priority: LockersOverviewScreen.pageIndex,
           title: 'Casiers',
+          trailing: Provider.of<LockerStudentProvider>(context)
+                      .getDefectiveLockers()
+                      .length >=
+                  1
+              ? Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0, vertical: 3),
+                    child: Text(
+                      Provider.of<LockerStudentProvider>(context)
+                          .getDefectiveLockers()
+                          .length
+                          .toString(),
+                      style: TextStyle(fontSize: 11, color: Colors.grey[800]),
+                    ),
+                  ))
+              : Text(''),
           onTap: (page, _) {
             sideMenuController.changePage(page);
           },

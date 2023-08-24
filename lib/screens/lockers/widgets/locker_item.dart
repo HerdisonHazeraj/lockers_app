@@ -9,11 +9,13 @@ import '../../../models/student.dart';
 
 class LockerItem extends StatefulWidget {
   final Locker locker;
+  final bool isLockerInDefectiveList;
   final Function()? showUpdateForm;
   final Function()? refreshList;
   const LockerItem({
     super.key,
     required this.locker,
+    required this.isLockerInDefectiveList,
     this.refreshList,
     this.showUpdateForm,
   });
@@ -50,13 +52,6 @@ class _LockerItemState extends State<LockerItem> {
       }),
       child: ListTile(
         enabled: widget.locker.isInaccessible == false ? true : false,
-        // leading: Icon(
-        //   widget.locker.isAvailable == true
-        //       ? Icons.lock_open_outlined
-        //       : Icons.lock_outlined,
-        //   color: Colors.black,
-        //   size: 40,
-        // ),
         leading: widget.locker.isDefective == true
             ? const Icon(
                 Icons.lock_outlined,
@@ -78,7 +73,10 @@ class _LockerItemState extends State<LockerItem> {
           'Casier n°${widget.locker.lockerNumber}',
         ),
         subtitle: widget.locker.remark == ''
-            ? const Text('Aucune remarque')
+            ? widget.isLockerInDefectiveList
+                ? Text(
+                    'Le casier ne possède plus que ${widget.locker.nbKey} clé ')
+                : Text('Aucune remarque')
             : Text(widget.locker.remark),
         trailing: widget.locker.isInaccessible == true
             ? Visibility(
@@ -92,7 +90,7 @@ class _LockerItemState extends State<LockerItem> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          "Le casier n°${widget.locker.lockerNumber} est de nouveau accessible !",
+                          "Le casier n°${widget.locker.lockerNumber} est à nouveau accessible !",
                         ),
                         duration: const Duration(seconds: 2),
                       ),
@@ -109,6 +107,68 @@ class _LockerItemState extends State<LockerItem> {
                 visible: widget.locker.isFocus,
                 child: Wrap(
                   children: [
+                    widget.isLockerInDefectiveList
+                        ? Wrap(children: [
+                            widget.locker.nbKey < 2
+                                ? IconButton(
+                                    onPressed: () {
+                                      setState(() async {
+                                        widget.locker.isDefective = false;
+                                        await Provider.of<
+                                                    LockerStudentProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateLocker(widget.locker
+                                                .copyWith(nbKey: 2));
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              "Le casier n°${widget.locker.nbKey} a bien été mis à jour !",
+                                            ),
+                                            duration:
+                                                const Duration(seconds: 2),
+                                          ),
+                                        );
+                                        widget.refreshList!();
+                                      });
+                                    },
+                                    tooltip: "Ajouter une clé",
+                                    icon: const Icon(
+                                      Icons.vpn_key_outlined,
+                                      color: Colors.black,
+                                    ))
+                                : Text(''),
+                            widget.locker.remark != ''
+                                ? IconButton(
+                                    onPressed: () {
+                                      setState(() async {
+                                        widget.locker.isDefective = false;
+                                        await Provider.of<
+                                                    LockerStudentProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateLocker(widget.locker
+                                                .copyWith(remark: ''));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text(
+                                            "Le casier n°${widget.locker.lockerNumber} a bien été mis à jour !",
+                                          ),
+                                          duration: const Duration(seconds: 2),
+                                        ));
+                                        widget.refreshList!();
+                                      });
+                                    },
+                                    tooltip: "Supprimer la remarque",
+                                    icon: const Icon(
+                                      Icons.task_alt_outlined,
+                                      color: Colors.black,
+                                    ))
+                                : Text('')
+                          ])
+                        : Text(''),
                     IconButton(
                       onPressed: () async {
                         if (widget.locker.isAvailable == false) {
@@ -191,7 +251,6 @@ class _LockerItemState extends State<LockerItem> {
                                     TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
-                                        // Mettre en place que celui qui possède le casier en reçoit un nouveau
                                       },
                                       child: const Text('Confirmer'),
                                     ),
