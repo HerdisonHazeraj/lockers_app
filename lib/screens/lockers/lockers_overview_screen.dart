@@ -200,7 +200,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: ExpansionPanelList(
-                              expansionCallback: (int index, bool isExpanded) {
+                              expansionCallback:
+                                  (int index, bool isExpDefective) {
                                 setState(() {
                                   isExpDefective = !isExpDefective;
                                 });
