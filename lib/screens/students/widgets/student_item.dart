@@ -130,8 +130,8 @@ class _StudentItemState extends State<StudentItem> {
                 child: Wrap(
                   children: [
                     IconButton(
-                      onPressed: () {
-                        Provider.of<LockerStudentProvider>(context,
+                      onPressed: () async {
+                        await Provider.of<LockerStudentProvider>(context,
                                 listen: false)
                             .updateStudent(
                                 widget.student.copyWith(isArchived: true));
@@ -142,6 +142,7 @@ class _StudentItemState extends State<StudentItem> {
                             duration: const Duration(seconds: 3),
                           ),
                         );
+                        widget.refreshList!();
                       },
                       tooltip: "Archiver l'élève",
                       icon: const Icon(
@@ -173,8 +174,8 @@ class _StudentItemState extends State<StudentItem> {
                             ),
                           )
                         : IconButton(
-                            onPressed: () {
-                              Provider.of<LockerStudentProvider>(context,
+                            onPressed: () async {
+                              await Provider.of<LockerStudentProvider>(context,
                                       listen: false)
                                   .updateStudent(
                                 widget.student.copyWith(caution: 20),
@@ -232,6 +233,7 @@ class _StudentItemState extends State<StudentItem> {
                                   duration: const Duration(seconds: 3),
                                 ),
                               );
+                              widget.refreshList!();
                             },
                             tooltip: "Attribuer automatiquement un casier",
                             icon: const Icon(
@@ -240,7 +242,7 @@ class _StudentItemState extends State<StudentItem> {
                             ),
                           )
                         : IconButton(
-                            onPressed: () {
+                            onPressed: () async {
                               Locker locker =
                                   Provider.of<LockerStudentProvider>(context,
                                           listen: false)
@@ -249,7 +251,7 @@ class _StudentItemState extends State<StudentItem> {
                                           element.lockerNumber ==
                                           widget.student.lockerNumber)
                                       .first;
-                              Provider.of<LockerStudentProvider>(context,
+                              await Provider.of<LockerStudentProvider>(context,
                                       listen: false)
                                   .unAttributeLocker(locker, widget.student);
 
@@ -272,6 +274,7 @@ class _StudentItemState extends State<StudentItem> {
                                   duration: const Duration(seconds: 3),
                                 ),
                               );
+                              widget.refreshList!();
                             },
                             tooltip: "Désattribuer le casier de l'élève",
                             icon: const Icon(
@@ -319,8 +322,8 @@ class _StudentItemState extends State<StudentItem> {
                                     child: const Text("Annuler"),
                                   ),
                                   TextButton(
-                                    onPressed: () {
-                                      Provider.of<LockerStudentProvider>(
+                                    onPressed: () async {
+                                      await Provider.of<LockerStudentProvider>(
                                               context,
                                               listen: false)
                                           .deleteStudent(widget.student.id!);
@@ -339,6 +342,7 @@ class _StudentItemState extends State<StudentItem> {
                                                   widget.student.id!),
                                         ),
                                       );
+                                      widget.refreshList!();
 
                                       Navigator.of(context).pop();
                                     },
