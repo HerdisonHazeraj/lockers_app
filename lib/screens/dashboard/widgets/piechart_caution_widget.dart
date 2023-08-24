@@ -28,7 +28,9 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
             .toDouble();
     return InkWell(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.4,
+        padding: const EdgeInsets.all(20),
+        width: MediaQuery.of(context).size.width * 0.14,
+        height: MediaQuery.of(context).size.height * 0.42,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -41,95 +43,88 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
             ),
           ],
         ),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.15,
-          child: Container(
-            margin: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Expanded(
-                  child: SfRadialGauge(
-                    axes: <RadialAxis>[
-                      RadialAxis(
-                        maximumLabels: 3,
-                        minimum: 0,
-                        maximum: paidCautionsList + unPaidCautionsList == 0
-                            ? 1
-                            : paidCautionsList + unPaidCautionsList,
-                        majorTickStyle: MajorTickStyle(length: 17),
-                        minorTickStyle: MinorTickStyle(length: 11),
-                        ranges: <GaugeRange>[
-                          GaugeRange(
-                              startWidth: 20,
-                              endWidth: 20,
-                              startValue: 0,
-                              endValue: paidCautionsList,
-                              color: const Color(0xFF01FBCF)),
-                          GaugeRange(
-                              startWidth: 20,
-                              endWidth: 20,
-                              startValue: paidCautionsList,
-                              endValue: paidCautionsList + unPaidCautionsList,
-                              color: const Color(0xFFFB3274)),
-                        ],
-                        pointers: <GaugePointer>[
-                          MarkerPointer(
-                            enableAnimation: true,
-                            animationType: AnimationType.ease,
-                            value: paidCautionsList,
-                            markerHeight: 15,
-                            markerOffset: 2,
-                            color: Colors.black,
-                          )
-                        ],
-                        annotations: <GaugeAnnotation>[
-                          GaugeAnnotation(
-                            widget: Column(
-                              children: [
-                                Text(
-                                  paidCautionsList.toInt().toString(),
-                                  style: const TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const Text(
-                                  'cautions payées',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w400,
-                                    height: 2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            angle: 90,
-                            positionFactor: 1.2,
-                          ),
-                        ],
+        child: Column(
+          children: [
+            Expanded(
+              child: SfRadialGauge(
+                axes: <RadialAxis>[
+                  RadialAxis(
+                    maximumLabels: 3,
+                    minimum: 0,
+                    maximum: paidCautionsList + unPaidCautionsList == 0
+                        ? 1
+                        : paidCautionsList + unPaidCautionsList,
+                    majorTickStyle: MajorTickStyle(length: 17),
+                    minorTickStyle: MinorTickStyle(length: 11),
+                    ranges: <GaugeRange>[
+                      GaugeRange(
+                          startWidth: 20,
+                          endWidth: 20,
+                          startValue: 0,
+                          endValue: paidCautionsList,
+                          color: const Color(0xFF01FBCF)),
+                      GaugeRange(
+                          startWidth: 20,
+                          endWidth: 20,
+                          startValue: paidCautionsList,
+                          endValue: paidCautionsList + unPaidCautionsList,
+                          color: const Color(0xFFFB3274)),
+                    ],
+                    pointers: <GaugePointer>[
+                      MarkerPointer(
+                        enableAnimation: true,
+                        animationType: AnimationType.ease,
+                        value: paidCautionsList,
+                        markerHeight: 15,
+                        markerOffset: 2,
+                        color: Colors.black,
                       )
                     ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20, left: 5, bottom: 5),
-                  child: const Column(
-                    children: [
-                      Indicator(
-                        color: Color(0xFF01FBCF),
-                        text: 'Cautions payées',
-                        isSquare: true,
-                      ),
-                      Indicator(
-                        color: Color(0xFFFB3274),
-                        text: 'Cautions non-payées',
-                        isSquare: true,
+                    annotations: <GaugeAnnotation>[
+                      GaugeAnnotation(
+                        widget: Column(
+                          children: [
+                            Text(
+                              paidCautionsList.toInt().toString(),
+                              style: const TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.bold),
+                            ),
+                            const Text(
+                              'cautions payées',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                                height: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                        angle: 90,
+                        positionFactor: 1.2,
                       ),
                     ],
-                  ),
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
+            Container(
+              margin: const EdgeInsets.only(top: 20, left: 5, bottom: 5),
+              child: const Column(
+                children: [
+                  Indicator(
+                    color: Color(0xFF01FBCF),
+                    text: 'Cautions payées',
+                    isSquare: true,
+                  ),
+                  Indicator(
+                    color: Color(0xFFFB3274),
+                    text: 'Cautions non-payées',
+                    isSquare: true,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

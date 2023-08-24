@@ -181,24 +181,28 @@ class SideMenuApp extends StatelessWidget {
           trailing: Provider.of<LockerStudentProvider>(context)
                   .getNonPaidCaution()
                   .isNotEmpty
-              ? Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.all(Radius.circular(6))),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 3),
-                    child: Text(
-                      Provider.of<LockerStudentProvider>(context)
-                          .getNonPaidCaution()
-                          .length
-                          .toString(),
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[800],
-                      ),
-                    ),
-                  ))
+              ? Tooltip(
+                  message:
+                      "Vous avez ${Provider.of<LockerStudentProvider>(context).getNonPaidCaution().length} cautions à récupérer",
+                  child: Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.all(Radius.circular(6))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6.0, vertical: 3),
+                        child: Text(
+                          Provider.of<LockerStudentProvider>(context)
+                              .getNonPaidCaution()
+                              .length
+                              .toString(),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      )),
+                )
               : const Text(''),
           onTap: (page, _) {
             sideMenuController.changePage(page);

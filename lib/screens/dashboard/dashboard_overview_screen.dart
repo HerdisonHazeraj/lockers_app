@@ -6,6 +6,7 @@ import 'package:lockers_app/screens/dashboard/widgets/barchart_widget.dart';
 import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
 import 'package:lockers_app/screens/dashboard/widgets/info_card.dart';
 import 'package:lockers_app/screens/dashboard/widgets/piechart_caution_widget.dart';
+import 'package:lockers_app/screens/dashboard/widgets/piechartdashboard_widget.dart';
 import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
@@ -55,331 +56,108 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Scaffold(
-            body: SafeArea(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 10,
-                    child: SafeArea(
-                      child: Column(
+        : Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Expanded(
+                  flex: 10,
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(20),
-                                      child: Container(
-                                        height: 420,
-                                        width: 420,
-                                        padding: const EdgeInsets.all(20),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.grey.withOpacity(0.1),
-                                              spreadRadius: 1,
-                                              blurRadius: 10,
-                                              offset: const Offset(0, 5),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                              child: Stack(
-                                                children: [
-                                                  Provider.of<LockerStudentProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .lockerItems
-                                                          .isEmpty
-                                                      ? Container()
-                                                      : PieChart(
-                                                          PieChartData(
-                                                            // startDegreeOffset: 0,
-                                                            pieTouchData:
-                                                                PieTouchData(
-                                                              touchCallback:
-                                                                  (FlTouchEvent
-                                                                          event,
-                                                                      pieTouchResponse) {
-                                                                setState(() {
-                                                                  if (!event
-                                                                          .isInterestedForInteractions ||
-                                                                      pieTouchResponse ==
-                                                                          null ||
-                                                                      pieTouchResponse
-                                                                              .touchedSection ==
-                                                                          null) {
-                                                                    touchedIndex =
-                                                                        -1;
-                                                                    return;
-                                                                  }
-                                                                  touchedIndex =
-                                                                      pieTouchResponse
-                                                                          .touchedSection!
-                                                                          .touchedSectionIndex;
-                                                                });
-                                                              },
-                                                            ),
-                                                            borderData:
-                                                                FlBorderData(
-                                                              show: false,
-                                                            ),
-                                                            sectionsSpace: 0,
-                                                            sections:
-                                                                showingSections(
-                                                                    context),
-                                                          ),
-                                                        ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      Provider.of<LockerStudentProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .lockerItems
-                                                          .length
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontSize: 50,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 25,
-                                            ),
-                                            const Column(
-                                              children: [
-                                                Indicator(
-                                                  color: Color(0xFF01FBCF),
-                                                  text: 'Casiers libres',
-                                                  isSquare: true,
-                                                ),
-                                                Indicator(
-                                                  color: Color(0xFFFB3274),
-                                                  text: 'Casiers occupés',
-                                                  isSquare: true,
-                                                ),
-                                                Indicator(
-                                                  color: Colors.orange,
-                                                  text: 'Casiers inaccessibles',
-                                                  isSquare: true,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Wrap(
-                                        spacing: Responsive.isMobile(context)
-                                            ? 8
-                                            : 20,
-                                        runSpacing: Responsive.isMobile(context)
-                                            ? 8
-                                            : 20,
-                                        children: [
-                                          InfoCard(
-                                              "Nombre total de casiers",
-                                              Provider.of<LockerStudentProvider>(
-                                                      context)
-                                                  .lockerItems
-                                                  .length
-                                                  .toString(),
-                                              "assets/icons/locker.svg",
-                                              () => widget.changePage(
-                                                  LockersOverviewScreen
-                                                      .pageIndex)),
-                                          InfoCard(
-                                            "Nombre total \nd'élèves",
-                                            Provider.of<LockerStudentProvider>(
-                                                    context)
-                                                .studentItems
-                                                .length
-                                                .toString(),
-                                            'assets/icons/student.svg',
-                                            () => widget.changePage(
-                                                StudentsOverviewScreen
-                                                    .pageIndex),
-                                          ),
-                                          InfoCard(
-                                            "Nombre d'élèves sans casiers",
-                                            Provider.of<LockerStudentProvider>(
-                                                    context)
-                                                .getAvailableStudents()
-                                                .length
-                                                .toString(),
-                                            "assets/icons/student.svg",
-                                            () => null,
-                                          ),
-                                          InfoCard(
-                                            "Nombre de casiers libres",
-                                            Provider.of<LockerStudentProvider>(
-                                                    context)
-                                                .getAvailableLockers()
-                                                .length
-                                                .toString(),
-                                            "assets/icons/locker.svg",
-                                            () => null,
-                                          ),
-                                          InfoCard(
-                                            "Nombre de casiers défectueux",
-                                            Provider.of<LockerStudentProvider>(
-                                                    context)
-                                                .getDefectiveLockers()
-                                                .length
-                                                .toString(),
-                                            "assets/icons/locker.svg",
-                                            () => null,
-                                          ),
-                                          InfoCard(
-                                            "Nombre de casiers avec clés manquantes",
-                                            Provider.of<LockerStudentProvider>(
-                                                    context)
-                                                .getLockerLessThen2Key()
-                                                .length
-                                                .toString(),
-                                            "assets/icons/key.svg",
-                                            () => null,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          Wrap(
-                                              spacing:
-                                                  Responsive.isMobile(context)
-                                                      ? 8
-                                                      : 20,
-                                              runSpacing:
-                                                  Responsive.isMobile(context)
-                                                      ? 8
-                                                      : 20,
-                                              children: [
-                                                BarChartWidget(),
-                                                CautionPieChartWidget(),
-                                              ]),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                          const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: PieChartDashboard(),
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InfoCard(
+                                    "Nombre total de casiers",
+                                    Provider.of<LockerStudentProvider>(context)
+                                        .lockerItems
+                                        .length
+                                        .toString(),
+                                    "assets/icons/locker.svg",
+                                    () => widget.changePage(
+                                        LockersOverviewScreen.pageIndex),
+                                  ),
+                                  InfoCard(
+                                    "Nombre total \nd'élèves",
+                                    Provider.of<LockerStudentProvider>(context)
+                                        .studentItems
+                                        .length
+                                        .toString(),
+                                    'assets/icons/student.svg',
+                                    () => widget.changePage(
+                                        StudentsOverviewScreen.pageIndex),
+                                  ),
+                                  InfoCard(
+                                    "Nombre d'élèves sans casiers",
+                                    Provider.of<LockerStudentProvider>(context)
+                                        .getAvailableStudents()
+                                        .length
+                                        .toString(),
+                                    "assets/icons/student.svg",
+                                    () => null,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  InfoCard(
+                                    "Nombre de casiers libres",
+                                    Provider.of<LockerStudentProvider>(context)
+                                        .getAvailableLockers()
+                                        .length
+                                        .toString(),
+                                    "assets/icons/locker.svg",
+                                    () => null,
+                                  ),
+                                  InfoCard(
+                                    "Nombre de casiers défectueux",
+                                    Provider.of<LockerStudentProvider>(context)
+                                        .getDefectiveLockers()
+                                        .length
+                                        .toString(),
+                                    "assets/icons/locker.svg",
+                                    () => null,
+                                  ),
+                                  InfoCard(
+                                    "Nombre de casiers avec clés manquantes",
+                                    Provider.of<LockerStudentProvider>(context)
+                                        .getLockerLessThen2Key()
+                                        .length
+                                        .toString(),
+                                    "assets/icons/key.svg",
+                                    () => null,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BarChartWidget(),
+                          const CautionPieChartWidget(),
+                        ],
+                      ),
+                    ],
                   ),
-                  Responsive.isDesktop(context)
-                      ? const DashboardMenu()
-                      : const Text(''),
-                ],
+                ),
               ),
-            ),
+              Responsive.isDesktop(context)
+                  ? const DashboardMenu()
+                  : const Text(''),
+            ],
           );
-  }
-
-  List<PieChartSectionData> showingSections(BuildContext context) {
-    return List.generate(
-      3,
-      (index) {
-        final isTouched = index == touchedIndex;
-        final fontSize = isTouched ? 20.0 : 16.0;
-        final radius = isTouched ? 56.0 : 50.0;
-        const shadows = [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 3,
-          ),
-        ];
-        switch (index) {
-          case 0:
-            // Casiers libres
-            return PieChartSectionData(
-              color: Color(0xFF01FBCF),
-              value: Provider.of<LockerStudentProvider>(context)
-                  .getAvailableLockers()
-                  .length
-                  .toDouble(),
-              title: Provider.of<LockerStudentProvider>(context)
-                  .getAvailableLockers()
-                  .length
-                  .toString(),
-              radius: radius,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                shadows: shadows,
-              ),
-            );
-          case 1:
-            // Casiers occupés
-            return PieChartSectionData(
-              color: Color(0xFFFB3274),
-              value: Provider.of<LockerStudentProvider>(context)
-                  .getUnAvailableLockers()
-                  .length
-                  .toDouble(),
-              title: Provider.of<LockerStudentProvider>(context)
-                  .getUnAvailableLockers()
-                  .length
-                  .toString(),
-              radius: radius,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                shadows: shadows,
-              ),
-            );
-          case 2:
-            // Casiers inaccessibles
-            return PieChartSectionData(
-              color: Colors.orange,
-              value: Provider.of<LockerStudentProvider>(context)
-                  .getInaccessibleLocker()
-                  .length
-                  .toDouble(),
-              title: Provider.of<LockerStudentProvider>(context)
-                  .getInaccessibleLocker()
-                  .length
-                  .toString(),
-              radius: radius,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                shadows: shadows,
-              ),
-            );
-          default:
-            throw Error();
-        }
-      },
-    );
   }
 }

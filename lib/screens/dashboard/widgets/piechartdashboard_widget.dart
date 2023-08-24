@@ -1,0 +1,191 @@
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
+import 'package:provider/provider.dart';
+
+class PieChartDashboard extends StatefulWidget {
+  const PieChartDashboard({super.key});
+
+  @override
+  State<PieChartDashboard> createState() => _PieChartDashboardState();
+}
+
+class _PieChartDashboardState extends State<PieChartDashboard> {
+  int touchedIndex = -1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.42,
+      width: MediaQuery.of(context).size.width * 0.2,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                Provider.of<LockerStudentProvider>(context, listen: false)
+                        .lockerItems
+                        .isEmpty
+                    ? Container()
+                    : PieChart(
+                        PieChartData(
+                          pieTouchData: PieTouchData(
+                            touchCallback:
+                                (FlTouchEvent event, pieTouchResponse) {
+                              setState(() {
+                                if (!event.isInterestedForInteractions ||
+                                    pieTouchResponse == null ||
+                                    pieTouchResponse.touchedSection == null) {
+                                  touchedIndex = -1;
+                                  return;
+                                }
+                                touchedIndex = pieTouchResponse
+                                    .touchedSection!.touchedSectionIndex;
+                              });
+                            },
+                          ),
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                          sectionsSpace: 0,
+                          sections: showingSections(context),
+                        ),
+                      ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .lockerItems
+                        .length
+                        .toString(),
+                    style: const TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          const Column(
+            children: [
+              Indicator(
+                color: Color(0xFF01FBCF),
+                text: 'Casiers libres',
+                isSquare: true,
+              ),
+              Indicator(
+                color: Color(0xFFFB3274),
+                text: 'Casiers occupés',
+                isSquare: true,
+              ),
+              Indicator(
+                color: Colors.orange,
+                text: 'Casiers inaccessibles',
+                isSquare: true,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<PieChartSectionData> showingSections(BuildContext context) {
+    return List.generate(
+      3,
+      (index) {
+        final isTouched = index == touchedIndex;
+        final fontSize = isTouched ? 20.0 : 16.0;
+        final radius = isTouched ? 56.0 : 50.0;
+        const shadows = [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 3,
+          ),
+        ];
+        switch (index) {
+          case 0:
+            // Casiers libres
+            return PieChartSectionData(
+              color: Color(0xFF01FBCF),
+              value: Provider.of<LockerStudentProvider>(context)
+                  .getAvailableLockers()
+                  .length
+                  .toDouble(),
+              title: Provider.of<LockerStudentProvider>(context)
+                  .getAvailableLockers()
+                  .length
+                  .toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: shadows,
+              ),
+            );
+          case 1:
+            // Casiers occupés
+            return PieChartSectionData(
+              color: Color(0xFFFB3274),
+              value: Provider.of<LockerStudentProvider>(context)
+                  .getUnAvailableLockers()
+                  .length
+                  .toDouble(),
+              title: Provider.of<LockerStudentProvider>(context)
+                  .getUnAvailableLockers()
+                  .length
+                  .toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: shadows,
+              ),
+            );
+          case 2:
+            // Casiers inaccessibles
+            return PieChartSectionData(
+              color: Colors.orange,
+              value: Provider.of<LockerStudentProvider>(context)
+                  .getInaccessibleLocker()
+                  .length
+                  .toDouble(),
+              title: Provider.of<LockerStudentProvider>(context)
+                  .getInaccessibleLocker()
+                  .length
+                  .toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: shadows,
+              ),
+            );
+          default:
+            throw Error();
+        }
+      },
+    );
+  }
+}
