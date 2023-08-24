@@ -80,7 +80,7 @@ class _LockerItemState extends State<LockerItem> {
                     ? Text(
                         '${widget.locker.remark} et ne possède plus que ${widget.locker.nbKey} clé ')
                     : Text(widget.locker.remark)
-            : Text('Aucune remarque'),
+            : const Text('Aucune remarque'),
         trailing: widget.locker.isInaccessible == true
             ? Visibility(
                 visible: widget.locker.isFocus,
@@ -127,7 +127,7 @@ class _LockerItemState extends State<LockerItem> {
                                             .showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                              "Le casier n°${widget.locker.nbKey} a bien été mis à jour !",
+                                              "Le casier n°${widget.locker.lockerNumber} a bien été mis à jour !",
                                             ),
                                             duration:
                                                 const Duration(seconds: 2),
@@ -140,8 +140,9 @@ class _LockerItemState extends State<LockerItem> {
                                     icon: const Icon(
                                       Icons.vpn_key_outlined,
                                       color: Colors.black,
-                                    ))
-                                : Text(''),
+                                    ),
+                                  )
+                                : const Text(''),
                             widget.locker.remark != ''
                                 ? IconButton(
                                     onPressed: () {
@@ -168,9 +169,9 @@ class _LockerItemState extends State<LockerItem> {
                                       Icons.task_alt_outlined,
                                       color: Colors.black,
                                     ))
-                                : Text('')
+                                : const Text('')
                           ])
-                        : Text(''),
+                        : const Text(''),
                     IconButton(
                       onPressed: () async {
                         if (widget.locker.isAvailable == false) {

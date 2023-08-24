@@ -71,7 +71,7 @@ class _SortElementWidgetState extends State<SortElementWidget> {
               backgroundColor: MaterialStateProperty.all(Colors.black54),
             ),
             child: const Text(
-              'Trier',
+              'Appliquer',
             ),
           ),
         )

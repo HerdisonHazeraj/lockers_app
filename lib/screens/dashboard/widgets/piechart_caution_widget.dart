@@ -87,7 +87,7 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                             widget: Column(
                               children: [
                                 Text(
-                                  paidCautionsList.toString(),
+                                  paidCautionsList.toInt().toString(),
                                   style: const TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold),
