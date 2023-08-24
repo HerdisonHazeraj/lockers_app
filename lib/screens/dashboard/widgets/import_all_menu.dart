@@ -49,6 +49,7 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
                   filePicker = (await FilePicker.platform.pickFiles(
                     type: FileType.custom,
                     allowedExtensions: ['csv'],
+                    withData: true,
                   ));
 
                   if (filePicker != null) {
