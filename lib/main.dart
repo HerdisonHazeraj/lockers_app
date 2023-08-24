@@ -1,6 +1,8 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/infrastructure/firebase_fsdb_service.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
@@ -18,9 +20,21 @@ import 'infrastructure/firebase_rtdb_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // if(kIsWeb)
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  } else if (defaultTargetPlatform == TargetPlatform.windows) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8",
+        appId: "1:653882674009:web:911282bd37d635c546da48",
+        messagingSenderId: "653882674009",
+        projectId: "lockers-app-40f8d",
+      ),
+    );
+  }
 
   runApp(const MyApp());
 }
@@ -33,11 +47,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) =>
-              LockerStudentProvider(FirebaseRTDBService.instance),
+          create: (context) => LockerStudentProvider(kIsWeb == false
+              ? FirebaseFSDBService.instance
+              : FirebaseRTDBService.instance),
         ),
         ChangeNotifierProvider(
-          create: (context) => HistoryProvider(FirebaseRTDBService.instance),
+          create: (context) => HistoryProvider(kIsWeb == false
+              ? FirebaseFSDBService.instance
+              : FirebaseRTDBService.instance),
         ),
       ],
       child: MaterialApp(

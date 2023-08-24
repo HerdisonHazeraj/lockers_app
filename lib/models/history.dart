@@ -1,4 +1,4 @@
-import 'dart:js_interop';
+// import 'dart:js_interop';
 
 import 'package:lockers_app/models/IHistory.dart';
 
@@ -55,7 +55,7 @@ class History extends IHistory {
       case "attribution" || "unattribution":
         return "L'élève ${student!["firstName"]} ${student!["lastName"]} à bien été ${getAction()} au casier n°${locker!["lockerNumber"]}";
       default:
-        switch (locker.isNull) {
+        switch (locker == null) {
           case true:
             return "L'élève ${student!["firstName"]} ${student!["lastName"]} à été ${getAction()}";
           case false:
