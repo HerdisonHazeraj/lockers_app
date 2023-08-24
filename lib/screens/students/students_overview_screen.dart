@@ -37,7 +37,7 @@ class _StudentsListViewState extends State<StudentsListView> {
 
   // Tools for students by search
   late bool isExpCautionsUnpaid = false;
-  late List<Student> cautionsUnpaidStudents = [];
+  late List<Student> unPaidCaqutionsStudentsList = [];
 
   // Tools for students by search
   late bool isExpSearch = false;
@@ -61,7 +61,7 @@ class _StudentsListViewState extends State<StudentsListView> {
 
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => true);
-      cautionsUnpaidStudents =
+      unPaidCaqutionsStudentsList =
           Provider.of<LockerStudentProvider>(context).getNonPaidCaution();
       isInit = true;
     }
@@ -82,7 +82,7 @@ class _StudentsListViewState extends State<StudentsListView> {
     }
 
     refreshNonPaidCautionList() {
-      cautionsUnpaidStudents =
+      unPaidCaqutionsStudentsList =
           Provider.of<LockerStudentProvider>(context, listen: false)
               .getNonPaidCaution();
     }
@@ -226,12 +226,12 @@ class _StudentsListViewState extends State<StudentsListView> {
                                   headerBuilder: ((context, isExpanded) {
                                     return ListTile(
                                       title: Text(
-                                        "Cautions non-payées (${cautionsUnpaidStudents.length.toString()})",
+                                        "Cautions non-payées (${unPaidCaqutionsStudentsList.length.toString()})",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     );
                                   }),
-                                  body: cautionsUnpaidStudents.isEmpty
+                                  body: unPaidCaqutionsStudentsList.isEmpty
                                       ? ListView.builder(
                                           shrinkWrap: true,
                                           itemCount: 1,
@@ -252,7 +252,8 @@ class _StudentsListViewState extends State<StudentsListView> {
                                           itemCount: 1,
                                           itemBuilder: (context, index) =>
                                               Column(children: [
-                                                ...cautionsUnpaidStudents.map(
+                                                ...unPaidCaqutionsStudentsList
+                                                    .map(
                                                   (s) => Container(
                                                     child: StudentItem(
                                                       student: s,

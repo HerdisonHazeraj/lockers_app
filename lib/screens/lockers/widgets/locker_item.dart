@@ -29,8 +29,8 @@ class _LockerItemState extends State<LockerItem> {
   Locker deletedLocker = Locker.base();
   @override
   Widget build(BuildContext context) {
-    desattributeLockerAndStudent(Student owner, Locker locker) {
-      Provider.of<LockerStudentProvider>(context, listen: false)
+    desattributeLockerAndStudent(Student owner, Locker locker) async {
+      await Provider.of<LockerStudentProvider>(context, listen: false)
           .updateStudent(owner.copyWith(lockerNumber: 0));
 
       widget.locker.isAvailable = false;
@@ -333,8 +333,9 @@ class _LockerItemState extends State<LockerItem> {
                                   child: const Text('Annuler'),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Provider.of<LockerStudentProvider>(context,
+                                  onPressed: () async {
+                                    await Provider.of<LockerStudentProvider>(
+                                            context,
                                             listen: false)
                                         .deleteLocker(widget.locker.id!);
                                     Provider.of<HistoryProvider>(context,
