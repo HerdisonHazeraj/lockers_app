@@ -43,6 +43,7 @@ class ImportStudentMenu extends StatelessWidget {
                   filePicker = (await FilePicker.platform.pickFiles(
                     type: FileType.custom,
                     allowedExtensions: ['csv'],
+                    withData: true,
                   ));
 
                   if (filePicker != null) {

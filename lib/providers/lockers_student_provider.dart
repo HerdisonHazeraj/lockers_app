@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:js_interop';
+// import 'dart:js_interop';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -144,7 +144,6 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Student getStudentByLocker(Locker locker) {
-    if (locker.isNull) return Student.base();
     List<Student> test = getNotArchivedStudent();
     Student student = test
         .firstWhere((element) => element.lockerNumber == locker.lockerNumber);
@@ -436,16 +435,16 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Locker> sortLockerBy(String key, bool value, List<Locker> lockers) {
     List<Locker> sortedLocker = lockers;
-    if (key.isNotEmpty && value.isDefinedAndNotNull) {
+    if (key.isNotEmpty) {
       if (value) {
-        sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString())
-                .isNull
+        sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString()) ==
+                null
             ? a.toJson()[key].toString().compareTo(b.toJson()[key].toString())
             : int.parse(a.toJson()[key].toString())
                 .compareTo(int.parse(b.toJson()[key].toString())));
       } else {
-        sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString())
-                .isNull
+        sortedLocker.sort((a, b) => int.tryParse(a.toJson()[key].toString()) ==
+                null
             ? -a.toJson()[key].toString().compareTo(b.toJson()[key].toString())
             : -int.parse(a.toJson()[key].toString())
                 .compareTo(int.parse(b.toJson()[key].toString())));
@@ -457,7 +456,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Student> sortStudentBy(String key, bool value, List<Student> students) {
     List<Student> sortedStudent = students;
-    if (key.isNotEmpty && value.isDefinedAndNotNull) {
+    if (key.isNotEmpty) {
       if (value) {
         sortedStudent.sort(
             (a, b) => a.toJson()[key].toString().compareTo(b.toJson()[key]));
@@ -532,7 +531,7 @@ class LockerStudentProvider with ChangeNotifier {
   void cancelHistory(History history) {
     switch (history.action) {
       case "add":
-        if (history.locker.isUndefinedOrNull) {
+        if (history.locker != null) {
           deleteStudent(
             history.student!['id'],
           );
@@ -543,7 +542,7 @@ class LockerStudentProvider with ChangeNotifier {
         }
         break;
       case "delete":
-        if (history.locker.isUndefinedOrNull) {
+        if (history.locker != null) {
           insertStudent(
             history.index!,
             Student.fromJson(history.student!),
@@ -556,7 +555,7 @@ class LockerStudentProvider with ChangeNotifier {
         }
         break;
       case "update":
-        if (history.locker.isUndefinedOrNull) {
+        if (history.locker != null) {
           updateStudent(
             Student.fromJson(history.student!),
           );
