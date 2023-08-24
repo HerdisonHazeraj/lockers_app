@@ -328,7 +328,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Student> getNonPaidCaution() {
     List<Student> students = getUnavailableStudents()
-        .where((element) => element.caution == 0)
+        .where((element) => element.caution == 0 && element.lockerNumber != 0)
         .toList();
     return students;
   }
