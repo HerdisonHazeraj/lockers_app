@@ -83,7 +83,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: (rod.toY - 1).toString(),
+                                  text: (rod.toY - 1).toInt().toString(),
                                   style: TextStyle(
                                     color: Colors.green[100],
                                     fontSize: 16,

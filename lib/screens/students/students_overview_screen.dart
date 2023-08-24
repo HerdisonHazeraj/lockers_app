@@ -36,6 +36,10 @@ class _StudentsListViewState extends State<StudentsListView> {
   bool isInit = false;
 
   // Tools for students by search
+  late bool isExpCautionsUnpaid = false;
+  late List<Student> cautionsUnpaidStudents = [];
+
+  // Tools for students by search
   late bool isExpSearch = false;
   late List<Student> searchedStudents = [];
   late String searchValue = "";
@@ -57,6 +61,8 @@ class _StudentsListViewState extends State<StudentsListView> {
 
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => true);
+      cautionsUnpaidStudents =
+          Provider.of<LockerStudentProvider>(context).getNonPaidCaution();
       isInit = true;
     }
 
@@ -75,9 +81,16 @@ class _StudentsListViewState extends State<StudentsListView> {
       }
     }
 
+    refreshNonPaidCautionList() {
+      cautionsUnpaidStudents =
+          Provider.of<LockerStudentProvider>(context, listen: false)
+              .getNonPaidCaution();
+    }
+
     refreshList() {
       setState(() {
         searchStudents(searchValue);
+        refreshNonPaidCautionList();
       });
     }
 
@@ -188,6 +201,67 @@ class _StudentsListViewState extends State<StudentsListView> {
                                             ),
                                           ],
                                         ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpCautionsUnpaid = !isExpCautionsUnpaid;
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ExpansionPanel(
+                                  isExpanded: isExpCautionsUnpaid,
+                                  canTapOnHeader: true,
+                                  headerBuilder: ((context, isExpanded) {
+                                    return ListTile(
+                                      title: Text(
+                                        "Cautions non-payées (${cautionsUnpaidStudents.length.toString()})",
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    );
+                                  }),
+                                  body: cautionsUnpaidStudents.isEmpty
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              const Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Aucune caution non-payée",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              Column(children: [
+                                                ...cautionsUnpaidStudents.map(
+                                                  (s) => Container(
+                                                    child: StudentItem(
+                                                      student: s,
+                                                      refreshList: () =>
+                                                          refreshList(),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ])),
                                 ),
                               ],
                             ),
