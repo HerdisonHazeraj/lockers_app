@@ -292,7 +292,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
     String text;
 
     if (value % 4 == 0) {
-      text = value.toString();
+      text = value.toInt().toString();
     } else {
       return Container();
     }

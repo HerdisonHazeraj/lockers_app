@@ -29,10 +29,10 @@ void main() async {
   } else if (defaultTargetPlatform == TargetPlatform.windows) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyBxEm-Uue1yUdhOIqvcNHIeebF2ZUCP0kg",
-        appId: "1:878604521951:web:37fc37eaae8242ce84b46a",
-        messagingSenderId: "878604521951",
-        projectId: "lockerapp-3b54f",
+        apiKey: "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8",
+        appId: "1:653882674009:web:911282bd37d635c546da48",
+        messagingSenderId: "653882674009",
+        projectId: "lockers-app-40f8d",
       ),
     );
   }
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: const Color(0xfff5f5fd),
-          fontFamily: GoogleFonts.lato().fontFamily,
+          fontFamily: GoogleFonts.roboto().fontFamily,
         ),
         routes: {
           PrepareDatabaseScreen.routeName: (context) =>

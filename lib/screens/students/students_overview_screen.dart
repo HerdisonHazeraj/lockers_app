@@ -145,6 +145,9 @@ class _StudentsListViewState extends State<StudentsListView> {
                                                 title: Text(
                                                   "Aucun résultat",
                                                   textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black38),
                                                 ),
                                               ),
                                             ],

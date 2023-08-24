@@ -185,20 +185,20 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                       filterName: 'Responsable(s): ',
                       filterNod: 'manager',
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20.0, left: 10.0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.black54),
-                          ),
-                          onPressed: () {
-                            prepareFilterKeys();
-                          },
-                          child: const Text('Appliquer'),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.075,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.black54),
                         ),
+                        onPressed: () {
+                          prepareFilterKeys();
+                        },
+                        child: const Text('Appliquer'),
                       ),
                     )
                   ],
