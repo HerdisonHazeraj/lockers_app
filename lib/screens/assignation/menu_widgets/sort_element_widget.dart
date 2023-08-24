@@ -31,15 +31,17 @@ class _SortElementWidgetState extends State<SortElementWidget> {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.15,
+            Expanded(
               child: DropDownItemWidget(
                 list: widget.sortList,
                 controller: widget.sortController,
-                hintText: "Trier par...",
+                hintText: "Veuillez choisir...",
               ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.02,
             ),
             Row(
               children: [
@@ -55,17 +57,23 @@ class _SortElementWidgetState extends State<SortElementWidget> {
             ),
           ],
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 20.0, left: 10.0, bottom: 10.0),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.02,
+        ),
+        SizedBox(
+          width: double.infinity,
           child: ElevatedButton(
-              onPressed: () {
-                widget.changeLockerListStateVoid(
-                    widget.sortController, widget.isOrderCheckChecked);
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.black54),
-              ),
-              child: const Text('Trier')),
+            onPressed: () {
+              widget.changeLockerListStateVoid(
+                  widget.sortController, widget.isOrderCheckChecked);
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.black54),
+            ),
+            child: const Text(
+              'Trier',
+            ),
+          ),
         )
       ],
     );

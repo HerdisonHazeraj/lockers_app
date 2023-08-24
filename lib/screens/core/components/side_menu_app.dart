@@ -55,7 +55,7 @@ class SideMenuApp extends StatelessWidget {
             showGeneralDialog(
               context: context,
               barrierColor: Colors.black38,
-              barrierLabel: "Photo de l'élève",
+              barrierLabel: "Information",
               barrierDismissible: true,
               pageBuilder: (_, __, ___) => Center(
                 child: Container(
@@ -143,9 +143,8 @@ class SideMenuApp extends StatelessWidget {
           priority: LockersOverviewScreen.pageIndex,
           title: 'Casiers',
           trailing: Provider.of<LockerStudentProvider>(context)
-                      .getDefectiveLockers()
-                      .length >=
-                  1
+                  .getDefectiveLockers()
+                  .isNotEmpty
               ? Container(
                   decoration: const BoxDecoration(
                       color: Colors.amber,
@@ -158,10 +157,13 @@ class SideMenuApp extends StatelessWidget {
                           .getDefectiveLockers()
                           .length
                           .toString(),
-                      style: TextStyle(fontSize: 11, color: Colors.grey[800]),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[800],
+                      ),
                     ),
                   ))
-              : Text(''),
+              : const Text(''),
           onTap: (page, _) {
             sideMenuController.changePage(page);
           },
