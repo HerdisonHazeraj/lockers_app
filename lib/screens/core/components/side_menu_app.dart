@@ -29,9 +29,8 @@ class SideMenuApp extends StatelessWidget {
       title: Column(
         children: [
           ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 150,
-              maxWidth: 150,
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.1,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
@@ -41,9 +40,9 @@ class SideMenuApp extends StatelessWidget {
               ),
             ),
           ),
-          const Divider(
-            indent: 8,
-            endIndent: 8,
+          Divider(
+            indent: MediaQuery.of(context).size.height * 0.05,
+            endIndent: MediaQuery.of(context).size.height * 0.05,
           ),
         ],
       ),
