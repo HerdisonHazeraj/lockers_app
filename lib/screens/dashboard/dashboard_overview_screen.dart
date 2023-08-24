@@ -52,7 +52,9 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? const Center(child: CircularProgressIndicator())
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
         : Scaffold(
             body: SafeArea(
               child: Row(
@@ -66,26 +68,14 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
                             Row(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(20),
                                   child: Container(
-                                    height: Responsive.isMobile(context)
-                                        ? 350
-                                        : 420,
-                                    width: Responsive.isMobile(context)
-                                        ? 350
-                                        : 420,
-                                    padding: const EdgeInsets.only(
-                                      top: 20,
-                                      left: 20,
-                                      right: 20,
-                                      bottom: 20,
-                                    ),
+                                    height: 420,
+                                    width: 420,
+                                    padding: const EdgeInsets.all(20),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(20),
@@ -209,7 +199,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                           () => widget.changePage(
                                               LockersOverviewScreen.pageIndex)),
                                       InfoCard(
-                                        "Nombre total   d'élèves",
+                                        "Nombre total \nd'élèves",
                                         Provider.of<LockerStudentProvider>(
                                                 context)
                                             .studentItems

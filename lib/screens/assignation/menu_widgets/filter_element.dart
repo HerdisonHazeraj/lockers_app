@@ -52,7 +52,7 @@ class _FilterElementState extends State<FilterElement> {
         labelText: widget.filterName,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         contentPadding: const EdgeInsets.only(
-            left: 35.0, top: 10.0, right: 10.0, bottom: 8.0),
+            left: 35.0, top: 10.0, right: 10.0, bottom: 14.0),
         floatingLabelAlignment: FloatingLabelAlignment.center,
         prefixIcon: Icon(widget.icon),
       ),
