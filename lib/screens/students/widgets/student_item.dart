@@ -187,6 +187,7 @@ class _StudentItemState extends State<StudentItem> {
                                   duration: const Duration(seconds: 3),
                                 ),
                               );
+                              widget.refreshList!();
                             },
                             tooltip: "L'élève a payé la caution",
                             icon: const Icon(

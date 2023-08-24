@@ -36,8 +36,8 @@ class _StudentsListViewState extends State<StudentsListView> {
   bool isInit = false;
 
   // Tools for students by search
-  late bool isExpCautionsunp = false;
-  late List<Student> cautionsUnpayedStudents = [];
+  late bool isExpCautionsUnpaid = false;
+  late List<Student> cautionsUnpaidStudents = [];
 
   // Tools for students by search
   late bool isExpSearch = false;
@@ -61,7 +61,7 @@ class _StudentsListViewState extends State<StudentsListView> {
 
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => true);
-      cautionsUnpayedStudents =
+      cautionsUnpaidStudents =
           Provider.of<LockerStudentProvider>(context).getNonPaidCaution();
       isInit = true;
     }
@@ -81,9 +81,16 @@ class _StudentsListViewState extends State<StudentsListView> {
       }
     }
 
+    refreshNonPaidCautionList() {
+      cautionsUnpaidStudents =
+          Provider.of<LockerStudentProvider>(context, listen: false)
+              .getNonPaidCaution();
+    }
+
     refreshList() {
       setState(() {
         searchStudents(searchValue);
+        refreshNonPaidCautionList();
       });
     }
 
@@ -203,7 +210,7 @@ class _StudentsListViewState extends State<StudentsListView> {
                             child: ExpansionPanelList(
                               expansionCallback: (int index, bool isExpanded) {
                                 setState(() {
-                                  isExpCautionsunp = !isExpCautionsunp;
+                                  isExpCautionsUnpaid = !isExpCautionsUnpaid;
                                 });
                               },
                               expandedHeaderPadding: const EdgeInsets.all(6),
@@ -211,17 +218,17 @@ class _StudentsListViewState extends State<StudentsListView> {
                                   const Duration(milliseconds: 500),
                               children: [
                                 ExpansionPanel(
-                                  isExpanded: isExpCautionsunp,
+                                  isExpanded: isExpCautionsUnpaid,
                                   canTapOnHeader: true,
                                   headerBuilder: ((context, isExpanded) {
                                     return ListTile(
                                       title: Text(
-                                        "Cautions non-payées (${cautionsUnpayedStudents.length.toString()})",
+                                        "Cautions non-payées (${cautionsUnpaidStudents.length.toString()})",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     );
                                   }),
-                                  body: cautionsUnpayedStudents.isEmpty
+                                  body: cautionsUnpaidStudents.isEmpty
                                       ? ListView.builder(
                                           shrinkWrap: true,
                                           itemCount: 1,
@@ -242,7 +249,7 @@ class _StudentsListViewState extends State<StudentsListView> {
                                           itemCount: 1,
                                           itemBuilder: (context, index) =>
                                               Column(children: [
-                                                ...cautionsUnpayedStudents.map(
+                                                ...cautionsUnpaidStudents.map(
                                                   (s) => Container(
                                                     child: StudentItem(
                                                       student: s,
