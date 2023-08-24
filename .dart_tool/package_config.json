@@ -806,11 +806,7 @@
       "languageVersion": "3.0"
     }
   ],
-<<<<<<< HEAD
-  "generated": "2023-08-23T12:10:04.052819Z",
-=======
-  "generated": "2023-08-23T13:27:18.521474Z",
->>>>>>> 0fce0fbb6d5ba46813c3468bf8b99d47008a0823
+  "generated": "2023-08-24T07:32:20.904133Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
