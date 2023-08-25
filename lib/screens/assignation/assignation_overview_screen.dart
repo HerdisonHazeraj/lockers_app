@@ -315,8 +315,8 @@ class _AssignListViewState extends State<AssignListView> {
                                 studentsListView: studentsListView,
                                 areAllchecksChecked: areAllchecksChecked,
                                 selectedStudents: selectedStudents,
-                                checkIfWeCanAssignVoid: checkIfWeCanAssign,
-                                checkIfWeCanAutoAssignVoid:
+                                checkIfWeCanAssignFunction: checkIfWeCanAssign,
+                                checkIfWeCanAutoAssignFunction:
                                     checkIfWeCanAutoAssign,
                               ),
                               AvailableLockersListWidget(

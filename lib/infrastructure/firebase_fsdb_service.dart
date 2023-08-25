@@ -6,7 +6,7 @@ import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
 
 const apiKey = "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8";
-const projectId = "lockerapp-3b54f";
+const projectId = "lockers-app-40f8d";
 
 class FirebaseFSDBService implements DBService {
   static final instance = FirebaseFSDBService._();
@@ -82,31 +82,22 @@ class FirebaseFSDBService implements DBService {
 
   @override
   Future<void> deleteHistory(String id) async {
-    return await Firestore.instance
-        .collection("histories")
-        .document(id)
-        .delete();
+    return Firestore.instance.collection("histories").document(id).delete();
   }
 
   @override
   Future<void> deleteLocker(String id) async {
-    return await Firestore.instance.collection("lockers").document(id).delete();
+    return Firestore.instance.collection("lockers").document(id).delete();
   }
 
   @override
   Future<void> deleteProblem(String id) async {
-    return await Firestore.instance
-        .collection("problems")
-        .document(id)
-        .delete();
+    return Firestore.instance.collection("problems").document(id).delete();
   }
 
   @override
   Future<void> deleteStudent(String id) async {
-    return await Firestore.instance
-        .collection("students")
-        .document(id)
-        .delete();
+    return Firestore.instance.collection("students").document(id).delete();
   }
 
   @override
@@ -161,7 +152,7 @@ class FirebaseFSDBService implements DBService {
 
   @override
   Future<History> updateHistory(History history) async {
-    await Firestore.instance
+    Firestore.instance
         .collection("histories")
         .document(history.id.toString())
         .update(history.toJson());
@@ -171,7 +162,7 @@ class FirebaseFSDBService implements DBService {
 
   @override
   Future<Locker> updateLocker(Locker locker) async {
-    await Firestore.instance
+    Firestore.instance
         .collection("lockers")
         .document(locker.id.toString())
         .update(locker.toJson());
@@ -181,7 +172,7 @@ class FirebaseFSDBService implements DBService {
 
   @override
   Future<Problem> updateProblem(Problem problem) async {
-    await Firestore.instance
+    Firestore.instance
         .collection("problems")
         .document(problem.id.toString())
         .update(problem.toJson());
@@ -191,7 +182,7 @@ class FirebaseFSDBService implements DBService {
 
   @override
   Future<Student> updateStudent(Student student) async {
-    await Firestore.instance
+    Firestore.instance
         .collection("students")
         .document(student.id.toString())
         .update(student.toJson());
