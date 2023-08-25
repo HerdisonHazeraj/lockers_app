@@ -54,9 +54,7 @@ class _AvailableLockersListWidgetState
                             value: widget.availableLockers[index].isSelected,
                             title: Text(
                                 'Casier n°${widget.availableLockers[index].lockerNumber.toString()}'),
-                            secondary:
-                                // Expanded(
-                                Row(
+                            secondary: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(widget.availableLockers[index].nbKey
@@ -70,7 +68,6 @@ class _AvailableLockersListWidgetState
                                 ),
                               ],
                             ),
-                            // ),
                             subtitle: Text(
                                 'Étage ${widget.availableLockers[index].floor.toUpperCase()}'),
                             onChanged: (newValue) {

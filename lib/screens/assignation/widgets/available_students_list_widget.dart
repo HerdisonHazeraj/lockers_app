@@ -10,14 +10,14 @@ class AvailableStudentsListWidget extends StatefulWidget {
       required this.studentsListView,
       required this.areAllchecksChecked,
       required this.selectedStudents,
-      required this.checkIfWeCanAssignVoid,
-      required this.checkIfWeCanAutoAssignVoid});
+      required this.checkIfWeCanAssignFunction,
+      required this.checkIfWeCanAutoAssignFunction});
   List<Student> studentsListView;
   bool areAllchecksChecked;
   List<Student> selectedStudents;
 
-  final VoidCallback checkIfWeCanAssignVoid;
-  final VoidCallback checkIfWeCanAutoAssignVoid;
+  final VoidCallback checkIfWeCanAssignFunction;
+  final VoidCallback checkIfWeCanAutoAssignFunction;
 
   @override
   State<AvailableStudentsListWidget> createState() =>
@@ -87,8 +87,8 @@ class _AvailableStudentsListWidgetState
                                 widget.areAllchecksChecked = false;
                               }
 
-                              widget.checkIfWeCanAssignVoid();
-                              widget.checkIfWeCanAutoAssignVoid();
+                              widget.checkIfWeCanAssignFunction();
+                              widget.checkIfWeCanAutoAssignFunction();
                             });
                           },
                         ),
