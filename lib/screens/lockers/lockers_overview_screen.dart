@@ -77,13 +77,13 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
       // });
     }
 
-    refreshList() {
-      setState(() async {
-        searchLockers(searchValue);
-        await Provider.of<LockerStudentProvider>(context, listen: false)
-            .setAllLockerToDefective();
-        await refreshDefectiveList();
-      });
+    refreshList() async {
+      // setState(() async {
+      searchLockers(searchValue);
+      await Provider.of<LockerStudentProvider>(context, listen: false)
+          .setAllLockerToDefective();
+      await refreshDefectiveList();
+      // });
     }
 
     return Scaffold(

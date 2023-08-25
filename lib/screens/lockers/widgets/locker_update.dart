@@ -237,7 +237,13 @@ class _LockerUpdateState extends State<LockerUpdate> {
                                   floor: floorController.text,
                                   job: jobController.text,
                                   remark: remarkController.text,
+                                  isDefective:
+                                      int.parse(nbKeyController.text) != 0 ||
+                                              remarkController.text == ""
+                                          ? false
+                                          : true,
                                 ));
+
                                 Provider.of<HistoryProvider>(context,
                                         listen: false)
                                     .addHistory(History(
