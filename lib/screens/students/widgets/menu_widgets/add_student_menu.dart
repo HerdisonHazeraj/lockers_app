@@ -28,6 +28,14 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
   // Form key
   final _formKey = GlobalKey<FormState>();
 
+  final focusFirstName = FocusNode();
+  final focusLastName = FocusNode();
+  final focusMail = FocusNode();
+  final focusJob = FocusNode();
+  final focusLogin = FocusNode();
+  final focusYear = FocusNode();
+  final focusClasse = FocusNode();
+  final focusResponsable = FocusNode();
   @override
   Widget build(BuildContext context) {
     return ListBody(
@@ -62,6 +70,11 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusFirstName,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context).requestFocus(focusLastName);
+                          },
                           controller: firstnameController,
                           decoration: const InputDecoration(
                             labelText: "Prénom",
@@ -76,6 +89,11 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusLogin,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context).requestFocus(focusMail);
+                          },
                           controller: loginController,
                           decoration: const InputDecoration(
                             labelText: "Login",
@@ -89,6 +107,11 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusClasse,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context).requestFocus(focusYear);
+                          },
                           controller: classeController,
                           decoration: const InputDecoration(
                             labelText: "Classe",
@@ -101,6 +124,12 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                               return 'Veuillez remplir ce champ';
                             }
                             return null;
+                          },
+                          focusNode: focusJob,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context)
+                                .requestFocus(focusResponsable);
                           },
                           controller: jobController,
                           decoration: const InputDecoration(
@@ -125,6 +154,11 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusLastName,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context).requestFocus(focusLogin);
+                          },
                           controller: lastnameController,
                           decoration: const InputDecoration(
                             labelText: "Nom",
@@ -139,6 +173,11 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusMail,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context).requestFocus(focusClasse);
+                          },
                           controller: mailController,
                           decoration: const InputDecoration(
                             labelText: "Mail",
@@ -147,6 +186,8 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                         DropDownMenu(
+                          focus: focusYear,
+                          nextFocus: focusJob,
                           enabled: true,
                           items: const {
                             "1": "1ère année",
@@ -169,6 +210,8 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusResponsable,
+                          textInputAction: TextInputAction.done,
                           controller: responsableController,
                           decoration: const InputDecoration(
                             labelText: "Maître de classe",

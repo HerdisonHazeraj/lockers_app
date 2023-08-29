@@ -84,9 +84,11 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
       await Provider.of<LockerStudentProvider>(context, listen: false)
           .setAllLockerToDefective();
       await refreshDefectiveList();
+      searchLockers(searchValue);
       // });
     }
 
+<<<<<<< HEAD
     return Row(
       children: [
         Expanded(
@@ -117,6 +119,117 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                 title: Text(
                                   "Résultats de recherche (${searchedLockers.length.toString()})",
                                   style: const TextStyle(fontSize: 18),
+=======
+    return Scaffold(
+      body: SafeArea(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 10,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ExpansionPanelList(
+                              expansionCallback: (int index, bool isExpanded) {
+                                setState(() {
+                                  isExpSearch = !isExpSearch;
+                                });
+                              },
+                              expandedHeaderPadding: const EdgeInsets.all(6.0),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              children: [
+                                ExpansionPanel(
+                                  isExpanded: isExpSearch,
+                                  canTapOnHeader: true,
+                                  headerBuilder: (context, isExpanded) {
+                                    return ListTile(
+                                      title: Text(
+                                        "Résultats de recherche (${searchedLockers.length.toString()})",
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    );
+                                  },
+                                  body: searchedLockers.isEmpty
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) =>
+                                              const Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "Aucun résultat",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black38),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : ExpansionPanelList(
+                                          expansionCallback:
+                                              (int index, bool isExpanded) {
+                                            setState(() {
+                                              searchedLockers[index]
+                                                      .isUpdatingSearch =
+                                                  !searchedLockers[index]
+                                                      .isUpdatingSearch;
+                                            });
+                                          },
+                                          expandedHeaderPadding:
+                                              const EdgeInsets.all(0),
+                                          animationDuration:
+                                              const Duration(milliseconds: 500),
+                                          children: [
+                                            ...searchedLockers.map(
+                                              (l) => ExpansionPanel(
+                                                isExpanded: l.isUpdatingSearch,
+                                                canTapOnHeader: true,
+                                                headerBuilder:
+                                                    (context, isExpanded) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            6.0),
+                                                    child: LockerItem(
+                                                      locker: l,
+                                                      isLockerInDefectiveList:
+                                                          false,
+                                                      refreshList: () =>
+                                                          refreshList(),
+                                                    ),
+                                                  );
+                                                },
+                                                body: l.isUpdatingSearch
+                                                    ? LockerUpdate(
+                                                        locker: l,
+                                                        showUpdateForm: () =>
+                                                            setState(() {
+                                                          l.isUpdatingSearch = !l
+                                                              .isUpdatingSearch;
+                                                        }),
+                                                        updateSearchLockerList:
+                                                            () => refreshList(),
+                                                      )
+                                                    : const SizedBox(),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+>>>>>>> 6336f07f989e6344475db575728e63f1677603e3
                                 ),
                               );
                             },

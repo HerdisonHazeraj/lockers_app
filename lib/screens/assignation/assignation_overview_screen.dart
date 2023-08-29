@@ -264,6 +264,7 @@ class _AssignListViewState extends State<AssignListView> {
                         children: [
                           Row(
                             children: [
+<<<<<<< HEAD
                               Checkbox(
                                   value: areAllchecksChecked,
                                   onChanged: (newValue) {
@@ -327,6 +328,27 @@ class _AssignListViewState extends State<AssignListView> {
                                             index, newValue))
                           ]),
                     ],
+=======
+                              AvailableStudentsListWidget(
+                                studentsListView: studentsListView,
+                                areAllchecksChecked: areAllchecksChecked,
+                                selectedStudents: selectedStudents,
+                                checkIfWeCanAssignFunction: checkIfWeCanAssign,
+                                checkIfWeCanAutoAssignFunction:
+                                    checkIfWeCanAutoAssign,
+                              ),
+                              AvailableLockersListWidget(
+                                  availableLockers: lockersListView,
+                                  isALockerSelected: isALockerSelected,
+                                  checkIfWeCanAssignVoid: checkIfWeCanAssign,
+                                  changeCheckBoxesLockerStatesVoid:
+                                      (index, newValue) =>
+                                          changeCheckBoxesLockerStates(
+                                              index, newValue))
+                            ]),
+                      ],
+                    ),
+>>>>>>> 6336f07f989e6344475db575728e63f1677603e3
                   ),
                 ),
               ),

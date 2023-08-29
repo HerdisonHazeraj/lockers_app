@@ -57,6 +57,32 @@ class LockerStudentProvider with ChangeNotifier {
     }
   }
 
+  Map<dynamic, String> findFilters(String node) {
+    List<Student> students = getNotArchivedStudent();
+    Map<dynamic, String> filters = {};
+
+    for (var student in students) {
+      switch (node) {
+        case 'job':
+          filters.addEntries([MapEntry(student.job, student.job)]);
+          break;
+
+        case 'responsable':
+          if (student.responsable == "") {
+            filters.addEntries(
+                [MapEntry(student.responsable, "Aucun responsable")]);
+          } else {
+            filters.addEntries(
+                [MapEntry(student.responsable, student.responsable)]);
+          }
+          break;
+      }
+    }
+
+    // return students;
+    return filters;
+  }
+
   Future<void> deleteLocker(String id) async {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
@@ -84,8 +110,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Locker> getAvailableLockers() {
     List<Locker> availableItem = getAccessibleLocker()
-        .where((element) =>
-            element.isAvailable == true || element.isDefective == true)
+        .where((element) => element.isAvailable == true)
         .toList();
     return availableItem;
   }

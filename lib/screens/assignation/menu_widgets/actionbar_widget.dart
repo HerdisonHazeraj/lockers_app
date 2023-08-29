@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/screens/assignation/menu_widgets/sort_element_widget.dart';
 import 'package:lockers_app/screens/assignation/menu_widgets/filter_element.dart';
 import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
+import 'package:provider/provider.dart';
 import '../../../models/locker.dart';
 import '../../../models/student.dart';
+import '../../../providers/lockers_student_provider.dart';
 
 // ignore: must_be_immutable
 class ActionBarWidget extends StatefulWidget {
@@ -41,21 +43,22 @@ class ActionBarWidget extends StatefulWidget {
 
 class _ActionBarWidgetState extends State<ActionBarWidget> {
 //filtres afficher dans les select du filtre
-  Map<dynamic, String> metiers = {
-    'Informaticien-ne CFC (dès 2021)': 'ICT',
-    'OIC': 'OIC'
-  };
+  // Map<dynamic, String> metiers = {
+  //   'Informaticien-ne CFC dès 2021': 'ICT',
+  //   'Opérateur-trics en informatique': 'OIC'
+  // };
+
   Map<dynamic, String> annees = {1: '1ère', 2: '2ème', 3: '3ème', 4: '4ème'};
-  Map<dynamic, String> responsables = {
-    'CGU': 'Cédric Guerdat',
-    'JHI': 'Jacques Hirtzel',
-    'JCM': 'Jean-Christophe Mathez',
-    'JMO': 'Jean-Pierre Monbaron',
-    'JOS': 'Joachim Stalder',
-    'MIV': 'Michael Vogel',
-    'PGA': 'Pascal Gagnebin',
-    'RMU': 'Raymond Musy'
-  };
+  // Map<dynamic, String> responsables = {
+  //   'CGU': 'Cédric Guerdat',
+  //   'JHI': 'Jacques Hirtzel',
+  //   'JCM': 'Jean-Christophe Mathez',
+  //   'JMO': 'Jean-Pierre Monbaron',
+  //   'JOS': 'Joachim Stalder',
+  //   'MIV': 'Michael Vogel',
+  //   'PGA': 'Pascal Gagnebin',
+  //   'RMU': 'Raymond Musy'
+  // };
 
   final sortList = {
     "lockerNumber": 'Numéro de casier',
@@ -87,6 +90,14 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
 
   @override
   Widget build(BuildContext context) {
+    Map<dynamic, String> metiers =
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .findFilters('job');
+
+    Map<dynamic, String> responsables =
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .findFilters('responsable');
+
     prepareFilterKeys() {
       widget.keys.clear();
       if (metiersKeys.isNotEmpty) {

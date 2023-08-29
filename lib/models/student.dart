@@ -57,6 +57,20 @@ class Student extends IStudent {
     );
   }
 
+  // String getJob() {
+  //   switch (job) {
+  //     case String a when a.contains("Informaticien-ne CFC dès 2021"):
+  //       return "ICT";
+  //     case String a when a.contains("Informaticien-ne CFC dès 2014"):
+  //       return "ICH";
+  //     case String a when a.contains("Opérateur-trice"):
+  //       return "OIC";
+
+  //     default:
+  //       return "";
+  //   }
+  // }
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'firstName': firstName,
