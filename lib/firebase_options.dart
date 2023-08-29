@@ -49,7 +49,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '878604521951',
     projectId: 'lockerapp-3b54f',
     authDomain: 'lockerapp-3b54f.firebaseapp.com',
-    databaseURL: 'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'lockerapp-3b54f.appspot.com',
   );
 
@@ -58,7 +59,8 @@ class DefaultFirebaseOptions {
     appId: '1:878604521951:android:a34e850e6e5e399284b46a',
     messagingSenderId: '878604521951',
     projectId: 'lockerapp-3b54f',
-    databaseURL: 'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'lockerapp-3b54f.appspot.com',
   );
 
@@ -67,9 +69,11 @@ class DefaultFirebaseOptions {
     appId: '1:878604521951:ios:88cffa21acfdac2784b46a',
     messagingSenderId: '878604521951',
     projectId: 'lockerapp-3b54f',
-    databaseURL: 'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'lockerapp-3b54f.appspot.com',
-    iosClientId: '878604521951-4cgqrvrgo9veirkjis77u1dqkkufgg3j.apps.googleusercontent.com',
+    iosClientId:
+        '878604521951-4cgqrvrgo9veirkjis77u1dqkkufgg3j.apps.googleusercontent.com',
     iosBundleId: 'com.example.lockersApp',
   );
 
@@ -78,9 +82,11 @@ class DefaultFirebaseOptions {
     appId: '1:878604521951:ios:43207f9971c4019884b46a',
     messagingSenderId: '878604521951',
     projectId: 'lockerapp-3b54f',
-    databaseURL: 'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'lockerapp-3b54f.appspot.com',
-    iosClientId: '878604521951-uv6gv8tpegqvdv5pcho0d8eiogie0pfg.apps.googleusercontent.com',
+    iosClientId:
+        '878604521951-uv6gv8tpegqvdv5pcho0d8eiogie0pfg.apps.googleusercontent.com',
     iosBundleId: 'com.example.lockersApp.RunnerTests',
   );
 }

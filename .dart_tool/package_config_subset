@@ -164,8 +164,8 @@ file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/glob-2.1.2/
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/glob-2.1.2/lib/
 google_fonts
 2.14
-file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-4.0.4/
-file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-4.0.4/lib/
+file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-4.0.5/
+file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-4.0.5/lib/
 googleapis_auth
 2.19
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/googleapis_auth-1.4.1/
@@ -175,9 +175,9 @@ grpc
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/grpc-3.2.3/
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/grpc-3.2.3/lib/
 http
-2.19
-file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6/
-file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6/lib/
+3.0
+file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.1.0/
+file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.1.0/lib/
 http2
 3.0
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/http2-2.2.0/

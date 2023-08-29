@@ -17,7 +17,9 @@ class FirebaseRTDBService implements DBService {
   final historyNode = 'histories';
   static final instance = FirebaseRTDBService._();
   FirebaseRTDBService._() {
-    db.useDatabaseEmulator("127.0.0.1", 9000);
+    db.databaseURL =
+        "https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app/";
+    // db.useDatabaseEmulator("127.0.0.1", 9000);
     _db = db.ref();
   }
 

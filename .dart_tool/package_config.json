@@ -273,7 +273,7 @@
     },
     {
       "name": "google_fonts",
-      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-4.0.4",
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-4.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -291,9 +291,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "http2",
@@ -806,7 +806,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-08-29T05:45:36.183574Z",
+  "generated": "2023-08-29T09:00:31.742381Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
