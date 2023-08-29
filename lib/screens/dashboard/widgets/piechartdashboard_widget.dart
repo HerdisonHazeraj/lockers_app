@@ -17,9 +17,9 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.42,
-      width: MediaQuery.of(context).size.width * 0.2,
-      padding: const EdgeInsets.all(20),
+      height: 480,
+      width: 400,
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -67,14 +67,17 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
                       ),
                 Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    Provider.of<LockerStudentProvider>(context, listen: false)
-                        .lockerItems
-                        .length
-                        .toString(),
-                    style: const TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.w500,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      Provider.of<LockerStudentProvider>(context, listen: false)
+                          .lockerItems
+                          .length
+                          .toString(),
+                      style: const TextStyle(
+                        fontSize: 38,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 )
@@ -82,17 +85,17 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
             ),
           ),
           const SizedBox(
-            height: 25,
+            height: 24,
           ),
-          const Column(
+          Column(
             children: [
               Indicator(
-                color: Color(0xFF01FBCF),
+                color: const Color(0xFF01FBCF),
                 text: 'Casiers libres',
                 isSquare: true,
               ),
               Indicator(
-                color: Color(0xFFFB3274),
+                color: const Color(0xFFFB3274),
                 text: 'Casiers occupés',
                 isSquare: true,
               ),
@@ -113,8 +116,10 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
       3,
       (index) {
         final isTouched = index == touchedIndex;
-        final fontSize = isTouched ? 20.0 : 16.0;
-        final radius = isTouched ? 56.0 : 50.0;
+        // final fontSize = isTouched ? 20.0 : 16.0;
+        final fontSize = isTouched ? 24.0 : 20.0;
+
+        final radius = isTouched ? 62.0 : 58.0;
         const shadows = [
           BoxShadow(
             color: Colors.black12,
@@ -125,7 +130,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           case 0:
             // Casiers libres
             return PieChartSectionData(
-              color: Color(0xFF01FBCF),
+              color: const Color(0xFF01FBCF),
               value: Provider.of<LockerStudentProvider>(context)
                   .getAvailableLockers()
                   .length

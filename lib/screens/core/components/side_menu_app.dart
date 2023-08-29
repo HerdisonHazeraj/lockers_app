@@ -20,8 +20,13 @@ class SideMenuApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SideMenu(
       controller: sideMenuController,
+      collapseWidth: 1,
       style: SideMenuStyle(
-        displayMode: SideMenuDisplayMode.auto,
+        openSideMenuWidth: 280,
+        compactSideMenuWidth: 50,
+        displayMode: MediaQuery.of(context).size.width > 1560
+            ? SideMenuDisplayMode.open
+            : SideMenuDisplayMode.compact,
         selectedTitleTextStyle: const TextStyle(
           color: Colors.black,
         ),
@@ -29,8 +34,8 @@ class SideMenuApp extends StatelessWidget {
       title: Column(
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.1,
+            constraints: const BoxConstraints(
+              maxHeight: 100,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
@@ -40,9 +45,9 @@ class SideMenuApp extends StatelessWidget {
               ),
             ),
           ),
-          Divider(
-            indent: MediaQuery.of(context).size.height * 0.05,
-            endIndent: MediaQuery.of(context).size.height * 0.05,
+          const Divider(
+            indent: 50,
+            endIndent: 50,
           ),
         ],
       ),

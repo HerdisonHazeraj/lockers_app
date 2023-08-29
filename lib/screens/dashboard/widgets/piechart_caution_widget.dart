@@ -29,8 +29,8 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
     return InkWell(
       child: Container(
         padding: const EdgeInsets.all(20),
-        width: MediaQuery.of(context).size.width * 0.14,
-        height: MediaQuery.of(context).size.height * 0.42,
+        width: 305,
+        height: 480,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -54,8 +54,8 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                     maximum: paidCautionsList + unPaidCautionsList == 0
                         ? 1
                         : paidCautionsList + unPaidCautionsList,
-                    majorTickStyle: MajorTickStyle(length: 17),
-                    minorTickStyle: MinorTickStyle(length: 11),
+                    majorTickStyle: const MajorTickStyle(length: 17),
+                    minorTickStyle: const MinorTickStyle(length: 11),
                     ranges: <GaugeRange>[
                       GaugeRange(
                           startWidth: 20,
@@ -100,7 +100,7 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                           ],
                         ),
                         angle: 90,
-                        positionFactor: 1.2,
+                        positionFactor: 1.5,
                       ),
                     ],
                   )
@@ -109,15 +109,15 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 20, left: 5, bottom: 5),
-              child: const Column(
+              child: Column(
                 children: [
                   Indicator(
-                    color: Color(0xFF01FBCF),
+                    color: const Color(0xFF01FBCF),
                     text: 'Cautions payées',
                     isSquare: true,
                   ),
                   Indicator(
-                    color: Color(0xFFFB3274),
+                    color: const Color(0xFFFB3274),
                     text: 'Cautions non-payées',
                     isSquare: true,
                   ),

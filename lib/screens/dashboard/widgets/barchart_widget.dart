@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+
 import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
 import 'package:provider/provider.dart';
 
@@ -23,11 +24,11 @@ class BarChartWidgetState extends State<BarChartWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: InkWell(
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.43,
-          height: MediaQuery.of(context).size.height * 0.42,
+          width: 820,
+          height: 480,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -133,15 +134,15 @@ class BarChartWidgetState extends State<BarChartWidget> {
               ),
               Container(
                 margin: const EdgeInsets.only(top: 20),
-                child: const Column(
+                child: Column(
                   children: [
                     Indicator(
-                      color: Color(0xFF01FBCF),
+                      color: const Color(0xFF01FBCF),
                       text: 'Casiers totaux par étage',
                       isSquare: true,
                     ),
                     Indicator(
-                      color: Color(0xFFFB3274),
+                      color: const Color(0xFFFB3274),
                       text: 'Casiers occupés par étage',
                       isSquare: true,
                     ),

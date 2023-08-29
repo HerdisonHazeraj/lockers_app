@@ -130,8 +130,8 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
       widget.filterStudentsVoid!(widget.keys, widget.values);
     }
 
-    return Expanded(
-      flex: 4,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 4,
       child: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -185,8 +185,8 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                       filterName: 'Responsable(s): ',
                       filterNod: 'manager',
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.075,
+                    const SizedBox(
+                      height: 80,
                     ),
                     SizedBox(
                       width: double.infinity,

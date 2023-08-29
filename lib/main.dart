@@ -15,6 +15,7 @@ import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:window_size/window_size.dart';
 
 import 'firebase_options.dart';
 import 'infrastructure/firebase_rtdb_service.dart';
@@ -26,6 +27,9 @@ void main() async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
   } else if (defaultTargetPlatform == TargetPlatform.windows) {
+    setWindowMaxSize(const Size(double.infinity, 1080));
+    setWindowMinSize(const Size(1280, 720));
+
     await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8",

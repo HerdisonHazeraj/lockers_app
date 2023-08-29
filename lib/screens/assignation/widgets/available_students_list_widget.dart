@@ -39,7 +39,7 @@ class _AvailableStudentsListWidgetState
 
     return Expanded(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.925,
+        height: 940,
         child: SingleChildScrollView(
           child: widget.studentsListView.isEmpty
               ? const Center(

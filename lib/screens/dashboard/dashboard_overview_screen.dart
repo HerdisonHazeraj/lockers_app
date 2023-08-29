@@ -56,109 +56,93 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
           )
         : Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Flex(
-                  direction: Axis.vertical,
+              Expanded(
+                child: Column(
                   children: [
-                    Expanded(
-                      flex: 10,
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.all(10),
-                                child: PieChartDashboard(),
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      InfoCard(
-                                        "Nombre total de casiers",
-                                        Provider.of<LockerStudentProvider>(
-                                                context)
-                                            .lockerItems
-                                            .length
-                                            .toString(),
-                                        "assets/icons/locker.svg",
-                                        () => widget.changePage(
-                                            LockersOverviewScreen.pageIndex),
-                                      ),
-                                      InfoCard(
-                                        "Nombre total \nd'élèves",
-                                        Provider.of<LockerStudentProvider>(
-                                                context)
-                                            .studentItems
-                                            .length
-                                            .toString(),
-                                        'assets/icons/student.svg',
-                                        () => widget.changePage(
-                                            StudentsOverviewScreen.pageIndex),
-                                      ),
-                                      InfoCard(
-                                        "Nombre d'élèves sans casiers",
-                                        Provider.of<LockerStudentProvider>(
-                                                context)
-                                            .getAvailableStudents()
-                                            .length
-                                            .toString(),
-                                        "assets/icons/student.svg",
-                                        () => null,
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      InfoCard(
-                                        "Nombre de casiers libres",
-                                        Provider.of<LockerStudentProvider>(
-                                                context)
-                                            .getAvailableLockers()
-                                            .length
-                                            .toString(),
-                                        "assets/icons/locker.svg",
-                                        () => null,
-                                      ),
-                                      InfoCard(
-                                        "Nombre de casiers défectueux",
-                                        Provider.of<LockerStudentProvider>(
-                                                context)
-                                            .getDefectiveLockers()
-                                            .length
-                                            .toString(),
-                                        "assets/icons/locker.svg",
-                                        () => null,
-                                      ),
-                                      InfoCard(
-                                        "Nombre de casiers avec clés manquantes",
-                                        Provider.of<LockerStudentProvider>(
-                                                context)
-                                            .getLockerLessThen2Key()
-                                            .length
-                                            .toString(),
-                                        "assets/icons/key.svg",
-                                        () => null,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              BarChartWidget(),
-                              const CautionPieChartWidget(),
-                            ],
-                          ),
-                        ],
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: PieChartDashboard(),
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InfoCard(
+                                  "Nombre total de casiers",
+                                  Provider.of<LockerStudentProvider>(context)
+                                      .lockerItems
+                                      .length
+                                      .toString(),
+                                  "assets/icons/locker.svg",
+                                  () => widget.changePage(
+                                      LockersOverviewScreen.pageIndex),
+                                ),
+                                InfoCard(
+                                  "Nombre total \nd'élèves",
+                                  Provider.of<LockerStudentProvider>(context)
+                                      .studentItems
+                                      .length
+                                      .toString(),
+                                  'assets/icons/student.svg',
+                                  () => widget.changePage(
+                                      StudentsOverviewScreen.pageIndex),
+                                ),
+                                InfoCard(
+                                  "Nombre d'élèves sans casiers",
+                                  Provider.of<LockerStudentProvider>(context)
+                                      .getAvailableStudents()
+                                      .length
+                                      .toString(),
+                                  "assets/icons/student.svg",
+                                  () => null,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                InfoCard(
+                                  "Nombre de casiers libres",
+                                  Provider.of<LockerStudentProvider>(context)
+                                      .getAvailableLockers()
+                                      .length
+                                      .toString(),
+                                  "assets/icons/locker.svg",
+                                  () => null,
+                                ),
+                                InfoCard(
+                                  "Nombre de casiers défectueux",
+                                  Provider.of<LockerStudentProvider>(context)
+                                      .getDefectiveLockers()
+                                      .length
+                                      .toString(),
+                                  "assets/icons/locker.svg",
+                                  () => null,
+                                ),
+                                InfoCard(
+                                  "Nombre de casiers avec des clés manquantes",
+                                  Provider.of<LockerStudentProvider>(context)
+                                      .getLockerLessThen2Key()
+                                      .length
+                                      .toString(),
+                                  "assets/icons/key.svg",
+                                  () => null,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BarChartWidget(),
+                        const CautionPieChartWidget(),
+                      ],
                     ),
                   ],
                 ),
