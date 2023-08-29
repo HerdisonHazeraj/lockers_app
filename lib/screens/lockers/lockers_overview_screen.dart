@@ -83,6 +83,7 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
       await Provider.of<LockerStudentProvider>(context, listen: false)
           .setAllLockerToDefective();
       await refreshDefectiveList();
+      searchLockers(searchValue);
       // });
     }
 
@@ -174,6 +175,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                                       locker: l,
                                                       isLockerInDefectiveList:
                                                           false,
+                                                      refreshList: () =>
+                                                          refreshList(),
                                                     ),
                                                   );
                                                 },

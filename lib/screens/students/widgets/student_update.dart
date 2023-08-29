@@ -45,6 +45,9 @@ class _StudentUpdateState extends State<StudentUpdate> {
   // Tools for student details
   late Locker locker;
 
+  final focusMail = FocusNode();
+  final focusClasse = FocusNode();
+
   // Form key
   final _formKey = GlobalKey<FormState>();
 
@@ -79,6 +82,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      textInputAction: TextInputAction.next,
                       enabled: !widget.student.isArchived!,
                       controller: firstnameController,
                       decoration: const InputDecoration(
@@ -99,6 +103,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      textInputAction: TextInputAction.next,
                       enabled: !widget.student.isArchived!,
                       controller: lastnameController,
                       decoration: const InputDecoration(
@@ -119,6 +124,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      textInputAction: TextInputAction.next,
                       enabled: !widget.student.isArchived!,
                       controller: loginController,
                       decoration: const InputDecoration(
@@ -139,6 +145,10 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (v) {
+                        FocusScope.of(context).requestFocus(focusClasse);
+                      },
                       enabled: !widget.student.isArchived!,
                       controller: mailController,
                       decoration: const InputDecoration(
@@ -157,12 +167,14 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: TextFormField(
+                      focusNode: focusClasse,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Veuillez remplir ce champ';
                         }
                         return null;
                       },
+                      textInputAction: TextInputAction.next,
                       enabled: !widget.student.isArchived!,
                       controller: classeController,
                       decoration: const InputDecoration(
@@ -205,6 +217,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      textInputAction: TextInputAction.next,
                       enabled: !widget.student.isArchived!,
                       controller: jobController,
                       decoration: const InputDecoration(
@@ -225,6 +238,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                         }
                         return null;
                       },
+                      textInputAction: TextInputAction.done,
                       enabled: !widget.student.isArchived!,
                       controller: responsableController,
                       decoration: const InputDecoration(

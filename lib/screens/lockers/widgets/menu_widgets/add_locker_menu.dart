@@ -23,6 +23,14 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
   final jobController = TextEditingController();
   final remarkController = TextEditingController();
 
+//Focus Nodes
+  final focusLockNumber = FocusNode();
+  final focusLockerNumber = FocusNode();
+  final focusNbKey = FocusNode();
+  final focusFloor = FocusNode();
+  final focusJob = FocusNode();
+  final focusRemark = FocusNode();
+
   // Form key
   final _formKey = GlobalKey<FormState>();
 
@@ -60,6 +68,11 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusLockerNumber,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context).requestFocus(focusNbKey);
+                          },
                           controller: lockerNumberController,
                           decoration: const InputDecoration(
                             labelText: "N° de casier",
@@ -73,6 +86,11 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                               return 'Veuillez remplir ce champ';
                             }
                             return null;
+                          },
+                          focusNode: focusLockNumber,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context).requestFocus(focusJob);
                           },
                           controller: lockNumberController,
                           decoration: const InputDecoration(
@@ -88,6 +106,8 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             "d": "Étage D",
                             "e": "Étage E",
                           },
+                          focus: focusFloor,
+                          nextFocus: focusRemark,
                           enabled: true,
                           defaultItem: "Étage...",
                           icon: Icons.calendar_today_outlined,
@@ -113,6 +133,12 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusNbKey,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context)
+                                .requestFocus(focusLockNumber);
+                          },
                           controller: nbKeyController,
                           decoration: const InputDecoration(
                             labelText: "Nombre de clés",
@@ -127,6 +153,11 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             }
                             return null;
                           },
+                          focusNode: focusJob,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (v) {
+                            FocusScope.of(context).requestFocus(focusFloor);
+                          },
                           controller: jobController,
                           decoration: const InputDecoration(
                             labelText: "Métier",
@@ -135,6 +166,8 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                           keyboardType: TextInputType.name,
                         ),
                         TextFormField(
+                          focusNode: focusRemark,
+                          textInputAction: TextInputAction.done,
                           controller: remarkController,
                           decoration: const InputDecoration(
                             labelText: "Remarque (facultatif)",

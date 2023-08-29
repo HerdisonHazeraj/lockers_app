@@ -57,6 +57,10 @@ class LockerStudentProvider with ChangeNotifier {
     }
   }
 
+  Map<dynamic, String> findFilters(String node) {
+    return {};
+  }
+
   Future<void> deleteLocker(String id) async {
     await dbService.deleteLocker(id);
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
@@ -84,8 +88,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   List<Locker> getAvailableLockers() {
     List<Locker> availableItem = getAccessibleLocker()
-        .where((element) =>
-            element.isAvailable == true || element.isDefective == true)
+        .where((element) => element.isAvailable == true)
         .toList();
     return availableItem;
   }

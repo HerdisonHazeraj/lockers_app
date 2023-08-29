@@ -60,43 +60,12 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10),
-<<<<<<< HEAD
-                child: Expanded(
-                  flex: 10,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        child: const Row(
-                          children: [
-                            Text(
-                              "Jean-Michel Dupont",
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                backgroundImage: AssetImage(
-                                  'assets/images/photoprofilrandom.png',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-=======
                 child: Flex(
                   direction: Axis.vertical,
                   children: [
                     Expanded(
                       flex: 10,
                       child: Column(
->>>>>>> 4fb827127e6381cf15996aaefcdce0c2a430fe95
                         children: [
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,

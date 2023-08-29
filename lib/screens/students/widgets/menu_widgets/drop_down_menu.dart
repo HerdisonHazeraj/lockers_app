@@ -9,6 +9,8 @@ class DropDownMenu extends StatelessWidget {
     required this.onChanged,
     required this.enabled,
     this.defaultChoosedItem,
+    this.focus,
+    this.nextFocus,
   });
 
   final Map<String, String> items;
@@ -17,10 +19,16 @@ class DropDownMenu extends StatelessWidget {
   final Function(String?) onChanged;
   final String? defaultChoosedItem;
   final bool enabled;
+  final FocusNode? focus;
+  final FocusNode? nextFocus;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
+      onSaved: (v) {
+        FocusScope.of(context).requestFocus(nextFocus);
+      },
+      focusNode: focus,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Veuillez remplir ce champ';

@@ -350,8 +350,8 @@ class _LockerItemState extends State<LockerItem> {
                                           .findIndexOfLockerById(
                                               widget.locker.id!),
                                     ));
-                                    Navigator.of(context).pop();
                                     widget.refreshList!();
+                                    Navigator.of(context).pop();
                                   },
                                   child: const Text('Supprimer'),
                                 ),
