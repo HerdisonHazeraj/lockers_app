@@ -194,7 +194,14 @@ class _DashboardMenuState extends State<DashboardMenu> {
               ),
             ),
             const dividerMenu(),
-            ImportAllMenu()
+            ImportAllMenu(),
+            // const dividerMenu(),
+            // TextButton(
+            //     onPressed: () {
+            //       Provider.of<LockerStudentProvider>(context, listen: false)
+            //           .deleteDatabaseData();
+            //     },
+            //     child: const Text('Suppression base de données'))
           ],
         ),
       ),

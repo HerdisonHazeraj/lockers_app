@@ -175,7 +175,7 @@ class ApiService implements DBService {
   @override
   Future<Locker> updateLocker(Locker locker) async {
     final response = await http.patch(
-      Uri.parse(baseUrl + lockersEndpoint),
+      Uri.parse(baseUrl + lockersEndpoint + '/${locker.id}.json'),
       body: jsonEncode(
         locker.toJson(),
       ),

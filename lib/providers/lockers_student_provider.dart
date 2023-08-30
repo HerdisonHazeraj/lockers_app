@@ -42,6 +42,30 @@ class LockerStudentProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Future<void> deleteDatabaseData() async {
+  //   for (var locker in lockerItems) {
+  //     await dbService.deleteLocker(locker.id!);
+  //     Locker item = _lockerItems.firstWhere((locker) => locker.id == locker.id);
+  //     _lockerItems.remove(item);
+  //   }
+
+  //   for (var student in studentItems) {
+  //     await dbService.deleteStudent(student.id!);
+  //     Student item =
+  //         _studentItems.firstWhere((student) => student.id == student.id);
+  //     _studentItems.remove(item);
+  //   }
+
+  //   for (var history in historyProvider.historyItems) {
+  //     await dbService.deleteHistory(history.id!);
+  //     History item = historyProvider.historyItems
+  //         .firstWhere((history) => history.id == history.id);
+  //     historyProvider.historyItems.remove(item);
+  //   }
+
+  //   notifyListeners();
+  // }
+
   Future<void> addLocker(Locker locker) async {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);

@@ -782,6 +782,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "window_size",
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/git/flutter-desktop-embedding-6c66ad23ee79749f30a8eece542cf54eaf157ed8/plugins/window_size",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "xdg_directories",
       "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.0.0",
       "packageUri": "lib/",
@@ -806,7 +812,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-08-29T09:00:31.742381Z",
+  "generated": "2023-08-30T06:48:24.715552Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
