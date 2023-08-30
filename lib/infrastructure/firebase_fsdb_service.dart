@@ -1,15 +1,15 @@
 import 'package:firedart/firedart.dart';
+import 'package:lockers_app/core/config.dart';
 import 'package:lockers_app/infrastructure/db_service.dart';
 import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
 
-const apiKey = "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8";
-const projectId = "lockerapp-3b54f";
-
 class FirebaseFSDBService implements DBService {
   static final instance = FirebaseFSDBService._();
+  static String projectId = Config.projectId;
+
   FirebaseFSDBService._() {
     Firestore.initialize(projectId);
   }

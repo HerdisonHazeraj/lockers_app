@@ -2,23 +2,24 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:firedart/firedart.dart';
 import 'package:http/http.dart' as http;
+import 'package:lockers_app/core/config.dart';
 import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
 import 'db_service.dart';
 
-String baseUrl =
-    'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app';
 String studentsEndpoint = '/students';
 String lockersEndpoint = '/lockers';
 String historiesEndpoint = '/histories';
-const projectId = "lockerapp-3b54f";
 
 // const apiKey = "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8";
 
 class ApiService implements DBService {
   static final instance = ApiService._();
+  static final projectId = Config.projectId;
+  static final databaseUrl = Config.databaseURL;
+
   ApiService._() {
     // FirebaseAuth.initialize();
     Firestore.initialize(projectId);
@@ -27,7 +28,7 @@ class ApiService implements DBService {
   Future<List<Locker>> getAllLockers() async {
     try {
       final response =
-          await http.get(Uri.parse("$baseUrl$lockersEndpoint.json"));
+          await http.get(Uri.parse("$databaseUrl$lockersEndpoint.json"));
       final data = json.decode(response.body);
       if (data != null) {
         final lockers = <Locker>[];
@@ -46,7 +47,8 @@ class ApiService implements DBService {
 
   @override
   Future<History> addHistory(History history) async {
-    var response = await http.post(Uri.parse("$baseUrl$historiesEndpoint.json"),
+    var response = await http.post(
+        Uri.parse("$databaseUrl$historiesEndpoint.json"),
         body: jsonEncode(history.toJson()));
     if (response.statusCode == 200) {
       return history.copyWith(id: jsonDecode(response.body)['name']);
@@ -57,7 +59,8 @@ class ApiService implements DBService {
 
   @override
   Future<Locker> addLocker(Locker locker) async {
-    var response = await http.post(Uri.parse("$baseUrl$lockersEndpoint.json"),
+    var response = await http.post(
+        Uri.parse("$databaseUrl$lockersEndpoint.json"),
         body: jsonEncode(locker.toJson()));
     if (response.statusCode == 200) {
       return locker.copyWith(id: jsonDecode(response.body)['name']);
@@ -74,7 +77,8 @@ class ApiService implements DBService {
 
   @override
   Future<Student> addStudent(Student student) async {
-    var response = await http.post(Uri.parse("$baseUrl$studentsEndpoint.json"),
+    var response = await http.post(
+        Uri.parse("$databaseUrl$studentsEndpoint.json"),
         body: jsonEncode(student.toJson()));
     if (response.statusCode == 200) {
       return student.copyWith(id: jsonDecode(response.body)['name']);
@@ -85,12 +89,12 @@ class ApiService implements DBService {
 
   @override
   Future<void> deleteHistory(String id) async {
-    http.delete(Uri.parse("$baseUrl$historiesEndpoint.json"));
+    http.delete(Uri.parse("$databaseUrl$historiesEndpoint.json"));
   }
 
   @override
   Future<void> deleteLocker(String id) async {
-    http.delete(Uri.parse("$baseUrl$lockersEndpoint.json"));
+    http.delete(Uri.parse("$databaseUrl$lockersEndpoint.json"));
   }
 
   @override
@@ -101,7 +105,7 @@ class ApiService implements DBService {
 
   @override
   Future<void> deleteStudent(String id) async {
-    http.delete(Uri.parse("$baseUrl$studentsEndpoint.json"));
+    http.delete(Uri.parse("$databaseUrl$studentsEndpoint.json"));
     ;
   }
 
@@ -109,7 +113,7 @@ class ApiService implements DBService {
   Future<List<History>> getAllHistory() async {
     try {
       final response =
-          await http.get(Uri.parse("$baseUrl$historiesEndpoint.json"));
+          await http.get(Uri.parse("$databaseUrl$historiesEndpoint.json"));
       final data = json.decode(response.body);
       if (data != null) {
         final histories = <History>[];
@@ -137,7 +141,7 @@ class ApiService implements DBService {
   Future<List<Student>> getAllStudents() async {
     try {
       final response =
-          await http.get(Uri.parse("$baseUrl$studentsEndpoint.json"));
+          await http.get(Uri.parse("$databaseUrl$studentsEndpoint.json"));
       final data = json.decode(response.body);
       if (data != null) {
         final students = <Student>[];
@@ -162,7 +166,7 @@ class ApiService implements DBService {
   @override
   Future<History> updateHistory(History history) async {
     http.patch(
-      Uri.parse("$baseUrl$historiesEndpoint/${history.id}.json"),
+      Uri.parse("$databaseUrl$historiesEndpoint/${history.id}.json"),
       body: jsonEncode(
         history.toJson(),
       ),
@@ -173,7 +177,7 @@ class ApiService implements DBService {
   @override
   Future<Locker> updateLocker(Locker locker) async {
     http.patch(
-      Uri.parse("$baseUrl$lockersEndpoint/${locker.id}.json"),
+      Uri.parse("$databaseUrl$lockersEndpoint/${locker.id}.json"),
       body: jsonEncode(
         locker.toJson(),
       ),
@@ -191,7 +195,7 @@ class ApiService implements DBService {
   @override
   Future<Student> updateStudent(Student student) async {
     http.patch(
-      Uri.parse("$baseUrl$studentsEndpoint/${student.id}.json"),
+      Uri.parse("$databaseUrl$studentsEndpoint/${student.id}.json"),
       body: jsonEncode(
         student.toJson(),
       ),

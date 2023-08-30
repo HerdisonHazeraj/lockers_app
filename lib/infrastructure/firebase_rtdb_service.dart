@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
+import 'package:lockers_app/core/config.dart';
 import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/problems.dart';
@@ -11,14 +12,13 @@ import 'db_service.dart';
 class FirebaseRTDBService implements DBService {
   final FirebaseDatabase db = FirebaseDatabase.instance;
   late DatabaseReference _db; //2
-  final lockerNode = "lockers";
-  final studentNode = 'students';
-  final problemNode = 'problems';
-  final historyNode = 'histories';
+  final lockerNode = "/lockers";
+  final studentNode = '/students';
+  final problemNode = '/problems';
+  final historyNode = '/histories';
   static final instance = FirebaseRTDBService._();
   FirebaseRTDBService._() {
-    db.databaseURL =
-        "https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app/";
+    db.databaseURL = Config.databaseURL;
     // db.useDatabaseEmulator("127.0.0.1", 9000);
     _db = db.ref();
   }

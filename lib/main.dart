@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lockers_app/core/config.dart';
 import 'package:lockers_app/infrastructure/firebase_api_service.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
@@ -30,11 +31,12 @@ void main() async {
     setWindowMinSize(const Size(1280, 720));
 
     await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8",
-          projectId: "lockerapp-3b54f",
-          messagingSenderId: "653882674009",
-          appId: "1:653882674009:web:911282bd37d635c546da48"),
+      options: FirebaseOptions(
+        apiKey: Config.apiKey,
+        projectId: Config.projectId,
+        messagingSenderId: Config.messagingSenderId,
+        appId: Config.appId,
+      ),
     );
   }
 
