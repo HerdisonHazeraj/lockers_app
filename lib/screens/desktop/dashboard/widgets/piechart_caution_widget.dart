@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-import '../../../providers/lockers_student_provider.dart';
+import '../../../../providers/lockers_student_provider.dart';
 import 'indicator.dart';
 
 class CautionPieChartWidget extends StatefulWidget {

@@ -6,7 +6,7 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/student.dart';
+import '../../../../models/student.dart';
 
 class LockerItem extends StatefulWidget {
   final Locker locker;

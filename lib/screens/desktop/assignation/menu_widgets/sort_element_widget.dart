@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lockers_app/screens/assignation/menu_widgets/dropdown_item_widget.dart';
+import 'package:lockers_app/screens/desktop/assignation/menu_widgets/dropdown_item_widget.dart';
 
 // ignore: must_be_immutable
 class SortElementWidget extends StatefulWidget {

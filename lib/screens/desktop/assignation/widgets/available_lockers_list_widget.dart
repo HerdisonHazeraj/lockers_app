@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../models/locker.dart';
+import '../../../../models/locker.dart';
 
 // ignore: must_be_immutable
 class AvailableLockersListWidget extends StatefulWidget {

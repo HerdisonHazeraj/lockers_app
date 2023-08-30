@@ -4,7 +4,7 @@ import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:lockers_app/screens/students/widgets/menu_widgets/drop_down_menu.dart';
+import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/drop_down_menu.dart';
 import 'package:provider/provider.dart';
 
 class LockerUpdate extends StatefulWidget {

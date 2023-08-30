@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:lockers_app/screens/dashboard/widgets/barchart_widget.dart';
-import 'package:lockers_app/screens/dashboard/widgets/info_card.dart';
-import 'package:lockers_app/screens/dashboard/widgets/piechart_caution_widget.dart';
-import 'package:lockers_app/screens/dashboard/widgets/piechartdashboard_widget.dart';
-import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
-import 'package:lockers_app/screens/students/students_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/dashboard/widgets/barchart_widget.dart';
+import 'package:lockers_app/screens/desktop/dashboard/widgets/info_card.dart';
+import 'package:lockers_app/screens/desktop/dashboard/widgets/piechart_caution_widget.dart';
+import 'package:lockers_app/screens/desktop/dashboard/widgets/piechartdashboard_widget.dart';
+import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../../responsive.dart';
+import '../../../responsive.dart';
 import 'widgets/dashboard_menu.dart';
 
 class DashboardOverviewScreen extends StatefulWidget {

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:lockers_app/screens/students/widgets/student_item.dart';
-import 'package:lockers_app/screens/students/widgets/student_update.dart';
-import 'package:lockers_app/screens/students/widgets/students_menu.dart';
+import 'package:lockers_app/screens/desktop/students/widgets/student_item.dart';
+import 'package:lockers_app/screens/desktop/students/widgets/student_update.dart';
+import 'package:lockers_app/screens/desktop/students/widgets/students_menu.dart';
 import 'package:provider/provider.dart';
 
-import '../../responsive.dart';
+import '../../../responsive.dart';
 
 class StudentsOverviewScreen extends StatefulWidget {
   const StudentsOverviewScreen({super.key});
@@ -54,6 +54,8 @@ class _StudentsListViewState extends State<StudentsListView> {
   late List<bool> isExpYear;
   late Map<String, List<Student>> studentsByYear;
 
+  ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     studentsByYear =
@@ -70,6 +72,9 @@ class _StudentsListViewState extends State<StudentsListView> {
 
     searchStudents(String value) {
       setState(() {
+        scrollController.animateTo(0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastOutSlowIn);
         searchedStudents =
             Provider.of<LockerStudentProvider>(context, listen: false)
                 .searchStudents(value);
@@ -105,6 +110,7 @@ class _StudentsListViewState extends State<StudentsListView> {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: SingleChildScrollView(
+                controller: scrollController,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
