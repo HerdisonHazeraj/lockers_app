@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'LockersApp',
+        title: 'Application de gestion des casiers du ceff',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: const Color(0xfff5f5fd),
