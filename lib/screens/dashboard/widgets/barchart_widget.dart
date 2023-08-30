@@ -8,7 +8,7 @@ import 'package:lockers_app/screens/dashboard/widgets/indicator.dart';
 import 'package:provider/provider.dart';
 
 class BarChartWidget extends StatefulWidget {
-  BarChartWidget({super.key});
+  const BarChartWidget({super.key});
 
   @override
   State<StatefulWidget> createState() => BarChartWidgetState();

@@ -13,6 +13,9 @@ class PieChartDashboard extends StatefulWidget {
 
 class _PieChartDashboardState extends State<PieChartDashboard> {
   int touchedIndex = -1;
+  final Duration animDuration = const Duration(milliseconds: 250);
+
+  bool isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
@@ -192,5 +195,15 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
         }
       },
     );
+  }
+
+  Future<dynamic> refreshState() async {
+    setState(() {});
+    await Future<dynamic>.delayed(
+      animDuration + const Duration(milliseconds: 50),
+    );
+    if (isPlaying) {
+      await refreshState();
+    }
   }
 }
