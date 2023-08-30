@@ -20,23 +20,22 @@ const projectId = "lockerapp-3b54f";
 class ApiService implements DBService {
   static final instance = ApiService._();
   ApiService._() {
+    // FirebaseAuth.initialize();
     Firestore.initialize(projectId);
   }
   @override
   Future<List<Locker>> getAllLockers() async {
     try {
-      var url = Uri.parse(baseUrl + lockersEndpoint);
-      var response = await http.get(url);
+      final response = await http.get(Uri.parse(baseUrl + lockersEndpoint));
+      final data = json.decode(response.body);
+      if (data != null) {
+        final lockers = <Locker>[];
 
-      if (response.statusCode == 200) {
-        List<Locker> _lockers = <Locker>[];
-
-        var data = json.decode(response.body);
         data.forEach((lockerId, lockerData) {
-          _lockers.add(Locker.fromJson(lockerData).copyWith(id: lockerId));
+          lockers.add(Locker.fromJson(lockerData).copyWith(id: lockerId));
         });
 
-        return _lockers;
+        return lockers;
       }
     } catch (e) {
       developer.log(e.toString());
@@ -49,7 +48,7 @@ class ApiService implements DBService {
     var response = await http.post(Uri.parse(baseUrl + historiesEndpoint),
         body: jsonEncode(history.toJson()));
     if (response.statusCode == 200) {
-      return history;
+      return history.copyWith(id: jsonDecode(response.body)['name']);
     } else {
       return History.error();
     }
@@ -60,7 +59,7 @@ class ApiService implements DBService {
     var response = await http.post(Uri.parse(baseUrl + lockersEndpoint),
         body: jsonEncode(locker.toJson()));
     if (response.statusCode == 200) {
-      return locker;
+      return locker.copyWith(id: jsonDecode(response.body)['name']);
     } else {
       return Locker.error();
     }
@@ -77,7 +76,7 @@ class ApiService implements DBService {
     var response = await http.post(Uri.parse(baseUrl + studentsEndpoint),
         body: jsonEncode(student.toJson()));
     if (response.statusCode == 200) {
-      return student;
+      return student.copyWith(id: jsonDecode(response.body)['name']);
     } else {
       return Student.error();
     }
@@ -110,18 +109,17 @@ class ApiService implements DBService {
   @override
   Future<List<History>> getAllHistory() async {
     try {
-      var url = Uri.parse(baseUrl + historiesEndpoint);
-      var response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        List<History> _histories = <History>[];
+      final response = await http.get(Uri.parse(baseUrl + historiesEndpoint));
+      final data = json.decode(response.body);
+      if (data != null) {
+        final histories = <History>[];
 
         var data = json.decode(response.body);
         data.forEach((lockerId, lockerData) {
-          _histories.add(History.fromJson(lockerData).copyWith(id: lockerId));
+          histories.add(History.fromJson(lockerData).copyWith(id: lockerId));
         });
 
-        return _histories;
+        return histories;
       }
     } catch (e) {
       developer.log(e.toString());
@@ -138,18 +136,16 @@ class ApiService implements DBService {
   @override
   Future<List<Student>> getAllStudents() async {
     try {
-      var url = Uri.parse(baseUrl + studentsEndpoint);
-      var response = await http.get(url);
+      final response = await http.get(Uri.parse(baseUrl + studentsEndpoint));
+      final data = json.decode(response.body);
+      if (data != null) {
+        final students = <Student>[];
 
-      if (response.statusCode == 200) {
-        List<Student> _students = <Student>[];
-
-        var data = json.decode(response.body);
         data.forEach((lockerId, lockerData) {
-          _students.add(Student.fromJson(lockerData).copyWith(id: lockerId));
+          students.add(Student.fromJson(lockerData).copyWith(id: lockerId));
         });
 
-        return _students;
+        return students;
       }
     } catch (e) {
       developer.log(e.toString());

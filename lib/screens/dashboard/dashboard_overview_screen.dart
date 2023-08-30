@@ -68,10 +68,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.all(10),
-                                child: PieChartDashboard(),
-                              ),
+                              PieChartDashboard(),
                               Column(
                                 children: [
                                   Row(
@@ -150,11 +147,11 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               BarChartWidget(),
-                              const CautionPieChartWidget(),
+                              CautionPieChartWidget(),
                             ],
                           ),
                         ],

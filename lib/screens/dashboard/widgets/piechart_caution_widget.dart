@@ -9,7 +9,7 @@ class CautionPieChartWidget extends StatefulWidget {
   const CautionPieChartWidget({super.key});
 
   @override
-  State<CautionPieChartWidget> createState() => _CautionPieChartWidgetState();
+  State<StatefulWidget> createState() => _CautionPieChartWidgetState();
 }
 
 class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
