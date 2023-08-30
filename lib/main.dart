@@ -32,7 +32,7 @@ void main() async {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8",
-          projectId: "lockers-app-40f8d",
+          projectId: "lockerapp-3b54f",
           messagingSenderId: "653882674009",
           appId: "1:653882674009:web:911282bd37d635c546da48"),
     );

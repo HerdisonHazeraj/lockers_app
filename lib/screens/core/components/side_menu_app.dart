@@ -67,59 +67,6 @@ class SideMenuApp extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             // Navigator.of(context).pushNamed(PrepareDatabaseScreen.routeName);
-            showGeneralDialog(
-              context: context,
-              barrierColor: Colors.black38,
-              barrierLabel: "Information",
-              barrierDismissible: true,
-              pageBuilder: (_, __, ___) => Center(
-                child: Container(
-                  color: Colors.transparent,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Container(
-                      width: 340,
-                      height: 340,
-                      decoration: const BoxDecoration(
-                        color: Color(0xffececf6),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 40),
-                              child: Center(
-                                child: Text(
-                                  "Ce projet a été réalisé par : \n\nElias Tormos \nHerdison Hazeraj \nFabio Leite Serra \nTimo Portal",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Text(
-                                "Projet réalisé dans le cadre d'un projet du CEFF Industrie.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            );
           },
           child: const Text(
             'ceff - 2023',
