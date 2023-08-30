@@ -29,7 +29,7 @@ class _AvailableLockersListWidgetState
   Widget build(BuildContext context) {
     return Expanded(
       child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.925,
+          height: 940,
           child: SingleChildScrollView(
             child: widget.availableLockers.isEmpty
                 ? const Center(

@@ -120,8 +120,8 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
+                  const SizedBox(
+                    width: 38,
                   ),
                   Expanded(
                     child: Column(
@@ -180,8 +180,8 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+              const SizedBox(
+                height: 20,
               ),
               SizedBox(
                 width: double.infinity,

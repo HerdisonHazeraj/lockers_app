@@ -7,17 +7,17 @@ class dividerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListBody(
+    return const ListBody(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
+          height: 20,
         ),
-        const Divider(
+        Divider(
           indent: 20,
           endIndent: 20,
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
+          height: 20,
         ),
       ],
     );

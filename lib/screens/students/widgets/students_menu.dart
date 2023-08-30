@@ -20,8 +20,8 @@ class _StudentsMenuState extends State<StudentsMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 4,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 4,
       child: SafeArea(
         child: Container(
           width: double.infinity,

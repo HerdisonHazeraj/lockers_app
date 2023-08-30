@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="lockers_app"
+        android:label="Application de gestion des casiers du ceff"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

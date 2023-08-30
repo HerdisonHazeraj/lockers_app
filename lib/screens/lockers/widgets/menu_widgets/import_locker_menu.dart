@@ -58,8 +58,8 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
                 },
               ),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
+            const SizedBox(
+              width: 38,
             ),
             Expanded(
               child: ElevatedButton(

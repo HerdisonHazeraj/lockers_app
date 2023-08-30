@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lockers_app/responsive.dart';
 
 class InfoCard extends StatelessWidget {
   const InfoCard(
@@ -26,8 +25,8 @@ class InfoCard extends StatelessWidget {
           onTap();
         },
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.21 - 5,
-          width: MediaQuery.of(context).size.width * 0.12,
+          height: 235,
+          width: 235,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -47,27 +46,33 @@ class InfoCard extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 svgSrc,
-                height: Responsive.isMobile(context) ? 32 : 40,
+                height: 40,
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width / 100,
+              const SizedBox(
+                height: 10,
               ),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: Responsive.isMobile(context) ? 14 : 16,
-                  color: const Color(0xffa6a6a6),
-                  fontWeight: FontWeight.w400,
-                  height: 1.3,
+              Tooltip(
+                message: title,
+                waitDuration: const Duration(seconds: 1),
+                child: Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Color(0xffa6a6a6),
+                    fontWeight: FontWeight.w400,
+                    height: 1.3,
+                  ),
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width / 100,
+              const SizedBox(
+                height: 10,
               ),
               Text(
                 value,
-                style: TextStyle(
-                  fontSize: Responsive.isMobile(context) ? 24 : 30,
+                style: const TextStyle(
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),

@@ -6,7 +6,7 @@ import 'package:lockers_app/models/problems.dart';
 import 'package:lockers_app/models/student.dart';
 
 const apiKey = "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8";
-const projectId = "lockerapp-3b54f";
+const projectId = "lockers-app-40f8d";
 
 class FirebaseFSDBService implements DBService {
   static final instance = FirebaseFSDBService._();
