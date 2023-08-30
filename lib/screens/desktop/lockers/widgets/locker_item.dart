@@ -231,6 +231,13 @@ class _LockerItemState extends State<LockerItem> {
                                       ],
                                     );
                                   });
+                            } else {
+                              widget.locker.isAvailable = false;
+                              widget.locker.isInaccessible = true;
+
+                              Provider.of<LockerStudentProvider>(context,
+                                      listen: false)
+                                  .updateLocker(widget.locker);
                             }
 
                             ScaffoldMessenger.of(context).showSnackBar(
