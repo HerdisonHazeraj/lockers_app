@@ -22,14 +22,25 @@ class SideMenuApp extends StatelessWidget {
       controller: sideMenuController,
       collapseWidth: 1,
       style: SideMenuStyle(
-        openSideMenuWidth: 280,
-        compactSideMenuWidth: 50,
+        decoration: const BoxDecoration(
+          border: Border(
+            right: BorderSide(
+              color: Colors.black54,
+              width: 0.3,
+            ),
+          ),
+        ),
+        backgroundColor: Colors.white,
+        itemBorderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+        ),
+        itemOuterPadding: const EdgeInsets.only(left: 10),
+        openSideMenuWidth: 275,
+        compactSideMenuWidth: 60,
         displayMode: MediaQuery.of(context).size.width > 1560
             ? SideMenuDisplayMode.open
             : SideMenuDisplayMode.compact,
-        selectedTitleTextStyle: const TextStyle(
-          color: Colors.black,
-        ),
       ),
       title: Column(
         children: [

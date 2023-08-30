@@ -968,6 +968,8 @@ class LockerStudentProvider with ChangeNotifier {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 }

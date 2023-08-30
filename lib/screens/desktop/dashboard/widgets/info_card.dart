@@ -18,19 +18,21 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, right: 10),
+      padding: const EdgeInsets.only(top: 30, right: 30),
       child: InkWell(
         hoverColor: Colors.transparent,
         onTap: () {
           onTap();
         },
         child: Container(
-          height: 235,
-          width: 235,
+          constraints: const BoxConstraints(
+            maxWidth: 235,
+            maxHeight: 235,
+          ),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.1),
@@ -59,7 +61,7 @@ class InfoCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     color: Color(0xffa6a6a6),
                     fontWeight: FontWeight.w400,
                     height: 1.3,
@@ -72,7 +74,7 @@ class InfoCard extends StatelessWidget {
               Text(
                 value,
                 style: const TextStyle(
-                  fontSize: 30,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                 ),
               ),

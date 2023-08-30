@@ -24,15 +24,15 @@ class BarChartWidgetState extends State<BarChartWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
       child: InkWell(
         child: Container(
-          width: 820,
-          height: 480,
+          width: 740,
+          height: 400,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.1),
@@ -115,7 +115,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
                       sideTitles: SideTitles(
                         showTitles: true,
                         getTitlesWidget: getBottomTitles,
-                        reservedSize: 38,
+                        reservedSize: 32,
                       ),
                     ),
                     leftTitles: AxisTitles(
@@ -163,7 +163,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
     double toY = 0,
     bool isTouched = false,
     Color? barColor,
-    double width = 30,
+    double width = 26,
     List<int> showTooltips = const [],
   }) {
     return BarChartGroupData(

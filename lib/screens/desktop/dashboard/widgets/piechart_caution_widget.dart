@@ -27,15 +27,15 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
             .length
             .toDouble();
     return Container(
-      padding: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 30),
       width: 305,
-      height: 480,
+      height: 400,
       child: InkWell(
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.1),
@@ -102,7 +102,7 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                             ],
                           ),
                           angle: 90,
-                          positionFactor: 1.5,
+                          positionFactor: 1,
                         ),
                       ],
                     )
