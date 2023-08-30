@@ -2,13 +2,13 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lockers_app/infrastructure/firebase_fsdb_service.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
-import 'package:lockers_app/screens/core/components/drawer_app.dart';
 import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/core/components/side_menu_app.dart';
 import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
@@ -97,6 +97,12 @@ class _MyWidgetState extends State<MyWidget> {
   SideMenuController sideMenuController = SideMenuController();
   PageController page = PageController();
 
+  static final List<Widget> _widgetOptions = <Widget>[
+    DashboardOverviewScreen(() => null),
+    const LockersOverviewScreen(),
+    const StudentsOverviewScreen(),
+  ];
+
   @override
   void initState() {
     sideMenuController.addListener((p0) {
@@ -106,6 +112,10 @@ class _MyWidgetState extends State<MyWidget> {
   }
 
   changePage(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+
     page.jumpToPage(index);
     sideMenuController.changePage(index);
   }
@@ -141,14 +151,40 @@ class _MyWidgetState extends State<MyWidget> {
 
         // Version mobile
         : Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              iconTheme: const IconThemeData(color: Colors.black),
-            ),
-            drawer: const DrawerApp(),
-            body: DashboardOverviewScreen(
-              (index) => changePage(index),
+            body: _widgetOptions.elementAt(selectedIndex),
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.shifting,
+              currentIndex: selectedIndex,
+              selectedItemColor: Colors.black,
+              unselectedItemColor: Colors.black54,
+              onTap: (index) => changePage(index),
+              showSelectedLabels: false,
+              items: [
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    "assets/icons/dashboard.svg",
+                    height: 24,
+                  ),
+                  tooltip: "Dashboard",
+                  label: 'Dashboard',
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    "assets/icons/locker.svg",
+                    height: 24,
+                  ),
+                  tooltip: "Casiers",
+                  label: 'Casiers',
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    "assets/icons/student.svg",
+                    height: 24,
+                  ),
+                  tooltip: "Élèves",
+                  label: 'Élèves',
+                ),
+              ],
             ),
           );
   }

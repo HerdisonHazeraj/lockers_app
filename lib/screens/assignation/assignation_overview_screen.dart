@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/assignation/menu_widgets/actionBar_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/available_lockers_list_widget.dart';
 import 'package:lockers_app/screens/assignation/widgets/available_students_list_widget.dart';
@@ -264,7 +265,6 @@ class _AssignListViewState extends State<AssignListView> {
                         children: [
                           Row(
                             children: [
-<<<<<<< HEAD
                               Checkbox(
                                   value: areAllchecksChecked,
                                   onChanged: (newValue) {
@@ -314,8 +314,8 @@ class _AssignListViewState extends State<AssignListView> {
                               studentsListView: studentsListView,
                               areAllchecksChecked: areAllchecksChecked,
                               selectedStudents: selectedStudents,
-                              checkIfWeCanAssignVoid: checkIfWeCanAssign,
-                              checkIfWeCanAutoAssignVoid:
+                              checkIfWeCanAssignFunction: checkIfWeCanAssign,
+                              checkIfWeCanAutoAssignFunction:
                                   checkIfWeCanAutoAssign,
                             ),
                             AvailableLockersListWidget(
@@ -328,45 +328,27 @@ class _AssignListViewState extends State<AssignListView> {
                                             index, newValue))
                           ]),
                     ],
-=======
-                              AvailableStudentsListWidget(
-                                studentsListView: studentsListView,
-                                areAllchecksChecked: areAllchecksChecked,
-                                selectedStudents: selectedStudents,
-                                checkIfWeCanAssignFunction: checkIfWeCanAssign,
-                                checkIfWeCanAutoAssignFunction:
-                                    checkIfWeCanAutoAssign,
-                              ),
-                              AvailableLockersListWidget(
-                                  availableLockers: lockersListView,
-                                  isALockerSelected: isALockerSelected,
-                                  checkIfWeCanAssignVoid: checkIfWeCanAssign,
-                                  changeCheckBoxesLockerStatesVoid:
-                                      (index, newValue) =>
-                                          changeCheckBoxesLockerStates(
-                                              index, newValue))
-                            ]),
-                      ],
-                    ),
->>>>>>> 6336f07f989e6344475db575728e63f1677603e3
                   ),
                 ),
               ),
             ),
-            ActionBarWidget(
-                keys: keys,
-                values: values,
-                availableLockers: lockersListView,
-                studentsListView: studentsListView,
-                selectedStudents: selectedStudents,
-                isStudentsListViewInit: isStudentsListViewInit,
-                isSortLockersShown: isSortLockersShown,
-                isOrderCheckChecked: isOrderCheckChecked,
-                filterStudentsVoid: (keys, values) =>
-                    filterStudents(keys, values),
-                changeLockerListStateVoid: (sortController,
-                        isOrderCheckChecked) =>
-                    changeLockerListState(sortController, isOrderCheckChecked)),
+            Responsive.isDesktop(context)
+                ? ActionBarWidget(
+                    keys: keys,
+                    values: values,
+                    availableLockers: lockersListView,
+                    studentsListView: studentsListView,
+                    selectedStudents: selectedStudents,
+                    isStudentsListViewInit: isStudentsListViewInit,
+                    isSortLockersShown: isSortLockersShown,
+                    isOrderCheckChecked: isOrderCheckChecked,
+                    filterStudentsVoid: (keys, values) =>
+                        filterStudents(keys, values),
+                    changeLockerListStateVoid:
+                        (sortController, isOrderCheckChecked) =>
+                            changeLockerListState(
+                                sortController, isOrderCheckChecked))
+                : const Text(""),
           ],
         ),
       ),

@@ -100,7 +100,11 @@ class _StudentItemState extends State<StudentItem> {
             Text("${widget.student.firstName} ${widget.student.lastName}"),
           ],
         ),
-        subtitle: Text(widget.student.job),
+        subtitle: Text(
+          widget.student.job,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
         trailing: widget.student.isArchived == true
             ? Visibility(
                 visible: widget.student.isFocus,

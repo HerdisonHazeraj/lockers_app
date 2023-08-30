@@ -8,7 +8,7 @@ class PieChartDashboard extends StatefulWidget {
   const PieChartDashboard({super.key});
 
   @override
-  State<PieChartDashboard> createState() => _PieChartDashboardState();
+  State<StatefulWidget> createState() => _PieChartDashboardState();
 }
 
 class _PieChartDashboardState extends State<PieChartDashboard> {
@@ -17,7 +17,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 480,
+      height: 485,
       width: 400,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
