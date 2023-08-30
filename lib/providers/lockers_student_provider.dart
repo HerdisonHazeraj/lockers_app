@@ -935,6 +935,7 @@ class LockerStudentProvider with ChangeNotifier {
                         lastName: jsonRow['Nom'],
                         job: metier,
                         year: year,
+                        manager: jsonRow['Responsable'],
                         caution: caution));
 
                     notifyListeners();
