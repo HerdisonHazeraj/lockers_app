@@ -15,9 +15,7 @@ class FirebaseFSDBService implements DBService {
   }
 
   @override
-  void prepareDataBase() {
-    // TODO: implement prepareDataBase
-  }
+  void prepareDataBase() {}
 
   @override
   Future<List<Locker>> getAllLockers() async {

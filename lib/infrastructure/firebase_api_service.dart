@@ -71,7 +71,6 @@ class ApiService implements DBService {
 
   @override
   Future<Problem> addProblem(Problem problem) {
-    // TODO: implement addProblem
     throw UnimplementedError();
   }
 
@@ -99,14 +98,12 @@ class ApiService implements DBService {
 
   @override
   Future<void> deleteProblem(String id) {
-    // TODO: implement deleteProblem
     throw UnimplementedError();
   }
 
   @override
   Future<void> deleteStudent(String id) async {
     http.delete(Uri.parse("$databaseUrl$studentsEndpoint.json"));
-    ;
   }
 
   @override
@@ -133,7 +130,6 @@ class ApiService implements DBService {
 
   @override
   Future<List<Problem>> getAllProblems() {
-    // TODO: implement getAllProblems
     throw UnimplementedError();
   }
 
@@ -159,9 +155,7 @@ class ApiService implements DBService {
   }
 
   @override
-  void prepareDataBase() {
-    // TODO: implement prepareDataBase
-  }
+  void prepareDataBase() {}
 
   @override
   Future<History> updateHistory(History history) async {
@@ -188,7 +182,6 @@ class ApiService implements DBService {
 
   @override
   Future<Problem> updateProblem(Problem problem) {
-    // TODO: implement updateProblem
     throw UnimplementedError();
   }
 

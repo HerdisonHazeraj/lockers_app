@@ -994,7 +994,8 @@ class LockerStudentProvider with ChangeNotifier {
         }
       }
     } catch (e) {
-      print(e);
+      return e.toString();
     }
+    return null;
   }
 }
