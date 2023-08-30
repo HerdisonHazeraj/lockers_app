@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
-import 'package:lockers_app/screens/students/widgets/menu_widgets/add_student_menu.dart';
+import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/add_student_menu.dart';
 import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
-import 'package:lockers_app/screens/students/widgets/menu_widgets/import_student_menu.dart';
-import 'package:lockers_app/screens/students/widgets/menu_widgets/search_student_menu.dart';
+import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/import_student_menu.dart';
+import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/search_student_menu.dart';
 
 class StudentsMenu extends StatefulWidget {
   const StudentsMenu({super.key, required this.searchStudents});

@@ -2,10 +2,10 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
-import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
-import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
-import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
-import 'package:lockers_app/screens/students/students_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/assignation/assignation_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/dashboard/dashboard_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 
 class SideMenuApp extends StatelessWidget {

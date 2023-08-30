@@ -2,19 +2,17 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lockers_app/infrastructure/firebase_api_service.dart';
-import 'package:lockers_app/infrastructure/firebase_fsdb_service.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
-import 'package:lockers_app/screens/assignation/assignation_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/assignation/assignation_overview_screen.dart';
 import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/core/components/side_menu_app.dart';
-import 'package:lockers_app/screens/dashboard/dashboard_overview_screen.dart';
-import 'package:lockers_app/screens/lockers/lockers_overview_screen.dart';
-import 'package:lockers_app/screens/students/students_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/dashboard/dashboard_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart';
+import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:window_size/window_size.dart';
 
@@ -52,12 +50,12 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => LockerStudentProvider(kIsWeb == false
-              ? FirebaseFSDBService.instance
+              ? ApiService.instance
               : FirebaseRTDBService.instance),
         ),
         ChangeNotifierProvider(
           create: (context) => HistoryProvider(kIsWeb == false
-              ? FirebaseFSDBService.instance
+              ? ApiService.instance
               : FirebaseRTDBService.instance),
         ),
       ],
@@ -97,12 +95,21 @@ class MyWidget extends StatefulWidget {
 class _MyWidgetState extends State<MyWidget> {
   SideMenuController sideMenuController = SideMenuController();
   PageController page = PageController();
+  TextStyle styleSelected = const TextStyle(
+    color: Color(0xfffb3274),
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  );
+  TextStyle styleUnselected = const TextStyle(
+    color: Colors.black54,
+    fontSize: 18,
+  );
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    DashboardOverviewScreen(() => null),
-    const LockersOverviewScreen(),
-    const StudentsOverviewScreen(),
-  ];
+  // static final List<Widget> _widgetOptions = <Widget>[
+  //   DashboardOverviewScreen(() => null),
+  //   const LockersOverviewScreen(),
+  //   const StudentsOverviewScreen(),
+  // ];
 
   @override
   void initState() {
@@ -152,41 +159,119 @@ class _MyWidgetState extends State<MyWidget> {
 
         // Version mobile
         : Scaffold(
-            body: _widgetOptions.elementAt(selectedIndex),
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.shifting,
-              currentIndex: selectedIndex,
-              selectedItemColor: Colors.black,
-              unselectedItemColor: Colors.black54,
-              onTap: (index) => changePage(index),
-              showSelectedLabels: false,
-              items: [
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/icons/dashboard.svg",
-                    height: 24,
+            appBar: AppBar(
+              actions: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                      color: Colors.black54,
+                      width: 0.3,
+                    )),
                   ),
-                  tooltip: "Dashboard",
-                  label: 'Dashboard',
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/icons/locker.svg",
-                    height: 24,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: double.infinity,
+                        decoration: selectedIndex == 0
+                            ? const BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Color(0xfffb3274),
+                                    width: 3,
+                                  ),
+                                ),
+                              )
+                            : null,
+                        child: TextButton(
+                          child: Text(
+                            "Casiers",
+                            style: selectedIndex == 0
+                                ? styleSelected
+                                : styleUnselected,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              selectedIndex = 0;
+                            });
+                          },
+                        ),
+                      ),
+                      Container(
+                        height: double.infinity,
+                        decoration: selectedIndex == 1
+                            ? const BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Color(0xfffb3274),
+                                    width: 3,
+                                  ),
+                                ),
+                              )
+                            : null,
+                        child: TextButton(
+                          child: Text(
+                            "Élèves",
+                            style: selectedIndex == 1
+                                ? styleSelected
+                                : styleUnselected,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              selectedIndex = 1;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  tooltip: "Casiers",
-                  label: 'Casiers',
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/icons/student.svg",
-                    height: 24,
-                  ),
-                  tooltip: "Élèves",
-                  label: 'Élèves',
                 ),
               ],
+              elevation: 0,
+              backgroundColor: Colors.transparent,
             ),
+            body: selectedIndex == 0
+                ? LockersOverviewScreen()
+                : StudentsOverviewScreen(),
           );
+    // : Scaffold(
+    //     body: _widgetOptions.elementAt(selectedIndex),
+    //     bottomNavigationBar: BottomNavigationBar(
+    //       type: BottomNavigationBarType.shifting,
+    //       currentIndex: selectedIndex,
+    //       selectedItemColor: Colors.black,
+    //       unselectedItemColor: Colors.black54,
+    //       onTap: (index) => changePage(index),
+    //       showSelectedLabels: false,
+    //       items: [
+    //         BottomNavigationBarItem(
+    //           icon: SvgPicture.asset(
+    //             "assets/icons/dashboard.svg",
+    //             height: 24,
+    //           ),
+    //           tooltip: "Dashboard",
+    //           label: 'Dashboard',
+    //         ),
+    //         BottomNavigationBarItem(
+    //           icon: SvgPicture.asset(
+    //             "assets/icons/locker.svg",
+    //             height: 24,
+    //           ),
+    //           tooltip: "Casiers",
+    //           label: 'Casiers',
+    //         ),
+    //         BottomNavigationBarItem(
+    //           icon: SvgPicture.asset(
+    //             "assets/icons/student.svg",
+    //             height: 24,
+    //           ),
+    //           tooltip: "Élèves",
+    //           label: 'Élèves',
+    //         ),
+    //       ],
+    //     ),
+    //   );
   }
 }

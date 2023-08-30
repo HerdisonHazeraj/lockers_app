@@ -6,8 +6,8 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../models/locker.dart';
-import '../../../models/student.dart';
+import '../../../../models/locker.dart';
+import '../../../../models/student.dart';
 
 class StudentItem extends StatefulWidget {
   final Student student;

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
-import 'package:lockers_app/screens/lockers/widgets/locker_item.dart';
-import 'package:lockers_app/screens/lockers/widgets/locker_update.dart';
-import 'package:lockers_app/screens/lockers/widgets/lockers_menu.dart';
+import 'package:lockers_app/screens/desktop/lockers/widgets/locker_item.dart';
+import 'package:lockers_app/screens/desktop/lockers/widgets/locker_update.dart';
+import 'package:lockers_app/screens/desktop/lockers/widgets/lockers_menu.dart';
 import 'package:provider/provider.dart';
 
 class LockersOverviewScreen extends StatefulWidget {
@@ -35,6 +35,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
   late List<bool> isExpFloor;
   late Map<String, List<Locker>> lockersByFloor;
 
+  ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     lockersByFloor =
@@ -56,6 +58,9 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
 
     searchLockers(String value) {
       setState(() {
+        scrollController.animateTo(0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastOutSlowIn);
         searchedLockers =
             Provider.of<LockerStudentProvider>(context, listen: false)
                 .searchLockers(value);
@@ -97,6 +102,7 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: SingleChildScrollView(
+                controller: scrollController,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
