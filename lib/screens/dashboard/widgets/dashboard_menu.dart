@@ -35,9 +35,6 @@ class _DashboardMenuState extends State<DashboardMenu> {
       height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(
         color: Color(0xffececf6),
-        border: Border(
-          left: BorderSide(width: 0.3, color: Colors.black54),
-        ),
       ),
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(

@@ -20,12 +20,12 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 440,
+      height: 485,
       width: 400,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
