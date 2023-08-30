@@ -9,11 +9,11 @@ import 'package:lockers_app/models/student.dart';
 import 'db_service.dart';
 
 String baseUrl =
-    'https://lockers-app-40f8d-default-rtdb.europe-west1.firebasedatabase.app';
+    'https://lockerapp-3b54f-default-rtdb.europe-west1.firebasedatabase.app';
 String studentsEndpoint = '/students';
 String lockersEndpoint = '/lockers';
 String historiesEndpoint = '/histories';
-const projectId = "lockers-app-40f8d";
+const projectId = "lockerapp-3b54f";
 
 // const apiKey = "AIzaSyAzJgXs2mdisqAxOxWU8Q_32WqqIVOl_H8";
 
@@ -85,16 +85,12 @@ class ApiService implements DBService {
 
   @override
   Future<void> deleteHistory(String id) async {
-    final response =
-        await http.delete(Uri.parse("$baseUrl$historiesEndpoint.json"));
-    developer.log(response.statusCode.toString());
+    http.delete(Uri.parse("$baseUrl$historiesEndpoint.json"));
   }
 
   @override
   Future<void> deleteLocker(String id) async {
-    final response =
-        await http.delete(Uri.parse("$baseUrl$lockersEndpoint.json"));
-    developer.log(response.statusCode.toString());
+    http.delete(Uri.parse("$baseUrl$lockersEndpoint.json"));
   }
 
   @override
@@ -105,9 +101,8 @@ class ApiService implements DBService {
 
   @override
   Future<void> deleteStudent(String id) async {
-    final response =
-        await http.delete(Uri.parse("$baseUrl$studentsEndpoint.json"));
-    developer.log(response.statusCode.toString());
+    http.delete(Uri.parse("$baseUrl$studentsEndpoint.json"));
+    ;
   }
 
   @override
@@ -166,30 +161,25 @@ class ApiService implements DBService {
 
   @override
   Future<History> updateHistory(History history) async {
-    final response = await http.patch(
+    http.patch(
       Uri.parse("$baseUrl$historiesEndpoint/${history.id}.json"),
       body: jsonEncode(
         history.toJson(),
       ),
     );
-    if (response.statusCode / 100 == 2) {
-      return history;
-    }
-    return History.error();
+    return history;
   }
 
   @override
   Future<Locker> updateLocker(Locker locker) async {
-    final response = await http.patch(
+    http.patch(
       Uri.parse("$baseUrl$lockersEndpoint/${locker.id}.json"),
       body: jsonEncode(
         locker.toJson(),
       ),
     );
-    if (response.statusCode / 100 == 2) {
-      return locker;
-    }
-    return Locker.error();
+
+    return locker;
   }
 
   @override
@@ -200,15 +190,13 @@ class ApiService implements DBService {
 
   @override
   Future<Student> updateStudent(Student student) async {
-    final response = await http.patch(
+    http.patch(
       Uri.parse("$baseUrl$studentsEndpoint/${student.id}.json"),
       body: jsonEncode(
         student.toJson(),
       ),
     );
-    if (response.statusCode / 100 == 2) {
-      return student;
-    }
-    return Student.error();
+
+    return student;
   }
 }
