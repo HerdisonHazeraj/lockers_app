@@ -25,7 +25,7 @@ class FirebaseRTDBService implements DBService {
 
   @override
   Future<void> prepareDataBase() async {
-    final dataString = await rootBundle.loadString('assets/data.json');
+    final dataString = await rootBundle.loadString('assets/data/data.json');
     final Map<String, dynamic> json = jsonDecode(dataString);
     final Map<String, Map> updatesLockers = {};
     final Map<String, Map> updatesStudent = {};

@@ -866,12 +866,12 @@ class LockerStudentProvider with ChangeNotifier {
           if (jsonRow["Nb clé"] != null &&
               jsonRow["No Casier"] != null &&
               jsonRow["Etage"] != null &&
-              jsonRow["Métier"] != null &&
+              // jsonRow["Métier"] != null &&
               jsonRow["N° serrure"] != null &&
               jsonRow["Nb clé"] != "" &&
               jsonRow["No Casier"] != "" &&
               jsonRow["Etage"] != "" &&
-              jsonRow["Métier"] != "" &&
+              // jsonRow["Métier"] != "" &&
               jsonRow["N° serrure"] != "") {
             if (jsonRow["Responsable"] == "JHI" ||
                 jsonRow["Responsable"] == null) {
