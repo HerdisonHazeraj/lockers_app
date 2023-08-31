@@ -106,7 +106,6 @@ class ApiService implements DBService {
   @override
   Future<void> deleteStudent(String id) async {
     http.delete(Uri.parse("$databaseUrl$studentsEndpoint.json"));
-    ;
   }
 
   @override

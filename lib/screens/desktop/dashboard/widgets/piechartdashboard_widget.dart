@@ -93,7 +93,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           Column(
             children: [
               Indicator(
-                color: const Color(0x88a096),
+                color: const Color(0xFF01FBCF),
                 text: 'Casiers libres',
                 isSquare: true,
               ),
@@ -133,7 +133,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           case 0:
             // Casiers libres
             return PieChartSectionData(
-              color: const Color(0xFF12eaea),
+              color: const Color(0xFF01FBCF),
               value: Provider.of<LockerStudentProvider>(context)
                   .getAvailableLockers()
                   .length
