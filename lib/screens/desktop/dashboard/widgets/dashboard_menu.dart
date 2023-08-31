@@ -133,7 +133,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                             Provider.of<HistoryProvider>(
                                                     context,
                                                     listen: false)
-                                                .deleteHisotry(history.id!);
+                                                .deleteHistory(history.id!);
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               const SnackBar(
@@ -160,7 +160,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                             Provider.of<HistoryProvider>(
                                                     context,
                                                     listen: false)
-                                                .deleteHisotry(history.id!);
+                                                .deleteHistory(history.id!);
 
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(

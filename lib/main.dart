@@ -235,8 +235,8 @@ class _MyWidgetState extends State<MyWidget> {
               backgroundColor: Colors.transparent,
             ),
             body: selectedIndex == 0
-                ? LockersOverviewScreen()
-                : StudentsOverviewScreen(),
+                ? const LockersOverviewScreen()
+                : const StudentsOverviewScreen(),
           );
     // : Scaffold(
     //     body: _widgetOptions.elementAt(selectedIndex),
