@@ -1,0 +1,110 @@
+﻿Titre;Nom;Prénom;_EnvoiMail;_FOR_Code;Login;Classe;Formation;Variante;Année;Système;Filière;Section;Maître Classe
+Monsieur;Aït Slimane;Anir;anir.aitslimane@ceff.ch;ICH;CP-23AAS;ICH1_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;A;MIV
+Monsieur;Akdag;Eddy;eddy.akdag@ceff.ch;ICH;CP-23EDA;ICH1_P4C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;C;MIV
+Monsieur;Bader;Alan;Alan.Bader@ceff.ch;ICH;CP-22ALB;ICH2_P4B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;2;Plein temps;MP4;B;PGA
+Monsieur;Bälli;Yann Gaëtan;YannGaetan.Baelli@ceff.ch;ICH;CP-22YGB;ICH2_P3A-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP3;A;PGA
+Monsieur;Baptista Da Cruz;Lucas;lucas.baptistadacruz@ceff.ch;ICH;CP-23LBD;ICH1_PMC-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP-MLE;C;MIV
+Monsieur;Basha;Loïk;Loik.Basha@ceff.ch;ICH;CP-21LOB;ICH2_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;2;Plein temps;CLA;A;PGA
+Monsieur;Binggeli;Noa;Noa.Binggeli@ceff.ch;ICH;CP-22NBI;ICH2_P3A-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP3;A;PGA
+Monsieur;Borter;Lucas;Lucas.Borter@ceff.ch;ICH;CP-22LBO;ICH2_P_B-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;CLA;B;PGA
+Monsieur;Bracelli;Ethan;ethan.bracelli@ceff.ch;ICH;CP-23ETB;ICH1_PMB-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP-MLE;B;PGA
+Monsieur;Brogna;Demis;demis.brogna@ceff.ch;ICH;CP-23DEB;ICH1_P_C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;C;MIV
+Monsieur;Brossard;Laurent;Laurent.Brossard@ceff.ch;ICH;CP-20LBR;ICH3_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;3;Plein temps;CLA;A;MIV
+Monsieur;Burri;Simon;simon.burri@ceff.ch;ICH;CP-23SIB;ICH1_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;A;MIV
+Monsieur;Canti;Colin;Colin.Canti@ceff.ch;ICH;CP-22COC;ICH2_PMA-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP-MLE;A;PGA
+Madame;Curty;Gwendoline;gwendoline.curty@ceff.ch;ICH;CP-23GWC;ICH1_PMA-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP-MLE;A;MIV
+Monsieur;Darbellay;Fabien;Fabien.Darbellay@ceff.ch;ICH;CP-22FAD;ICH2_P_A-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;CLA;A;PGA
+Monsieur;De Sousa Simões;Tomás;tomas.desousasimoes@ceff.ch;ICH;CP-23TOD;ICH1_PMC-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP-MLE;C;MIV
+Monsieur;Denys;Leny Serge;LenySerge.Denys@ceff.ch;ICH;CP-22LSD;ICH1_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;A;MIV
+Monsieur;Diafouka Ntsimba;Darius;Darius.DiafoukaNtsimba@ceff.ch;ICH;CP-22DAD;ICH2_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;2;Plein temps;CLA;A;PGA
+Monsieur;Dibenedetto;Reyan;Reyan.Dibenedetto@ceff.ch;ICH;CP-22RED;ICH1_P_B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;B;PGA
+Monsieur;Dickshan;Rajheevon;Rajheevon.Dickshan@ceff.ch;ICH;CP-21RAD;ICH1_P_C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;C;MIV
+Monsieur;Donzé;Ryan;ryan.donze@ceff.ch;ICH;CP-23RYD;ICH1_PMA-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP-MLE;A;MIV
+Monsieur;Durmishi;Rinon;Rinon.Durmishi@ceff.ch;ICH;CP-22RID;ICH2_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;2;Plein temps;MP4;A;PGA
+Monsieur;Erdem;Aidan;aidan.erdem@ceff.ch;ICH;CP-23AIE;ICH1_P4B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;B;PGA
+Monsieur;Frick;Gabriel;Gabriel.Frick@ceff.ch;ICH;CP-20GLF;ICH3_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;3;Plein temps;CLA;A;MIV
+Monsieur;Friedli;Robin Marius;RobinMarius.Friedli@ceff.ch;ICH;CP-21RMF;ICH2_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;2;Plein temps;CLA;A;PGA
+Monsieur;Fueg;Jérémie;Jeremie.Fueg@ceff.ch;ICH;CP-22JEF;ICH2_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;2;Plein temps;MP4;A;PGA
+Monsieur;Gane;Gyan;gyan.gane@ceff.ch;ICH;CP-23GYG;ICH1_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;A;MIV
+Monsieur;Geiser;Jeremy;Jeremy.Geiser@ceff.ch;ICH;CP-21JEG;ICH3_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;3;Plein temps;CLA;A;MIV
+Monsieur;Glauser;Thibault;thibault.glauser@ceff.ch;ICH;CP-23THG;ICH1_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;A;MIV
+Monsieur;Golay;Simon;simon.golay@ceff.ch;ICH;CP-23SIG;ICH1_P4B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;B;PGA
+Monsieur;Gonzalez Cambeiro;Micael;micael.gonzalezcambeiro@ceff.ch;ICH;CP-23MIG;ICH1_P_C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;C;MIV
+Monsieur;Gosteli;Quentin Patrick;Quentin.Gosteli@ceff.ch;ICH;CP-21QUG;ICH2_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;2;Plein temps;MP4;A;PGA
+Monsieur;Grancho Silva;Martim;martim.granchosilva@ceff.ch;ICH;CP-23MAG;ICH1_P4C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;C;MIV
+Monsieur;Ha;Tim;Tim.Ha@ceff.ch;ICH;CP-21TIH;ICH3_P4A-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;3;Plein temps;MP4;A;MIV
+Monsieur;Hofstetter;Ethan;ethan.hofstetter@ceff.ch;ICH;CP-23ETH;ICH1_PMC-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP-MLE;C;MIV
+Monsieur;Hug;Nathan;nathan.hug@ceff.ch;ICH;CP-23NAH;ICH1_P_C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;C;MIV
+Monsieur;Ikram;Muhammad;muhammad.ikram@ceff.ch;ICH;CP-23MUI;ICH1_P4B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;B;PGA
+Monsieur;Jaquiéry;Nathan;Nathan.Jaquiery@ceff.ch;ICH;CP-22NAJ;ICH1_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;A;MIV
+Monsieur;Lehmann;Reto;Reto.Lehmann@ceff.ch;ICH;CP-22REL;ICH2_P4A-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP4;A;PGA
+Monsieur;Lopes da Silva;Ruben;ruben.lopesdasilva@ceff.ch;ICH;CP-23RUL;ICH1_PMA-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP-MLE;A;MIV
+Monsieur;Mafille;Mathieu;Mathieu.Mafille@ceff.ch;ICH;CP-21MMA;ICH3_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;3;Plein temps;CLA;A;MIV
+Monsieur;Mafille;Quentin;quentin.mafille@ceff.ch;ICH;CP-23QUM;ICH1_P_C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;C;MIV
+Monsieur;Marti;Fabian;fabian.marti@ceff.ch;ICH;CP-23FAM;ICH1_PMB-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP-MLE;B;PGA
+Monsieur;Martinez;Enrique;enrique.martinez@ceff.ch;ICH;CP-23EMA;ICH1_P_C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;C;MIV
+Monsieur;Meyer;Louan;louan.meyer@ceff.ch;ICH;CP-23LME;ICH1_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;A;MIV
+Monsieur;Mongo;Kelian;kelian.mongo@ceff.ch;ICH;CP-23KEM;ICH1_P4B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;B;PGA
+Monsieur;Moreira Oliveira;Claudio;Claudio.MoreiraOliveira@ceff.ch;ICH;CP-22CLM;ICH1_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;A;MIV
+Monsieur;Nicoulin;Lilian;lilian.nicoulin@ceff.ch;ICH;CP-23LIN;ICH1_P4C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;C;MIV
+Monsieur;Nuñez Mendez;Ivan;ivan.nunezmendez@ceff.ch;ICH;CP-23IVN;ICH1_P_C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;C;MIV
+Monsieur;Özkul;Ogan;Ogan.Oezkul@ceff.ch;ICH;CP-20OGO;ICH3_P_B-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;3;Plein temps;CLA;B;MIV
+Monsieur;Paroz;Loïc;Loic.Paroz@ceff.ch;ICH;CP-21LPA;ICH2_P_B-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;CLA;B;PGA
+Monsieur;Passera;Jason;Jason.Passera@ceff.ch;ICH;CP-21JAP;ICH3_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;3;Plein temps;MP4;A;MIV
+Monsieur;Pellicano;Timéo;Timeo.Pellicano@ceff.ch;ICH;CP-22TIP;ICH2_P4A-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP4;A;PGA
+Monsieur;Pozner;Quentin Darius;QuentinDarius.Pozner@ceff.ch;ICH;CP-22QDP;ICH2_PMB-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP-MLE;B;PGA
+Monsieur;Rayan;Murad;rayan.murad@ceff.ch;ICH;CP-23RAM;ICH1_P_B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;B;PGA
+Monsieur;Rebetez;Nathan;Nathan.Rebetez@ceff.ch;ICH;CP-21NAR;ICH3_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;3;Plein temps;MP4;A;MIV
+Monsieur;Regui;Zakarie;Zakarie.Regui@ceff.ch;ICH;CP-22ZAR;ICH1_P_B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;B;PGA
+Monsieur;Rocha;Dylan Miguel;DylanMiguel.Rocha@ceff.ch;ICH;CP-22DYR;ICH1_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;A;MIV
+Monsieur;Rumo;Rayan;rayan.rumo@ceff.ch;ICH;CP-23RRU;ICH1_P_B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;B;PGA
+Monsieur;Soares Oliveira;Diogo Filipe;DiogoFilipe.SoaresOliveira@ceff.ch;ICH;CP-22DFS;ICH2_PMA-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP-MLE;A;PGA
+Monsieur;Stilli;William Thibaut;WilliamThibaut.Stilli@ceff.ch;ICH;CP-22WTS;ICH2_PMB-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP-MLE;B;PGA
+Monsieur;Tabi;Ylann;ylann.tabi@ceff.ch;ICH;CP-23YLT;ICH1_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;A;MIV
+Monsieur;Torres Eugénio;Tomás;tomas.torreseugenio@ceff.ch;ICH;CP-23TOT;ICH1_P4B-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;1;Plein temps;MP4;B;PGA
+Monsieur;Torrez Suzano;Antoine;Antoine.TorrezSuzano@ceff.ch;ICH;CP-22ANT;ICH2_PMA-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP-MLE;A;PGA
+Madame;Urfer;Leila;leila.urfer@ceff.ch;ICH;CP-23LEU;ICH1_P_A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;A;MIV
+Monsieur;Van;Willy;Willy.Van@ceff.ch;ICH;CP-22WIV;ICH2_P4A-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;2;Plein temps;MP4;A;PGA
+Monsieur;Vazquez;Luca;Luca.Vazquez@ceff.ch;ICH;CP-21LUV;ICH1_P_B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;CLA;B;PGA
+Monsieur;Villat;Diego;Diego.Villat@ceff.ch;ICH;CP-22DVI;ICH1_P4C-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;C;MIV
+Monsieur;Wiedmer;Alan;Alan.Wiedmer@ceff.ch;ICH;CP-22ALW;ICH2_P4A-DEV;Informaticien-ne CFC (dès 2021);Développement d’applications;2;Plein temps;MP4;A;PGA
+Monsieur;Zammali;Yessin;Yessin.Zammali@ceff.ch;ICH;CP-22YEZ;ICH1_P4B-EXP;Informaticien-ne CFC (dès 2021);Exploitation et infrastructure;1;Plein temps;MP4;B;PGA
+Monsieur;Beglieri;Evan;Evan.Beglieri@ceff.ch;ICT;CP-20EVB;ICT4_P_A-SYS;Informaticien-ne CFC (2014);Technique des systèmes;4;Plein temps;CLA;A;MIV
+Monsieur;Boulahdjar;Ahmed;Ahmed.Boulahdjar@ceff.ch;ICT;CP-20AHB;ICT4_P_B-SYS;Informaticien-ne CFC (2014);Technique des systèmes;4;Plein temps;CLA;B;MIV
+Monsieur;Brun;Sébastien;Sebastien.Brun@ceff.ch;ICT;CP-20SEB;ICT4_P_B-SYS;Informaticien-ne CFC (2014);Technique des systèmes;4;Plein temps;CLA;B;MIV
+Monsieur;Celik;Dilan;Dilan.Celik@ceff.ch;ICT;CP-19DCE;ICT4_P_B-SYS;Informaticien-ne CFC (2014);Technique des systèmes;4;Plein temps;CLA;B;MIV
+Monsieur;Degen;Liam;Liam.Degen@ceff.ch;ICT;CP-21LID;ICT3_PMB-DEV;Informaticien-ne CFC (2014);Développement d'applications;3;Plein temps;MP-MLE;B;MIV
+Monsieur;Domont;Tristan;Tristan.Domont@ceff.ch;ICT;CP-21TRD;ICT3_P3B-DEV;Informaticien-ne CFC (2014);Développement d'applications;3;Plein temps;MP3;B;MIV
+Monsieur;Gagnebin;Eliot;Eliot.Gagnebin@ceff.ch;ICT;CP-21EGA;ICT3_PMB-DEV;Informaticien-ne CFC (2014);Développement d'applications;3;Plein temps;MP-MLE;B;MIV
+Monsieur;Grüring;Sacha;Sacha.Gruering@ceff.ch;ICT;CP-21SGR;ICT3_PMB-DEV;Informaticien-ne CFC (2014);Développement d'applications;3;Plein temps;MP-MLE;B;MIV
+Monsieur;Hazeraj;Herdison;Herdison.Hazeraj@ceff.ch;ICT;CP-20HEH;ICT4_P_B-DEV;Informaticien-ne CFC (2014);Développement d'applications;4;Plein temps;CLA;B;PGA
+Monsieur;Hiltbrand;Nolan;Nolan.Hiltbrand@ceff.ch;ICT;CP-21NHI;ICT3_P3B-DEV;Informaticien-ne CFC (2014);Développement d'applications;3;Plein temps;MP3;B;MIV
+Monsieur;Leite Serra;Fabio;Fabio.LeiteSerra@ceff.ch;ICT;CP-20FAL;ICT4_P4A-DEV;Informaticien-ne CFC (2014);Développement d'applications;4;Plein temps;MP4;A;PGA
+Monsieur;Monnerat;Yanis;Yanis.Monnerat@ceff.ch;ICT;CP-21YAM;ICT3_P3B-DEV;Informaticien-ne CFC (2014);Développement d'applications;3;Plein temps;MP3;B;MIV
+Monsieur;Odiet;Kevin;Kevin.Odiet@ceff.ch;ICT;CP-21KEO;ICT3_PMB-DEV;Informaticien-ne CFC (2014);Développement d'applications;3;Plein temps;MP-MLE;B;MIV
+Madame;Ouattara;Marie-Victoire;Marie-Victoire.Ouattara@ceff.ch;ICT;CP-20MVO;ICT4_P_A-SYS;Informaticien-ne CFC (2014);Technique des systèmes;4;Plein temps;CLA;A;MIV
+Monsieur;Perhaita;Paul;Paul.Perhaita@ceff.ch;ICT;CP-21PAP;ICT3_PMB-DEV;Informaticien-ne CFC (2014);Développement d'applications;3;Plein temps;MP-MLE;B;MIV
+Monsieur;Portal;Timo;Timo.Portal@ceff.ch;ICT;CP-20TIP;ICT4_P_A-DEV;Informaticien-ne CFC (2014);Développement d'applications;4;Plein temps;CLA;A;PGA
+Monsieur;Ramey;Arthur;Arthur.Ramey@ceff.ch;ICT;CP-20ARR;ICT4_P_B-SYS;Informaticien-ne CFC (2014);Technique des systèmes;4;Plein temps;CLA;B;MIV
+Monsieur;Stucki;Anthony;Anthony.Stucki@ceff.ch;ICT;CP-20ANS;ICT4_P_A-SYS;Informaticien-ne CFC (2014);Technique des systèmes;4;Plein temps;CLA;A;MIV
+Monsieur;Tormos;Elias;Elias.Tormos@ceff.ch;ICT;CP-20ELT;ICT4_P4B-DEV;Informaticien-ne CFC (2014);Développement d'applications;4;Plein temps;MP4;B;PGA
+Monsieur;Abdikadir Hersi;Mohamed;Mohamed.AbdikadirHersi@ceff.ch;OIC;CP-22MOA;OIC1_P_A;Opérateur-trice en informatique;Sans orientation;1;Plein temps;CLA;A;MIV
+Monsieur;Ballif;Simon;Simon.Ballif@ceff.ch;OIC;CP-22SIB;OIC2_P_A;Opérateur-trice en informatique;Sans orientation;2;Plein temps;CLA;A;JMO
+Monsieur;Boulahdjar;Abd-Elhamid;Abd-Elhamid.Boulahdjar@ceff.ch;OIC;CP-22AEB;OIC2_P_A;Opérateur-trice en informatique;Sans orientation;2;Plein temps;CLA;A;JMO
+Monsieur;Bulgheroni;Ruben;Ruben.Bulgheroni@ceff.ch;OIC;CP-20RUB;OIC3_P9A;Opérateur-trice en informatique;Sans orientation;3;Plein temps;9 Special;A;MIV
+Monsieur;Charef;El Mehdi;ElMehdi.Charef@ceff.ch;OIC;CP-22EMC;OIC2_P_A;Opérateur-trice en informatique;Sans orientation;2;Plein temps;CLA;A;JMO
+Monsieur;Chheu;Trystan;trystan.chheu@ceff.ch;OIC;CP-23TRC;OIC1_P_A;Opérateur-trice en informatique;Sans orientation;1;Plein temps;CLA;A;MIV
+Monsieur;Chirivi;Matteo;matteo.chirivi@ceff.ch;OIC;CP-23MOC;OIC1_P_A;Opérateur-trice en informatique;Sans orientation;1;Plein temps;CLA;A;MIV
+Monsieur;Dos Santos Ferreira;Florian;Florian.DosSantosFerreira@ceff.ch;OIC;CP-21FLD;OIC3_P8A;Opérateur-trice en informatique;Sans orientation;3;Plein temps;8 Special;A;MIV
+Monsieur;El Mawla;Hassan;Hassan.ElMawla@ceff.ch;OIC;CP-21HAE;OIC2_P_A;Opérateur-trice en informatique;Sans orientation;2;Plein temps;CLA;A;JMO
+Monsieur;Elgueta Sauterel;Liayan;liayan.elguetasauterel@ceff.ch;OIC;CP-23LIE;OIC1_P_A;Opérateur-trice en informatique;Sans orientation;1;Plein temps;CLA;A;MIV
+Monsieur;Formaggio;Djanay;djanay.formaggio@ceff.ch;OIC;CP-23DJF;OIC1_P_A;Opérateur-trice en informatique;Sans orientation;1;Plein temps;CLA;A;MIV
+Monsieur;Kirchhof;Maino;Maino.Kirchhof@ceff.ch;OIC;CP-22MKI;OIC2_P_A;Opérateur-trice en informatique;Sans orientation;2;Plein temps;CLA;A;JMO
+Monsieur;Nussbaum;Yanis;Yanis.Nussbaum@ceff.ch;OIC;CP-22YJN;OIC2_P_A;Opérateur-trice en informatique;Sans orientation;2;Plein temps;CLA;A;JMO
+Monsieur;Payán Oviedo;José Yeiner;joseyeiner.payanoviedo@ceff.ch;OIC;CP-23JYP;OIC1_P_A;Opérateur-trice en informatique;Sans orientation;1;Plein temps;CLA;A;MIV
+Monsieur;Petter;Micaël;Micael.Petter@ceff.ch;OIC;CP-21MIP;OIC3_P_A;Opérateur-trice en informatique;Sans orientation;3;Plein temps;CLA;A;MIV
+Madame;Rodrigues Lourenço;Fatima;Fatima.RodriguesLourenco@ceff.ch;OIC;CP-21FAR;OIC2_P9A;Opérateur-trice en informatique;Sans orientation;2;Plein temps;9 Special;A;JMO
+Madame;Schaer;Léa;Lea.Schaer@ceff.ch;OIC;CP-20LES;OIC2_P_A;Opérateur-trice en informatique;Sans orientation;2;Plein temps;CLA;A;JMO
+Monsieur;Singh Gill;Nayan;Nayan.SinghGill@ceff.ch;OIC;CP-21NAS;OIC3_P_A;Opérateur-trice en informatique;Sans orientation;3;Plein temps;CLA;A;MIV
+Monsieur;Ushakov;Andrey;Andrey.Ushakov@ceff.ch;OIC;CP-21ANU;OIC3_P_A;Opérateur-trice en informatique;Sans orientation;3;Plein temps;CLA;A;MIV
+Monsieur;Zanetta;Antoine;Antoine.Zanetta@ceff.ch;OIC;CP-21ANZ;OIC3_P_A;Opérateur-trice en informatique;Sans orientation;3;Plein temps;CLA;A;MIV
