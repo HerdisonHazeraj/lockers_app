@@ -98,6 +98,7 @@ class MyWidget extends StatefulWidget {
 class _MyWidgetState extends State<MyWidget> {
   SideMenuController sideMenuController = SideMenuController();
   PageController page = PageController();
+
   TextStyle styleSelected = const TextStyle(
     color: Color(0xfffb3274),
     fontWeight: FontWeight.bold,
@@ -108,17 +109,12 @@ class _MyWidgetState extends State<MyWidget> {
     fontSize: 18,
   );
 
-  // static final List<Widget> _widgetOptions = <Widget>[
-  //   DashboardOverviewScreen(() => null),
-  //   const LockersOverviewScreen(),
-  //   const StudentsOverviewScreen(),
-  // ];
-
   @override
   void initState() {
     sideMenuController.addListener((p0) {
       page.jumpToPage(p0);
     });
+
     super.initState();
   }
 

@@ -4,6 +4,7 @@ import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoricDashboardMenu extends StatefulWidget {
   const HistoricDashboardMenu({super.key});
@@ -18,7 +19,6 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
   @override
   Widget build(BuildContext context) {
     List<History> histories = [];
-
     histories = Provider.of<HistoryProvider>(context).historyItems.toList();
     histories.sort((a, b) => a.date.compareTo(b.date));
     return Theme(
