@@ -11,6 +11,7 @@ import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/desktop/assignation/assignation_overview_screen.dart';
 import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/core/components/side_menu_app.dart';
+import 'package:lockers_app/screens/desktop/auth/auth_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
@@ -131,32 +132,35 @@ class _MyWidgetState extends State<MyWidget> {
   }
 
   int selectedIndex = 0;
+  bool isLoggedTest = true;
 
   @override
   Widget build(BuildContext context) {
     return Responsive.isDesktop(context)
         // Version desktop
         ? Scaffold(
-            body: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SideMenuApp(sideMenuController: sideMenuController),
-                Expanded(
-                  child: PageView(
-                    controller: page,
+            body: isLoggedTest == true
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      // PrepareDatabaseScreen(),
-                      DashboardOverviewScreen(
-                        (index) => changePage(index),
+                      SideMenuApp(sideMenuController: sideMenuController),
+                      Expanded(
+                        child: PageView(
+                          controller: page,
+                          children: [
+                            // PrepareDatabaseScreen(),
+                            DashboardOverviewScreen(
+                              (index) => changePage(index),
+                            ),
+                            const LockersOverviewScreen(),
+                            const StudentsOverviewScreen(),
+                            const AssignationOverviewScreen(),
+                          ],
+                        ),
                       ),
-                      const LockersOverviewScreen(),
-                      const StudentsOverviewScreen(),
-                      const AssignationOverviewScreen(),
                     ],
-                  ),
-                ),
-              ],
-            ),
+                  )
+                : const AuthOverviewScreen(),
           )
 
         // Version mobile
