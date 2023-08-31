@@ -122,8 +122,6 @@ class _AssignListViewState extends State<AssignListView> {
           }
         } else if (selectedStudents.length < 2 && !isALockerSelected) {
           for (var locker in lockersListView) {
-            // if(lock)
-
             locker.isEnabled = true;
           }
           _isAutoAttributeButtonEnabled = false;
