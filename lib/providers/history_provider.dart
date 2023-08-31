@@ -36,7 +36,7 @@ class HistoryProvider with ChangeNotifier {
     }
   }
 
-  Future<void> deleteHisotry(String id) async {
+  Future<void> deleteHistory(String id) async {
     await dbService.deleteHistory(id);
     History item = _historyItems.firstWhere((hisotry) => hisotry.id == id);
 

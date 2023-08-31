@@ -88,12 +88,12 @@ class ApiService implements DBService {
 
   @override
   Future<void> deleteHistory(String id) async {
-    http.delete(Uri.parse("$databaseUrl$historiesEndpoint.json"));
+    http.delete(Uri.parse("$databaseUrl$historiesEndpoint/$id.json"));
   }
 
   @override
   Future<void> deleteLocker(String id) async {
-    http.delete(Uri.parse("$databaseUrl$lockersEndpoint.json"));
+    http.delete(Uri.parse("$databaseUrl$lockersEndpoint/$id.json"));
   }
 
   @override
@@ -103,7 +103,7 @@ class ApiService implements DBService {
 
   @override
   Future<void> deleteStudent(String id) async {
-    http.delete(Uri.parse("$databaseUrl$studentsEndpoint.json"));
+    http.delete(Uri.parse("$databaseUrl$studentsEndpoint/$id.json"));
   }
 
   @override
