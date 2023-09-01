@@ -17,6 +17,22 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
   bool isExpandedHistoric = true;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _asyncMethod();
+    });
+  }
+
+  _asyncMethod() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isExpandedHistoric = prefs.getBool("isExpandedHistoric") ?? true;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<History> histories = [];
     histories = Provider.of<HistoryProvider>(context).historyItems.toList();
@@ -27,9 +43,11 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
         hoverColor: Colors.transparent,
       ),
       child: ExpansionPanelList(
-        expansionCallback: (int index, bool isExpanded) {
+        expansionCallback: (int index, bool isExpanded) async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool("isExpandedHistoric", !isExpanded);
           setState(() {
-            isExpandedHistoric = !isExpandedHistoric;
+            isExpandedHistoric = !isExpanded;
           });
         },
         elevation: 0,

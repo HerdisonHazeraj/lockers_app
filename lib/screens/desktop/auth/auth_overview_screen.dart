@@ -14,8 +14,6 @@ class AuthOverviewScreen extends StatefulWidget {
 class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
   var auth = FirebaseAuth.instance;
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
   final TextEditingController mailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -127,7 +125,8 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                 child: TextButton(
                   child: const Text("Se connecter"),
                   onPressed: () async {
-                    final SharedPreferences prefs = await _prefs;
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
 
                     try {
                       await auth.signIn(
