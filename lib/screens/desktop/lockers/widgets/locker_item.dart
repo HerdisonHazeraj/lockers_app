@@ -398,8 +398,7 @@ class _LockerItemState extends State<LockerItem> {
                     ),
                   )
             : Icon(
-                Icons.abc,
-                color: Colors.transparent,
+                Icons.more_vert,
               ),
       ),
     );
