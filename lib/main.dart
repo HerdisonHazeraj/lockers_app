@@ -105,7 +105,6 @@ class MyWidget extends StatefulWidget {
 
 class _MyWidgetState extends State<MyWidget> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final SideMenuController sideMenuController = SideMenuController();
   final PageController page = PageController();
 
@@ -136,7 +135,8 @@ class _MyWidgetState extends State<MyWidget> {
   }
 
   _checkIfIsLogged() async {
-    String token = await _prefs.then((prefs) => prefs.getString("token")!);
+    String token = await SharedPreferences.getInstance()
+        .then((prefs) => prefs.getString("token")!);
     if (token != "") {
       auth.signInWithCustomToken(token);
       onSignedIn();
@@ -188,115 +188,124 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Responsive.isDesktop(context)
-        // Version desktop
-        ? Scaffold(
-            body: isLogged == true
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SideMenuApp(sideMenuController: sideMenuController),
-                      Expanded(
-                        child: PageView(
-                          controller: page,
-                          children: [
-                            // PrepareDatabaseScreen(),
-                            DashboardOverviewScreen(
-                              changePage: (index) => changePage(index),
-                              onSignedOut: () => onSignedOut(),
-                            ),
-                            const LockersOverviewScreen(),
-                            const StudentsOverviewScreen(),
-                            const AssignationOverviewScreen(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                : AuthOverviewScreen(
-                    onSignedIn: () => onSignedIn(),
-                  ),
-          )
-
-        // Version mobile
-        : Scaffold(
-            appBar: AppBar(
-              actions: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                        bottom: BorderSide(
-                      color: Colors.black54,
-                      width: 0.3,
-                    )),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        height: double.infinity,
-                        decoration: selectedIndex == 0
-                            ? const BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Color(0xfffb3274),
-                                    width: 3,
-                                  ),
-                                ),
-                              )
-                            : null,
-                        child: TextButton(
-                          child: Text(
-                            "Casiers",
-                            style: selectedIndex == 0
-                                ? styleSelected
-                                : styleUnselected,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              selectedIndex = 0;
-                            });
-                          },
-                        ),
-                      ),
-                      Container(
-                        height: double.infinity,
-                        decoration: selectedIndex == 1
-                            ? const BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Color(0xfffb3274),
-                                    width: 3,
-                                  ),
-                                ),
-                              )
-                            : null,
-                        child: TextButton(
-                          child: Text(
-                            "Élèves",
-                            style: selectedIndex == 1
-                                ? styleSelected
-                                : styleUnselected,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              selectedIndex = 1;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-              elevation: 0,
-              backgroundColor: Colors.transparent,
+    return _isLoading
+        ? Container(
+            color: Colors.white,
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: Color(0xfffb3274),
+              ),
             ),
-            body: selectedIndex == 0
-                ? const LockersOverviewScreenMobile()
-                : const StudentsOverviewScreenMobile(),
-          );
+          )
+        : Responsive.isDesktop(context)
+            // Version desktop
+            ? Scaffold(
+                body: isLogged == true
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SideMenuApp(sideMenuController: sideMenuController),
+                          Expanded(
+                            child: PageView(
+                              controller: page,
+                              children: [
+                                // PrepareDatabaseScreen(),
+                                DashboardOverviewScreen(
+                                  changePage: (index) => changePage(index),
+                                  onSignedOut: () => onSignedOut(),
+                                ),
+                                const LockersOverviewScreen(),
+                                const StudentsOverviewScreen(),
+                                const AssignationOverviewScreen(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    : AuthOverviewScreen(
+                        onSignedIn: () => onSignedIn(),
+                      ),
+              )
+
+            // Version mobile
+            : Scaffold(
+                appBar: AppBar(
+                  actions: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                            bottom: BorderSide(
+                          color: Colors.black54,
+                          width: 0.3,
+                        )),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: double.infinity,
+                            decoration: selectedIndex == 0
+                                ? const BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: Color(0xfffb3274),
+                                        width: 3,
+                                      ),
+                                    ),
+                                  )
+                                : null,
+                            child: TextButton(
+                              child: Text(
+                                "Casiers",
+                                style: selectedIndex == 0
+                                    ? styleSelected
+                                    : styleUnselected,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  selectedIndex = 0;
+                                });
+                              },
+                            ),
+                          ),
+                          Container(
+                            height: double.infinity,
+                            decoration: selectedIndex == 1
+                                ? const BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: Color(0xfffb3274),
+                                        width: 3,
+                                      ),
+                                    ),
+                                  )
+                                : null,
+                            child: TextButton(
+                              child: Text(
+                                "Élèves",
+                                style: selectedIndex == 1
+                                    ? styleSelected
+                                    : styleUnselected,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  selectedIndex = 1;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                ),
+                body: selectedIndex == 0
+                    ? const LockersOverviewScreenMobile()
+                    : const StudentsOverviewScreenMobile(),
+              );
   }
 }

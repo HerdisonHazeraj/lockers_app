@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/desktop/dashboard/widgets/indicator.dart';
 import 'package:provider/provider.dart';
 

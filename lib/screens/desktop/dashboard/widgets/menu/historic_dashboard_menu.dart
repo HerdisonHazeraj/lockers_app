@@ -14,7 +14,23 @@ class HistoricDashboardMenu extends StatefulWidget {
 }
 
 class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
-  bool isExpandedHistoric = true;
+  late bool isExpandedHistoric;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkHistoricForm();
+    });
+  }
+
+  _checkHistoricForm() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isExpandedHistoric = prefs.getBool("isExpandedHistoric") ?? true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +43,11 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
         hoverColor: Colors.transparent,
       ),
       child: ExpansionPanelList(
-        expansionCallback: (int index, bool isExpanded) {
+        expansionCallback: (int index, bool isExpanded) async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool("isExpandedHistoric", !isExpanded);
           setState(() {
-            isExpandedHistoric = !isExpandedHistoric;
+            isExpandedHistoric = !isExpanded;
           });
         },
         elevation: 0,
@@ -101,11 +119,18 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                               child: ListTile(
                                 contentPadding: const EdgeInsets.all(0),
                                 dense: false,
-                                title: Text(
-                                  history.getSentence(),
-                                  style: const TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 15,
+                                title: Tooltip(
+                                  waitDuration:
+                                      const Duration(milliseconds: 500),
+                                  message: history.getSentence(),
+                                  child: Text(
+                                    history.getSentence(),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ),
                                 subtitle: Text(
