@@ -15,6 +15,8 @@ import 'package:lockers_app/screens/desktop/auth/auth_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
+import 'package:lockers_app/screens/mobile/lockers/lockers_overviewscreen_mobile.dart';
+import 'package:lockers_app/screens/mobile/students/students_overviewscreen_mobile.dart';
 import 'package:provider/provider.dart';
 import 'package:window_size/window_size.dart';
 
@@ -122,6 +124,26 @@ class _MyWidgetState extends State<MyWidget> {
     super.initState();
   }
 
+  var _isInit = true;
+  var _isLoading = false;
+  @override
+  Future<void> didChangeDependencies() async {
+    if (_isInit) {
+      _isLoading = true;
+      await Provider.of<LockerStudentProvider>(context, listen: false)
+          .fetchAndSetLockers();
+      await Provider.of<LockerStudentProvider>(context, listen: false)
+          .fetchAndSetStudents();
+      await Provider.of<HistoryProvider>(context, listen: false)
+          .fetchAndSetHistory();
+      setState(() {
+        _isLoading = false;
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   changePage(int index) {
     setState(() {
       selectedIndex = index;
@@ -140,26 +162,30 @@ class _MyWidgetState extends State<MyWidget> {
         // Version desktop
         ? Scaffold(
             body: isLoggedTest == true
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SideMenuApp(sideMenuController: sideMenuController),
-                      Expanded(
-                        child: PageView(
-                          controller: page,
-                          children: [
-                            // PrepareDatabaseScreen(),
-                            DashboardOverviewScreen(
-                              (index) => changePage(index),
+                ? _isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SideMenuApp(sideMenuController: sideMenuController),
+                          Expanded(
+                            child: PageView(
+                              controller: page,
+                              children: [
+                                // PrepareDatabaseScreen(),
+                                DashboardOverviewScreen(
+                                  (index) => changePage(index),
+                                ),
+                                const LockersOverviewScreen(),
+                                const StudentsOverviewScreen(),
+                                const AssignationOverviewScreen(),
+                              ],
                             ),
-                            const LockersOverviewScreen(),
-                            const StudentsOverviewScreen(),
-                            const AssignationOverviewScreen(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
+                          ),
+                        ],
+                      )
                 : const AuthOverviewScreen(),
           )
 
@@ -170,6 +196,7 @@ class _MyWidgetState extends State<MyWidget> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
+                    color: Colors.white,
                     border: Border(
                         bottom: BorderSide(
                       color: Colors.black54,
@@ -239,8 +266,8 @@ class _MyWidgetState extends State<MyWidget> {
               backgroundColor: Colors.transparent,
             ),
             body: selectedIndex == 0
-                ? const LockersOverviewScreen()
-                : const StudentsOverviewScreen(),
+                ? const LockersOverviewScreenMobile()
+                : const StudentsOverviewScreenMobile(),
           );
     // : Scaffold(
     //     body: _widgetOptions.elementAt(selectedIndex),
