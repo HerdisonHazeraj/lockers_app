@@ -1,13 +1,26 @@
+import 'package:firedart/auth/exceptions.dart';
+import 'package:firedart/firedart.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthOverviewScreen extends StatefulWidget {
-  const AuthOverviewScreen({super.key});
+  const AuthOverviewScreen({required this.onSignedIn, super.key});
+  final Function onSignedIn;
 
   @override
   State<AuthOverviewScreen> createState() => _AuthOverviewScreenState();
 }
 
 class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
+  var auth = FirebaseAuth.instance;
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  final TextEditingController mailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  bool isStayConnectedChecked = false;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -65,7 +78,7 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                   // onFieldSubmitted: (v) {
                   //   FocusScope.of(context).requestFocus(focusClasse);
                   // },
-                  // controller: mailController,
+                  controller: mailController,
                   decoration: const InputDecoration(
                     labelText: "Adresse mail",
                     border: OutlineInputBorder(),
@@ -88,7 +101,7 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                   // onFieldSubmitted: (v) {
                   //   FocusScope.of(context).requestFocus(focusClasse);
                   // },
-                  // controller: mailController,
+                  controller: passwordController,
                   decoration: const InputDecoration(
                     labelText: "Mot de passe",
                     border: OutlineInputBorder(),
@@ -98,11 +111,51 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                   obscureText: true,
                 ),
               ),
+              CheckboxListTile(
+                title: const Text("Rester connecté"),
+                value: isStayConnectedChecked,
+                onChanged: (bool? value) {
+                  setState(() {
+                    isStayConnectedChecked = value!;
+                  });
+                },
+                contentPadding: const EdgeInsets.all(4),
+                controlAffinity: ListTileControlAffinity.leading,
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: TextButton(
-                  child: Text("Se connecter"),
-                  onPressed: () {},
+                  child: const Text("Se connecter"),
+                  onPressed: () async {
+                    final SharedPreferences prefs = await _prefs;
+
+                    try {
+                      await auth.signIn(
+                          mailController.text, passwordController.text);
+
+                      widget.onSignedIn();
+
+                      prefs.setString(
+                        "token",
+                        isStayConnectedChecked == true
+                            ? await auth.tokenProvider.idToken
+                            : "",
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Connexion réussie !"),
+                        ),
+                      );
+                    } on AuthException {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content:
+                              Text("Identifiant ou mot de passe incorrecte"),
+                        ),
+                      );
+                    }
+                  },
                 ),
               )
             ],

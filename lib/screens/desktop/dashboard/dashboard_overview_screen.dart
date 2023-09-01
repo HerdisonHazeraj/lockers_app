@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firedart/firedart.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
@@ -9,14 +10,17 @@ import 'package:lockers_app/screens/desktop/dashboard/widgets/piechartdashboard_
 import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../responsive.dart';
 import 'widgets/dashboard_menu.dart';
 
 class DashboardOverviewScreen extends StatefulWidget {
-  const DashboardOverviewScreen(this.changePage, {super.key});
+  const DashboardOverviewScreen(
+      {required this.changePage, required this.onSignedOut, super.key});
 
   final Function changePage;
+  final Function onSignedOut;
 
   static String routeName = "/dashboard";
   static int pageIndex = 0;
@@ -27,6 +31,10 @@ class DashboardOverviewScreen extends StatefulWidget {
 }
 
 class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
+  var auth = FirebaseAuth.instance;
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   var _isInit = true;
   var _isLoading = false;
   int touchedIndex = -1;
@@ -121,13 +129,31 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             ),
                                           ),
                                           const PopupMenuDivider(height: 1),
-                                          const PopupMenuItem<int>(
-                                            child: Text(
-                                              "Déconnexion",
-                                              style:
-                                                  TextStyle(color: Colors.red),
+                                          PopupMenuItem<int>(
+                                            child: TextButton(
+                                              child: const Text(
+                                                "Déconnexion",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                              onPressed: () async {
+                                                SharedPreferences prefs =
+                                                    await _prefs;
+
+                                                auth.signOut();
+                                                widget.onSignedOut();
+                                                prefs.setString("token", "");
+                                                Navigator.pop(context);
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        "Déconnection réussie !"),
+                                                  ),
+                                                );
+                                              },
                                             ),
-                                          )
+                                          ),
                                         ],
                                         child: CachedNetworkImage(
                                           imageUrl:
@@ -200,7 +226,10 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                       .length
                                       .toString(),
                                   "assets/icons/student.svg",
-                                  () => null,
+                                  () async {
+                                    SharedPreferences prefs = await _prefs;
+                                    print(prefs.getString("token"));
+                                  },
                                 ),
                                 InfoCard(
                                   "Nombre de casiers libres",
