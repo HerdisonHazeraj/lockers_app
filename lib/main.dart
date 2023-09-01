@@ -28,6 +28,7 @@ import 'infrastructure/firebase_rtdb_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  FirebaseAuth.initialize(Config.apiKey, VolatileStore());
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
