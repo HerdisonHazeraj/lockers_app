@@ -1,5 +1,6 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firedart/firedart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,6 +19,7 @@ import 'package:lockers_app/screens/desktop/students/students_overview_screen.da
 import 'package:lockers_app/screens/mobile/lockers/lockers_overviewscreen_mobile.dart';
 import 'package:lockers_app/screens/mobile/students/students_overviewscreen_mobile.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_size/window_size.dart';
 
 import 'firebase_options.dart';
@@ -32,6 +34,8 @@ void main() async {
   } else if (defaultTargetPlatform == TargetPlatform.windows) {
     setWindowMaxSize(const Size(double.infinity, 1080));
     setWindowMinSize(const Size(1280, 720));
+
+    FirebaseAuth.initialize(Config.apiKey, VolatileStore());
 
     await Firebase.initializeApp(
       options: FirebaseOptions(
@@ -76,7 +80,8 @@ class MyApp extends StatelessWidget {
           PrepareDatabaseScreen.routeName: (context) =>
               const PrepareDatabaseScreen(),
           DashboardOverviewScreen.routeName: (context) =>
-              DashboardOverviewScreen(() => null),
+              DashboardOverviewScreen(
+                  changePage: () => null, onSignedOut: () => null),
           LockersOverviewScreen.routeName: (context) =>
               const LockersOverviewScreen(),
           AssignationOverviewScreen.routeName: (context) =>
@@ -98,8 +103,14 @@ class MyWidget extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyWidget> {
-  SideMenuController sideMenuController = SideMenuController();
-  PageController page = PageController();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final SideMenuController sideMenuController = SideMenuController();
+  final PageController page = PageController();
+
+  int selectedIndex = 0;
+  bool isLogged = false;
+
   TextStyle styleSelected = const TextStyle(
     color: Color(0xfffb3274),
     fontWeight: FontWeight.bold,
@@ -110,18 +121,27 @@ class _MyWidgetState extends State<MyWidget> {
     fontSize: 18,
   );
 
-  // static final List<Widget> _widgetOptions = <Widget>[
-  //   DashboardOverviewScreen(() => null),
-  //   const LockersOverviewScreen(),
-  //   const StudentsOverviewScreen(),
-  // ];
-
   @override
   void initState() {
     sideMenuController.addListener((p0) {
       page.jumpToPage(p0);
     });
+
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkIfIsLogged();
+    });
+  }
+
+  _checkIfIsLogged() async {
+    String token = await _prefs.then((prefs) => prefs.getString("token")!);
+    if (token != "") {
+      auth.signInWithCustomToken(token);
+      onSignedIn();
+    } else {
+      onSignedOut();
+    }
   }
 
   var _isInit = true;
@@ -153,40 +173,48 @@ class _MyWidgetState extends State<MyWidget> {
     sideMenuController.changePage(index);
   }
 
-  int selectedIndex = 0;
-  bool isLoggedTest = true;
+  onSignedIn() {
+    setState(() {
+      isLogged = true;
+    });
+  }
+
+  onSignedOut() {
+    setState(() {
+      isLogged = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Responsive.isDesktop(context)
         // Version desktop
         ? Scaffold(
-            body: isLoggedTest == true
-                ? _isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SideMenuApp(sideMenuController: sideMenuController),
-                          Expanded(
-                            child: PageView(
-                              controller: page,
-                              children: [
-                                // PrepareDatabaseScreen(),
-                                DashboardOverviewScreen(
-                                  (index) => changePage(index),
-                                ),
-                                const LockersOverviewScreen(),
-                                const StudentsOverviewScreen(),
-                                const AssignationOverviewScreen(),
-                              ],
+            body: isLogged == true
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SideMenuApp(sideMenuController: sideMenuController),
+                      Expanded(
+                        child: PageView(
+                          controller: page,
+                          children: [
+                            // PrepareDatabaseScreen(),
+                            DashboardOverviewScreen(
+                              changePage: (index) => changePage(index),
+                              onSignedOut: () => onSignedOut(),
                             ),
-                          ),
-                        ],
-                      )
-                : const AuthOverviewScreen(),
+                            const LockersOverviewScreen(),
+                            const StudentsOverviewScreen(),
+                            const AssignationOverviewScreen(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : AuthOverviewScreen(
+                    onSignedIn: () => onSignedIn(),
+                  ),
           )
 
         // Version mobile
@@ -269,42 +297,5 @@ class _MyWidgetState extends State<MyWidget> {
                 ? const LockersOverviewScreenMobile()
                 : const StudentsOverviewScreenMobile(),
           );
-    // : Scaffold(
-    //     body: _widgetOptions.elementAt(selectedIndex),
-    //     bottomNavigationBar: BottomNavigationBar(
-    //       type: BottomNavigationBarType.shifting,
-    //       currentIndex: selectedIndex,
-    //       selectedItemColor: Colors.black,
-    //       unselectedItemColor: Colors.black54,
-    //       onTap: (index) => changePage(index),
-    //       showSelectedLabels: false,
-    //       items: [
-    //         BottomNavigationBarItem(
-    //           icon: SvgPicture.asset(
-    //             "assets/icons/dashboard.svg",
-    //             height: 24,
-    //           ),
-    //           tooltip: "Dashboard",
-    //           label: 'Dashboard',
-    //         ),
-    //         BottomNavigationBarItem(
-    //           icon: SvgPicture.asset(
-    //             "assets/icons/locker.svg",
-    //             height: 24,
-    //           ),
-    //           tooltip: "Casiers",
-    //           label: 'Casiers',
-    //         ),
-    //         BottomNavigationBarItem(
-    //           icon: SvgPicture.asset(
-    //             "assets/icons/student.svg",
-    //             height: 24,
-    //           ),
-    //           tooltip: "Élèves",
-    //           label: 'Élèves',
-    //         ),
-    //       ],
-    //     ),
-    //   );
   }
 }
