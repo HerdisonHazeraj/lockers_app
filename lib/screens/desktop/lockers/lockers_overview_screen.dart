@@ -20,7 +20,7 @@ class LockersOverviewScreen extends StatefulWidget {
 class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
   bool isInit = false;
   // Tools for defective lockers elias
-  late bool isExpDefective = true;
+  late bool isExpDefective = false;
   late List<Locker> defectiveLockers = [];
   // Tools for lockers by search
   late bool isExpSearch = false;

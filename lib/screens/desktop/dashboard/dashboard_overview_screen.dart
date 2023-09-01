@@ -116,7 +116,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                             .showSnackBar(
                                           const SnackBar(
                                             content:
-                                                Text("Déconnection réussie !"),
+                                                Text("Déconnexion réussie !"),
                                           ),
                                         );
                                       },

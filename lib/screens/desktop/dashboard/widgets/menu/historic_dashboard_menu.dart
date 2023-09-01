@@ -14,18 +14,18 @@ class HistoricDashboardMenu extends StatefulWidget {
 }
 
 class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
-  bool isExpandedHistoric = true;
+  late bool isExpandedHistoric;
 
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _asyncMethod();
+      _checkHistoricForm();
     });
   }
 
-  _asyncMethod() async {
+  _checkHistoricForm() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       isExpandedHistoric = prefs.getBool("isExpandedHistoric") ?? true;
@@ -119,11 +119,18 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                               child: ListTile(
                                 contentPadding: const EdgeInsets.all(0),
                                 dense: false,
-                                title: Text(
-                                  history.getSentence(),
-                                  style: const TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 15,
+                                title: Tooltip(
+                                  waitDuration:
+                                      const Duration(milliseconds: 500),
+                                  message: history.getSentence(),
+                                  child: Text(
+                                    history.getSentence(),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ),
                                 subtitle: Text(
