@@ -37,7 +37,9 @@ class _StudentsOverviewScreenMobileState
         if (!isScrollingDown) {
           isScrollingDown = true;
           _showSearchBar = false;
-          setState(() {});
+          setState(() {
+            FocusManager.instance.primaryFocus?.unfocus();
+          });
         }
       }
 
@@ -69,16 +71,16 @@ class _StudentsOverviewScreenMobileState
     }
 
     return SizedBox(
-        // child: SingleChildScrollView(
-        //   controller: _scrollViewController,
         child: Column(children: [
-      //barre de recherche
       AnimatedContainer(
         height: _showSearchBar ? 56.0 : 0.0,
         duration: const Duration(milliseconds: 200),
-        child: Container(color: Colors.white, child: const SearchBarWidget()),
+        child: Container(
+            color: Colors.white,
+            child: const SearchBarWidget(
+              isLockerPage: false,
+            )),
       ),
-
       Expanded(
         child: SingleChildScrollView(
           controller: _scrollViewController,

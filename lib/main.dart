@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lockers_app/core/config.dart';
 import 'package:lockers_app/infrastructure/firebase_api_service.dart';
@@ -233,60 +234,68 @@ class _MyWidgetState extends State<MyWidget> {
                           width: 0.3,
                         )),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      child: Column(
                         children: [
-                          Container(
-                            height: double.infinity,
-                            decoration: selectedIndex == 0
-                                ? const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Color(0xfffb3274),
-                                        width: 3,
-                                      ),
-                                    ),
-                                  )
-                                : null,
-                            child: TextButton(
-                              child: Text(
-                                "Casiers",
-                                style: selectedIndex == 0
-                                    ? styleSelected
-                                    : styleUnselected,
+                          // SvgPicture.asset(
+                          //   'assets/icons/logo.svg',
+                          //   height: 18,
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: double.infinity,
+                                decoration: selectedIndex == 0
+                                    ? const BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            color: Color(0xfffb3274),
+                                            width: 3,
+                                          ),
+                                        ),
+                                      )
+                                    : null,
+                                child: TextButton(
+                                  child: Text(
+                                    "Casiers",
+                                    style: selectedIndex == 0
+                                        ? styleSelected
+                                        : styleUnselected,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      selectedIndex = 0;
+                                    });
+                                  },
+                                ),
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  selectedIndex = 0;
-                                });
-                              },
-                            ),
-                          ),
-                          Container(
-                            height: double.infinity,
-                            decoration: selectedIndex == 1
-                                ? const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Color(0xfffb3274),
-                                        width: 3,
-                                      ),
-                                    ),
-                                  )
-                                : null,
-                            child: TextButton(
-                              child: Text(
-                                "Élèves",
-                                style: selectedIndex == 1
-                                    ? styleSelected
-                                    : styleUnselected,
+                              Container(
+                                height: double.infinity,
+                                decoration: selectedIndex == 1
+                                    ? const BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            color: Color(0xfffb3274),
+                                            width: 3,
+                                          ),
+                                        ),
+                                      )
+                                    : null,
+                                child: TextButton(
+                                  child: Text(
+                                    "Élèves",
+                                    style: selectedIndex == 1
+                                        ? styleSelected
+                                        : styleUnselected,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      selectedIndex = 1;
+                                    });
+                                  },
+                                ),
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  selectedIndex = 1;
-                                });
-                              },
-                            ),
+                            ],
                           ),
                         ],
                       ),

@@ -37,7 +37,9 @@ class _LockersOverviewScreenMobileState
         if (!isScrollingDown) {
           isScrollingDown = true;
           _showSearchBar = false;
-          setState(() {});
+          setState(() {
+            FocusManager.instance.primaryFocus?.unfocus();
+          });
         }
       }
 
@@ -81,7 +83,11 @@ class _LockersOverviewScreenMobileState
       AnimatedContainer(
         height: _showSearchBar ? 56.0 : 0.0,
         duration: const Duration(milliseconds: 200),
-        child: Container(color: Colors.white, child: const SearchBarWidget()),
+        child: Container(
+            color: Colors.white,
+            child: const SearchBarWidget(
+              isLockerPage: true,
+            )),
       ),
 
       Expanded(
