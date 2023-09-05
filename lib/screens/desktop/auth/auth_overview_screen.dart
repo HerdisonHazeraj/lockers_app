@@ -1,6 +1,7 @@
-import 'package:firedart/auth/exceptions.dart';
-import 'package:firedart/firedart.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lockers_app/screens/desktop/auth/widgets/sign_in/mail_password_auth_widget.dart';
+import 'package:lockers_app/screens/desktop/auth/widgets/sign_in/number_confirmation_auth_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthOverviewScreen extends StatefulWidget {
@@ -14,10 +15,16 @@ class AuthOverviewScreen extends StatefulWidget {
 class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
   var auth = FirebaseAuth.instance;
 
+  bool isStayConnectedChecked = false;
+  bool connectWithSMS = false;
+  bool otpFieldVisibility = false;
+
   final TextEditingController mailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController numberController = TextEditingController();
+  final TextEditingController otpController = TextEditingController();
 
-  bool isStayConnectedChecked = false;
+  var receivedID = '';
 
   @override
   Widget build(BuildContext context) {
@@ -62,101 +69,216 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Veuillez remplir ce champ';
-                    }
-                    return null;
-                  },
-                  // focusNode: focusMail,
-                  textInputAction: TextInputAction.next,
-                  // onFieldSubmitted: (v) {
-                  //   FocusScope.of(context).requestFocus(focusClasse);
-                  // },
-                  controller: mailController,
-                  decoration: const InputDecoration(
-                    labelText: "Adresse mail",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.mail_outlined),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Veuillez remplir ce champ';
-                    }
-                    return null;
-                  },
-                  // focusNode: focusMail,
-                  textInputAction: TextInputAction.next,
-                  // onFieldSubmitted: (v) {
-                  //   FocusScope.of(context).requestFocus(focusClasse);
-                  // },
-                  controller: passwordController,
-                  decoration: const InputDecoration(
-                    labelText: "Mot de passe",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock_outlined),
-                  ),
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                ),
-              ),
-              CheckboxListTile(
-                title: const Text("Rester connecté"),
-                value: isStayConnectedChecked,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isStayConnectedChecked = value!;
-                  });
-                },
-                contentPadding: const EdgeInsets.all(4),
-                controlAffinity: ListTileControlAffinity.leading,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
+              connectWithSMS
+                  ? NumberConfirmationAuthWidget(
+                      numberController: numberController,
+                      otpController: otpController,
+                      otpFieldVisibility: otpFieldVisibility,
+                    )
+                  : MailPasswordAuthWidget(
+                      mailController: mailController,
+                      passwordController: passwordController,
+                    ),
+              (otpFieldVisibility && connectWithSMS) || !connectWithSMS
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: CheckboxListTile(
+                            title: Transform.translate(
+                              offset: const Offset(-20, 0),
+                              child: const Text(
+                                "Rester connecté",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+                            value: isStayConnectedChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isStayConnectedChecked = value!;
+                              });
+                            },
+                            contentPadding: const EdgeInsets.all(4),
+                            controlAffinity: ListTileControlAffinity.leading,
+                          ),
+                        ),
+                        connectWithSMS
+                            ? const Text("")
+                            : TextButton(
+                                child: const Text("Mot de passe oublié"),
+                                onPressed: () {},
+                              ),
+                      ],
+                    )
+                  : const Text(""),
+              SizedBox(
+                width: double.infinity,
                 child: TextButton(
-                  child: const Text("Se connecter"),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black54),
+                  ),
+                  child: const Text(
+                    "Se connecter",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () async {
                     final SharedPreferences prefs =
                         await SharedPreferences.getInstance();
 
-                    try {
-                      await auth.signIn(
-                          mailController.text, passwordController.text);
+                    if (connectWithSMS) {
+                      if (otpFieldVisibility) {
+                        try {
+                          await auth.signInWithCredential(
+                            PhoneAuthProvider.credential(
+                              verificationId: receivedID,
+                              smsCode: otpController.text,
+                            ),
+                          );
 
-                      widget.onSignedIn();
+                          widget.onSignedIn();
 
-                      prefs.setString(
-                        "token",
-                        isStayConnectedChecked == true
-                            ? await auth.tokenProvider.idToken
-                            : "",
-                      );
+                          prefs.setString(
+                            "token",
+                            isStayConnectedChecked == true
+                                ? auth.currentUser!.getIdToken().toString()
+                                : "",
+                          );
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Connexion réussie !"),
-                        ),
-                      );
-                    } on AuthException {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content:
-                              Text("Identifiant ou mot de passe incorrecte"),
-                        ),
-                      );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Connexion réussie !")),
+                          );
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString())),
+                          );
+                        }
+                      } else {
+                        auth.verifyPhoneNumber(
+                          phoneNumber: numberController.text,
+                          verificationCompleted: (_) {},
+                          verificationFailed: (FirebaseAuthException e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.message.toString())),
+                            );
+
+                            setState(() {
+                              otpFieldVisibility = false;
+                            });
+                          },
+                          codeSent: (String verificationId, int? resendToken) {
+                            receivedID = verificationId;
+                            setState(() {
+                              otpFieldVisibility = true;
+                            });
+                          },
+                          codeAutoRetrievalTimeout: (String verificationId) {
+                            print("TimeOut");
+                          },
+                        );
+                      }
+                    } else {
+                      try {
+                        await auth.signInWithEmailAndPassword(
+                          email: mailController.text,
+                          password: passwordController.text,
+                        );
+
+                        widget.onSignedIn();
+
+                        prefs.setString(
+                          "token",
+                          isStayConnectedChecked == true
+                              ? auth.currentUser!.getIdToken().toString()
+                              : "",
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Connexion réussie !")),
+                        );
+                      } on FirebaseAuthException {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text(
+                                  "Adresse mail ou mot de passe incorrecte !")),
+                        );
+                      }
                     }
+
+                    // final SharedPreferences prefs =
+                    //     await SharedPreferences.getInstance();
+
+                    // try {
+                    //   if (connectWithSMS) {
+                    //     await auth.verifyPhoneNumber(
+                    //       timeout: const Duration(seconds: 60),
+                    //       phoneNumber: numberController.text,
+                    //       verificationCompleted: (phoneAuthCredential) {
+                    //         widget.onSignedIn();
+
+                    //         prefs.setString(
+                    //           "token",
+                    //           isStayConnectedChecked == true
+                    //               ? auth.currentUser!.getIdToken().toString()
+                    //               : "",
+                    //         );
+
+                    //         ScaffoldMessenger.of(context).showSnackBar(
+                    //           const SnackBar(
+                    //             content: Text("Connexion réussie !"),
+                    //           ),
+                    //         );
+                    //       },
+                    //       verificationFailed: (error) {
+                    //         ScaffoldMessenger.of(context).showSnackBar(
+                    //           SnackBar(
+                    //             content: Text(error.toString()),
+                    //           ),
+                    //         );
+                    //       },
+                    //       codeSent:
+                    //           (verificationId, forceResendingToken) async {},
+                    //       codeAutoRetrievalTimeout: (verificationId) {},
+                    //     );
+                    //   } else {
+                    //     await auth.signInWithEmailAndPassword(
+                    //         email: mailController.text,
+                    //         password: passwordController.text);
+
+                    //     widget.onSignedIn();
+
+                    //     prefs.setString(
+                    //       "token",
+                    //       isStayConnectedChecked == true
+                    //           ? auth.currentUser!.getIdToken().toString()
+                    //           : "",
+                    //     );
+
+                    //     ScaffoldMessenger.of(context).showSnackBar(
+                    //       const SnackBar(
+                    //         content: Text("Connexion réussie !"),
+                    //       ),
+                    //     );
+                    //   }
+                    // } catch (e) {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     const SnackBar(
+                    //       content:
+                    //           Text("Identifiant ou mot de passe incorrecte"),
+                    //     ),
+                    //   );
+                    // }
                   },
                 ),
-              )
+              ),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    connectWithSMS = !connectWithSMS;
+                  });
+                },
+                child: const Text("Se connecter via SMS"),
+              ),
             ],
           ),
         ),

@@ -14,7 +14,7 @@ class HistoricDashboardMenu extends StatefulWidget {
 }
 
 class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
-  late bool isExpandedHistoric;
+  bool isExpandedHistoric = false;
 
   @override
   void initState() {
