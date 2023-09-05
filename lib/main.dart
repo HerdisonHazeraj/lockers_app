@@ -244,10 +244,10 @@ class _MyWidgetState extends State<MyWidget> {
                       ),
                       child: Column(
                         children: [
-                          SvgPicture.asset(
-                            'assets/icons/logo.svg',
-                            height: 18,
-                          ),
+                          // SvgPicture.asset(
+                          //   'assets/icons/logo.svg',
+                          //   height: 18,
+                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
