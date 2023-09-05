@@ -4,6 +4,7 @@ import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
+import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/student.dart';
@@ -52,6 +53,19 @@ class _LockerItemState extends State<LockerItem> {
         widget.locker.isFocus = true;
       }),
       child: ListTile(
+        onTap: Responsive.isMobile(context)
+            ? () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) =>
+                        LockerDetailsScreenMobile(
+                      locker: widget.locker,
+                    ),
+                  ),
+                );
+              }
+            : null,
         enabled: widget.locker.isInaccessible == false ? true : false,
         leading: widget.locker.isDefective == true
             ? const Icon(

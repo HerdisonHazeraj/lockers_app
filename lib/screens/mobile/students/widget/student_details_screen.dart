@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/mobile/students/widget/lockerstudent_info_widget.dart';
 import 'package:lockers_app/screens/mobile/students/widget/students_info_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -54,11 +55,13 @@ class _StudentDetailsScreenMobileState
                         child: widget.student.caution == 0
                             ? const Text(
                                 'Caution non-payée',
-                                style: TextStyle(color: Colors.red),
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 16),
                               )
                             : const Text(
                                 'Caution payée',
-                                style: TextStyle(color: Colors.green),
+                                style: TextStyle(
+                                    color: Colors.green, fontSize: 16),
                               )),
                   )
                 : const Text(''),
@@ -102,49 +105,47 @@ class _StudentDetailsScreenMobileState
                       )),
                   isExpanded: ExpList[0],
                 ),
-                locker == Locker.error()
-                    ? ExpansionPanel(
-                        headerBuilder: (context, isExpanded) {
-                          return Text("");
-                        },
-                        body: const SizedBox(
-                          height: 0,
-                        ))
-                    : ExpansionPanel(
-                        canTapOnHeader: true,
-                        backgroundColor: Colors.transparent,
-                        headerBuilder: (context, isExpanded) {
-                          return Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.01),
-                            child: const ListTile(
-                              leading: Icon(Icons.lock, size: 30),
-                              title: Text('Casier de l\'élève'),
-                              subtitle:
-                                  Text('N° de Casier, Étage, Nombre de clés'),
-                            ),
-                          );
-                        },
-                        body: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.15,
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.05),
-                            child: GridView.count(
-                              childAspectRatio: 4,
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              crossAxisCount: 2,
-                              children: [
-                                Text("N° de Casier : ${locker.lockerNumber}"),
-                                Text("Étage : ${locker.floor.toUpperCase()}"),
-                                Text("Nombre de clés : ${locker.nbKey}"),
-                              ],
-                            ),
-                          ),
-                        ),
-                        isExpanded: ExpList[1],
+                // locker == Locker.error()
+                //     ? ExpansionPanel(
+                //         headerBuilder: (context, isExpanded) {
+                //           return Text("");
+                //         },
+                //         body: const SizedBox(
+                //           height: 0,
+                //         ),
+                //         isExpanded: ExpList[1],
+                //       )
+                //     :
+                ExpansionPanel(
+                  canTapOnHeader: true,
+                  backgroundColor: Colors.transparent,
+                  headerBuilder: (context, isExpanded) {
+                    return Padding(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.01),
+                      child: const ListTile(
+                        leading: Icon(Icons.lock, size: 30),
+                        title: Text('Casier de l\'élève'),
+                        subtitle: Text('N° de Casier, Étage, Nombre de clés'),
                       ),
+                    );
+                  },
+                  body: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    child: Padding(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width * 0.05),
+                      child: locker != Locker.error()
+                          ? LockerStudentInfoWidget(locker: locker)
+                          : const Text(
+                              'L\'élève ne possède pas de casier',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                    ),
+                  ),
+                  isExpanded: ExpList[1],
+                ),
               ],
             ),
             TextButton(
@@ -154,9 +155,15 @@ class _StudentDetailsScreenMobileState
                   style: TextStyle(fontSize: 16),
                 )),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() async {
+                    await Provider.of<LockerStudentProvider>(context,
+                            listen: false)
+                        .unAttributeLocker(locker, widget.student);
+                  });
+                },
                 child: const Text(
-                  'Désattibuer le casier',
+                  'Désattribuer le casier',
                   style: TextStyle(fontSize: 16),
                 )),
           ]),

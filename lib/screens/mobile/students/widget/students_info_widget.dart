@@ -21,7 +21,7 @@ class StudentsInfo extends StatelessWidget {
               color: Colors.black,
             ),
             children: <TextSpan>[
-              TextSpan(text: "Prenom : "),
+              const TextSpan(text: "Prenom : "),
               TextSpan(
                 text: student.firstName,
                 style: const TextStyle(fontWeight: FontWeight.bold),
@@ -36,7 +36,7 @@ class StudentsInfo extends StatelessWidget {
               color: Colors.black,
             ),
             children: <TextSpan>[
-              TextSpan(text: "Nom : "),
+              const TextSpan(text: "Nom : "),
               TextSpan(
                 text: student.lastName,
                 style: const TextStyle(fontWeight: FontWeight.bold),
@@ -51,7 +51,7 @@ class StudentsInfo extends StatelessWidget {
               color: Colors.black,
             ),
             children: <TextSpan>[
-              TextSpan(text: "Login : "),
+              const TextSpan(text: "Login : "),
               TextSpan(
                 text: student.login,
                 style: const TextStyle(fontWeight: FontWeight.bold),
@@ -66,7 +66,7 @@ class StudentsInfo extends StatelessWidget {
               color: Colors.black,
             ),
             children: <TextSpan>[
-              TextSpan(text: "Mail : "),
+              const TextSpan(text: "Mail : "),
               TextSpan(
                 text:
                     "${student.firstName.trim()}.${student.lastName.trim()}@ceff.ch",
@@ -82,7 +82,7 @@ class StudentsInfo extends StatelessWidget {
               color: Colors.black,
             ),
             children: <TextSpan>[
-              TextSpan(text: "Classe : "),
+              const TextSpan(text: "Classe : "),
               TextSpan(
                 text: student.classe,
                 style: const TextStyle(fontWeight: FontWeight.bold),
@@ -97,7 +97,7 @@ class StudentsInfo extends StatelessWidget {
               color: Colors.black,
             ),
             children: <TextSpan>[
-              TextSpan(text: "Année : "),
+              const TextSpan(text: "Année : "),
               TextSpan(
                 text: "${student.year}e",
                 style: const TextStyle(fontWeight: FontWeight.bold),
@@ -112,7 +112,7 @@ class StudentsInfo extends StatelessWidget {
               color: Colors.black,
             ),
             children: <TextSpan>[
-              TextSpan(text: "Formation : "),
+              const TextSpan(text: "Formation : "),
               TextSpan(
                 text: student.job,
                 style: const TextStyle(fontWeight: FontWeight.bold),
@@ -127,7 +127,7 @@ class StudentsInfo extends StatelessWidget {
               color: Colors.black,
             ),
             children: <TextSpan>[
-              TextSpan(text: "Maître de classe : "),
+              const TextSpan(text: "Maître de classe : "),
               TextSpan(
                 text: student.responsable,
                 style: const TextStyle(fontWeight: FontWeight.bold),
