@@ -42,7 +42,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                       context,
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) =>
-                            const LockerDetailsScreenMobile(),
+                            LockerDetailsScreenMobile(
+                          locker: item,
+                        ),
                       ),
                     );
                   });
