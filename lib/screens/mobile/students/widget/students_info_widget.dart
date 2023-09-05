@@ -14,15 +14,127 @@ class StudentsInfo extends StatelessWidget {
       shrinkWrap: true,
       crossAxisCount: 2,
       children: [
-        Text("Prenom : ${student.firstName}"),
-        Text("Nom : ${student.lastName}"),
-        Text("Login : ${student.login}"),
-        Text(
-            "Mail : ${student.firstName.trim()}.${student.lastName.trim()}@ceff.ch"),
-        Text("Classe : ${student.classe}"),
-        Text("Année : ${student.year}e"),
-        Text("Formation : ${student.job}"),
-        Text("Maître de classe : ${student.responsable}"),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: "Prenom : "),
+              TextSpan(
+                text: student.firstName,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: "Nom : "),
+              TextSpan(
+                text: student.lastName,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: "Login : "),
+              TextSpan(
+                text: student.login,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: "Mail : "),
+              TextSpan(
+                text:
+                    "${student.firstName.trim()}.${student.lastName.trim()}@ceff.ch",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: "Classe : "),
+              TextSpan(
+                text: student.classe,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: "Année : "),
+              TextSpan(
+                text: "${student.year}e",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: "Formation : "),
+              TextSpan(
+                text: student.job,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: "Maître de classe : "),
+              TextSpan(
+                text: student.responsable,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -37,7 +37,9 @@ class _LockersOverviewScreenMobileState
         if (!isScrollingDown) {
           isScrollingDown = true;
           _showSearchBar = false;
-          setState(() {});
+          setState(() {
+            FocusManager.instance.primaryFocus?.unfocus();
+          });
         }
       }
 

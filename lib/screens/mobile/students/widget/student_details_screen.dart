@@ -20,7 +20,7 @@ class StudentDetailsScreenMobile extends StatefulWidget {
 
 class _StudentDetailsScreenMobileState
     extends State<StudentDetailsScreenMobile> {
-  List<bool> ExpList = [true, true];
+  List<bool> ExpList = [false, false];
   // bool IsLockerDataExp = true;
   @override
   Widget build(BuildContext context) {
@@ -43,86 +43,123 @@ class _StudentDetailsScreenMobileState
             },
           ),
         ),
-        body: Column(children: [
-          widget.student.lockerNumber != 0
-              ? SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  child: Card(
-                      elevation: 0,
-                      color: Colors.transparent,
-                      child: widget.student.caution == 0
-                          ? const Text(
-                              'Caution non-payée',
-                              style: TextStyle(color: Colors.red),
-                            )
-                          : const Text(
-                              'Caution payée',
-                              style: TextStyle(color: Colors.green),
-                            )),
-                )
-              : const Text(''),
-          ExpansionPanelList(
-            elevation: 0,
-            expansionCallback: (int index, bool isExpanded) {
-              setState(() {
-                ExpList[index] = !ExpList[index];
-              });
-            },
-            children: [
-              ExpansionPanel(
-                canTapOnHeader: true,
-                backgroundColor: Colors.transparent,
-                headerBuilder: (context, isExpanded) {
-                  return Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.height * 0.01),
-                    child: Text("Données personnelles"),
-                  );
-                },
-                body: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.05,
-                      ),
-                      child: StudentsInfo(
-                        student: widget.student,
-                      ),
-                    )),
-                isExpanded: ExpList[0],
-              ),
-              locker == Locker.error()
-                  ? ExpansionPanel(
-                      headerBuilder: (context, isExpanded) {
-                        return Text("");
-                      },
-                      body: const SizedBox(
-                        height: 0,
-                      ))
-                  : ExpansionPanel(
-                      canTapOnHeader: true,
-                      backgroundColor: Colors.transparent,
-                      headerBuilder: (context, isExpanded) {
-                        return const Text("Casier de l'élève");
-                      },
-                      body: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        child: GridView.count(
-                          childAspectRatio: 4,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          crossAxisCount: 2,
-                          children: [
-                            Text("N° de Casier : ${locker.lockerNumber}"),
-                            Text("Étage : ${locker.floor.toUpperCase()}"),
-                            Text("Nombre de clés : ${locker.nbKey}"),
-                          ],
+        body: SingleChildScrollView(
+          child: Column(children: [
+            widget.student.lockerNumber != 0
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Card(
+                        elevation: 0,
+                        color: Colors.transparent,
+                        child: widget.student.caution == 0
+                            ? const Text(
+                                'Caution non-payée',
+                                style: TextStyle(color: Colors.red),
+                              )
+                            : const Text(
+                                'Caution payée',
+                                style: TextStyle(color: Colors.green),
+                              )),
+                  )
+                : const Text(''),
+            ExpansionPanelList(
+              elevation: 0,
+              expansionCallback: (int index, bool isExpanded) {
+                setState(() {
+                  ExpList[index] = !ExpList[index];
+                });
+              },
+              children: [
+                ExpansionPanel(
+                  canTapOnHeader: true,
+                  backgroundColor: Colors.transparent,
+                  headerBuilder: (context, isExpanded) {
+                    return Padding(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.01),
+                      child: const ListTile(
+                          leading: Icon(
+                            Icons.person,
+                            size: 30,
+                          ),
+                          title: Text('Données personnelles'),
+                          subtitle: Text(
+                            'Nom, Prénom, Login, Email, Classe, Année, Formation, Maître de classe',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )),
+                    );
+                  },
+                  body: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.25,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.05,
                         ),
+                        child: StudentsInfo(
+                          student: widget.student,
+                        ),
+                      )),
+                  isExpanded: ExpList[0],
+                ),
+                locker == Locker.error()
+                    ? ExpansionPanel(
+                        headerBuilder: (context, isExpanded) {
+                          return Text("");
+                        },
+                        body: const SizedBox(
+                          height: 0,
+                        ))
+                    : ExpansionPanel(
+                        canTapOnHeader: true,
+                        backgroundColor: Colors.transparent,
+                        headerBuilder: (context, isExpanded) {
+                          return Padding(
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.height * 0.01),
+                            child: const ListTile(
+                              leading: Icon(Icons.lock, size: 30),
+                              title: Text('Casier de l\'élève'),
+                              subtitle:
+                                  Text('N° de Casier, Étage, Nombre de clés'),
+                            ),
+                          );
+                        },
+                        body: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.width * 0.05),
+                            child: GridView.count(
+                              childAspectRatio: 4,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              children: [
+                                Text("N° de Casier : ${locker.lockerNumber}"),
+                                Text("Étage : ${locker.floor.toUpperCase()}"),
+                                Text("Nombre de clés : ${locker.nbKey}"),
+                              ],
+                            ),
+                          ),
+                        ),
+                        isExpanded: ExpList[1],
                       ),
-                      isExpanded: ExpList[1],
-                    ),
-            ],
-          )
-        ]));
+              ],
+            ),
+            TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Changer de casier',
+                  style: TextStyle(fontSize: 16),
+                )),
+            TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Désattibuer le casier',
+                  style: TextStyle(fontSize: 16),
+                )),
+          ]),
+        ));
   }
 }

@@ -73,18 +73,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               );
             }));
           }
-
-          // return List<ListTile>.from(searchedListLockers.map((item) {
-          //   return ListTile(
-          //     title: Text(item.lockerNumber.toString()),
-          //     onTap: () {
-          //       setState(() {
-          //         // controller.closeView(item);
-          //         Navigator.pop(context);
-          //       });
-          //     },
-          //   );
-          // }));
         },
 
         builder: (BuildContext context, SearchController controller) {
