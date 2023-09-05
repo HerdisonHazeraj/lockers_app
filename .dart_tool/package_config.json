@@ -21,11 +21,7 @@
     },
     {
       "name": "archive",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.3.8",
-=======
-      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.3.7",
->>>>>>> 912cb977b8e3c2376e26418f3dc54b32d4691647
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.3.8",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -876,11 +872,7 @@
       "languageVersion": "3.0"
     }
   ],
-<<<<<<< HEAD
-  "generated": "2023-09-05T07:32:01.521762Z",
-=======
-  "generated": "2023-09-05T11:47:14.171050Z",
->>>>>>> 912cb977b8e3c2376e26418f3dc54b32d4691647
+  "generated": "2023-09-05T14:05:40.849727Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
