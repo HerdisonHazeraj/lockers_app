@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../models/locker.dart';
 import '../../../../models/student.dart';
 import '../../../../responsive.dart';
+import '../../../mobile/students/widget/student_details_screen.dart';
 
 class StudentItem extends StatefulWidget {
   final Student student;
@@ -39,6 +40,19 @@ class _StudentItemState extends State<StudentItem> {
         widget.student.isFocus = true;
       }),
       child: ListTile(
+        onTap: Responsive.isMobile(context)
+            ? () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) =>
+                        StudentDetailsScreenMobile(
+                      student: widget.student,
+                    ),
+                  ),
+                );
+              }
+            : null,
         enabled: !widget.student.isArchived!,
         leading: GestureDetector(
           child: Hero(

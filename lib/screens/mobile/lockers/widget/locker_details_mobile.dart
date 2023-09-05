@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class LockerDetailsMobile extends StatefulWidget {
-  const LockerDetailsMobile({super.key});
+class LockerDetailsScreenMobile extends StatefulWidget {
+  const LockerDetailsScreenMobile({super.key});
 
   @override
-  State<LockerDetailsMobile> createState() => _LockerDetailsMobileState();
+  State<LockerDetailsScreenMobile> createState() =>
+      _LockerDetailsScreenMobileState();
 }
 
-class _LockerDetailsMobileState extends State<LockerDetailsMobile> {
+class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
   @override
   Widget build(BuildContext context) {
     return const Placeholder();

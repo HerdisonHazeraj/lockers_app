@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
+import 'package:lockers_app/screens/mobile/students/widget/student_details_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/locker.dart';
@@ -37,8 +38,13 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 title: Text(item.lockerNumber.toString()),
                 onTap: () {
                   setState(() {
-                    // controller.closeView(item);
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const LockerDetailsScreenMobile(),
+                      ),
+                    );
                   });
                 },
               );
@@ -49,7 +55,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                     .searchStudents(controller.text);
             return List<ListTile>.from(searchedListStudents.map((item) {
               return ListTile(
-                title: Text(item.firstName + " " + item.lastName),
+                title: Text("${item.firstName} ${item.lastName}"),
                 onTap: () {
                   setState(() {
                     // controller.closeView(item);
@@ -57,7 +63,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                       context,
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) =>
-                            const LockerDetailsMobile(),
+                            StudentDetailsScreenMobile(
+                          student: item,
+                        ),
                       ),
                     );
                   });
@@ -66,17 +74,17 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             }));
           }
 
-          return List<ListTile>.from(searchedListLockers.map((item) {
-            return ListTile(
-              title: Text(item.lockerNumber.toString()),
-              onTap: () {
-                setState(() {
-                  // controller.closeView(item);
-                  Navigator.pop(context);
-                });
-              },
-            );
-          }));
+          // return List<ListTile>.from(searchedListLockers.map((item) {
+          //   return ListTile(
+          //     title: Text(item.lockerNumber.toString()),
+          //     onTap: () {
+          //       setState(() {
+          //         // controller.closeView(item);
+          //         Navigator.pop(context);
+          //       });
+          //     },
+          //   );
+          // }));
         },
 
         builder: (BuildContext context, SearchController controller) {
@@ -85,26 +93,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                   MaterialStateColor.resolveWith((states) => Color(0xffF4F6F7)),
               elevation: MaterialStateProperty.all(0),
               controller: controller,
-              onChanged: (value) {
-                // setState(() {
-                // switch (widget.isLockerPage) {
-                //   case true:
-                //     // searchedListLockers = Provider.of<LockerStudentProvider>(
-                //     //         context,
-                //     //         listen: false)
-                //     // .searchLockers(value);
-                //     break;
-                //   case false:
-                //     searchedListStudents = Provider.of<LockerStudentProvider>(
-                //             context,
-                //             listen: false)
-                //         .searchStudents(value);
-                //     break;
-                //   case null:
-                //     break;
-                // }
-                // });
-              },
+              onChanged: (value) {},
               onTap: () {
                 controller.openView();
               },
