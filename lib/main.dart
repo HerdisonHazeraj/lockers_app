@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lockers_app/core/config.dart';
+import 'package:lockers_app/firebase_options.dart';
 import 'package:lockers_app/infrastructure/firebase_api_service.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
@@ -28,14 +28,20 @@ import 'infrastructure/firebase_rtdb_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: Config.apiKey,
-      projectId: Config.projectId,
-      messagingSenderId: Config.messagingSenderId,
-      appId: Config.appId,
-    ),
-  );
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: Config.apiKey,
+        projectId: Config.projectId,
+        messagingSenderId: Config.messagingSenderId,
+        appId: Config.appId,
+      ),
+    );
+  } else {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  }
+
   if (defaultTargetPlatform == TargetPlatform.windows) {
     setWindowMaxSize(const Size(double.infinity, 1080));
     setWindowMinSize(const Size(1280, 720));
