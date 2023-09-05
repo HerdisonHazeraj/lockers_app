@@ -1,6 +1,6 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firedart/firedart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,29 +22,22 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_size/window_size.dart';
 
-import 'firebase_options.dart';
 import 'infrastructure/firebase_rtdb_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  } else if (defaultTargetPlatform == TargetPlatform.windows) {
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: Config.apiKey,
+      projectId: Config.projectId,
+      messagingSenderId: Config.messagingSenderId,
+      appId: Config.appId,
+    ),
+  );
+  if (defaultTargetPlatform == TargetPlatform.windows) {
     setWindowMaxSize(const Size(double.infinity, 1080));
     setWindowMinSize(const Size(1280, 720));
-
-    FirebaseAuth.initialize(Config.apiKey, VolatileStore());
-
-    await Firebase.initializeApp(
-      options: FirebaseOptions(
-        apiKey: Config.apiKey,
-        projectId: Config.projectId,
-        messagingSenderId: Config.messagingSenderId,
-        appId: Config.appId,
-      ),
-    );
   }
 
   runApp(const MyApp());

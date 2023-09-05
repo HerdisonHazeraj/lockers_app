@@ -21,7 +21,7 @@
     },
     {
       "name": "archive",
-      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.3.7",
+      "rootUri": "file:///C:/Users/cp-20heh/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.3.8",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -872,7 +872,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-09-01T07:53:17.066861Z",
+  "generated": "2023-09-05T07:32:01.521762Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
