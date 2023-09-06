@@ -125,7 +125,7 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
                         ModalBottomSheetWidget(
                           context,
                           standardList,
-                          widget.locker,
+                          "Casier n°${widget.locker.lockerNumber}",
                         );
                       },
                       icon: const Icon(
