@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:lockers_app/screens/mobile/lockers/widget/locker_item_mobile.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/search_bar_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -119,7 +120,7 @@ class _LockersOverviewScreenMobileState
                       itemBuilder: (context, index) => Column(
                         children: [
                           ...e.value.map(
-                            (l) => LockerItem(
+                            (l) => LockerItemMobile(
                               locker: l,
                               isLockerInDefectiveList: false,
                               // refreshList: () => refreshList(),
