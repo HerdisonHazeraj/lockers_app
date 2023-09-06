@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
+import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
 import 'package:lockers_app/screens/mobile/students/widget/lockerstudent_info_widget.dart';
 import 'package:lockers_app/screens/mobile/students/widget/students_info_widget.dart';
 import 'package:provider/provider.dart';
@@ -89,6 +90,21 @@ class _StudentDetailsScreenMobileState
         ),
         body: SingleChildScrollView(
           child: Column(children: [
+            CircleAvatar(
+              radius: MediaQuery.of(context).size.width * 0.25,
+              backgroundImage: AssetImage(
+                'assets/images/cp-20ahb.jpg',
+              ),
+            ),
+
+            Padding(
+              padding:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.1),
+              child: Text(
+                "${widget.student.firstName} ${widget.student.lastName}",
+                style: const TextStyle(fontSize: 20),
+              ),
+            ),
             widget.student.lockerNumber != 0
                 ? SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
@@ -174,19 +190,36 @@ class _StudentDetailsScreenMobileState
                     );
                   },
                   body: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Padding(
-                      padding: EdgeInsets.all(
-                          MediaQuery.of(context).size.width * 0.05),
-                      child: locker != Locker.error()
-                          ? LockerStudentInfoWidget(locker: locker)
-                          : const Text(
-                              'L\'élève ne possède pas de casier',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                    ),
-                  ),
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      child: Padding(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.05),
+                        child: Column(children: [
+                          locker != Locker.error()
+                              ? LockerStudentInfoWidget(locker: locker)
+                              : const Text(
+                                  'L\'élève ne possède pas de casier',
+                                  // style: TextStyle(
+                                  //     fontWeight: FontWeight.bold, fontSize: 16),
+                                ),
+                          locker != Locker.error()
+                              ? TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            LockerDetailsScreenMobile(
+                                          locker: locker,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                      'Accéder au casier de ${widget.student.firstName}'))
+                              : Text(''),
+                        ]),
+                      )),
                   isExpanded: ExpList[1],
                 ),
               ],

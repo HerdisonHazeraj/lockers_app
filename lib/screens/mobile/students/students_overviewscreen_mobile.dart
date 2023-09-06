@@ -19,7 +19,9 @@ class StudentsOverviewScreenMobile extends StatefulWidget {
 class _StudentsOverviewScreenMobileState
     extends State<StudentsOverviewScreenMobile> {
   late List<bool> isExpYear;
+  bool isNoCautionExp = true;
   late Map<String, List<Student>> studentsByYear;
+  late List<Student> unPaidCautionsStudentsList;
 
   bool isInit = false;
 
@@ -65,6 +67,9 @@ class _StudentsOverviewScreenMobileState
   Widget build(BuildContext context) {
     studentsByYear =
         Provider.of<LockerStudentProvider>(context).mapStudentByYear();
+    unPaidCautionsStudentsList =
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .getNonPaidCaution();
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => false);
       isInit = true;
@@ -84,42 +89,100 @@ class _StudentsOverviewScreenMobileState
       Expanded(
         child: SingleChildScrollView(
           controller: _scrollViewController,
-          child: ExpansionPanelList(
-            expansionCallback: (int index, bool isExpanded) {
-              setState(() {
-                isExpYear[index] = !isExpYear[index];
-              });
-            },
+          child: Column(
             children: [
-              ...studentsByYear.entries.map((e) => ExpansionPanel(
-                    isExpanded:
-                        isExpYear[studentsByYear.keys.toList().indexOf(e.key)],
+              ExpansionPanelList(
+                expansionCallback: (panelIndex, isExpanded) {
+                  setState(() {
+                    isNoCautionExp = !isNoCautionExp;
+                  });
+                },
+                children: [
+                  ExpansionPanel(
+                    isExpanded: isNoCautionExp,
                     canTapOnHeader: true,
                     headerBuilder: (context, isExpanded) {
                       return ListTile(
                         title: Text(
-                          'Tous les élèves de ${e.key.toUpperCase()}e année',
+                          "Cautions non payées (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
                           style: const TextStyle(fontSize: 18),
                         ),
                       );
                     },
-                    body: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 1,
-                      itemBuilder: (context, index) => Column(
-                        children: [
-                          ...e.value.map(
-                            (s) => StudentItem(
-                              student: s,
-                              // isLockerInDefectiveList: false,
-                              // refreshList: () => refreshList(),
+                    body: unPaidCautionsStudentsList.isEmpty
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 1,
+                            itemBuilder: (context, index) => const Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    "Aucun élève n'a pas payé ses caution",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: 1,
+                            itemBuilder: (context, index) => Column(
+                              children: [
+                                ...unPaidCautionsStudentsList.map(
+                                  (l) => StudentItem(
+                                    student: l,
+                                    // isLockerInDefectiveList: true,
+                                    // refreshList: () => refreshList(),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ))
+                  ),
+                ],
+              ),
+              ExpansionPanelList(
+                expansionCallback: (int index, bool isExpanded) {
+                  setState(() {
+                    isExpYear[index] = !isExpYear[index];
+                  });
+                },
+                children: [
+                  ...studentsByYear.entries.map((e) => ExpansionPanel(
+                        isExpanded: isExpYear[
+                            studentsByYear.keys.toList().indexOf(e.key)],
+                        canTapOnHeader: true,
+                        headerBuilder: (context, isExpanded) {
+                          return ListTile(
+                            title: Text(
+                              'Tous les élèves de ${e.key.toUpperCase()}e année',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          );
+                        },
+                        body: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: 1,
+                          itemBuilder: (context, index) => Column(
+                            children: [
+                              ...e.value.map(
+                                (s) => StudentItem(
+                                  student: s,
+                                  // isLockerInDefectiveList: false,
+                                  // refreshList: () => refreshList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ))
+                ],
+              ),
             ],
           ),
         ),
