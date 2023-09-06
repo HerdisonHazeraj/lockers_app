@@ -18,8 +18,10 @@ class LockersOverviewScreenMobile extends StatefulWidget {
 
 class _LockersOverviewScreenMobileState
     extends State<LockersOverviewScreenMobile> {
-  late List<bool> isExpFloor;
+  late List<bool> isExpFloor = [true, false, false, false, false];
+  bool isTasksLisExp = true;
   late Map<String, List<Locker>> lockersByFloor;
+  late List<Locker> defectiveLockers = [];
 
   bool isInit = false;
 
@@ -65,15 +67,19 @@ class _LockersOverviewScreenMobileState
   Widget build(BuildContext context) {
     lockersByFloor =
         Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
+    defectiveLockers =
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .getDefectiveLockers()
+            .toList();
 
-    if (!isInit) {
-      isExpFloor = List.generate(lockersByFloor.length, (index) => true);
-      // defectiveLockers =
-      //     Provider.of<LockerStudentProvider>(context, listen: false)
-      //         .getDefectiveLockers()
-      //         .toList();
-      isInit = true;
-    }
+    // if (!isInit) {
+    //   isExpFloor = List.generate(lockersByFloor.length, (index) => false);
+    //   // defectiveLockers =
+    //   //     Provider.of<LockerStudentProvider>(context, listen: false)
+    //   //         .getDefectiveLockers()
+    //   //         .toList();
+    //   isInit = true;
+    // }
 
     return SizedBox(
         // child: SingleChildScrollView(
@@ -100,6 +106,51 @@ class _LockersOverviewScreenMobileState
               });
             },
             children: [
+              ExpansionPanel(
+                isExpanded: isExpFloor[0],
+                canTapOnHeader: true,
+                headerBuilder: (context, isExpanded) {
+                  return ListTile(
+                    title: Text(
+                      "Tâches (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  );
+                },
+                body: defectiveLockers.isEmpty
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 1,
+                        itemBuilder: (context, index) => const Column(
+                          children: [
+                            ListTile(
+                              title: Text(
+                                "Aucune tâche",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.black38),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 1,
+                        itemBuilder: (context, index) => Column(
+                          children: [
+                            ...defectiveLockers.map(
+                              (l) => LockerItem(
+                                locker: l,
+                                isLockerInDefectiveList: true,
+                                // refreshList: () => refreshList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+              ),
               ...lockersByFloor.entries.map((e) => ExpansionPanel(
                     isExpanded:
                         isExpFloor[lockersByFloor.keys.toList().indexOf(e.key)],
