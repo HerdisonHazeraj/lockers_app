@@ -51,7 +51,10 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
           },
           trailing: showTextFormField
               ? const Text('')
-              : const Icon(Icons.drive_file_rename_outline_sharp)
+              : const Icon(
+                  Icons.drive_file_rename_outline_sharp,
+                  size: 30,
+                )
           // TextFormField(
           //   decoration: const InputDecoration(
           //     labelText: "Remarque",
@@ -116,26 +119,24 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
             },
           ),
           actions: [
-            widget.locker.isDefective!
-                ? Padding(
-                    padding: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.width * 0.03),
-                    child: IconButton(
-                      onPressed: () {
-                        ModalBottomSheetWidget(
-                          context,
-                          standardList,
-                          "Casier n°${widget.locker.lockerNumber}",
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.info_outline,
-                        color: Colors.black,
-                        size: 26,
-                      ),
-                    ),
-                  )
-                : const Text('')
+            Padding(
+              padding: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width * 0.03),
+              child: IconButton(
+                onPressed: () {
+                  ModalBottomSheetWidget(
+                    context,
+                    standardList,
+                    "Casier n°${widget.locker.lockerNumber}",
+                  );
+                },
+                icon: const Icon(
+                  Icons.info_outline,
+                  color: Colors.black,
+                  size: 26,
+                ),
+              ),
+            )
           ],
         ),
         body: SingleChildScrollView(

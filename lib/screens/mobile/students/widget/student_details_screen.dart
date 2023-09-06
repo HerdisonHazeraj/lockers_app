@@ -33,6 +33,26 @@ class _StudentDetailsScreenMobileState
     } else {
       locker = Locker.error();
     }
+
+    List<ListTile> standardList = [
+      ListTile(
+        title: const Text('Changer de casier'),
+        onTap: () {},
+        trailing: Icon(
+          Icons.lock_reset_outlined,
+          size: 30,
+        ),
+      ),
+      ListTile(
+        title: const Text('Désattribuer le casier'),
+        onTap: () {},
+        trailing: Icon(
+          Icons.remove_circle_outline,
+          size: 30,
+        ),
+      ),
+    ];
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -51,11 +71,11 @@ class _StudentDetailsScreenMobileState
                   right: MediaQuery.of(context).size.width * 0.03),
               child: IconButton(
                 onPressed: () {
-                  // ModalBottomSheetWidget(
-                  //   context,
-                  //   standardList,
-                  //   widget.locker,
-                  // );
+                  ModalBottomSheetWidget(
+                    context,
+                    standardList,
+                    '${widget.student.firstName} ${widget.student.lastName}',
+                  );
                 },
                 icon: const Icon(
                   Icons.info_outline,
@@ -171,24 +191,24 @@ class _StudentDetailsScreenMobileState
                 ),
               ],
             ),
-            TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Changer de casier',
-                  style: TextStyle(fontSize: 16),
-                )),
-            TextButton(
-                onPressed: () {
-                  setState(() async {
-                    await Provider.of<LockerStudentProvider>(context,
-                            listen: false)
-                        .unAttributeLocker(locker, widget.student);
-                  });
-                },
-                child: const Text(
-                  'Désattribuer le casier',
-                  style: TextStyle(fontSize: 16),
-                )),
+            // TextButton(
+            //     onPressed: () {},
+            //     child: const Text(
+            //       'Changer de casier',
+            //       style: TextStyle(fontSize: 16),
+            //     )),
+            // TextButton(
+            //     onPressed: () {
+            //       setState(() async {
+            //         await Provider.of<LockerStudentProvider>(context,
+            //                 listen: false)
+            //             .unAttributeLocker(locker, widget.student);
+            //       });
+            //     },
+            //     child: const Text(
+            //       'Désattribuer le casier',
+            //       style: TextStyle(fontSize: 16),
+            //     )),
           ]),
         ));
   }
