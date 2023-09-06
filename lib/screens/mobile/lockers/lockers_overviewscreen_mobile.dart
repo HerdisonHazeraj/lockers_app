@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_item_mobile.dart';
@@ -7,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../../../models/locker.dart';
 import '../../../providers/lockers_student_provider.dart';
-import '../../desktop/lockers/widgets/locker_item.dart';
 
 class LockersOverviewScreenMobile extends StatefulWidget {
   const LockersOverviewScreenMobile({super.key});
