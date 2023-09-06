@@ -263,7 +263,7 @@ class _LockerItemState extends State<LockerItem> {
                               ),
                             );
                           },
-                          tooltip: "Rendre le casier indisponible",
+                          tooltip: "Rendre le casier inaccessible",
                           icon: const Icon(
                             Icons.block_outlined,
                             color: Colors.black,
