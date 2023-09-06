@@ -34,6 +34,14 @@ class _StudentDetailsScreenMobileState
       locker = Locker.error();
     }
 
+    List<ListTile> importantList = [
+      ListTile(
+        title: const Text("Supprimer"),
+        onTap: () {},
+        trailing: const Icon(Icons.delete_forever_outlined),
+      )
+    ];
+
     List<ListTile> standardList = [
       ListTile(
         title: const Text('Changer de casier'),
@@ -74,6 +82,7 @@ class _StudentDetailsScreenMobileState
                   ModalBottomSheetWidget(
                     context,
                     standardList,
+                    importantList,
                     '${widget.student.firstName} ${widget.student.lastName}',
                   );
                 },

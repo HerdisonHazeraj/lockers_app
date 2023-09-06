@@ -28,14 +28,22 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
   Locker deletedLocker = Locker.base();
   Student student = Student.base();
 
+  List<ListTile> importantList = [
+    ListTile(
+      title: const Text("Supprimer"),
+      onTap: () {},
+      trailing: const Icon(Icons.delete_forever_outlined),
+    )
+  ];
+
   List<ListTile> standardList = [
     ListTile(
-      title: Text('Ajouter une remarque'),
+      title: const Text('Ajouter une remarque'),
       onTap: () {},
       trailing: const Icon(Icons.airline_seat_flat_sharp),
     ),
     ListTile(
-      title: Text('Nombre de clés'),
+      title: const Text('Nombre de clés'),
       onTap: () {},
       trailing: const Icon(Icons.key),
     ),
@@ -266,6 +274,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
               ModalBottomSheetWidget(
                 context,
                 standardList,
+                importantList,
                 "Casier n°${widget.locker.lockerNumber}",
               );
             },
