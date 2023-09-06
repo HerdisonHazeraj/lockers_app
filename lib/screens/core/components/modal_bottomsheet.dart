@@ -24,7 +24,7 @@ Future<dynamic> ModalBottomSheetWidget(
                     left: MediaQuery.of(context).size.width * 0.03),
                 child: Text(
                   'Casier n°${locker.lockerNumber}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -67,26 +67,6 @@ Future<dynamic> ModalBottomSheetWidget(
                               ],
                             );
                           }),
-
-                          // ListTile(
-                          //   onTap: () {},
-                          //   title: const Text('Ajouter une remarque'),
-                          //   trailing: const Icon(
-                          //     Icons.remember_me_outlined,
-                          //     color: Colors.black,
-                          //     size: 30,
-                          //   ),
-                          // ),
-                          // const Divider(),
-                          // ListTile(
-                          //   onTap: () {},
-                          //   title: const Text("Ajouter / Retirer une clé"),
-                          //   trailing: const Icon(
-                          //     Icons.key_outlined,
-                          //     color: Colors.black,
-                          //     size: 30,
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

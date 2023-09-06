@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/locker.dart';
+import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_info_widget.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/lockers_tasks_widget.dart';
+import 'package:lockers_app/screens/mobile/lockers/widget/studentlocker_info_widget.dart';
+import 'package:lockers_app/screens/mobile/students/widget/student_details_screen.dart';
 import 'package:provider/provider.dart';
 
 class LockerDetailsScreenMobile extends StatefulWidget {
@@ -17,21 +20,90 @@ class LockerDetailsScreenMobile extends StatefulWidget {
 
 class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
   List<bool> ExpList = [false, false, true];
-
-  List<ListTile> standardList = [
-    ListTile(
-      title: Text('Ajouter une remarque'),
-      onTap: () {},
-      trailing: const Icon(Icons.airline_seat_flat_sharp),
-    ),
-    ListTile(
-      title: Text('Nombre de clés'),
-      onTap: () {},
-      trailing: const Icon(Icons.key),
-    ),
-  ];
+  bool isInit = false;
+  late int nbKey;
+  late final TextEditingController remarkController =
+      TextEditingController(text: widget.locker.remark);
+  bool showTextFormField = false;
   @override
   Widget build(BuildContext context) {
+    late Student student;
+    if (widget.locker.idEleve != "") {
+      student = Provider.of<LockerStudentProvider>(context, listen: false)
+          .getStudentByLocker(widget.locker);
+    } else {
+      student = Student.error();
+    }
+
+    if (!isInit) {
+      nbKey = widget.locker.nbKey;
+      isInit = true;
+    }
+    List<ListTile> standardList = [
+      ListTile(
+          title: showTextFormField
+              ? const Text('ffsfdsfffsffsdfdsfsdfdsfsdfsd')
+              : const Text('Ajouter une remarque'),
+          onTap: () {
+            setState(() {
+              showTextFormField = true;
+            });
+          },
+          trailing: showTextFormField
+              ? const Text('')
+              : const Icon(Icons.drive_file_rename_outline_sharp)
+          // TextFormField(
+          //   decoration: const InputDecoration(
+          //     labelText: "Remarque",
+          //     prefixIcon: Icon(Icons.work_outlined),
+          //   ),
+          //   controller: remarkController,
+          // ),
+          ),
+      ListTile(
+          title: const Text('Nombre de clés'),
+          onTap: null,
+          trailing: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.265,
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.add,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      nbKey += 1;
+                      widget.locker = widget.locker
+                          .copyWith(nbKey: widget.locker.nbKey + 1);
+                    });
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .updateLocker(widget.locker);
+                  },
+                ),
+                Text(nbKey.toString()),
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed: () {
+                    setState(() {
+                      nbKey -= 1;
+                      widget.locker = widget.locker
+                          .copyWith(nbKey: widget.locker.nbKey - 1);
+                    });
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .updateLocker(widget.locker);
+                    // setState(() {
+                    //   Provider.of<LockerStudentProvider>(context, listen: false)
+                    //       .updateLocker(
+                    //     widget.locker.copyWith(nbKey: widget.locker.nbKey - 1),
+                    //   );
+                    // });
+                  },
+                ),
+              ],
+            ),
+          )),
+    ];
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -55,9 +127,8 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
                           standardList,
                           widget.locker,
                         );
-                        // showModalBottomSheet(context: context, builder: builder)
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.info_outline,
                         color: Colors.black,
                         size: 26,
@@ -139,28 +210,39 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
                     );
                   },
                   body: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.4,
                     child: Padding(
-                      padding: EdgeInsets.all(
-                          MediaQuery.of(context).size.width * 0.05),
-                    ),
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.05),
+                        child: Column(
+                          children: [
+                            widget.locker.idEleve == ""
+                                ? const Text(
+                                    'Ce casier appartient actuellement à aucun élève')
+                                : StudentLockerInfoWidget(student: student),
+                            widget.locker.idEleve == ""
+                                ? Text('')
+                                : TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute<void>(
+                                          builder: (BuildContext context) =>
+                                              StudentDetailsScreenMobile(
+                                            student: student,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                        'Accéder au profil de ${student.firstName}'))
+                          ],
+                        )),
                   ),
                   isExpanded: ExpList[1],
                 ),
               ],
             ),
-            TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (builder) {
-                      return Container(
-                        height: MediaQuery.of(context).size.height * 0.5,
-                      );
-                    },
-                  );
-                },
-                child: const Text('Ajouter/retirer une clé')),
           ]),
         ));
   }
