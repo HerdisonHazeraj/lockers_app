@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
+import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
 import 'package:lockers_app/screens/mobile/students/widget/lockerstudent_info_widget.dart';
 import 'package:lockers_app/screens/mobile/students/widget/students_info_widget.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,28 @@ class _StudentDetailsScreenMobileState
               Navigator.pop(context);
             },
           ),
+          actions: [
+            // widget.locker.isDefective!
+            Padding(
+              padding: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width * 0.03),
+              child: IconButton(
+                onPressed: () {
+                  // ModalBottomSheetWidget(
+                  //   context,
+                  //   standardList,
+                  //   widget.locker,
+                  // );
+                },
+                icon: const Icon(
+                  Icons.info_outline,
+                  color: Colors.black,
+                  size: 26,
+                ),
+              ),
+            )
+            //  const Text('')
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(children: [
