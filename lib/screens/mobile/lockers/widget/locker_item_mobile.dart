@@ -39,22 +39,17 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
           .updateLocker(widget.locker);
     }
 
+if(widget.locker.idEleve != ""){
     student = Provider.of<LockerStudentProvider>(context)
         .getStudentByLocker(widget.locker);
+        }
 
     return Slidable(
       key: const ValueKey(0),
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         dismissible: DismissiblePane(onDismissed: () {
-          if (widget.locker.idEleve != "") {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) {
-                return Text("data");
-              },
-            );
-          }
+          
         }),
         children: [
           SlidableAction(
@@ -152,62 +147,5 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
               ),
       ),
     );
-
-    // return ListTile(
-    //   onTap: () {
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute<void>(
-    //         builder: (BuildContext context) => LockerDetailsScreenMobile(
-    //           locker: widget.locker,
-    //         ),
-    //       ),
-    //     );
-    //   },
-    //   enabled: widget.locker.isInaccessible == false ? true : false,
-    //   leading: widget.locker.isDefective == true
-    //       ? const Icon(
-    //           Icons.lock_outlined,
-    //           color: Colors.orange,
-    //           size: 40,
-    //         )
-    //       : widget.locker.isAvailable == true
-    //           ? const Icon(
-    //               Icons.lock_open_outlined,
-    //               color: Colors.green,
-    //               size: 40,
-    //             )
-    //           : const Icon(
-    //               Icons.lock_outlined,
-    //               color: Colors.red,
-    //               size: 40,
-    //             ),
-    //   title: Text(
-    //     'Casier n°${widget.locker.lockerNumber}',
-    //   ),
-    //   subtitle: widget.locker.isDefective == true
-    //       ? widget.locker.nbKey < 2 && widget.locker.remark == ""
-    //           ? Text(
-    //               'Le casier ne possède plus que ${widget.locker.nbKey} clé(s)',
-    //               maxLines: 2,
-    //               overflow: TextOverflow.ellipsis,
-    //             )
-    //           : widget.locker.remark != "" && widget.locker.nbKey < 2
-    //               ? Text(
-    //                   '${widget.locker.remark} et ne possède plus que ${widget.locker.nbKey} clé(s)',
-    //                   maxLines: 2,
-    //                   overflow: TextOverflow.ellipsis,
-    //                 )
-    //               : Text(
-    //                   widget.locker.remark,
-    //                   maxLines: 2,
-    //                   overflow: TextOverflow.ellipsis,
-    //                 )
-    //       : const Text(
-    //           'Aucune remarque',
-    //           maxLines: 2,
-    //           overflow: TextOverflow.ellipsis,
-    //         ),
-    // );
   }
 }
