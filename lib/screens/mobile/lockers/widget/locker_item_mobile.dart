@@ -266,7 +266,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
               ModalBottomSheetWidget(
                 context,
                 standardList,
-                widget.locker,
+                "Casier n°${widget.locker.lockerNumber}",
               );
             },
             icon: Icons.more_horiz_outlined,
