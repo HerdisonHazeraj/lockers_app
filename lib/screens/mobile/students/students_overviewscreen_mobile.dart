@@ -66,7 +66,7 @@ class _StudentsOverviewScreenMobileState
     studentsByYear =
         Provider.of<LockerStudentProvider>(context).mapStudentByYear();
     if (!isInit) {
-      isExpYear = List.generate(studentsByYear.length, (index) => true);
+      isExpYear = List.generate(studentsByYear.length, (index) => false);
       isInit = true;
     }
 
