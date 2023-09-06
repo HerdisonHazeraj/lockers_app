@@ -117,9 +117,11 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.black54),
                   ),
-                  child: const Text(
-                    "Se connecter",
-                    style: TextStyle(color: Colors.white),
+                  child: Text(
+                    otpFieldVisibility && connectWithSMS
+                        ? "Confirmer"
+                        : "Se connecter",
+                    style: const TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
                     final SharedPreferences prefs =
@@ -145,7 +147,8 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                           );
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Connexion réussie !")),
+                            const SnackBar(
+                                content: Text("Connexion réussie !")),
                           );
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -170,9 +173,17 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                             setState(() {
                               otpFieldVisibility = true;
                             });
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("Code de confirmation envoyé !")),
+                            );
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {
-                            print("TimeOut");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Timeout !")),
+                            );
                           },
                         );
                       }
@@ -277,7 +288,9 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                     connectWithSMS = !connectWithSMS;
                   });
                 },
-                child: const Text("Se connecter via SMS"),
+                child: connectWithSMS
+                    ? const Text("Se connecter avec mot de passe")
+                    : const Text("Se connecter via SMS"),
               ),
             ],
           ),
