@@ -143,7 +143,7 @@ class _LockersOverviewScreenMobileState
                             itemBuilder: (context, index) => Column(
                               children: [
                                 ...defectiveLockers.map(
-                                  (l) => LockerItem(
+                                  (l) => LockerItemMobile(
                                     locker: l,
                                     isLockerInDefectiveList: true,
                                     // refreshList: () => refreshList(),

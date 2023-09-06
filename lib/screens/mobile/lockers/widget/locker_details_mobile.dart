@@ -39,6 +39,15 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
       nbKey = widget.locker.nbKey;
       isInit = true;
     }
+
+    List<ListTile> importantList = [
+      ListTile(
+        title: const Text("Supprimer"),
+        onTap: () {},
+        trailing: const Icon(Icons.delete_forever_outlined),
+      )
+    ];
+
     List<ListTile> standardList = [
       ListTile(
           title: showTextFormField
@@ -127,6 +136,7 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
                   ModalBottomSheetWidget(
                     context,
                     standardList,
+                    importantList,
                     "Casier n°${widget.locker.lockerNumber}",
                   );
                 },
