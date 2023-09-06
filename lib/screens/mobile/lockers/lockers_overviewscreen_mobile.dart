@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_item_mobile.dart';
@@ -19,8 +18,8 @@ class LockersOverviewScreenMobile extends StatefulWidget {
 
 class _LockersOverviewScreenMobileState
     extends State<LockersOverviewScreenMobile> {
-  late List<bool> isExpFloor = [true, false, false, false, false];
-  bool isTasksLisExp = true;
+  late List<bool> isExpFloor = [false, false, false, false];
+  bool isTasksListExp = true;
   late Map<String, List<Locker>> lockersByFloor;
   late List<Locker> defectiveLockers = [];
 
@@ -100,87 +99,100 @@ class _LockersOverviewScreenMobileState
       Expanded(
         child: SingleChildScrollView(
           controller: _scrollViewController,
-          child: ExpansionPanelList(
-            expansionCallback: (int index, bool isExpanded) {
-              setState(() {
-                isExpFloor[index] = !isExpFloor[index];
-              });
-            },
+          child: Column(
             children: [
-              ExpansionPanel(
-                isExpanded: isExpFloor[0],
-                canTapOnHeader: true,
-                headerBuilder: (context, isExpanded) {
-                  return ListTile(
-                    title: Text(
-                      "Tâches (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                  );
+              ExpansionPanelList(
+                expansionCallback: (panelIndex, isExpanded) {
+                  setState(() {
+                    isTasksListExp = !isTasksListExp;
+                  });
                 },
-                body: defectiveLockers.isEmpty
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 1,
-                        itemBuilder: (context, index) => const Column(
-                          children: [
-                            ListTile(
-                              title: Text(
-                                "Aucune tâche",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.black38),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 1,
-                        itemBuilder: (context, index) => Column(
-                          children: [
-                            ...defectiveLockers.map(
-                              (l) => LockerItem(
-                                locker: l,
-                                isLockerInDefectiveList: true,
-                                // refreshList: () => refreshList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-              ),
-              ...lockersByFloor.entries.map((e) => ExpansionPanel(
-                    isExpanded:
-                        isExpFloor[lockersByFloor.keys.toList().indexOf(e.key)],
+                children: [
+                  ExpansionPanel(
+                    isExpanded: isTasksListExp,
                     canTapOnHeader: true,
                     headerBuilder: (context, isExpanded) {
                       return ListTile(
                         title: Text(
-                          'Tous les casiers de l\'étage ${e.key.toUpperCase()}',
+                          "Tâches (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
                           style: const TextStyle(fontSize: 18),
                         ),
                       );
                     },
-                    body: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 1,
-                      itemBuilder: (context, index) => Column(
-                        children: [
-                          ...e.value.map(
-                            (l) => LockerItemMobile(
-                              locker: l,
-                              isLockerInDefectiveList: false,
-                              // refreshList: () => refreshList(),
+                    body: defectiveLockers.isEmpty
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 1,
+                            itemBuilder: (context, index) => const Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    "Aucune tâche",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: 1,
+                            itemBuilder: (context, index) => Column(
+                              children: [
+                                ...defectiveLockers.map(
+                                  (l) => LockerItem(
+                                    locker: l,
+                                    isLockerInDefectiveList: true,
+                                    // refreshList: () => refreshList(),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ))
+                  ),
+                ],
+              ),
+              ExpansionPanelList(
+                expansionCallback: (int index, bool isExpanded) {
+                  setState(() {
+                    isExpFloor[index] = !isExpFloor[index];
+                  });
+                },
+                children: [
+                  ...lockersByFloor.entries.map((e) => ExpansionPanel(
+                        isExpanded: isExpFloor[
+                            lockersByFloor.keys.toList().indexOf(e.key)],
+                        canTapOnHeader: true,
+                        headerBuilder: (context, isExpanded) {
+                          return ListTile(
+                            title: Text(
+                              'Tous les casiers de l\'étage ${e.key.toUpperCase()}',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          );
+                        },
+                        body: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: 1,
+                          itemBuilder: (context, index) => Column(
+                            children: [
+                              ...e.value.map(
+                                (l) => LockerItemMobile(
+                                  locker: l,
+                                  isLockerInDefectiveList: false,
+                                  // refreshList: () => refreshList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ))
+                ],
+              ),
             ],
           ),
         ),
