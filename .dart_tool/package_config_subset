@@ -572,8 +572,13 @@ file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/yaml-3.1.2/
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/yaml-3.1.2/lib/
 lockers_app
 3.0
+<<<<<<< HEAD
 file:///C:/Users/cp-20tip/vscode/lockerApp/lockers_app/
 file:///C:/Users/cp-20tip/vscode/lockerApp/lockers_app/lib/
+=======
+file:///Users/timoportal/Documents/lockers_app/
+file:///Users/timoportal/Documents/lockers_app/lib/
+>>>>>>> 31ec629 (fdsf)
 sky_engine
 3.0
 file:///C:/flutter/bin/cache/pkg/sky_engine/
