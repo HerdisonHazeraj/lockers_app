@@ -74,6 +74,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "checked_yaml",
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/checked_yaml-2.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "cli_util",
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/cli_util-0.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "clock",
       "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
       "packageUri": "lib/",
@@ -242,8 +254,8 @@
       "languageVersion": "2.17"
     },
     {
-      "name": "flutter_lints",
-      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.2",
+      "name": "flutter_launcher_icons",
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_launcher_icons-0.13.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -338,6 +350,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "image",
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/image-4.0.17",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "intl",
       "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.0",
       "packageUri": "lib/",
@@ -356,10 +374,10 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "lints",
-      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
+      "name": "json_annotation",
+      "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.8.1",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "2.19"
     },
     {
       "name": "logging",
@@ -878,7 +896,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-09-07T05:54:43.266544Z",
+  "generated": "2023-09-07T07:47:19.280388Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }
