@@ -74,7 +74,11 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
           ),
       ListTile(
           title: const Text('Nombre de clés'),
-          onTap: null,
+          onTap: () {
+            setState(() {
+              showTextFormField = true;
+            });
+          },
           trailing: SizedBox(
             width: MediaQuery.of(context).size.width * 0.265,
             child: Row(
@@ -133,11 +137,18 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
                   right: MediaQuery.of(context).size.width * 0.03),
               child: IconButton(
                 onPressed: () {
-                  ModalBottomSheetWidget(
-                    context,
-                    standardList,
-                    importantList,
-                    "Casier n°${widget.locker.lockerNumber}",
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    )),
+                    context: context,
+                    builder: (_) => ModalBottomSheetWidgetTest(
+                      importantList: importantList,
+                      standardList: standardList,
+                      title: "Casier n°${widget.locker.lockerNumber}",
+                    ),
                   );
                 },
                 icon: const Icon(
