@@ -28,29 +28,38 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
   Locker deletedLocker = Locker.base();
   Student student = Student.base();
 
-  List<ListTile> importantList = [
-    ListTile(
-      title: const Text("Supprimer"),
-      onTap: () {},
-      trailing: const Icon(Icons.delete_forever_outlined),
-    )
-  ];
-
-  List<ListTile> standardList = [
-    ListTile(
-      title: const Text('Ajouter une remarque'),
-      onTap: () {},
-      trailing: const Icon(Icons.airline_seat_flat_sharp),
-    ),
-    ListTile(
-      title: const Text('Nombre de clés'),
-      onTap: () {},
-      trailing: const Icon(Icons.key),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<ListTile> standardList = [
+      ListTile(
+        title: const Text('Ajouter une remarque'),
+        onTap: () {},
+        trailing: const Icon(Icons.airline_seat_flat_sharp),
+      ),
+      ListTile(
+        title: const Text('Nombre de clés'),
+        onTap: () {},
+        trailing: const Icon(Icons.key),
+      ),
+    ];
+
+    List<ListTile> importantList = [
+      ListTile(
+        title: const Text("Supprimer"),
+        onTap: () async {
+          await Provider.of<LockerStudentProvider>(context, listen: false)
+              .deleteLocker(widget.locker.id.toString());
+
+          Navigator.pop(context);
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                  "Le casier n°${widget.locker.lockerNumber} a bien été supprimé.")));
+        },
+        trailing: const Icon(Icons.delete_forever_outlined),
+      )
+    ];
+
     desattributeLockerAndStudent(Student owner, Locker locker) async {
       await Provider.of<LockerStudentProvider>(context, listen: false)
           .updateStudent(owner.copyWith(lockerNumber: 0));
@@ -179,9 +188,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
                                                       content: Text(
-                                                          "Le casier n°${widget.locker.lockerNumber} est maintenant inaccessible, celui-ci peut être retrouver dans la catégorie 'Casiers inaccessibles' en bas de page.",
-                                                          textAlign: TextAlign
-                                                              .center)));
+                                                          "Le casier n°${widget.locker.lockerNumber} est maintenant inaccessible, celui-ci peut être retrouver dans la catégorie 'Casiers inaccessibles' en bas de page.")));
 
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
