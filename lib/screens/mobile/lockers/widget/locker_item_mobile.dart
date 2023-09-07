@@ -277,13 +277,26 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
         }),
         children: [
           SlidableAction(
-            onPressed: (context) {
-              ModalBottomSheetWidget(
-                context,
-                standardList,
-                importantList,
-                "Casier n°${widget.locker.lockerNumber}",
+            onPressed: (_) {
+              showModalBottomSheet(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                )),
+                context: context,
+                builder: (_) => ModalBottomSheetWidgetTest(
+                  importantList: importantList,
+                  standardList: standardList,
+                  title: "Casier n°${widget.locker.lockerNumber}",
+                ),
               );
+              // ModalBottomSheetWidget(
+              //   context,
+              //   standardList,
+              //   importantList,
+              //   "Casier n°${widget.locker.lockerNumber}",
+              // );
             },
             icon: Icons.more_horiz_outlined,
             label: "Options",

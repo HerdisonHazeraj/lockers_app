@@ -153,7 +153,7 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
                   );
                 },
                 icon: const Icon(
-                  Icons.info_outline,
+                  Icons.more_vert_outlined,
                   color: Colors.black,
                   size: 26,
                 ),

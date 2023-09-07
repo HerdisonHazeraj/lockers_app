@@ -31,16 +31,17 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: SearchAnchor(
-        viewLeading: IconButton(
-            onPressed: () {
-              widget.refreshSearchBar!();
+        // viewLeading: IconButton(
+        //   onPressed: () {
+        //     widget.refreshSearchBar!();
 
-              FocusManager.instance.primaryFocus?.unfocus();
-              Navigator.pop(context);
-              searchFocusNode.unfocus();
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            icon: const Icon(Icons.arrow_back_outlined)),
+        //     FocusManager.instance.primaryFocus?.unfocus();
+        //     Navigator.pop(context);
+        //     searchFocusNode.unfocus();
+        //     FocusManager.instance.primaryFocus?.unfocus();
+        //   },
+        //   icon: const Icon(Icons.arrow_back_outlined),
+        // ),
         // suggestions: searchedListLockers,
         suggestionsBuilder:
             (BuildContext context, SearchController controller) {
