@@ -64,6 +64,16 @@ class _LockersOverviewScreenMobileState
 
   @override
   Widget build(BuildContext context) {
+    refreshSearchBar(FocusNode searchFocusNode) {
+      setState(() {
+        ;
+        FocusManager.instance.primaryFocus?.unfocus();
+        Navigator.pop(context);
+        searchFocusNode.unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      });
+    }
+
     lockersByFloor =
         Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
     defectiveLockers =
@@ -81,123 +91,128 @@ class _LockersOverviewScreenMobileState
     // }
 
     return SizedBox(
-        // child: SingleChildScrollView(
-        //   controller: _scrollViewController,
-        child: Column(children: [
-      //barre de recherche
-      AnimatedContainer(
-        height: _showSearchBar ? 56.0 : 0.0,
-        duration: const Duration(milliseconds: 200),
-        child: Container(
-            color: Colors.white,
-            child: const SearchBarWidget(
-              isLockerPage: true,
-            )),
-      ),
-
-      Expanded(
-        child: SingleChildScrollView(
-          controller: _scrollViewController,
-          child: Column(
-            children: [
-              ExpansionPanelList(
-                expansionCallback: (panelIndex, isExpanded) {
-                  setState(() {
-                    isTasksListExp = !isTasksListExp;
-                  });
-                },
-                children: [
-                  ExpansionPanel(
-                    isExpanded: isTasksListExp,
-                    canTapOnHeader: true,
-                    headerBuilder: (context, isExpanded) {
-                      return ListTile(
-                        title: Text(
-                          "Tâches (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                      );
-                    },
-                    body: defectiveLockers.isEmpty
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 1,
-                            itemBuilder: (context, index) => const Column(
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                    "Aucune tâche",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.black38),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: 1,
-                            itemBuilder: (context, index) => Column(
-                              children: [
-                                ...defectiveLockers.map(
-                                  (l) => LockerItemMobile(
-                                    locker: l,
-                                    isLockerInDefectiveList: true,
-                                    // refreshList: () => refreshList(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                  ),
-                ],
+      // child: SingleChildScrollView(
+      //   controller: _scrollViewController,
+      child: Column(
+        children: [
+          //barre de recherche
+          AnimatedContainer(
+            height: _showSearchBar ? 56.0 : 0.0,
+            duration: const Duration(milliseconds: 200),
+            child: Container(
+              color: Colors.white,
+              child: SearchBarWidget(
+                refreshSearchBar: (searchFocusNode) =>
+                    refreshSearchBar(searchFocusNode),
+                isLockerPage: true,
               ),
-              ExpansionPanelList(
-                expansionCallback: (int index, bool isExpanded) {
-                  setState(() {
-                    isExpFloor[index] = !isExpFloor[index];
-                  });
-                },
+            ),
+          ),
+
+          Expanded(
+            child: SingleChildScrollView(
+              controller: _scrollViewController,
+              child: Column(
                 children: [
-                  ...lockersByFloor.entries.map((e) => ExpansionPanel(
-                        isExpanded: isExpFloor[
-                            lockersByFloor.keys.toList().indexOf(e.key)],
+                  ExpansionPanelList(
+                    expansionCallback: (panelIndex, isExpanded) {
+                      setState(() {
+                        isTasksListExp = !isTasksListExp;
+                      });
+                    },
+                    children: [
+                      ExpansionPanel(
+                        isExpanded: isTasksListExp,
                         canTapOnHeader: true,
                         headerBuilder: (context, isExpanded) {
                           return ListTile(
                             title: Text(
-                              'Tous les casiers de l\'étage ${e.key.toUpperCase()}',
+                              "Tâches (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
                               style: const TextStyle(fontSize: 18),
                             ),
                           );
                         },
-                        body: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 1,
-                          itemBuilder: (context, index) => Column(
-                            children: [
-                              ...e.value.map(
-                                (l) => LockerItemMobile(
-                                  locker: l,
-                                  isLockerInDefectiveList: false,
-                                  // refreshList: () => refreshList(),
+                        body: defectiveLockers.isEmpty
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: 1,
+                                itemBuilder: (context, index) => const Column(
+                                  children: [
+                                    ListTile(
+                                      title: Text(
+                                        "Aucune tâche",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black38),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: 1,
+                                itemBuilder: (context, index) => Column(
+                                  children: [
+                                    ...defectiveLockers.map(
+                                      (l) => LockerItemMobile(
+                                        locker: l,
+                                        isLockerInDefectiveList: true,
+                                        // refreshList: () => refreshList(),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ))
+                      ),
+                    ],
+                  ),
+                  ExpansionPanelList(
+                    expansionCallback: (int index, bool isExpanded) {
+                      setState(() {
+                        isExpFloor[index] = !isExpFloor[index];
+                      });
+                    },
+                    children: [
+                      ...lockersByFloor.entries.map((e) => ExpansionPanel(
+                            isExpanded: isExpFloor[
+                                lockersByFloor.keys.toList().indexOf(e.key)],
+                            canTapOnHeader: true,
+                            headerBuilder: (context, isExpanded) {
+                              return ListTile(
+                                title: Text(
+                                  'Tous les casiers de l\'étage ${e.key.toUpperCase()}',
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                              );
+                            },
+                            body: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: 1,
+                              itemBuilder: (context, index) => Column(
+                                children: [
+                                  ...e.value.map(
+                                    (l) => LockerItemMobile(
+                                      locker: l,
+                                      isLockerInDefectiveList: false,
+                                      // refreshList: () => refreshList(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ))
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      )
-    ]));
-    //   ),
-    // );
+        ],
+      ),
+    );
   }
 }

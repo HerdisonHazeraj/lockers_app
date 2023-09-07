@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_info_widget.dart';
-import 'package:lockers_app/screens/mobile/lockers/widget/lockers_tasks_widget.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/studentlocker_info_widget.dart';
 import 'package:lockers_app/screens/mobile/students/widget/student_details_screen.dart';
 import 'package:provider/provider.dart';
@@ -43,35 +41,38 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
     List<ListTile> importantList = [
       ListTile(
         title: const Text("Supprimer"),
-        onTap: () {},
+        onTap: () async {
+          await Provider.of<LockerStudentProvider>(context, listen: false)
+              .deleteLocker(widget.locker.id.toString());
+
+          Navigator.pop(context);
+          Navigator.pop(context);
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                  "Le casier n°${widget.locker.lockerNumber} a bien été supprimé.")));
+        },
         trailing: const Icon(Icons.delete_forever_outlined),
       )
     ];
 
     List<ListTile> standardList = [
       ListTile(
-          title: showTextFormField
-              ? const Text('ffsfdsfffsffsdfdsfsdfdsfsdfsd')
-              : const Text('Ajouter une remarque'),
-          onTap: () {
-            setState(() {
-              showTextFormField = true;
-            });
-          },
-          trailing: showTextFormField
-              ? const Text('')
-              : const Icon(
-                  Icons.drive_file_rename_outline_sharp,
-                  size: 30,
-                )
-          // TextFormField(
-          //   decoration: const InputDecoration(
-          //     labelText: "Remarque",
-          //     prefixIcon: Icon(Icons.work_outlined),
-          //   ),
-          //   controller: remarkController,
-          // ),
-          ),
+        title: showTextFormField
+            ? const Text('ffsfdsfffsffsdfdsfsdfdsfsdfsd')
+            : const Text('Ajouter une remarque'),
+        onTap: () {
+          setState(() {
+            showTextFormField = true;
+          });
+        },
+        trailing: showTextFormField
+            ? const Text('')
+            : const Icon(
+                Icons.drive_file_rename_outline_sharp,
+                size: 30,
+              ),
+      ),
       ListTile(
           title: const Text('Nombre de clés'),
           onTap: () {
@@ -152,7 +153,7 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
                   );
                 },
                 icon: const Icon(
-                  Icons.info_outline,
+                  Icons.more_vert_outlined,
                   color: Colors.black,
                   size: 26,
                 ),

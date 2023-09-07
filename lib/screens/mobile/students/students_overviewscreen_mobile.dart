@@ -78,14 +78,23 @@ class _StudentsOverviewScreenMobileState
     return SizedBox(
         child: Column(children: [
       AnimatedContainer(
-        height: _showSearchBar ? 56.0 : 0.0,
-        duration: const Duration(milliseconds: 200),
-        child: Container(
+          height: _showSearchBar ? 56.0 : 0.0,
+          duration: const Duration(milliseconds: 200),
+          child: Container(
             color: Colors.white,
-            child: const SearchBarWidget(
+            child:
+                // Column(
+                // children: [
+                // TextButton(
+                //     onPressed: () {}, child: Text("Générer liste terminaux")),
+                SearchBarWidget(
               isLockerPage: false,
-            )),
-      ),
+              refreshSearchBar: () {},
+            ),
+            // ],
+          )
+          // ),
+          ),
       Expanded(
         child: SingleChildScrollView(
           controller: _scrollViewController,
