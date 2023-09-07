@@ -103,7 +103,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
             },
             icon: Icons.block_outlined,
             label: "Inaccessible",
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.deepOrange,
           ),
         ],
       ),

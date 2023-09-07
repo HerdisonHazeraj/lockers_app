@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
@@ -79,8 +78,13 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
         builder: (BuildContext context, SearchController controller) {
           return SearchBar(
+<<<<<<< HEAD
             backgroundColor:
                 MaterialStateColor.resolveWith((states) => Color(0xffF4F6F7)),
+=======
+            backgroundColor: MaterialStateColor.resolveWith(
+                (states) => const Color(0xffF4F6F7)),
+>>>>>>> f20c7692b793f13a39a5304e6446da7b76aad0a5
             elevation: MaterialStateProperty.all(0),
             controller: controller,
             onChanged: (value) {
