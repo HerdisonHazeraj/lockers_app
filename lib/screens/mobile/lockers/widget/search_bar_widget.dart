@@ -79,10 +79,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
         builder: (BuildContext context, SearchController controller) {
           return SearchBar(
-            focusNode: searchFocusNode,
-            // hintText: widget.isLockerPage!
-            //     ? "Rechercher un Casier..."
-            //     : "Rechercher un élève...",
             backgroundColor:
                 MaterialStateColor.resolveWith((states) => Color(0xffF4F6F7)),
             elevation: MaterialStateProperty.all(0),
@@ -90,9 +86,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             onChanged: (value) {
               controller.openView();
             },
-            onSubmitted: (value) {
-              controller.openView();
-            },
+            // : (value) {
+            //   controller.openView();
+            // },
             onTap: () {
               controller.openView();
             },

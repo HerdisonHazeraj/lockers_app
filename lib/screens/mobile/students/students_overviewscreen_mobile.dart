@@ -6,6 +6,7 @@ import 'package:lockers_app/screens/desktop/students/widgets/student_item.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/lockers_student_provider.dart';
+import '../../core/components/modal_bottomsheet.dart';
 import '../lockers/widget/search_bar_widget.dart';
 
 class StudentsOverviewScreenMobile extends StatefulWidget {
