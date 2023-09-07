@@ -9,10 +9,7 @@ import '../../../../models/locker.dart';
 import '../../../../providers/lockers_student_provider.dart';
 
 class SearchBarWidget extends StatefulWidget {
-  const SearchBarWidget(
-      {super.key, this.isLockerPage, required this.refreshSearchBar});
-
-  final Function refreshSearchBar;
+  const SearchBarWidget({super.key, this.isLockerPage});
 
   final bool? isLockerPage;
 
@@ -23,26 +20,12 @@ class SearchBarWidget extends StatefulWidget {
 class _SearchBarWidgetState extends State<SearchBarWidget> {
   List<Locker> searchedListLockers = [];
   List<Student> searchedListStudents = [];
-
-  FocusNode searchFocusNode = FocusNode();
-
   SearchController controller = SearchController();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: SearchAnchor(
-        viewLeading: IconButton(
-          onPressed: () {
-            widget.refreshSearchBar(searchFocusNode);
-
-            // FocusManager.instance.primaryFocus?.unfocus();
-            // Navigator.pop(context);
-            // searchFocusNode.unfocus();
-            // FocusManager.instance.primaryFocus?.unfocus();
-          },
-          icon: const Icon(Icons.arrow_back_outlined),
-        ),
         // suggestions: searchedListLockers,
         suggestionsBuilder:
             (BuildContext context, SearchController controller) {
@@ -96,10 +79,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
         builder: (BuildContext context, SearchController controller) {
           return SearchBar(
-              focusNode: searchFocusNode,
-              // hintText: widget.isLockerPage!
-              //     ? "Rechercher un Casier..."
-              //     : "Rechercher un élève...",
               backgroundColor:
                   MaterialStateColor.resolveWith((states) => Color(0xffF4F6F7)),
               elevation: MaterialStateProperty.all(0),

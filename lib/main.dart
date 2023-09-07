@@ -229,7 +229,7 @@ class _MyWidgetState extends State<MyWidget> {
             // Version mobile
             : Scaffold(
                 appBar: AppBar(
-                  toolbarHeight: 40,
+                  toolbarHeight: MediaQuery.of(context).size.height * 0.165,
                   actions: [
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -241,59 +241,84 @@ class _MyWidgetState extends State<MyWidget> {
                           width: 0.3,
                         )),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      child: Column(
                         children: [
-                          Container(
-                            height: double.infinity,
-                            decoration: selectedIndex == 0
-                                ? const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Color(0xfffb3274),
-                                        width: 3,
-                                      ),
-                                    ),
-                                  )
-                                : null,
-                            child: TextButton(
-                              child: Text(
-                                "Casiers",
-                                style: selectedIndex == 0
-                                    ? styleSelected
-                                    : styleUnselected,
+                          Padding(
+                              padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.02,
+                                right:
+                                    MediaQuery.of(context).size.height * 0.02,
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  selectedIndex = 0;
-                                });
-                              },
-                            ),
-                          ),
-                          Container(
-                            height: double.infinity,
-                            decoration: selectedIndex == 1
-                                ? const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Color(0xfffb3274),
-                                        width: 3,
+                              child: Row(
+                                children: [
+                                  Text("Ahmed Boulahdjar"),
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                        'assets/images/cp-20ahb.jpg'),
+                                  ),
+                                ],
+                              )),
+                          SizedBox(
+                            height: 50,
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Container(
+                                    height: double.infinity,
+                                    decoration: selectedIndex == 0
+                                        ? const BoxDecoration(
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                color: Color(0xfffb3274),
+                                                width: 3,
+                                              ),
+                                            ),
+                                          )
+                                        : null,
+                                    child: TextButton(
+                                      child: Text(
+                                        "Casiers",
+                                        style: selectedIndex == 0
+                                            ? styleSelected
+                                            : styleUnselected,
                                       ),
+                                      onPressed: () {
+                                        setState(() {
+                                          selectedIndex = 0;
+                                        });
+                                      },
                                     ),
-                                  )
-                                : null,
-                            child: TextButton(
-                              child: Text(
-                                "Élèves",
-                                style: selectedIndex == 1
-                                    ? styleSelected
-                                    : styleUnselected,
+                                  ),
+                                  Container(
+                                    height: double.infinity,
+                                    decoration: selectedIndex == 1
+                                        ? const BoxDecoration(
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                color: Color(0xfffb3274),
+                                                width: 3,
+                                              ),
+                                            ),
+                                          )
+                                        : null,
+                                    child: TextButton(
+                                      child: Text(
+                                        "Élèves",
+                                        style: selectedIndex == 1
+                                            ? styleSelected
+                                            : styleUnselected,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          selectedIndex = 1;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  selectedIndex = 1;
-                                });
-                              },
                             ),
                           ),
                         ],
