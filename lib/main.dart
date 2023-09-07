@@ -229,6 +229,7 @@ class _MyWidgetState extends State<MyWidget> {
             // Version mobile
             : Scaffold(
                 appBar: AppBar(
+                  toolbarHeight: 40,
                   actions: [
                     Container(
                       width: MediaQuery.of(context).size.width,

@@ -498,6 +498,7 @@ class LockerStudentProvider with ChangeNotifier {
     await updateLocker(
       locker.copyWith(
         isInaccessible: true,
+        isAvailable: false,
       ),
     );
   }
@@ -506,6 +507,7 @@ class LockerStudentProvider with ChangeNotifier {
     await updateLocker(
       locker.copyWith(
         isInaccessible: false,
+        isAvailable: true,
       ),
     );
   }
