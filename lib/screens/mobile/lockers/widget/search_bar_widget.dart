@@ -79,6 +79,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
         builder: (BuildContext context, SearchController controller) {
           return SearchBar(
+              // hintText: widget.isLockerPage!
+              //     ? "Rechercher un Casier..."
+              //     : "Rechercher un élève...",
               backgroundColor:
                   MaterialStateColor.resolveWith((states) => Color(0xffF4F6F7)),
               elevation: MaterialStateProperty.all(0),
