@@ -9,9 +9,10 @@ import '../../../../models/locker.dart';
 import '../../../../providers/lockers_student_provider.dart';
 
 class SearchBarWidget extends StatefulWidget {
-  const SearchBarWidget({super.key, this.isLockerPage, this.refreshSearchBar});
+  const SearchBarWidget(
+      {super.key, this.isLockerPage, required this.refreshSearchBar});
 
-  final Function()? refreshSearchBar;
+  final Function refreshSearchBar;
 
   final bool? isLockerPage;
 
@@ -31,17 +32,17 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: SearchAnchor(
-        // viewLeading: IconButton(
-        //   onPressed: () {
-        //     widget.refreshSearchBar!();
+        viewLeading: IconButton(
+          onPressed: () {
+            widget.refreshSearchBar(searchFocusNode);
 
-        //     FocusManager.instance.primaryFocus?.unfocus();
-        //     Navigator.pop(context);
-        //     searchFocusNode.unfocus();
-        //     FocusManager.instance.primaryFocus?.unfocus();
-        //   },
-        //   icon: const Icon(Icons.arrow_back_outlined),
-        // ),
+            // FocusManager.instance.primaryFocus?.unfocus();
+            // Navigator.pop(context);
+            // searchFocusNode.unfocus();
+            // FocusManager.instance.primaryFocus?.unfocus();
+          },
+          icon: const Icon(Icons.arrow_back_outlined),
+        ),
         // suggestions: searchedListLockers,
         suggestionsBuilder:
             (BuildContext context, SearchController controller) {

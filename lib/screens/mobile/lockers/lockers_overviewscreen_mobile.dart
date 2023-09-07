@@ -64,6 +64,16 @@ class _LockersOverviewScreenMobileState
 
   @override
   Widget build(BuildContext context) {
+    refreshSearchBar(FocusNode searchFocusNode) {
+      setState(() {
+        ;
+        FocusManager.instance.primaryFocus?.unfocus();
+        Navigator.pop(context);
+        searchFocusNode.unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      });
+    }
+
     lockersByFloor =
         Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
     defectiveLockers =
@@ -91,7 +101,9 @@ class _LockersOverviewScreenMobileState
             duration: const Duration(milliseconds: 200),
             child: Container(
               color: Colors.white,
-              child: const SearchBarWidget(
+              child: SearchBarWidget(
+                refreshSearchBar: (searchFocusNode) =>
+                    refreshSearchBar(searchFocusNode),
                 isLockerPage: true,
               ),
             ),

@@ -291,12 +291,6 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
                   title: "Casier n°${widget.locker.lockerNumber}",
                 ),
               );
-              // ModalBottomSheetWidget(
-              //   context,
-              //   standardList,
-              //   importantList,
-              //   "Casier n°${widget.locker.lockerNumber}",
-              // );
             },
             icon: Icons.more_horiz_outlined,
             label: "Options",
