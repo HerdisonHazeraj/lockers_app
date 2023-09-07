@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -241,87 +242,168 @@ class _MyWidgetState extends State<MyWidget> {
                           width: 0.3,
                         )),
                       ),
-                      child: Column(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.02,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              child: Row(
-                                children: [
-                                  Text("Ahmed Boulahdjar"),
-                                  CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                        'assets/images/cp-20ahb.jpg'),
-                                  ),
-                                ],
-                              )),
-                          SizedBox(
-                            height: 50,
-                            child: Align(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    height: double.infinity,
-                                    decoration: selectedIndex == 0
-                                        ? const BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                color: Color(0xfffb3274),
-                                                width: 3,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(
+                                  top:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                  right:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Tooltip(
+                                      waitDuration: Duration(milliseconds: 500),
+                                      message:
+                                          "Vous êtes connecté en tant que Herdison Hazeraj",
+                                      child: Text(
+                                        "Herdison Hazeraj",
+                                        style: TextStyle(
+                                            fontSize: 14, color: Colors.black),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Hero(
+                                        tag: "Petit chat",
+                                        child: PopupMenuButton<int>(
+                                          elevation: 2,
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          ),
+                                          position: PopupMenuPosition.under,
+                                          tooltip: "",
+                                          itemBuilder: (context) => [
+                                            const PopupMenuItem<int>(
+                                              child: Text(
+                                                "Profil",
                                               ),
                                             ),
-                                          )
-                                        : null,
-                                    child: TextButton(
-                                      child: Text(
-                                        "Casiers",
-                                        style: selectedIndex == 0
-                                            ? styleSelected
-                                            : styleUnselected,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          selectedIndex = 0;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  Container(
-                                    height: double.infinity,
-                                    decoration: selectedIndex == 1
-                                        ? const BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                color: Color(0xfffb3274),
-                                                width: 3,
+                                            const PopupMenuDivider(height: 1),
+                                            PopupMenuItem<int>(
+                                              onTap: () async {
+                                                SharedPreferences prefs =
+                                                    await SharedPreferences
+                                                        .getInstance();
+
+                                                auth.signOut();
+                                                // widget.onSignedOut();
+                                                prefs.setString("token", "");
+                                                // Navigator.pop(context);
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        "Déconnexion réussie !"),
+                                                  ),
+                                                );
+                                              },
+                                              child: const Text(
+                                                "Déconnexion",
+                                                style: TextStyle(
+                                                    color: Colors.red),
                                               ),
                                             ),
-                                          )
-                                        : null,
-                                    child: TextButton(
-                                      child: Text(
-                                        "Élèves",
-                                        style: selectedIndex == 1
-                                            ? styleSelected
-                                            : styleUnselected,
+                                          ],
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                "https://ik.imagekit.io/yynn3ntzglc/cms/medium_Accroche_chat_poil_long_96efb37bbd_4ma1xrsmu.jpg",
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    CircleAvatar(
+                                              backgroundImage: imageProvider,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                            ),
+                                            placeholder: (context, url) =>
+                                                const CircularProgressIndicator(),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Tooltip(
+                                              message:
+                                                  "L'image n'a pas réussi à se charger",
+                                              child: Icon(
+                                                Icons.error_outlined,
+                                                color: Colors.red,
+                                                size: 40,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      onPressed: () {
-                                        setState(() {
-                                          selectedIndex = 1;
-                                        });
-                                      },
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                )),
+                            SizedBox(
+                              height: 50,
+                              child: Align(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      height: double.infinity,
+                                      decoration: selectedIndex == 0
+                                          ? const BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: Color(0xfffb3274),
+                                                  width: 3,
+                                                ),
+                                              ),
+                                            )
+                                          : null,
+                                      child: TextButton(
+                                        child: Text(
+                                          "Casiers",
+                                          style: selectedIndex == 0
+                                              ? styleSelected
+                                              : styleUnselected,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            selectedIndex = 0;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      height: double.infinity,
+                                      decoration: selectedIndex == 1
+                                          ? const BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: Color(0xfffb3274),
+                                                  width: 3,
+                                                ),
+                                              ),
+                                            )
+                                          : null,
+                                      child: TextButton(
+                                        child: Text(
+                                          "Élèves",
+                                          style: selectedIndex == 1
+                                              ? styleSelected
+                                              : styleUnselected,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            selectedIndex = 1;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
