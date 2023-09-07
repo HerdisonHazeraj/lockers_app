@@ -89,7 +89,6 @@ class _StudentsOverviewScreenMobileState
                 //     onPressed: () {}, child: Text("Générer liste terminaux")),
                 SearchBarWidget(
               isLockerPage: false,
-              refreshSearchBar: () {},
             ),
             // ],
           )

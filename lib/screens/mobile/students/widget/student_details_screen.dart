@@ -115,23 +115,19 @@ class _StudentDetailsScreenMobileState
               ),
             ),
             widget.student.lockerNumber != 0
-                ? SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Card(
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: widget.student.caution == 0
-                            ? const Text(
-                                'Caution non-payée',
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 16),
-                              )
-                            : const Text(
-                                'Caution payée',
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 16),
-                              )),
-                  )
+                ? Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.01,
+                        bottom: MediaQuery.of(context).size.height * 0.02),
+                    child: widget.student.caution == 0
+                        ? const Text(
+                            'Caution non-payée',
+                            style: TextStyle(color: Colors.red, fontSize: 16),
+                          )
+                        : const Text(
+                            'Caution payée',
+                            style: TextStyle(color: Colors.green, fontSize: 16),
+                          ))
                 : const Text(''),
             ExpansionPanelList(
               elevation: 0,

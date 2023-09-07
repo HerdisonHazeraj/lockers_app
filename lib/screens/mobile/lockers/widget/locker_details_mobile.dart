@@ -167,6 +167,19 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
               "Casier ${widget.locker.lockerNumber}",
               style: const TextStyle(fontSize: 20),
             ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.01,
+                bottom: MediaQuery.of(context).size.height * 0.02,
+              ),
+              child: Text(
+                "${widget.locker.isAvailable! ? "Disponible" : "Indisponible"}",
+                style: TextStyle(
+                    fontSize: 16,
+                    color:
+                        widget.locker.isAvailable! ? Colors.green : Colors.red),
+              ),
+            ),
             ExpansionPanelList(
               elevation: 0,
               expansionCallback: (int index, bool isExpanded) {

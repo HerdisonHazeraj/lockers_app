@@ -102,8 +102,6 @@ class _LockersOverviewScreenMobileState
             child: Container(
               color: Colors.white,
               child: SearchBarWidget(
-                refreshSearchBar: (searchFocusNode) =>
-                    refreshSearchBar(searchFocusNode),
                 isLockerPage: true,
               ),
             ),
