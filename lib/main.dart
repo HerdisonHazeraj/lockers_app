@@ -243,170 +243,157 @@ class _MyWidgetState extends State<MyWidget> {
             // Version mobile
             : Scaffold(
                 appBar: AppBar(
-                  toolbarHeight: MediaQuery.of(context).size.height * 0.165,
+                  toolbarHeight: 100.3,
                   actions: [
                     Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         border: Border(
-                            bottom: BorderSide(
-                          color: Colors.black54,
-                          width: 0.3,
-                        )),
+                          bottom: BorderSide(
+                            color: Colors.black54,
+                            width: 0.3,
+                          ),
+                        ),
                       ),
                       child: SizedBox(
                         width: double.infinity,
                         child: Column(
                           children: [
-                            Padding(
-                                padding: EdgeInsets.only(
-                                  top:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                  right:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(''),
-                                    Row(
-                                      children: [
-                                        const Tooltip(
-                                          waitDuration:
-                                              Duration(milliseconds: 500),
-                                          message:
-                                              "Vous êtes connecté en tant que Herdison Hazeraj",
-                                          child: Text(
-                                            "Herdison Hazeraj",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.black),
-                                          ),
+                            SizedBox(
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(''),
+                                  Row(
+                                    children: [
+                                      // const Text(
+                                      //   "Herdison Hazeraj",
+                                      //   style: TextStyle(
+                                      //       fontSize: 14, color: Colors.black),
+                                      // ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 10,
+                                          top: 10,
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Hero(
-                                            tag: "Petit chat",
-                                            child: PopupMenuButton<int>(
-                                              elevation: 2,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(10),
+                                        child: Hero(
+                                          tag: "Petit chat",
+                                          child: PopupMenuButton<int>(
+                                            elevation: 2,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(10),
+                                              ),
+                                            ),
+                                            position: PopupMenuPosition.under,
+                                            tooltip: "",
+                                            itemBuilder: (context) => [
+                                              const PopupMenuItem<int>(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "Profil",
+                                                    ),
+                                                    Icon(
+                                                      Icons.person_outline,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              position: PopupMenuPosition.under,
-                                              tooltip: "",
-                                              itemBuilder: (context) => [
-                                                const PopupMenuItem<int>(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        "Profil",
-                                                      ),
-                                                      Icon(
-                                                        Icons.person_outline,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ],
-                                                  ),
+                                              const PopupMenuDivider(height: 1),
+                                              PopupMenuItem<int>(
+                                                onTap: () {},
+                                                child: const Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Paramètres',
+                                                    ),
+                                                    Icon(
+                                                      Icons.settings_outlined,
+                                                      color: Colors.black,
+                                                    )
+                                                  ],
                                                 ),
-                                                const PopupMenuDivider(
-                                                    height: 1),
-                                                PopupMenuItem<int>(
-                                                  onTap: () {},
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        'Paramètres',
-                                                      ),
-                                                      Icon(
-                                                        Icons.settings_outlined,
-                                                        color: Colors.black,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                const PopupMenuDivider(
-                                                    height: 1),
-                                                PopupMenuItem<int>(
-                                                  onTap: () async {
-                                                    SharedPreferences prefs =
-                                                        await SharedPreferences
-                                                            .getInstance();
+                                              ),
+                                              const PopupMenuDivider(height: 1),
+                                              PopupMenuItem<int>(
+                                                onTap: () async {
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
 
-                                                    auth.signOut();
-                                                    // widget.onSignedOut();
-                                                    prefs.setString(
-                                                        "token", "");
-                                                    // Navigator.pop(context);
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                      const SnackBar(
-                                                        content: Text(
-                                                            "Déconnexion réussie !"),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      const Text(
-                                                        "Déconnexion",
-                                                        style: TextStyle(
-                                                            color: Colors.red),
-                                                      ),
-                                                      Icon(
-                                                        Icons.logout,
-                                                        color: Colors.red,
-                                                      )
-                                                    ],
-                                                  ),
+                                                  auth.signOut();
+                                                  // widget.onSignedOut();
+                                                  prefs.setString("token", "");
+                                                  // Navigator.pop(context);
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text(
+                                                          "Déconnexion réussie !"),
+                                                    ),
+                                                  );
+                                                },
+                                                child: const Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "Déconnexion",
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
+                                                    Icon(
+                                                      Icons.logout,
+                                                      color: Colors.red,
+                                                    )
+                                                  ],
                                                 ),
-                                              ],
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    "https://ik.imagekit.io/yynn3ntzglc/cms/medium_Accroche_chat_poil_long_96efb37bbd_4ma1xrsmu.jpg",
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        CircleAvatar(
-                                                  backgroundImage:
-                                                      imageProvider,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                ),
-                                                placeholder: (context, url) =>
-                                                    const CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Tooltip(
-                                                  message:
-                                                      "L'image n'a pas réussi à se charger",
-                                                  child: Icon(
-                                                    Icons.error_outlined,
-                                                    color: Colors.red,
-                                                    size: 40,
-                                                  ),
+                                              ),
+                                            ],
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  "https://ik.imagekit.io/yynn3ntzglc/cms/medium_Accroche_chat_poil_long_96efb37bbd_4ma1xrsmu.jpg",
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      CircleAvatar(
+                                                backgroundImage: imageProvider,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  const CircularProgressIndicator(),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Tooltip(
+                                                message:
+                                                    "L'image n'a pas réussi à se charger",
+                                                child: Icon(
+                                                  Icons.error_outlined,
+                                                  color: Colors.red,
+                                                  size: 40,
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                )),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                             SizedBox(
                               height: 50,
                               child: Align(
