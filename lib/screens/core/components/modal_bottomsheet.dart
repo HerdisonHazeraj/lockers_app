@@ -98,11 +98,7 @@ class _ModalBottomSheetWidgetTestState
                                   ListTile(
                                     title: e.title,
                                     trailing: e.trailing,
-                                    onTap: () {
-                                      setState(() {
-                                        e.onTap;
-                                      });
-                                    },
+                                    onTap: e.onTap,
                                     iconColor: Colors.red,
                                     textColor: Colors.red,
                                   ),

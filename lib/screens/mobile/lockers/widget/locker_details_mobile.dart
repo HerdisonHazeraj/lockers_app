@@ -3,6 +3,7 @@ import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
+import 'package:lockers_app/screens/mobile/core/shared.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_info_widget.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/studentlocker_info_widget.dart';
 import 'package:lockers_app/screens/mobile/students/widget/student_details_screen.dart';
@@ -17,6 +18,7 @@ class LockerDetailsScreenMobile extends StatefulWidget {
 }
 
 class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
+  Shared shared = Shared();
   List<bool> ExpList = [false, false, true];
   bool isInit = false;
   late int nbKey;
@@ -42,15 +44,7 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
       ListTile(
         title: const Text("Supprimer"),
         onTap: () async {
-          await Provider.of<LockerStudentProvider>(context, listen: false)
-              .deleteLocker(widget.locker.id.toString());
-
-          Navigator.pop(context);
-          Navigator.pop(context);
-
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                  "Le casier n°${widget.locker.lockerNumber} a bien été supprimé.")));
+          shared.methodInaccessibleOrDelete(context, widget.locker, true, true);
         },
         trailing: const Icon(Icons.delete_forever_outlined),
       )
