@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lockers_app/models/student.dart';
-import 'package:lockers_app/screens/desktop/students/widgets/student_item.dart';
+import 'package:lockers_app/screens/mobile/students/widget/student_item_mobile.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/lockers_student_provider.dart';
@@ -141,10 +140,8 @@ class _StudentsOverviewScreenMobileState
                             itemBuilder: (context, index) => Column(
                               children: [
                                 ...unPaidCautionsStudentsList.map(
-                                  (l) => StudentItem(
+                                  (l) => StudentItemMobile(
                                     student: l,
-                                    // isLockerInDefectiveList: true,
-                                    // refreshList: () => refreshList(),
                                   ),
                                 ),
                               ],
@@ -160,35 +157,35 @@ class _StudentsOverviewScreenMobileState
                   });
                 },
                 children: [
-                  ...studentsByYear.entries.map((e) => ExpansionPanel(
-                        isExpanded: isExpYear[
-                            studentsByYear.keys.toList().indexOf(e.key)],
-                        canTapOnHeader: true,
-                        headerBuilder: (context, isExpanded) {
-                          return ListTile(
-                            title: Text(
-                              'Tous les élèves de ${e.key.toUpperCase()}e année',
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          );
-                        },
-                        body: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 1,
-                          itemBuilder: (context, index) => Column(
-                            children: [
-                              ...e.value.map(
-                                (s) => StudentItem(
-                                  student: s,
-                                  // isLockerInDefectiveList: false,
-                                  // refreshList: () => refreshList(),
-                                ),
-                              ),
-                            ],
+                  ...studentsByYear.entries.map(
+                    (e) => ExpansionPanel(
+                      isExpanded: isExpYear[
+                          studentsByYear.keys.toList().indexOf(e.key)],
+                      canTapOnHeader: true,
+                      headerBuilder: (context, isExpanded) {
+                        return ListTile(
+                          title: Text(
+                            'Tous les élèves de ${e.key.toUpperCase()}e année',
+                            style: const TextStyle(fontSize: 18),
                           ),
+                        );
+                      },
+                      body: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 1,
+                        itemBuilder: (context, index) => Column(
+                          children: [
+                            ...e.value.map(
+                              (s) => StudentItemMobile(
+                                student: s,
+                              ),
+                            ),
+                          ],
                         ),
-                      ))
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],

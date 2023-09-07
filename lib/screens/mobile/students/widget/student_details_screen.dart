@@ -47,7 +47,7 @@ class _StudentDetailsScreenMobileState
       ListTile(
         title: const Text('Changer de casier'),
         onTap: () {},
-        trailing: Icon(
+        trailing: const Icon(
           Icons.lock_reset_outlined,
           size: 30,
         ),
@@ -55,7 +55,7 @@ class _StudentDetailsScreenMobileState
       ListTile(
         title: const Text('Désattribuer le casier'),
         onTap: () {},
-        trailing: Icon(
+        trailing: const Icon(
           Icons.remove_circle_outline,
           size: 30,
         ),
@@ -68,7 +68,7 @@ class _StudentDetailsScreenMobileState
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -88,7 +88,7 @@ class _StudentDetailsScreenMobileState
                   );
                 },
                 icon: const Icon(
-                  Icons.info_outline,
+                  Icons.more_vert_outlined,
                   color: Colors.black,
                   size: 26,
                 ),
@@ -101,7 +101,7 @@ class _StudentDetailsScreenMobileState
           child: Column(children: [
             CircleAvatar(
               radius: MediaQuery.of(context).size.width * 0.25,
-              backgroundImage: AssetImage(
+              backgroundImage: const AssetImage(
                 'assets/images/cp-20ahb.jpg',
               ),
             ),
