@@ -83,7 +83,7 @@ class _StudentsOverviewScreenMobileState
 
           // );
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.format_list_bulleted_add),
         backgroundColor: Color(0xfffb3274),
         shape: CircleBorder(),
       ),
