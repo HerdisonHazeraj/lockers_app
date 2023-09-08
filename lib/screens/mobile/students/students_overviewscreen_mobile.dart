@@ -75,124 +75,137 @@ class _StudentsOverviewScreenMobileState
       isInit = true;
     }
 
-    return SizedBox(
-        child: Column(children: [
-      AnimatedContainer(
-          height: _showSearchBar ? 56.0 : 0.0,
-          duration: const Duration(milliseconds: 200),
-          child: Container(
-            color: Colors.white,
-            child:
-                // Column(
-                // children: [
-                // TextButton(
-                //     onPressed: () {}, child: Text("Générer liste terminaux")),
-                SearchBarWidget(
-              isLockerPage: false,
-            ),
-            // ],
-          )
-          // ),
-          ),
-      Expanded(
-        child: SingleChildScrollView(
-          controller: _scrollViewController,
-          child: Column(
-            children: [
-              ExpansionPanelList(
-                expansionCallback: (panelIndex, isExpanded) {
-                  setState(() {
-                    isNoCautionExp = !isNoCautionExp;
-                  });
-                },
-                children: [
-                  ExpansionPanel(
-                    isExpanded: isNoCautionExp,
-                    canTapOnHeader: true,
-                    headerBuilder: (context, isExpanded) {
-                      return ListTile(
-                        title: Text(
-                          "Cautions non payées (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                      );
-                    },
-                    body: unPaidCautionsStudentsList.isEmpty
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 1,
-                            itemBuilder: (context, index) => const Column(
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                    "Aucun élève n'a pas payé ses caution",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.black38),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: 1,
-                            itemBuilder: (context, index) => Column(
-                              children: [
-                                ...unPaidCautionsStudentsList.map(
-                                  (l) => StudentItemMobile(
-                                    student: l,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                  ),
-                ],
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigator.push(
+          //   context,
+
+          // );
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Color(0xfffb3274),
+        shape: CircleBorder(),
+      ),
+      body: SizedBox(
+          child: Column(children: [
+        AnimatedContainer(
+            height: _showSearchBar ? 56.0 : 0.0,
+            duration: const Duration(milliseconds: 200),
+            child: Container(
+              color: Colors.white,
+              child:
+                  // Column(
+                  // children: [
+                  // TextButton(
+                  //     onPressed: () {}, child: Text("Générer liste terminaux")),
+                  SearchBarWidget(
+                isLockerPage: false,
               ),
-              ExpansionPanelList(
-                expansionCallback: (int index, bool isExpanded) {
-                  setState(() {
-                    isExpYear[index] = !isExpYear[index];
-                  });
-                },
-                children: [
-                  ...studentsByYear.entries.map(
-                    (e) => ExpansionPanel(
-                      isExpanded: isExpYear[
-                          studentsByYear.keys.toList().indexOf(e.key)],
+              // ],
+            )
+            // ),
+            ),
+        Expanded(
+          child: SingleChildScrollView(
+            controller: _scrollViewController,
+            child: Column(
+              children: [
+                ExpansionPanelList(
+                  expansionCallback: (panelIndex, isExpanded) {
+                    setState(() {
+                      isNoCautionExp = !isNoCautionExp;
+                    });
+                  },
+                  children: [
+                    ExpansionPanel(
+                      isExpanded: isNoCautionExp,
                       canTapOnHeader: true,
                       headerBuilder: (context, isExpanded) {
                         return ListTile(
                           title: Text(
-                            'Tous les élèves de ${e.key.toUpperCase()}e année',
+                            "Cautions non payées (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
                             style: const TextStyle(fontSize: 18),
                           ),
                         );
                       },
-                      body: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 1,
-                        itemBuilder: (context, index) => Column(
-                          children: [
-                            ...e.value.map(
-                              (s) => StudentItemMobile(
-                                student: s,
+                      body: unPaidCautionsStudentsList.isEmpty
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 1,
+                              itemBuilder: (context, index) => const Column(
+                                children: [
+                                  ListTile(
+                                    title: Text(
+                                      "Aucun élève n'a pas payé ses caution",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.black38),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: 1,
+                              itemBuilder: (context, index) => Column(
+                                children: [
+                                  ...unPaidCautionsStudentsList.map(
+                                    (l) => StudentItemMobile(
+                                      student: l,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                    ),
+                  ],
+                ),
+                ExpansionPanelList(
+                  expansionCallback: (int index, bool isExpanded) {
+                    setState(() {
+                      isExpYear[index] = !isExpYear[index];
+                    });
+                  },
+                  children: [
+                    ...studentsByYear.entries.map(
+                      (e) => ExpansionPanel(
+                        isExpanded: isExpYear[
+                            studentsByYear.keys.toList().indexOf(e.key)],
+                        canTapOnHeader: true,
+                        headerBuilder: (context, isExpanded) {
+                          return ListTile(
+                            title: Text(
+                              'Tous les élèves de ${e.key.toUpperCase()}e année',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          );
+                        },
+                        body: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: 1,
+                          itemBuilder: (context, index) => Column(
+                            children: [
+                              ...e.value.map(
+                                (s) => StudentItemMobile(
+                                  student: s,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      )
-    ]));
+        )
+      ])),
+    );
   }
 }
