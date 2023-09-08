@@ -56,7 +56,7 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
       ),
       ListTile(
         title: const Text('Changer de casier'),
-        onTap: () {},
+        onTap: () async {},
         trailing: const Icon(
           Icons.lock_reset_outlined,
           size: 30,
