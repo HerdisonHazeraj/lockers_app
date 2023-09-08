@@ -158,7 +158,7 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
         body: SingleChildScrollView(
           child: Column(children: [
             Text(
-              "Casier ${widget.locker.lockerNumber}",
+              "Casier n°${widget.locker.lockerNumber}",
               style: const TextStyle(fontSize: 20),
             ),
             Padding(

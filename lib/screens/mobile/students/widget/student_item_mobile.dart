@@ -232,14 +232,16 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
       key: const ValueKey(0),
       startActionPane: ActionPane(
         motion: const ScrollMotion(),
-        dismissible: DismissiblePane(onDismissed: () {}),
+        // dismissible: DismissiblePane(
+        //   onDismissed: () {},
+        // ),
         children: const [],
       ),
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        dismissible: DismissiblePane(
-          onDismissed: () {},
-        ),
+        // dismissible: DismissiblePane(
+        //   onDismissed: () {},
+        // ),
         children: [
           SlidableAction(
             onPressed: (_) {
@@ -263,7 +265,26 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
             backgroundColor: Colors.black54,
           ),
           SlidableAction(
-            onPressed: (_) {},
+            onPressed: (_) async {
+              if (widget.student.lockerNumber != 0 &&
+                  widget.student.lockerNumber != "") {
+                Locker locker = await Provider.of<LockerStudentProvider>(
+                        context,
+                        listen: false)
+                    .getLockerByLockerNumber(widget.student.lockerNumber);
+                await Provider.of<LockerStudentProvider>(context, listen: false)
+                    .updateLocker(
+                        locker.copyWith(idEleve: "", isAvailable: true));
+              }
+
+              await Provider.of<LockerStudentProvider>(context, listen: false)
+                  .updateStudent(widget.student
+                      .copyWith(isArchived: true, lockerNumber: 0));
+
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "L'élève ${widget.student.firstName} ${widget.student.lastName} a bien été archivé.")));
+            },
             icon: Icons.archive_outlined,
             label: "Archiver",
             backgroundColor: Colors.deepOrange,

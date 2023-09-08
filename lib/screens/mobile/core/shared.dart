@@ -205,11 +205,140 @@ class Shared {
       );
     } else {
       if (isForDelete) {
-        await Provider.of<LockerStudentProvider>(context, listen: false)
-            .deleteLocker(locker.id.toString());
+        showModalBottomSheet(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          )),
+          context: context,
+          builder: (_) {
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Casier n°${locker.lockerNumber}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.close,
+                            size: 34,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Divider(height: 20),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Êtes-vous sûre de vouloir supprimer ce casier ?",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      right: BorderSide(
+                                        color: Colors.grey.withOpacity(0.2),
+                                      ),
+                                    ),
+                                  ),
+                                  constraints: BoxConstraints(
+                                      maxWidth:
+                                          MediaQuery.of(context).size.width /
+                                                  2 -
+                                              20),
+                                  child: ListTile(
+                                    onTap: () async {
+                                      if (locker.idEleve != 0 &&
+                                          locker.idEleve != "") {
+                                        Student student = await Provider.of<
+                                                    LockerStudentProvider>(
+                                                context,
+                                                listen: false)
+                                            .getStudent(
+                                                locker.idEleve.toString());
+                                        await Provider.of<
+                                                    LockerStudentProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateStudent(student.copyWith(
+                                          lockerNumber: 0,
+                                        ));
+                                      }
 
-        Navigator.pop(context);
-        if (inDetails) Navigator.pop(context);
+                                      await Provider.of<LockerStudentProvider>(
+                                              context,
+                                              listen: false)
+                                          .deleteLocker(locker.id.toString());
+
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                      if (inDetails)
+                                        Navigator.of(context).pop();
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  "Le casier n°${locker.lockerNumber} a bien été supprimé.")));
+                                    },
+                                    title: const Text("Oui"),
+                                  ),
+                                ),
+                                Container(
+                                  constraints: BoxConstraints(
+                                      maxWidth:
+                                          MediaQuery.of(context).size.width /
+                                                  2 -
+                                              20),
+                                  child: ListTile(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    title: const Text("Annuler"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+        // await Provider.of<LockerStudentProvider>(context, listen: false)
+        //     .deleteLocker(locker.id.toString());
+
+        // Navigator.pop(context);
+        // if (inDetails) Navigator.pop(context);
       } else {
         await Provider.of<LockerStudentProvider>(context, listen: false)
             .setLockerToInaccessible(locker);

@@ -71,10 +71,13 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
       key: const ValueKey(0),
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        dismissible: DismissiblePane(onDismissed: () {
-          shared.methodInaccessibleOrDelete(
-              context, widget.locker, false, false);
-        }),
+        // dismissible: DismissiblePane(
+        //   closeOnCancel: true,
+        //   onDismissed: () {
+        //     shared.methodInaccessibleOrDelete(
+        //         context, widget.locker, false, false);
+        //   },
+        // ),
         children: [
           SlidableAction(
             onPressed: (_) {
