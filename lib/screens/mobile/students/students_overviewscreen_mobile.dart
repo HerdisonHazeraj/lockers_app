@@ -22,12 +22,14 @@ class _StudentsOverviewScreenMobileState
   bool isNoCautionExp = true;
   late Map<String, List<Student>> studentsByYear;
   late List<Student> unPaidCautionsStudentsList;
+  late List<Student> terminauxStudentsList;
 
   bool isInit = false;
 
   late ScrollController _scrollViewController;
   bool _showSearchBar = true;
   bool isScrollingDown = false;
+  bool isTerminauxListGenerated = false;
 
   @override
   void initState() {
@@ -70,6 +72,10 @@ class _StudentsOverviewScreenMobileState
     unPaidCautionsStudentsList =
         Provider.of<LockerStudentProvider>(context, listen: false)
             .getNonPaidCaution();
+    terminauxStudentsList =
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .getAllTerminaux();
+    // isTerminauxListGenerated = !terminauxStudentsList.isNotEmpty;
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => false);
       isInit = true;
@@ -78,12 +84,142 @@ class _StudentsOverviewScreenMobileState
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
+          showModalBottomSheet(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            )),
+            context: context,
+            builder: (_) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Génération de liste',
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.close,
+                              size: 34,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(height: 20),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            isTerminauxListGenerated
+                                ? Text(
+                                    "Êtes-vous sûr de vouloir supprimer la liste des terminaux ?",
+                                    style: TextStyle(fontSize: 16),
+                                  )
+                                : Text(
+                                    "Êtes-vous sûre de vouloir générer la liste des terminaux ?",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                            Container(
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        right: BorderSide(
+                                          color: Colors.grey.withOpacity(0.2),
+                                        ),
+                                      ),
+                                    ),
+                                    constraints: BoxConstraints(
+                                        maxWidth:
+                                            MediaQuery.of(context).size.width /
+                                                    2 -
+                                                20),
+                                    child: ListTile(
+                                      onTap: () async {
+                                        if (isTerminauxListGenerated) {
+                                          Provider.of<LockerStudentProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .setAllTerinauxToFalse();
 
-          // );
+                                          setState(() {
+                                            isTerminauxListGenerated = false;
+                                            terminauxStudentsList = Provider.of<
+                                                        LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getAllTerminaux();
+                                          });
+                                        } else {
+                                          Provider.of<LockerStudentProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .setAllTerminauxList();
+
+                                          setState(() {
+                                            isTerminauxListGenerated = true;
+                                            terminauxStudentsList = Provider.of<
+                                                        LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getAllTerminaux();
+                                          });
+                                        }
+                                      },
+                                      title: const Text("Oui"),
+                                    ),
+                                  ),
+                                  Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth:
+                                            MediaQuery.of(context).size.width /
+                                                    2 -
+                                                20),
+                                    child: ListTile(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      title: const Text("Annuler"),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
         },
-        child: Icon(Icons.format_list_bulleted_add),
+        child: isTerminauxListGenerated
+            ? Icon(Icons.playlist_remove_outlined)
+            : Icon(Icons.format_list_bulleted_add),
         backgroundColor: Color(0xfffb3274),
         shape: CircleBorder(),
       ),
@@ -111,6 +247,46 @@ class _StudentsOverviewScreenMobileState
             controller: _scrollViewController,
             child: Column(
               children: [
+                terminauxStudentsList.isEmpty
+                    ? SizedBox(
+                        width: 0,
+                        height: 0,
+                      )
+                    : ExpansionPanelList(
+                        expansionCallback: (panelIndex, isExpanded) {
+                          setState(() {
+                            isNoCautionExp = !isNoCautionExp;
+                          });
+                        },
+                        children: [
+                          ExpansionPanel(
+                            isExpanded: isNoCautionExp,
+                            canTapOnHeader: true,
+                            headerBuilder: (context, isExpanded) {
+                              return ListTile(
+                                title: Text(
+                                  "Élèves terminaux (${terminauxStudentsList.length})",
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                              );
+                            },
+                            body: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: 1,
+                              itemBuilder: (context, index) => Column(
+                                children: [
+                                  ...terminauxStudentsList.map(
+                                    (l) => StudentItemMobile(
+                                      student: l,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                 ExpansionPanelList(
                   expansionCallback: (panelIndex, isExpanded) {
                     setState(() {

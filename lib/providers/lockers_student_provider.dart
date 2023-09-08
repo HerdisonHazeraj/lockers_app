@@ -91,6 +91,49 @@ class LockerStudentProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  List<Student> getAllTerminaux() {
+    List<Student> terminaux =
+        _studentItems.where((element) => element.isTerminal == true).toList();
+    return terminaux;
+  }
+
+  bool checkIfTheresTerminaux() {
+    List<Student> terminaux =
+        _studentItems.where((element) => element.isTerminal == true).toList();
+    return terminaux.isNotEmpty;
+  }
+
+  void setAllTerinauxToFalse() {
+    final students = getAllTerminaux();
+
+    students.forEach((student) {
+      student.isTerminal = false;
+    });
+  }
+
+  Future<void> setAllTerminauxList() async {
+    final students = getNotArchivedStudent();
+
+    // students.where((element) => false)
+    students.forEach((student) {
+      if (student.classe.toLowerCase().contains('oic3') ||
+          student.classe.toLowerCase().contains('ict4') ||
+          (student.classe.toLowerCase().contains('ict3') &&
+              student.classe.toLowerCase().contains('p3')) ||
+          (student.classe.toLowerCase().contains('ich3') &&
+              student.classe.toLowerCase().contains('p3'))) {
+        student.isTerminal = true;
+        dbService.updateStudent(student);
+      }
+
+      // switch(student.classe){
+      //   case .contains('oic3'):
+
+      //   break;
+      // }
+    });
+  }
+
   Future<void> insertLocker(int index, Locker locker) async {
     await dbService.updateLocker(locker);
     _lockerItems.insert(index, locker);
