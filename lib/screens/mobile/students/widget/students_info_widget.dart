@@ -9,9 +9,9 @@ class StudentsInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-      childAspectRatio: 4,
-      scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
+      childAspectRatio: 4,
       crossAxisCount: 2,
       children: [
         RichText(

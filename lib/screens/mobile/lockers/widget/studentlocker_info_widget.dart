@@ -1,6 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../../models/student.dart';
 
@@ -10,8 +8,8 @@ class StudentLockerInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+        physics: NeverScrollableScrollPhysics(),
         childAspectRatio: 4,
-        scrollDirection: Axis.vertical,
         shrinkWrap: true,
         crossAxisCount: 2,
         children: [

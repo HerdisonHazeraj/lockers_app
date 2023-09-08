@@ -9,8 +9,8 @@ class LockerInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+        physics: NeverScrollableScrollPhysics(),
         childAspectRatio: 4,
-        scrollDirection: Axis.vertical,
         shrinkWrap: true,
         crossAxisCount: 2,
         children: [

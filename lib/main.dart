@@ -11,7 +11,6 @@ import 'package:lockers_app/infrastructure/firebase_api_service.dart';
 import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
-import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
 import 'package:lockers_app/screens/desktop/assignation/assignation_overview_screen.dart';
 import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/core/components/side_menu_app.dart';
@@ -189,18 +188,6 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<ListTile> standardList = [
-      ListTile(
-        title: const Text('Oui'),
-        onTap: () {},
-        trailing: const Icon(Icons.person_add_alt),
-      ),
-      ListTile(
-        title: const Text('Non'),
-        onTap: () {},
-        trailing: const Icon(Icons.person_add_alt),
-      ),
-    ];
     return _isLoading
         ? Container(
             color: Colors.white,
@@ -269,11 +256,6 @@ class _MyWidgetState extends State<MyWidget> {
                                   const Text(''),
                                   Row(
                                     children: [
-                                      // const Text(
-                                      //   "Herdison Hazeraj",
-                                      //   style: TextStyle(
-                                      //       fontSize: 14, color: Colors.black),
-                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.only(
                                           right: 10,
@@ -291,7 +273,13 @@ class _MyWidgetState extends State<MyWidget> {
                                             position: PopupMenuPosition.under,
                                             tooltip: "",
                                             itemBuilder: (context) => [
-                                              const PopupMenuItem<int>(
+                                              PopupMenuItem<int>(
+                                                onTap: () {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                          content: Text(
+                                                              "Cette fonctionnalité n'est pas encore disponible.")));
+                                                },
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -309,7 +297,12 @@ class _MyWidgetState extends State<MyWidget> {
                                               ),
                                               const PopupMenuDivider(height: 1),
                                               PopupMenuItem<int>(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                          content: Text(
+                                                              "Cette fonctionnalité n'est pas encore disponible.")));
+                                                },
                                                 child: const Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
