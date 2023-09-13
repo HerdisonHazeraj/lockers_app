@@ -195,6 +195,8 @@ class _StudentsOverviewScreenMobileState
                                                         "La liste des terminaux a bien été générée.")
                                                     : Text(
                                                         "La liste des terminaux a bien été supprimée.")));
+
+                                        Navigator.pop(context);
                                       },
                                       title: const Text("Oui"),
                                     ),
