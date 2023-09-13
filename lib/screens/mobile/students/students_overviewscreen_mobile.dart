@@ -19,6 +19,7 @@ class _StudentsOverviewScreenMobileState
     extends State<StudentsOverviewScreenMobile> {
   late List<bool> isExpYear;
   bool isNoCautionExp = true;
+  bool isTerminauxExp = true;
   late Map<String, List<Student>> studentsByYear;
   late List<Student> unPaidCautionsStudentsList;
   late List<Student> terminauxStudentsList;
@@ -74,7 +75,7 @@ class _StudentsOverviewScreenMobileState
     terminauxStudentsList =
         Provider.of<LockerStudentProvider>(context, listen: false)
             .getAllTerminaux();
-    // isTerminauxListGenerated = !terminauxStudentsList.isNotEmpty;
+    isTerminauxListGenerated = terminauxStudentsList.isNotEmpty;
     if (!isInit) {
       isExpYear = List.generate(studentsByYear.length, (index) => false);
       isInit = true;
@@ -185,6 +186,15 @@ class _StudentsOverviewScreenMobileState
                                                 .getAllTerminaux();
                                           });
                                         }
+                                        Navigator.pop(context);
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: isTerminauxListGenerated
+                                                    ? Text(
+                                                        "La liste des terminaux a bien été générée.")
+                                                    : Text(
+                                                        "La liste des terminaux a bien été supprimée.")));
                                       },
                                       title: const Text("Oui"),
                                     ),
@@ -254,12 +264,12 @@ class _StudentsOverviewScreenMobileState
                     : ExpansionPanelList(
                         expansionCallback: (panelIndex, isExpanded) {
                           setState(() {
-                            isNoCautionExp = !isNoCautionExp;
+                            isTerminauxExp = !isTerminauxExp;
                           });
                         },
                         children: [
                           ExpansionPanel(
-                            isExpanded: isNoCautionExp,
+                            isExpanded: isTerminauxExp,
                             canTapOnHeader: true,
                             headerBuilder: (context, isExpanded) {
                               return ListTile(
