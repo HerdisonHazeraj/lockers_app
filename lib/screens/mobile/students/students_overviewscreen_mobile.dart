@@ -185,6 +185,8 @@ class _StudentsOverviewScreenMobileState
                                                 .getAllTerminaux();
                                           });
                                         }
+
+                                        Navigator.pop(context);
                                       },
                                       title: const Text("Oui"),
                                     ),
