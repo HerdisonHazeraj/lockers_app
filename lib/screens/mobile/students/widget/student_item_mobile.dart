@@ -6,6 +6,7 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/theme.dart';
 import '../../../../models/student.dart';
 import '../../../mobile/students/widget/student_details_screen.dart';
 
@@ -262,7 +263,7 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
             },
             icon: Icons.more_horiz_outlined,
             label: "Options",
-            backgroundColor: Colors.black54,
+            backgroundColor: LightColorTheme.secondaryTextColor,
           ),
           SlidableAction(
             onPressed: (_) async {
@@ -326,7 +327,7 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
           onTap: () {
             showGeneralDialog(
               context: context,
-              barrierColor: Colors.black38,
+              barrierColor: LightColorTheme.thirdTextColor,
               barrierLabel: "Photo de l'élève",
               barrierDismissible: true,
               pageBuilder: (_, __, ___) => Center(

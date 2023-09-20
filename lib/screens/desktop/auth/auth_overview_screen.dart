@@ -4,6 +4,8 @@ import 'package:lockers_app/screens/desktop/auth/widgets/sign_in/mail_password_a
 import 'package:lockers_app/screens/desktop/auth/widgets/sign_in/number_confirmation_auth_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/theme.dart';
+
 class AuthOverviewScreen extends StatefulWidget {
   const AuthOverviewScreen({required this.onSignedIn, super.key});
   final Function onSignedIn;
@@ -65,7 +67,7 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                 width: double.infinity,
                 child: Text(
                   "Veuillez entrer vos identifiants,",
-                  style: TextStyle(color: Colors.black54),
+                  style: TextStyle(color: LightColorTheme.secondaryTextColor),
                 ),
               ),
               const SizedBox(height: 20),
@@ -115,7 +117,8 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                 width: double.infinity,
                 child: TextButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black54),
+                    backgroundColor: MaterialStateProperty.all(
+                        LightColorTheme.secondaryTextColor),
                   ),
                   child: Text(
                     otpFieldVisibility && connectWithSMS

@@ -4,6 +4,8 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/desktop/dashboard/widgets/indicator.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/theme.dart';
+
 class PieChartDashboard extends StatefulWidget {
   const PieChartDashboard({super.key});
 
@@ -93,12 +95,12 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           Column(
             children: [
               Indicator(
-                color: const Color(0xFF01FBCF),
+                color: LightColorTheme.secondary,
                 text: 'Casiers libres',
                 isSquare: true,
               ),
               Indicator(
-                color: const Color(0xFFFB3274),
+                color: LightColorTheme.primary,
                 text: 'Casiers occupés',
                 isSquare: true,
               ),
@@ -133,7 +135,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           case 0:
             // Casiers libres
             return PieChartSectionData(
-              color: const Color(0xFF01FBCF),
+              color: LightColorTheme.secondary,
               value: Provider.of<LockerStudentProvider>(context)
                   .getAvailableLockers()
                   .length
@@ -153,7 +155,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           case 1:
             // Casiers occupés
             return PieChartSectionData(
-              color: Color(0xFFfb3274),
+              color: LightColorTheme.primary,
               value: Provider.of<LockerStudentProvider>(context)
                   .getUnAvailableLockers()
                   .length

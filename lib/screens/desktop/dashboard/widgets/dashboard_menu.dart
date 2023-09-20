@@ -4,6 +4,8 @@ import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
 import 'package:lockers_app/screens/desktop/dashboard/widgets/menu/historic_dashboard_menu.dart';
 import 'package:lockers_app/screens/desktop/dashboard/widgets/menu/import_all_menu.dart';
 
+import '../../../../core/theme.dart';
+
 class DashboardMenu extends StatefulWidget {
   const DashboardMenu({super.key});
 
@@ -27,7 +29,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
       decoration: const BoxDecoration(
         color: Color(0xffececf6),
         border: Border(
-          left: BorderSide(width: 0.3, color: Colors.black54),
+          left:
+              BorderSide(width: 0.3, color: LightColorTheme.secondaryTextColor),
         ),
       ),
       child: SingleChildScrollView(

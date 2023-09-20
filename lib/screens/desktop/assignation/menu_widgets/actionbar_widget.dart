@@ -4,6 +4,7 @@ import 'package:lockers_app/screens/desktop/assignation/menu_widgets/sort_elemen
 import 'package:lockers_app/screens/desktop/assignation/menu_widgets/filter_element.dart';
 import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/theme.dart';
 import '../../../../models/locker.dart';
 import '../../../../models/student.dart';
 import '../../../../providers/lockers_student_provider.dart';
@@ -149,7 +150,8 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
           decoration: const BoxDecoration(
             color: Color(0xffececf6),
             border: Border(
-              left: BorderSide(width: 0.3, color: Colors.black54),
+              left: BorderSide(
+                  width: 0.3, color: LightColorTheme.secondaryTextColor),
             ),
           ),
           child: SingleChildScrollView(
@@ -166,7 +168,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                       "Filtrer les élèves",
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black54,
+                        color: LightColorTheme.secondaryTextColor,
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),
@@ -206,8 +208,8 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.black54),
+                          backgroundColor: MaterialStateProperty.all(
+                              LightColorTheme.secondaryTextColor),
                         ),
                         onPressed: () {
                           prepareFilterKeys();
@@ -225,7 +227,7 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                       "Trier les casiers",
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black54,
+                        color: LightColorTheme.secondaryTextColor,
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),

@@ -8,7 +8,9 @@ import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart
 import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 
-class SideMenuApp extends StatelessWidget {
+import '../../../core/theme.dart';
+
+class SideMenuApp extends StatefulWidget {
   const SideMenuApp({
     super.key,
     required this.sideMenuController,
@@ -17,15 +19,20 @@ class SideMenuApp extends StatelessWidget {
   final SideMenuController sideMenuController;
 
   @override
+  State<SideMenuApp> createState() => _SideMenuAppState();
+}
+
+class _SideMenuAppState extends State<SideMenuApp> {
+  @override
   Widget build(BuildContext context) {
     return SideMenu(
-      controller: sideMenuController,
+      controller: widget.sideMenuController,
       collapseWidth: 1,
       style: SideMenuStyle(
         decoration: const BoxDecoration(
           border: Border(
             right: BorderSide(
-              color: Colors.black54,
+              color: LightColorTheme.secondaryTextColor,
               width: 0.3,
             ),
           ),
@@ -66,7 +73,9 @@ class SideMenuApp extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: TextButton(
           onPressed: () {
-            // Navigator.of(context).pushNamed(PrepareDatabaseScreen.routeName);
+            setState(() {
+              // LightColorTheme.setTheme(true);
+            });
           },
           child: const Text(
             'ceff - 2023',
@@ -87,7 +96,7 @@ class SideMenuApp extends StatelessWidget {
           priority: DashboardOverviewScreen.pageIndex,
           title: 'Dashboard',
           onTap: (page, _) {
-            sideMenuController.changePage(page);
+            widget.sideMenuController.changePage(page);
           },
           iconWidget: SvgPicture.asset(
             "assets/icons/dashboard.svg",
@@ -101,7 +110,7 @@ class SideMenuApp extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          // badgeColor: const Color(0xFFFB3274),
+          // badgeColor: constLightColorTheme.primary,
           priority: LockersOverviewScreen.pageIndex,
           title: 'Casiers',
           trailing: Provider.of<LockerStudentProvider>(context)
@@ -131,7 +140,7 @@ class SideMenuApp extends StatelessWidget {
                 )
               : const Text(''),
           onTap: (page, _) {
-            sideMenuController.changePage(page);
+            widget.sideMenuController.changePage(page);
           },
           iconWidget: SvgPicture.asset(
             "assets/icons/locker.svg",
@@ -168,7 +177,7 @@ class SideMenuApp extends StatelessWidget {
                 )
               : const Text(''),
           onTap: (page, _) {
-            sideMenuController.changePage(page);
+            widget.sideMenuController.changePage(page);
           },
           iconWidget: SvgPicture.asset(
             "assets/icons/student.svg",
@@ -179,7 +188,7 @@ class SideMenuApp extends StatelessWidget {
           priority: AssignationOverviewScreen.pageIndex,
           title: 'Attributions',
           onTap: (page, _) {
-            sideMenuController.changePage(page);
+            widget.sideMenuController.changePage(page);
           },
           iconWidget: SvgPicture.asset(
             "assets/icons/assign.svg",

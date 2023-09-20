@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme.dart';
+
 class SearchStudentMenu extends StatefulWidget {
   const SearchStudentMenu({super.key, required this.searchStudents});
 
@@ -20,7 +22,7 @@ class _SearchStudentMenuState extends State<SearchStudentMenu> {
             "Rechercher un élève",
             style: TextStyle(
               fontSize: 18,
-              color: Colors.black54,
+              color: LightColorTheme.secondaryTextColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),

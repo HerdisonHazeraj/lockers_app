@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/theme.dart';
+
 // ignore: must_be_immutable
 class ImportStudentMenu extends StatelessWidget {
   ImportStudentMenu({super.key});
@@ -21,7 +23,7 @@ class ImportStudentMenu extends StatelessWidget {
             "Importer un fichier CSV",
             style: TextStyle(
               fontSize: 18,
-              color: Colors.black54,
+              color: LightColorTheme.secondaryTextColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -58,7 +60,8 @@ class ImportStudentMenu extends StatelessWidget {
             Expanded(
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black54),
+                  backgroundColor: MaterialStateProperty.all(
+                      LightColorTheme.secondaryTextColor),
                 ),
                 onPressed: () async {
                   final error = await Provider.of<LockerStudentProvider>(

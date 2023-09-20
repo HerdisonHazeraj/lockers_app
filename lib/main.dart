@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lockers_app/core/config.dart';
+import 'package:lockers_app/core/theme.dart';
 import 'package:lockers_app/firebase_options.dart';
 import 'package:lockers_app/infrastructure/firebase_api_service.dart';
 import 'package:lockers_app/providers/history_provider.dart';
@@ -112,12 +113,12 @@ class _MyWidgetState extends State<MyWidget> {
   bool isLogged = false;
 
   TextStyle styleSelected = const TextStyle(
-    color: Color(0xfffb3274),
+    color: LightColorTheme.primary,
     fontWeight: FontWeight.bold,
     fontSize: 18,
   );
   TextStyle styleUnselected = const TextStyle(
-    color: Colors.black54,
+    color: LightColorTheme.secondaryTextColor,
     fontSize: 18,
   );
 
@@ -193,7 +194,7 @@ class _MyWidgetState extends State<MyWidget> {
             color: Colors.white,
             child: const Center(
               child: CircularProgressIndicator(
-                color: Color(0xfffb3274),
+                color: LightColorTheme.primary,
               ),
             ),
           )
@@ -238,7 +239,7 @@ class _MyWidgetState extends State<MyWidget> {
                         color: Colors.white,
                         border: Border(
                           bottom: BorderSide(
-                            color: Colors.black54,
+                            color: LightColorTheme.secondaryTextColor,
                             width: 0.3,
                           ),
                         ),
@@ -400,7 +401,8 @@ class _MyWidgetState extends State<MyWidget> {
                                           ? const BoxDecoration(
                                               border: Border(
                                                 bottom: BorderSide(
-                                                  color: Color(0xfffb3274),
+                                                  color:
+                                                      LightColorTheme.primary,
                                                   width: 3,
                                                 ),
                                               ),
@@ -426,7 +428,8 @@ class _MyWidgetState extends State<MyWidget> {
                                           ? const BoxDecoration(
                                               border: Border(
                                                 bottom: BorderSide(
-                                                  color: Color(0xfffb3274),
+                                                  color:
+                                                      LightColorTheme.primary,
                                                   width: 3,
                                                 ),
                                               ),

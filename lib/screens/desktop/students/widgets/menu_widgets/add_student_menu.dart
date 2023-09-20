@@ -5,6 +5,7 @@ import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/theme.dart';
 import 'drop_down_menu.dart';
 
 class AddStudentMenu extends StatefulWidget {
@@ -46,7 +47,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
             "Ajouter un élève",
             style: TextStyle(
               fontSize: 18,
-              color: Colors.black54,
+              color: LightColorTheme.secondaryTextColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -232,7 +233,8 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black54),
+                    backgroundColor: MaterialStateProperty.all(
+                        LightColorTheme.secondaryTextColor),
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {

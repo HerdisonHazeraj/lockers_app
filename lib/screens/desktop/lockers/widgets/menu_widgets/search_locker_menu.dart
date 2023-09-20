@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme.dart';
+
 class SearchLockerMenu extends StatefulWidget {
   const SearchLockerMenu({super.key, required this.searchLockers});
 
@@ -20,7 +22,7 @@ class _SearchLockerMenuState extends State<SearchLockerMenu> {
             "Rechercher un casier",
             style: TextStyle(
               fontSize: 18,
-              color: Colors.black54,
+              color: LightColorTheme.secondaryTextColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),

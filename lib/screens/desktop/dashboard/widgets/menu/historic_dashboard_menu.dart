@@ -6,6 +6,8 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../core/theme.dart';
+
 class HistoricDashboardMenu extends StatefulWidget {
   const HistoricDashboardMenu({super.key});
 
@@ -64,7 +66,7 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                       "Historique",
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black54,
+                        color: LightColorTheme.secondaryTextColor,
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),
@@ -88,7 +90,7 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                         padding: EdgeInsets.all(4),
                         child: Icon(
                           Icons.info_outlined,
-                          color: Colors.black54,
+                          color: LightColorTheme.secondaryTextColor,
                         ),
                       ),
                     ),
@@ -164,7 +166,8 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                         },
                                         icon: const Icon(
                                           Icons.done,
-                                          color: Colors.black54,
+                                          color: LightColorTheme
+                                              .secondaryTextColor,
                                         ),
                                         tooltip: "Confirmer",
                                       ),
@@ -192,7 +195,8 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                         },
                                         icon: const Icon(
                                           Icons.close_outlined,
-                                          color: Colors.black54,
+                                          color: LightColorTheme
+                                              .secondaryTextColor,
                                         ),
                                         tooltip: "Annuler",
                                       )
@@ -209,7 +213,9 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                         child: Text(
                           "Votre historique est vide",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 16, color: Colors.black38),
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: LightColorTheme.thirdTextColor),
                         ),
                       ),
               ),

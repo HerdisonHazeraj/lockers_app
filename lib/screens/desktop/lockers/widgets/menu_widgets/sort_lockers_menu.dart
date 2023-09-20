@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/drop_down_menu.dart';
 
+import '../../../../../core/theme.dart';
+
 // ignore: must_be_immutable
 class SortLockersMenu extends StatefulWidget {
   SortLockersMenu({
@@ -33,7 +35,8 @@ class _SortLockersMenuState extends State<SortLockersMenu> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black54),
+                  backgroundColor: MaterialStateProperty.all(
+                      LightColorTheme.secondaryTextColor),
                 ),
                 onPressed: () {},
                 child: const Text('Appliquer'),

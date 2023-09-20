@@ -4,6 +4,7 @@ import 'package:lockers_app/screens/mobile/lockers/widget/locker_item_mobile.dar
 import 'package:lockers_app/screens/mobile/lockers/widget/search_bar_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/theme.dart';
 import '../../../models/locker.dart';
 import '../../../providers/lockers_student_provider.dart';
 
@@ -142,7 +143,8 @@ class _LockersOverviewScreenMobileState
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.black38),
+                                            color:
+                                                LightColorTheme.thirdTextColor),
                                       ),
                                     ),
                                   ],

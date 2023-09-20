@@ -4,6 +4,7 @@ import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/screens/mobile/students/widget/student_item_mobile.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/theme.dart';
 import '../../../providers/lockers_student_provider.dart';
 import '../lockers/widget/search_bar_widget.dart';
 
@@ -231,7 +232,7 @@ class _StudentsOverviewScreenMobileState
         child: isTerminauxListGenerated
             ? Icon(Icons.playlist_remove_outlined)
             : Icon(Icons.format_list_bulleted_add),
-        backgroundColor: Color(0xfffb3274),
+        backgroundColor: LightColorTheme.primary,
         shape: CircleBorder(),
       ),
       body: SizedBox(
@@ -327,7 +328,9 @@ class _StudentsOverviewScreenMobileState
                                       "Aucun élève n'a pas payé ses caution",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.black38),
+                                          fontSize: 16,
+                                          color:
+                                              LightColorTheme.thirdTextColor),
                                     ),
                                   ),
                                 ],

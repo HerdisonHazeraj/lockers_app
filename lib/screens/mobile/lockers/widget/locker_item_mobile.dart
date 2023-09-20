@@ -7,6 +7,7 @@ import 'package:lockers_app/screens/mobile/core/shared.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/theme.dart';
 import '../../../../models/student.dart';
 
 class LockerItemMobile extends StatefulWidget {
@@ -97,7 +98,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
             },
             icon: Icons.more_horiz_outlined,
             label: "Options",
-            backgroundColor: Colors.black54,
+            backgroundColor: LightColorTheme.secondaryTextColor,
           ),
           SlidableAction(
             onPressed: (_) {

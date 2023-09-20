@@ -9,6 +9,7 @@ import 'package:lockers_app/screens/desktop/assignation/widgets/available_studen
 
 import 'package:provider/provider.dart';
 
+import '../../../core/theme.dart';
 import '../../../models/locker.dart';
 import '../../../providers/history_provider.dart';
 // import 'menu_widgets/sort_element_widget.dart';
@@ -277,8 +278,8 @@ class _AssignListViewState extends State<AssignListView> {
                             label: const Text('Attribuer'),
                             icon: const Icon(Icons.done_all_outlined),
                             style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.black54),
+                              backgroundColor: MaterialStateProperty.all(
+                                  LightColorTheme.secondaryTextColor),
                             ),
                             onPressed: _isAutoAttributeButtonEnabled ||
                                     _isConfirmButtonEnabled

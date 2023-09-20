@@ -11,6 +11,7 @@ import 'package:lockers_app/screens/desktop/students/students_overview_screen.da
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/theme.dart';
 import '../../../responsive.dart';
 import 'widgets/dashboard_menu.dart';
 
@@ -33,6 +34,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
   var auth = FirebaseAuth.instance;
 
   int touchedIndex = -1;
+  bool isDarkTheme = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                     color: Colors.white,
                     border: Border(
                       bottom: BorderSide(
-                        color: Colors.black54,
+                        color: LightColorTheme.secondaryTextColor,
                         width: 0.3,
                       ),
                     ),
@@ -67,7 +69,8 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                             ),
                             Text(
                               "Bienvenue sur l'application de gestion des casiers",
-                              style: TextStyle(color: Colors.black54),
+                              style: TextStyle(
+                                  color: LightColorTheme.secondaryTextColor),
                             )
                           ],
                         ),

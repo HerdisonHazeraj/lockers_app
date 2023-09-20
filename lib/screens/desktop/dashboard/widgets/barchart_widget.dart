@@ -7,6 +7,8 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/desktop/dashboard/widgets/indicator.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/theme.dart';
+
 class BarChartWidget extends StatefulWidget {
   const BarChartWidget({super.key});
 
@@ -137,12 +139,12 @@ class BarChartWidgetState extends State<BarChartWidget> {
                 child: Column(
                   children: [
                     Indicator(
-                      color: const Color(0xFF01FBCF),
+                      color: LightColorTheme.secondary,
                       text: 'Casiers totaux par étage',
                       isSquare: true,
                     ),
                     Indicator(
-                      color: const Color(0xFFFB3274),
+                      color: LightColorTheme.primary,
                       text: 'Casiers occupés par étage',
                       isSquare: true,
                     ),
@@ -171,7 +173,8 @@ class BarChartWidgetState extends State<BarChartWidget> {
       barRods: [
         BarChartRodData(
           toY: isTouched ? y1 + 1 : y1,
-          color: isTouched ? const Color(0xFF01FBCF) : const Color(0xFF01FBCF),
+          color:
+              isTouched ? LightColorTheme.secondary : LightColorTheme.secondary,
           width: width,
           borderSide: isTouched
               ? const BorderSide(color: Color(0xFFDAE9F2))
@@ -184,7 +187,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
         ),
         BarChartRodData(
           toY: isTouched ? y2 + 1 : y2,
-          color: isTouched ? const Color(0xFFFB3274) : const Color(0xFFFB3274),
+          color: isTouched ? LightColorTheme.primary : LightColorTheme.primary,
           width: width,
           borderSide: isTouched
               ? const BorderSide(color: Color(0xFFDAE9F2))

@@ -7,6 +7,8 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/drop_down_menu.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/theme.dart';
+
 class LockerUpdate extends StatefulWidget {
   const LockerUpdate(
       {super.key,
@@ -196,8 +198,8 @@ class _LockerUpdateState extends State<LockerUpdate> {
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black54),
+                        backgroundColor: MaterialStateProperty.all(
+                            LightColorTheme.secondaryTextColor),
                       ),
                       onPressed: widget.locker.isInaccessible == true
                           ? null
@@ -213,8 +215,8 @@ class _LockerUpdateState extends State<LockerUpdate> {
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black54),
+                        backgroundColor: MaterialStateProperty.all(
+                            LightColorTheme.secondaryTextColor),
                       ),
                       onPressed: widget.locker.isInaccessible == true
                           ? null

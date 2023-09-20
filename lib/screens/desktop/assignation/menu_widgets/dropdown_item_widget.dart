@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme.dart';
+
 // ignore: must_be_immutable
 class DropDownItemWidget extends StatefulWidget {
   DropDownItemWidget(
@@ -40,7 +42,7 @@ class _DropDownItemWidgetState extends State<DropDownItemWidget> {
               widget.hintText,
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.black54,
+                color: LightColorTheme.secondaryTextColor,
               ),
             ),
           ),

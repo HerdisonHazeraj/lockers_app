@@ -6,6 +6,7 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/theme.dart';
 import '../../../../models/locker.dart';
 import '../../../../models/student.dart';
 import '../../../../responsive.dart';
@@ -77,7 +78,7 @@ class _StudentItemState extends State<StudentItem> {
           onTap: () {
             showGeneralDialog(
               context: context,
-              barrierColor: Colors.black38,
+              barrierColor: LightColorTheme.thirdTextColor,
               barrierLabel: "Photo de l'élève",
               barrierDismissible: true,
               pageBuilder: (_, __, ___) => Center(

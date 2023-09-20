@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
+import '../../../../core/theme.dart';
 import '../../../../providers/lockers_student_provider.dart';
 import 'indicator.dart';
 
@@ -64,13 +65,13 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                             endWidth: 20,
                             startValue: 0,
                             endValue: paidCautionsList,
-                            color: const Color(0xFF01FBCF)),
+                            color: LightColorTheme.secondary),
                         GaugeRange(
                             startWidth: 20,
                             endWidth: 20,
                             startValue: paidCautionsList,
                             endValue: paidCautionsList + unPaidCautionsList,
-                            color: const Color(0xFFFB3274)),
+                            color: LightColorTheme.primary),
                       ],
                       pointers: <GaugePointer>[
                         MarkerPointer(
@@ -114,12 +115,12 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                 child: Column(
                   children: [
                     Indicator(
-                      color: const Color(0xFF01FBCF),
+                      color: LightColorTheme.secondary,
                       text: 'Cautions payées',
                       isSquare: true,
                     ),
                     Indicator(
-                      color: const Color(0xFFFB3274),
+                      color: LightColorTheme.primary,
                       text: 'Cautions non-payées',
                       isSquare: true,
                     ),

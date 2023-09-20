@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme.dart';
+
 // ignore: must_be_immutable
 class Indicator extends StatelessWidget {
   Indicator({
@@ -34,7 +36,7 @@ class Indicator extends StatelessWidget {
           text,
           style: const TextStyle(
             fontSize: 16,
-            color: Colors.black54,
+            color: LightColorTheme.secondaryTextColor,
           ),
         )
       ],

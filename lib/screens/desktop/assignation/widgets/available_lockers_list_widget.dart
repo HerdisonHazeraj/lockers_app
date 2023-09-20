@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lockers_app/core/theme.dart';
 
 import '../../../../models/locker.dart';
 
@@ -37,7 +38,8 @@ class _AvailableLockersListWidgetState
                     child: Text(
                       'Aucun casier disponible',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, color: Colors.black38),
+                      style: TextStyle(
+                          fontSize: 16, color: LightColorTheme.thirdTextColor),
                     ),
                   )
                 : Column(
