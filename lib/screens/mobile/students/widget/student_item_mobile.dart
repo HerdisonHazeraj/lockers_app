@@ -232,10 +232,18 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
       key: const ValueKey(0),
       startActionPane: ActionPane(
         motion: const ScrollMotion(),
-        // dismissible: DismissiblePane(
-        //   onDismissed: () {},
-        // ),
-        children: const [],
+        dismissible: DismissiblePane(
+          onDismissed: () {},
+        ),
+        children: [
+          SlidableAction(
+            onPressed: (_) {},
+            icon: Icons.arrow_circle_down,
+            label: 'Caution rendue',
+            backgroundColor: Colors.amber,
+            foregroundColor: Colors.white,
+          ),
+        ],
       ),
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
