@@ -47,7 +47,6 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
             "Ajouter un élève",
             style: TextStyle(
               fontSize: 18,
-              color: LightColorTheme.secondaryTextColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -77,7 +76,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusLastName);
                           },
                           controller: firstnameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Prénom",
                             prefixIcon: Icon(Icons.person_outlined),
                           ),
@@ -96,7 +95,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusMail);
                           },
                           controller: loginController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Login",
                             prefixIcon: Icon(Icons.login_outlined),
                           ),
@@ -114,7 +113,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusYear);
                           },
                           controller: classeController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Classe",
                             prefixIcon: Icon(Icons.school_outlined),
                           ),
@@ -133,7 +132,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                                 .requestFocus(focusResponsable);
                           },
                           controller: jobController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Formation",
                             prefixIcon: Icon(Icons.work_outlined),
                           ),
@@ -161,7 +160,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusLogin);
                           },
                           controller: lastnameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Nom",
                             prefixIcon: Icon(Icons.person_outlined),
                           ),
@@ -180,7 +179,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusClasse);
                           },
                           controller: mailController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Mail",
                             prefixIcon: Icon(Icons.mail_outlined),
                           ),
@@ -214,7 +213,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                           focusNode: focusResponsable,
                           textInputAction: TextInputAction.done,
                           controller: responsableController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Maître de classe",
                             prefixIcon:
                                 Icon(Icons.admin_panel_settings_outlined),

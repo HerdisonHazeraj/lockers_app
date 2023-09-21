@@ -23,7 +23,6 @@ class ImportStudentMenu extends StatelessWidget {
             "Importer un fichier CSV",
             style: TextStyle(
               fontSize: 18,
-              color: LightColorTheme.secondaryTextColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),

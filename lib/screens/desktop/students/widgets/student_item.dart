@@ -141,9 +141,9 @@ class _StudentItemState extends State<StudentItem> {
                         );
                       },
                       tooltip: "Désarchiver l'élève",
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.unarchive_outlined,
-                        color: Colors.black,
+                        color: Theme.of(context).iconTheme.color,
                       ),
                     ),
                   )
@@ -167,9 +167,9 @@ class _StudentItemState extends State<StudentItem> {
                             widget.refreshList!();
                           },
                           tooltip: "Archiver l'élève",
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.archive_outlined,
-                            color: Colors.black,
+                            color: Theme.of(context).iconTheme.color,
                           ),
                         ),
                         widget.student.caution == 20
@@ -190,9 +190,9 @@ class _StudentItemState extends State<StudentItem> {
                                   );
                                 },
                                 tooltip: "La caution a été rendue",
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.money_off_outlined,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                 ),
                               )
                             : IconButton(
@@ -214,9 +214,9 @@ class _StudentItemState extends State<StudentItem> {
                                   widget.refreshList!();
                                 },
                                 tooltip: "L'élève a payé la caution",
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.attach_money_outlined,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                 ),
                               ),
                         widget.student.lockerNumber == 0
@@ -262,9 +262,9 @@ class _StudentItemState extends State<StudentItem> {
                                   widget.refreshList!();
                                 },
                                 tooltip: "Attribuer automatiquement un casier",
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.bookmark_add_outlined,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                 ),
                               )
                             : IconButton(
@@ -306,9 +306,9 @@ class _StudentItemState extends State<StudentItem> {
                                   widget.refreshList!();
                                 },
                                 tooltip: "Désattribuer le casier de l'élève",
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.bookmark_remove_outlined,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                 ),
                               ),
                         IconButton(
@@ -323,9 +323,9 @@ class _StudentItemState extends State<StudentItem> {
                             await launchUrl(mail);
                           },
                           tooltip: "Envoyer un mail à l'élève",
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.mail_outlined,
-                            color: Colors.black,
+                            color: Theme.of(context).iconTheme.color,
                           ),
                         ),
                         IconButton(

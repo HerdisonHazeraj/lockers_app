@@ -221,7 +221,7 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return _isLoading
         ? Container(
-            color: Colors.white,
+            color: Theme.of(context).canvasColor,
             child: const Center(
               child: CircularProgressIndicator(
                 color: LightColorTheme.primary,

@@ -23,13 +23,12 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Importer un fichier CSV",
             style: TextStyle(
               fontSize: 18,
-              color: LightColorTheme.secondaryTextColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -42,7 +41,7 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
             Expanded(
               child: TextField(
                 controller: fileController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: "Choisir...",
                   prefixIcon: Icon(Icons.file_upload_outlined),
                 ),

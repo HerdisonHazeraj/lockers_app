@@ -79,7 +79,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                     color: Theme.of(context).cardColor,
                     border: Border(
                       bottom: BorderSide(
-                        color: LightColorTheme.secondaryTextColor,
+                        color: Theme.of(context).dividerColor,
                         width: 0.3,
                       ),
                     ),
@@ -98,11 +98,11 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                             ),
                             Text(
                               "Bienvenue sur l'application de gestion des casiers",
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor,
-                              ),
+                              // style: TextStyle(
+                              //   color: Theme.of(context)
+                              //       .textSelectionTheme
+                              //       .selectionColor,
+                              // ),
                             )
                           ],
                         ),

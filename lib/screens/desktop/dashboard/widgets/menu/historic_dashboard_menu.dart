@@ -66,8 +66,6 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                       "Historique",
                       style: TextStyle(
                         fontSize: 18,
-                        color:
-                            Theme.of(context).textSelectionTheme.selectionColor,
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),
@@ -130,12 +128,6 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                     history.getSentence(),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .textSelectionTheme
-                                          .selectionColor,
-                                      fontSize: 15,
-                                    ),
                                   ),
                                 ),
                                 subtitle: Text(

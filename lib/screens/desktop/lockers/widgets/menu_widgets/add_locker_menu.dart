@@ -39,13 +39,13 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Ajouter un casier",
             style: TextStyle(
               fontSize: 18,
-              color: LightColorTheme.secondaryTextColor,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -76,23 +76,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                           },
                           controller: lockerNumberController,
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Theme.of(context)
-                                  .textSelectionTheme
-                                  .selectionColor!,
-                            )),
-                            floatingLabelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor!),
-                            labelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor),
-                            prefixIconColor: Theme.of(context)
-                                .textSelectionTheme
-                                .selectionColor,
                             labelText: "N° de casier",
                             prefixIcon: Icon(Icons.lock_outlined),
                           ),
@@ -112,23 +95,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                           },
                           controller: lockNumberController,
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Theme.of(context)
-                                  .textSelectionTheme
-                                  .selectionColor!,
-                            )),
-                            floatingLabelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor!),
-                            labelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor),
-                            prefixIconColor: Theme.of(context)
-                                .textSelectionTheme
-                                .selectionColor,
                             labelText: "N° de serrure",
                             prefixIcon: Icon(Icons.numbers_outlined),
                           ),
@@ -176,23 +142,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                           },
                           controller: nbKeyController,
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Theme.of(context)
-                                  .textSelectionTheme
-                                  .selectionColor!,
-                            )),
-                            floatingLabelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor!),
-                            labelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor),
-                            prefixIconColor: Theme.of(context)
-                                .textSelectionTheme
-                                .selectionColor,
                             labelText: "Nombre de clés",
                             prefixIcon: Icon(Icons.key_outlined),
                           ),
@@ -212,23 +161,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                           },
                           controller: jobController,
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Theme.of(context)
-                                  .textSelectionTheme
-                                  .selectionColor!,
-                            )),
-                            floatingLabelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor!),
-                            labelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor),
-                            prefixIconColor: Theme.of(context)
-                                .textSelectionTheme
-                                .selectionColor,
                             labelText: "Métier",
                             prefixIcon: Icon(Icons.work_outlined),
                           ),
@@ -239,23 +171,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                           textInputAction: TextInputAction.done,
                           controller: remarkController,
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Theme.of(context)
-                                  .textSelectionTheme
-                                  .selectionColor!,
-                            )),
-                            floatingLabelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor!),
-                            labelStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .textSelectionTheme
-                                    .selectionColor),
-                            prefixIconColor: Theme.of(context)
-                                .textSelectionTheme
-                                .selectionColor,
                             labelText: "Remarque (facultatif)",
                             prefixIcon: Icon(Icons.note_outlined),
                           ),

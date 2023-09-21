@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
-      dividerColor: isDarkTheme ? Colors.blueGrey : Colors.grey,
+      dividerColor: isDarkTheme ? Colors.blueGrey : Color(0xffCCCCCC),
       iconTheme:
-          IconThemeData(color: isDarkTheme ? Colors.white : Colors.black),
+          IconThemeData(color: isDarkTheme ? Colors.white : Colors.black54),
       shadowColor:
           isDarkTheme ? Color(0xff02020F) : Colors.grey.withOpacity(0.1),
       primaryColor: isDarkTheme ? Color(0xff161616) : Color(0xffececf6),
       indicatorColor: isDarkTheme ? Colors.blue : Colors.blue,
-      hintColor: isDarkTheme ? Color(0xff280C0B) : Color(0xffEECED3),
+      hintColor: isDarkTheme ? Colors.white : Colors.black54,
       focusColor: isDarkTheme ? Color(0xff020219) : Color(0xffA8DAB5),
       cardColor: isDarkTheme ? Color(0xff191919) : Colors.white,
       canvasColor: isDarkTheme ? Color(0xff262626) : Colors.grey[50],

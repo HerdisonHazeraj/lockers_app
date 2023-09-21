@@ -16,22 +16,23 @@ class _SearchLockerMenuState extends State<SearchLockerMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Rechercher un casier",
             style: TextStyle(
               fontSize: 18,
-              color: LightColorTheme.secondaryTextColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
           ),
         ),
         TextField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: "Rechercher...",
-            prefixIcon: Icon(Icons.search_outlined),
+            prefixIcon: Icon(
+              Icons.search_outlined,
+            ),
           ),
           onChanged: (value) => widget.searchLockers(value),
         ),
