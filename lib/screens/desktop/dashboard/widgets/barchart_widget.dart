@@ -30,7 +30,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
       child: InkWell(
         child: Container(
           width: 740,
-          height: 400,
+          height: 440,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
