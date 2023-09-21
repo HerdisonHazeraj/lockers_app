@@ -168,9 +168,10 @@ class _LockerItemState extends State<LockerItem> {
                                           });
                                         },
                                         tooltip: "Rajouter les clés manquantes",
-                                        icon: const Icon(
+                                        icon: Icon(
                                           Icons.vpn_key_outlined,
-                                          color: Colors.black,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
                                         ),
                                       )
                                     : const Text(''),
@@ -197,9 +198,10 @@ class _LockerItemState extends State<LockerItem> {
                                           });
                                         },
                                         tooltip: "Supprimer la remarque",
-                                        icon: const Icon(
+                                        icon: Icon(
                                           Icons.task_alt_outlined,
-                                          color: Colors.black,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
                                         ))
                                     : const Text('')
                               ])
@@ -264,9 +266,9 @@ class _LockerItemState extends State<LockerItem> {
                             );
                           },
                           tooltip: "Rendre le casier inaccessible",
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.block_outlined,
-                            color: Colors.black,
+                            color: Theme.of(context).iconTheme.color,
                           ),
                         ),
                         IconButton(

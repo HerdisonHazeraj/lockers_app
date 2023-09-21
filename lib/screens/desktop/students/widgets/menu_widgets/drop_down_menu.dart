@@ -38,22 +38,14 @@ class DropDownMenu extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-          color: Theme.of(context).textSelectionTheme.selectionColor!,
-        )),
-        prefixIconColor: Theme.of(context).textSelectionTheme.selectionColor,
         prefixIcon: Icon(icon),
       ),
       hint: Text(
         defaultItem,
-        style: TextStyle(
-            color: Theme.of(context).textSelectionTheme.selectionColor),
       ),
       iconSize: 36,
-      icon: const Icon(
+      icon: Icon(
         Icons.arrow_drop_down_outlined,
-        color: LightColorTheme.secondaryTextColor,
       ),
       value: defaultChoosedItem,
       items: items.entries

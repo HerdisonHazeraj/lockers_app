@@ -43,9 +43,6 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
               child: TextField(
                 controller: fileController,
                 decoration: InputDecoration(
-                  labelStyle: TextStyle(
-                      color:
-                          Theme.of(context).textSelectionTheme.selectionColor),
                   labelText: "Choisir...",
                   prefixIcon: Icon(Icons.file_upload_outlined),
                 ),

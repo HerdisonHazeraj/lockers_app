@@ -16,22 +16,21 @@ class _SearchStudentMenuState extends State<SearchStudentMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Rechercher un élève",
             style: TextStyle(
               fontSize: 18,
-              color: LightColorTheme.secondaryTextColor,
+              color: Theme.of(context).textSelectionTheme.selectionColor!,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
           ),
         ),
         TextField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: "Rechercher...",
-            prefixIcon: Icon(Icons.search_outlined),
           ),
           onChanged: (value) => widget.searchStudents(value),
         ),

@@ -29,8 +29,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         border: Border(
-          left:
-              BorderSide(width: 0.3, color: LightColorTheme.secondaryTextColor),
+          left: BorderSide(width: 0.3, color: Theme.of(context).dividerColor),
         ),
       ),
       child: SingleChildScrollView(
