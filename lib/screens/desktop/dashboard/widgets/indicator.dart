@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme.dart';
-
 // ignore: must_be_immutable
 class Indicator extends StatelessWidget {
   Indicator({
