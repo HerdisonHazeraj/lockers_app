@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lockers_app/core/config.dart';
 import 'package:lockers_app/core/theme.dart';
 import 'package:lockers_app/firebase_options.dart';
@@ -52,8 +51,36 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isDarkTheme = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getTheme();
+    });
+  }
+
+  _getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
+    });
+  }
+
+  changeTheme() async {
+    setState(() {
+      isDarkTheme = !isDarkTheme;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,20 +100,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Application de gestion des casiers du ceff',
-        theme: Styles.themeData(true, context),
-        // darkTheme: ThemeData.dark(),
-
-        // (
-        //   primarySwatch: Colors.blue,
-        //   scaffoldBackgroundColor: const Color(0xfff5f5fd),
-        //   fontFamily: GoogleFonts.roboto().fontFamily,
-        // ),
+        theme: Styles.themeData(isDarkTheme, context),
         routes: {
           PrepareDatabaseScreen.routeName: (context) =>
               const PrepareDatabaseScreen(),
           DashboardOverviewScreen.routeName: (context) =>
               DashboardOverviewScreen(
-                  changePage: () => null, onSignedOut: () => null),
+                changePage: () => null,
+                onSignedOut: () => null,
+                changeTheme: () => null,
+              ),
           LockersOverviewScreen.routeName: (context) =>
               const LockersOverviewScreen(),
           AssignationOverviewScreen.routeName: (context) =>
@@ -94,41 +117,18 @@ class MyApp extends StatelessWidget {
           StudentsOverviewScreen.routeName: (context) =>
               const StudentsOverviewScreen(),
         },
-        home: const MyWidget(),
+        home: MyWidget(
+          changeTheme: () => changeTheme(),
+        ),
       ),
     );
   }
 }
 
-class DarkThemePreference {
-  static const THEME_STATUS = "THEMESTATUS";
-
-  setDarkTheme(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(THEME_STATUS, value);
-  }
-
-  Future<bool> getTheme() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(THEME_STATUS) ?? false;
-  }
-}
-
-class DarkThemeProvider with ChangeNotifier {
-  DarkThemePreference darkThemePreference = DarkThemePreference();
-  bool _darkTheme = false;
-
-  bool get darkTheme => _darkTheme;
-
-  set darkTheme(bool value) {
-    _darkTheme = value;
-    darkThemePreference.setDarkTheme(value);
-    notifyListeners();
-  }
-}
-
 class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+  const MyWidget({required this.changeTheme, super.key});
+
+  final Function changeTheme;
 
   @override
   State<MyWidget> createState() => _MyWidgetState();
@@ -152,13 +152,10 @@ class _MyWidgetState extends State<MyWidget> {
     fontSize: 18,
   );
 
-  DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
-
   @override
   void initState() {
     sideMenuController.addListener((p0) {
       page.jumpToPage(p0);
-      getCurrentAppTheme();
     });
 
     super.initState();
@@ -166,11 +163,6 @@ class _MyWidgetState extends State<MyWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _checkIfIsLogged();
     });
-  }
-
-  void getCurrentAppTheme() async {
-    themeChangeProvider.darkTheme =
-        await themeChangeProvider.darkThemePreference.getTheme();
   }
 
   _checkIfIsLogged() async {
@@ -252,6 +244,7 @@ class _MyWidgetState extends State<MyWidget> {
                                 DashboardOverviewScreen(
                                   changePage: (index) => changePage(index),
                                   onSignedOut: () => onSignedOut(),
+                                  changeTheme: () => widget.changeTheme(),
                                 ),
                                 const LockersOverviewScreen(),
                                 const StudentsOverviewScreen(),
