@@ -28,8 +28,8 @@ class _StudentsMenuState extends State<StudentsMenu> {
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            color: Color(0xffececf6),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
             border: Border(
               left: BorderSide(
                   width: 0.3, color: LightColorTheme.secondaryTextColor),

@@ -167,10 +167,10 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                             );
                                           });
                                         },
-                                        icon: const Icon(
+                                        icon: Icon(
                                           Icons.done,
-                                          color: LightColorTheme
-                                              .secondaryTextColor,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
                                         ),
                                         tooltip: "Confirmer",
                                       ),
@@ -196,10 +196,10 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                             );
                                           });
                                         },
-                                        icon: const Icon(
+                                        icon: Icon(
                                           Icons.close_outlined,
-                                          color: LightColorTheme
-                                              .secondaryTextColor,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
                                         ),
                                         tooltip: "Annuler",
                                       )

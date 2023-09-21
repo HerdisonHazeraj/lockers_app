@@ -44,22 +44,8 @@ class ActionBarWidget extends StatefulWidget {
 
 class _ActionBarWidgetState extends State<ActionBarWidget> {
 //filtres afficher dans les select du filtre
-  // Map<dynamic, String> metiers = {
-  //   'Informaticien-ne CFC dès 2021': 'ICT',
-  //   'Opérateur-trics en informatique': 'OIC'
-  // };
 
   Map<dynamic, String> annees = {1: '1ère', 2: '2ème', 3: '3ème', 4: '4ème'};
-  // Map<dynamic, String> responsables = {
-  //   'CGU': 'Cédric Guerdat',
-  //   'JHI': 'Jacques Hirtzel',
-  //   'JCM': 'Jean-Christophe Mathez',
-  //   'JMO': 'Jean-Pierre Monbaron',
-  //   'JOS': 'Joachim Stalder',
-  //   'MIV': 'Michael Vogel',
-  //   'PGA': 'Pascal Gagnebin',
-  //   'RMU': 'Raymond Musy'
-  // };
 
   final sortList = {
     "lockerNumber": 'Numéro de casier',
@@ -147,8 +133,8 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
       child: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            color: Color(0xffececf6),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
             border: Border(
               left: BorderSide(
                   width: 0.3, color: LightColorTheme.secondaryTextColor),

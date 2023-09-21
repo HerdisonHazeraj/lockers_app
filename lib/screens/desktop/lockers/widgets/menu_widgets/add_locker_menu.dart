@@ -75,7 +75,24 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             FocusScope.of(context).requestFocus(focusNbKey);
                           },
                           controller: lockerNumberController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .textSelectionTheme
+                                  .selectionColor!,
+                            )),
+                            floatingLabelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor!),
+                            labelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor),
+                            prefixIconColor: Theme.of(context)
+                                .textSelectionTheme
+                                .selectionColor,
                             labelText: "N° de casier",
                             prefixIcon: Icon(Icons.lock_outlined),
                           ),
@@ -94,7 +111,24 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             FocusScope.of(context).requestFocus(focusJob);
                           },
                           controller: lockNumberController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .textSelectionTheme
+                                  .selectionColor!,
+                            )),
+                            floatingLabelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor!),
+                            labelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor),
+                            prefixIconColor: Theme.of(context)
+                                .textSelectionTheme
+                                .selectionColor,
                             labelText: "N° de serrure",
                             prefixIcon: Icon(Icons.numbers_outlined),
                           ),
@@ -141,7 +175,24 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                                 .requestFocus(focusLockNumber);
                           },
                           controller: nbKeyController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .textSelectionTheme
+                                  .selectionColor!,
+                            )),
+                            floatingLabelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor!),
+                            labelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor),
+                            prefixIconColor: Theme.of(context)
+                                .textSelectionTheme
+                                .selectionColor,
                             labelText: "Nombre de clés",
                             prefixIcon: Icon(Icons.key_outlined),
                           ),
@@ -160,7 +211,24 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             FocusScope.of(context).requestFocus(focusFloor);
                           },
                           controller: jobController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .textSelectionTheme
+                                  .selectionColor!,
+                            )),
+                            floatingLabelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor!),
+                            labelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor),
+                            prefixIconColor: Theme.of(context)
+                                .textSelectionTheme
+                                .selectionColor,
                             labelText: "Métier",
                             prefixIcon: Icon(Icons.work_outlined),
                           ),
@@ -170,7 +238,24 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                           focusNode: focusRemark,
                           textInputAction: TextInputAction.done,
                           controller: remarkController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .textSelectionTheme
+                                  .selectionColor!,
+                            )),
+                            floatingLabelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor!),
+                            labelStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor),
+                            prefixIconColor: Theme.of(context)
+                                .textSelectionTheme
+                                .selectionColor,
                             labelText: "Remarque (facultatif)",
                             prefixIcon: Icon(Icons.note_outlined),
                           ),
