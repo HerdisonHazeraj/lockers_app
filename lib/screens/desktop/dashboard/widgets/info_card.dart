@@ -25,10 +25,6 @@ class InfoCard extends StatelessWidget {
           onTap();
         },
         child: Container(
-          constraints: const BoxConstraints(
-            maxWidth: 235,
-            maxHeight: 235,
-          ),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
