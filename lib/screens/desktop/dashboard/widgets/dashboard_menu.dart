@@ -26,8 +26,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
     return Container(
       width: MediaQuery.of(context).size.width / 4,
       height: MediaQuery.of(context).size.height,
-      decoration: const BoxDecoration(
-        color: Color(0xffececf6),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
         border: Border(
           left:
               BorderSide(width: 0.3, color: LightColorTheme.secondaryTextColor),

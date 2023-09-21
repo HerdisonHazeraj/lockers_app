@@ -29,15 +29,15 @@ class _SideMenuAppState extends State<SideMenuApp> {
       controller: widget.sideMenuController,
       collapseWidth: 1,
       style: SideMenuStyle(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           border: Border(
             right: BorderSide(
-              color: LightColorTheme.secondaryTextColor,
+              color: Theme.of(context).dividerColor,
               width: 0.3,
             ),
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         itemBorderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           bottomLeft: Radius.circular(10),
@@ -95,13 +95,33 @@ class _SideMenuAppState extends State<SideMenuApp> {
           ),
           priority: DashboardOverviewScreen.pageIndex,
           title: 'Dashboard',
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/dashboard.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Dashboard',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
+          },
           onTap: (page, _) {
             widget.sideMenuController.changePage(page);
           },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/dashboard.svg",
-            height: 24,
-          ),
         ),
         SideMenuItem(
           badgeContent: const Text(
@@ -112,7 +132,31 @@ class _SideMenuAppState extends State<SideMenuApp> {
           ),
           // badgeColor: constLightColorTheme.primary,
           priority: LockersOverviewScreen.pageIndex,
-          title: 'Casiers',
+
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/locker.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Casiers',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
+          },
           trailing: Provider.of<LockerStudentProvider>(context)
                   .getDefectiveLockers()
                   .isNotEmpty
@@ -142,14 +186,33 @@ class _SideMenuAppState extends State<SideMenuApp> {
           onTap: (page, _) {
             widget.sideMenuController.changePage(page);
           },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/locker.svg",
-            height: 24,
-          ),
         ),
         SideMenuItem(
           priority: StudentsOverviewScreen.pageIndex,
-          title: 'Élèves',
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/student.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Élèves',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
+          },
           trailing: Provider.of<LockerStudentProvider>(context)
                   .getNonPaidCaution()
                   .isNotEmpty
@@ -179,21 +242,36 @@ class _SideMenuAppState extends State<SideMenuApp> {
           onTap: (page, _) {
             widget.sideMenuController.changePage(page);
           },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/student.svg",
-            height: 24,
-          ),
         ),
         SideMenuItem(
           priority: AssignationOverviewScreen.pageIndex,
-          title: 'Attributions',
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/assign.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Attributions',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
+          },
           onTap: (page, _) {
             widget.sideMenuController.changePage(page);
           },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/assign.svg",
-            height: 24,
-          ),
         ),
       ],
     );

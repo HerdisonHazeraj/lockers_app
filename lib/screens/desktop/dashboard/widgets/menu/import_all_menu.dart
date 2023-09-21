@@ -23,13 +23,13 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Importer un fichier CSV",
             style: TextStyle(
               fontSize: 18,
-              color: LightColorTheme.secondaryTextColor,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),

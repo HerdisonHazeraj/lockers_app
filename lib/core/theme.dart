@@ -1,4 +1,36 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
+class Styles {
+  static ThemeData themeData(bool isDarkTheme, BuildContext context) {
+    return ThemeData(
+      dividerColor: isDarkTheme ? Colors.blueGrey : Colors.grey,
+      iconTheme:
+          IconThemeData(color: isDarkTheme ? Colors.white : Colors.black),
+      shadowColor:
+          isDarkTheme ? Color(0xff02020F) : Colors.grey.withOpacity(0.1),
+      primarySwatch: Colors.red,
+      primaryColor: isDarkTheme ? Color(0xff161616) : Color(0xffececf6),
+      // indicatorColor: isDarkTheme ? Colors.green : Colors.blue,
+      hintColor: isDarkTheme ? Color(0xff280C0B) : Color(0xffEECED3),
+      // highlightColor: isDarkTheme ? Color(0xff372901) : Colors.black12,
+      // hoverColor: isDarkTheme ? Color(0xff3A3A3B) : Colors.grey[50],
+      // focusColor: isDarkTheme ? Color(0xff0B2512) : Color(0xffA8DAB5),
+      // disabledColor: Colors.grey,
+      cardColor: isDarkTheme ? Color(0xff191919) : Colors.white,
+      canvasColor: isDarkTheme ? Color(0xff262626) : Colors.grey[50],
+      brightness: isDarkTheme ? Brightness.dark : Brightness.light,
+      buttonTheme: Theme.of(context).buttonTheme.copyWith(
+          colorScheme: isDarkTheme ? ColorScheme.dark() : ColorScheme.light()),
+      appBarTheme: AppBarTheme(
+        elevation: 0.0,
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+          selectionColor: isDarkTheme ? Colors.white : Colors.black54),
+    );
+  }
+}
 
 // bool isDarkTheme = false;
 

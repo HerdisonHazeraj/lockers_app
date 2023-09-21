@@ -46,8 +46,8 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
               children: [
                 Container(
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
                     border: Border(
                       bottom: BorderSide(
                         color: LightColorTheme.secondaryTextColor,
@@ -60,7 +60,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -70,7 +70,9 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                             Text(
                               "Bienvenue sur l'application de gestion des casiers",
                               style: TextStyle(
-                                  color: LightColorTheme.secondaryTextColor),
+                                  color: Theme.of(context)
+                                      .textSelectionTheme
+                                      .selectionColor),
                             )
                           ],
                         ),

@@ -62,11 +62,12 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                 width: double.infinity,
                 child: Row(
                   children: [
-                    const Text(
+                    Text(
                       "Historique",
                       style: TextStyle(
                         fontSize: 18,
-                        color: LightColorTheme.secondaryTextColor,
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),
@@ -78,9 +79,10 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                         child: Container(
                           padding: const EdgeInsets.all(10),
                           constraints: const BoxConstraints(maxWidth: 200),
-                          child: const Text(
+                          child: Text(
                             "Cette historique contient toutes les actions que vous avez effectuer sur l'application. Vous pouvez les annuler ou les confirmer.",
-                            style: TextStyle(color: Colors.white),
+                            style:
+                                TextStyle(color: Theme.of(context).cardColor),
                           ),
                         ),
                       ),
@@ -90,7 +92,6 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                         padding: EdgeInsets.all(4),
                         child: Icon(
                           Icons.info_outlined,
-                          color: LightColorTheme.secondaryTextColor,
                         ),
                       ),
                     ),
@@ -129,8 +130,10 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                     history.getSentence(),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      color: Colors.black87,
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textSelectionTheme
+                                          .selectionColor,
                                       fontSize: 15,
                                     ),
                                   ),

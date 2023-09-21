@@ -73,11 +73,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Application de gestion des casiers du ceff',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: const Color(0xfff5f5fd),
-          fontFamily: GoogleFonts.roboto().fontFamily,
-        ),
+        theme: Styles.themeData(true, context),
+        // darkTheme: ThemeData.dark(),
+
+        // (
+        //   primarySwatch: Colors.blue,
+        //   scaffoldBackgroundColor: const Color(0xfff5f5fd),
+        //   fontFamily: GoogleFonts.roboto().fontFamily,
+        // ),
         routes: {
           PrepareDatabaseScreen.routeName: (context) =>
               const PrepareDatabaseScreen(),
@@ -94,6 +97,33 @@ class MyApp extends StatelessWidget {
         home: const MyWidget(),
       ),
     );
+  }
+}
+
+class DarkThemePreference {
+  static const THEME_STATUS = "THEMESTATUS";
+
+  setDarkTheme(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(THEME_STATUS, value);
+  }
+
+  Future<bool> getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(THEME_STATUS) ?? false;
+  }
+}
+
+class DarkThemeProvider with ChangeNotifier {
+  DarkThemePreference darkThemePreference = DarkThemePreference();
+  bool _darkTheme = false;
+
+  bool get darkTheme => _darkTheme;
+
+  set darkTheme(bool value) {
+    _darkTheme = value;
+    darkThemePreference.setDarkTheme(value);
+    notifyListeners();
   }
 }
 
@@ -122,10 +152,13 @@ class _MyWidgetState extends State<MyWidget> {
     fontSize: 18,
   );
 
+  DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
+
   @override
   void initState() {
     sideMenuController.addListener((p0) {
       page.jumpToPage(p0);
+      getCurrentAppTheme();
     });
 
     super.initState();
@@ -133,6 +166,11 @@ class _MyWidgetState extends State<MyWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _checkIfIsLogged();
     });
+  }
+
+  void getCurrentAppTheme() async {
+    themeChangeProvider.darkTheme =
+        await themeChangeProvider.darkThemePreference.getTheme();
   }
 
   _checkIfIsLogged() async {
