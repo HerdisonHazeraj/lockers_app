@@ -108,6 +108,7 @@ class LockerStudentProvider with ChangeNotifier {
 
     students.forEach((student) {
       student.isTerminal = false;
+      dbService.updateStudent(student);
     });
   }
 

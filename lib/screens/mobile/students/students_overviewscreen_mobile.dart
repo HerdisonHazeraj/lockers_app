@@ -179,15 +179,14 @@ class _StudentsOverviewScreenMobileState
                                               .setAllTerminauxList();
 
                                           setState(() {
-                                            isTerminauxListGenerated = true;
                                             terminauxStudentsList = Provider.of<
                                                         LockerStudentProvider>(
                                                     context,
                                                     listen: false)
                                                 .getAllTerminaux();
+                                            isTerminauxListGenerated = true;
                                           });
                                         }
-                                        Navigator.pop(context);
 
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(

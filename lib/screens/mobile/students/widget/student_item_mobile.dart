@@ -271,7 +271,7 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
             },
             icon: Icons.more_horiz_outlined,
             label: "Options",
-            backgroundColor: Theme.of(context).iconTheme.color!,
+            backgroundColor: Theme.of(context).canvasColor,
           ),
           SlidableAction(
             onPressed: (_) async {
