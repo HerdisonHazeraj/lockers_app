@@ -51,13 +51,13 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
           height: double.infinity,
           child: Column(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Se connecter",
                   style: TextStyle(
                     fontSize: 24,
-                    color: Colors.black,
+                    // color: Theme.of(context).textSelectionTheme.selectionColor,
                     fontWeight: FontWeight.w500,
                     height: 1.3,
                   ),
@@ -118,11 +118,16 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
+                  style: Theme.of(context).elevatedButtonTheme.style,
                   child: Text(
                     otpFieldVisibility && connectWithSMS
                         ? "Confirmer"
                         : "Se connecter",
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        // color: Theme.of(context)
+                        //     .textSelectionTheme
+                        //     .selectionColor
+                        ),
                   ),
                   onPressed: () async {
                     final SharedPreferences prefs =

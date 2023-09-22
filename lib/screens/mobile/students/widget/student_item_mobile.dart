@@ -335,7 +335,8 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
           onTap: () {
             showGeneralDialog(
               context: context,
-              barrierColor: ColorTheme.thirdTextColor,
+              barrierColor:
+                  Theme.of(context).textSelectionTheme.selectionColor!,
               barrierLabel: "Photo de l'élève",
               barrierDismissible: true,
               pageBuilder: (_, __, ___) => Center(

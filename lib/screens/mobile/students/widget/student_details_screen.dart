@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
@@ -63,18 +64,18 @@ class _StudentDetailsScreenMobileState
     ];
 
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            icon: Icon(Icons.arrow_back,
+                color: Theme.of(context).iconTheme.color),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
           actions: [
-            // widget.locker.isDefective!
             Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width * 0.03),
@@ -87,23 +88,73 @@ class _StudentDetailsScreenMobileState
                     '${widget.student.firstName} ${widget.student.lastName}',
                   );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.more_vert_outlined,
-                  color: Colors.black,
+                  color: Theme.of(context).iconTheme.color,
                   size: 26,
                 ),
               ),
             )
-            //  const Text('')
           ],
         ),
         body: SingleChildScrollView(
           child: Column(children: [
-            CircleAvatar(
-              radius: MediaQuery.of(context).size.width * 0.25,
-              backgroundImage: const AssetImage(
-                'assets/images/cp-20ahb.jpg',
+            GestureDetector(
+              child: CachedNetworkImage(
+                imageUrl:
+                    "https://intranet.ceff.ch/Image/PhotosPortraits/photos/Carré/${widget.student.login}.jpg",
+                imageBuilder: (context, imageProvider) => CircleAvatar(
+                  backgroundImage: imageProvider,
+                  radius: MediaQuery.of(context).size.width * 0.25,
+                ),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Tooltip(
+                  message: "L'image n'a pas réussi à se charger",
+                  child: Icon(
+                    size: MediaQuery.of(context).size.width * 0.25,
+                    Icons.error_outlined,
+                    color: Colors.red,
+                  ),
+                ),
               ),
+              onTap: () {
+                // showGeneralDialog(
+                //   context: context,
+                //   // barrierColor: ColorTheme.thirdTextColor,
+                //   barrierLabel: "Photo de l'élève",
+                //   barrierDismissible: true,
+                //   pageBuilder: (_, __, ___) => Center(
+                //     child: Container(
+                //       color: Colors.transparent,
+                //       child: Material(
+                //         color: Colors.transparent,
+                //         child: CachedNetworkImage(
+                //           // width: 500,
+                //           // height: 500,
+                //           imageUrl:
+                //               "https://intranet.ceff.ch/Image/PhotosPortraits/photos/Carré/${widget.student.login}.jpg",
+                //           imageBuilder: (context, imageProvider) =>
+                //               CircleAvatar(
+                //             radius: MediaQuery.of(context).size.width * 0.25,
+                //             backgroundImage: imageProvider,
+                //           ),
+                //           placeholder: (context, url) =>
+                //               const CircularProgressIndicator(),
+                //           errorWidget: (context, url, error) => const Tooltip(
+                //             message: "L'image n'a pas réussi à se charger",
+                //             child: Icon(
+                //               Icons.error_outlined,
+                //               color: Colors.red,
+                //               // size: 500,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // );
+              },
             ),
 
             Padding(

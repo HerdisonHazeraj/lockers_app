@@ -136,8 +136,8 @@ class _StudentsOverviewScreenMobileState
                                   ),
                             Container(
                               width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).cardColor,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
                               ),
@@ -147,7 +147,7 @@ class _StudentsOverviewScreenMobileState
                                     decoration: BoxDecoration(
                                       border: Border(
                                         right: BorderSide(
-                                          color: Colors.grey.withOpacity(0.2),
+                                          color: Theme.of(context).dividerColor,
                                         ),
                                       ),
                                     ),
@@ -241,7 +241,7 @@ class _StudentsOverviewScreenMobileState
             height: _showSearchBar ? 56.0 : 0.0,
             duration: const Duration(milliseconds: 200),
             child: Container(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               child:
                   // Column(
                   // children: [

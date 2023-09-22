@@ -79,7 +79,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         builder: (BuildContext context, SearchController controller) {
           return SearchBar(
             backgroundColor: MaterialStateColor.resolveWith(
-                (states) => const Color(0xffF4F6F7)),
+                (states) => Theme.of(context).canvasColor
+                // const Color(0xffF4F6F7)
+                ),
             elevation: MaterialStateProperty.all(0),
             controller: controller,
             onChanged: (value) {

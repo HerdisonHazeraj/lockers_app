@@ -147,10 +147,10 @@ class _MyWidgetState extends State<MyWidget> {
     fontWeight: FontWeight.bold,
     fontSize: 18,
   );
-  TextStyle styleUnselected = const TextStyle(
-    color: ColorTheme.secondaryTextColor,
-    fontSize: 18,
-  );
+  // TextStyle styleUnselected =  TextStyle(
+  // color: Theme.of(context).textSelectionTheme.selectionColor,
+  // fontSize: 18,
+  // );
 
   @override
   void initState() {
@@ -182,6 +182,7 @@ class _MyWidgetState extends State<MyWidget> {
   Future<void> didChangeDependencies() async {
     if (_isInit) {
       _isLoading = true;
+      _getTheme();
       await Provider.of<LockerStudentProvider>(context, listen: false)
           .fetchAndSetLockers();
       await Provider.of<LockerStudentProvider>(context, listen: false)
@@ -217,11 +218,19 @@ class _MyWidgetState extends State<MyWidget> {
     });
   }
 
+  late bool isDarkTheme;
+  _getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return _isLoading
         ? Container(
-            color: Theme.of(context).canvasColor,
+            color: Theme.of(context).cardColor,
             child: const Center(
               child: CircularProgressIndicator(
                 color: ColorTheme.primary,
@@ -266,11 +275,11 @@ class _MyWidgetState extends State<MyWidget> {
                   actions: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
                         border: Border(
                           bottom: BorderSide(
-                            color: ColorTheme.secondaryTextColor,
+                            color: Theme.of(context).dividerColor,
                             width: 0.3,
                           ),
                         ),
@@ -322,7 +331,9 @@ class _MyWidgetState extends State<MyWidget> {
                                                     ),
                                                     Icon(
                                                       Icons.person_outline,
-                                                      color: Colors.black,
+                                                      color: Theme.of(context)
+                                                          .iconTheme
+                                                          .color,
                                                     ),
                                                   ],
                                                 ),
@@ -335,7 +346,7 @@ class _MyWidgetState extends State<MyWidget> {
                                                           content: Text(
                                                               "Cette fonctionnalité n'est pas encore disponible.")));
                                                 },
-                                                child: const Row(
+                                                child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceBetween,
@@ -345,10 +356,35 @@ class _MyWidgetState extends State<MyWidget> {
                                                     ),
                                                     Icon(
                                                       Icons.settings_outlined,
-                                                      color: Colors.black,
+                                                      color: Theme.of(context)
+                                                          .iconTheme
+                                                          .color,
                                                     )
                                                   ],
                                                 ),
+                                              ),
+                                              const PopupMenuDivider(height: 1),
+                                              PopupMenuItem<int>(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text("Thème sombre"),
+                                                    Switch(
+                                                      value: isDarkTheme,
+                                                      onChanged: (value) {
+                                                        Navigator.pop(context);
+                                                        // widget.changeTheme();
+                                                        widget.changeTheme();
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                                onTap: () async {
+                                                  // widget.changeTheme();
+                                                  widget.changeTheme();
+                                                },
                                               ),
                                               const PopupMenuDivider(height: 1),
                                               PopupMenuItem<int>(
@@ -443,7 +479,12 @@ class _MyWidgetState extends State<MyWidget> {
                                           "Casiers",
                                           style: selectedIndex == 0
                                               ? styleSelected
-                                              : styleUnselected,
+                                              : TextStyle(
+                                                  color: Theme.of(context)
+                                                      .textSelectionTheme
+                                                      .selectionColor,
+                                                  fontSize: 18,
+                                                ),
                                         ),
                                         onPressed: () {
                                           setState(() {
@@ -469,7 +510,12 @@ class _MyWidgetState extends State<MyWidget> {
                                           "Élèves",
                                           style: selectedIndex == 1
                                               ? styleSelected
-                                              : styleUnselected,
+                                              : TextStyle(
+                                                  color: Theme.of(context)
+                                                      .textSelectionTheme
+                                                      .selectionColor,
+                                                  fontSize: 18,
+                                                ),
                                         ),
                                         onPressed: () {
                                           setState(() {
@@ -488,7 +534,7 @@ class _MyWidgetState extends State<MyWidget> {
                     ),
                   ],
                   elevation: 0,
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: Theme.of(context).canvasColor,
                 ),
                 body: selectedIndex == 0
                     ? const LockersOverviewScreenMobile()

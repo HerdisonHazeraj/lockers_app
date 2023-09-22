@@ -101,7 +101,7 @@ class _LockersOverviewScreenMobileState
             height: _showSearchBar ? 56.0 : 0.0,
             duration: const Duration(milliseconds: 200),
             child: Container(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               child: SearchBarWidget(
                 isLockerPage: true,
               ),

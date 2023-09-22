@@ -16,9 +16,9 @@ class StudentsInfo extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 14.0,
-              color: Colors.black,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Prenom : "),
@@ -31,9 +31,9 @@ class StudentsInfo extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 14.0,
-              color: Colors.black,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Nom : "),
@@ -46,9 +46,9 @@ class StudentsInfo extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 14.0,
-              color: Colors.black,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Login : "),
@@ -61,9 +61,9 @@ class StudentsInfo extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 14.0,
-              color: Colors.black,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Mail : "),
@@ -77,9 +77,9 @@ class StudentsInfo extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 14.0,
-              color: Colors.black,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Classe : "),
@@ -92,9 +92,9 @@ class StudentsInfo extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 14.0,
-              color: Colors.black,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Année : "),
@@ -107,9 +107,9 @@ class StudentsInfo extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 14.0,
-              color: Colors.black,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Formation : "),
@@ -122,9 +122,9 @@ class StudentsInfo extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 14.0,
-              color: Colors.black,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Maître de classe : "),

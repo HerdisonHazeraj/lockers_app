@@ -16,9 +16,9 @@ class LockerInfoWidget extends StatelessWidget {
         children: [
           RichText(
               text: TextSpan(
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.black,
+                    color: Theme.of(context).textSelectionTheme.selectionColor,
                   ),
                   children: <TextSpan>[
                 const TextSpan(text: "N° de Casier : "),
@@ -29,9 +29,9 @@ class LockerInfoWidget extends StatelessWidget {
               ])),
           RichText(
               text: TextSpan(
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.black,
+                    color: Theme.of(context).textSelectionTheme.selectionColor,
                   ),
                   children: <TextSpan>[
                 const TextSpan(text: "N° de Serrure : "),
@@ -42,9 +42,9 @@ class LockerInfoWidget extends StatelessWidget {
               ])),
           RichText(
               text: TextSpan(
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.black,
+                    color: Theme.of(context).textSelectionTheme.selectionColor,
                   ),
                   children: <TextSpan>[
                 const TextSpan(text: "Étage : "),
@@ -55,9 +55,9 @@ class LockerInfoWidget extends StatelessWidget {
               ])),
           RichText(
               text: TextSpan(
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.black,
+                    color: Theme.of(context).textSelectionTheme.selectionColor,
                   ),
                   children: <TextSpan>[
                 const TextSpan(text: "Nombre de clés : "),
@@ -68,9 +68,9 @@ class LockerInfoWidget extends StatelessWidget {
               ])),
           RichText(
               text: TextSpan(
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.black,
+                    color: Theme.of(context).textSelectionTheme.selectionColor,
                   ),
                   children: <TextSpan>[
                 const TextSpan(text: "Métier : "),
@@ -81,9 +81,9 @@ class LockerInfoWidget extends StatelessWidget {
               ])),
           RichText(
               text: TextSpan(
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.black,
+                    color: Theme.of(context).textSelectionTheme.selectionColor,
                   ),
                   children: <TextSpan>[
                 const TextSpan(text: "Remarque : "),

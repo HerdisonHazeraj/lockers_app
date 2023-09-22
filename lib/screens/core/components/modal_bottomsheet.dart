@@ -158,7 +158,7 @@ Future<dynamic> ModalBottomSheetWidget(BuildContext context,
                     },
                     icon: const Icon(
                       Icons.close,
-                      size: 34,
+                      size: 28,
                     ),
                   ),
                 ],
@@ -173,8 +173,8 @@ Future<dynamic> ModalBottomSheetWidget(BuildContext context,
                     SizedBox(
                       width: double.infinity,
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Column(
@@ -187,7 +187,7 @@ Future<dynamic> ModalBottomSheetWidget(BuildContext context,
                                     trailing: e.trailing,
                                     onTap: () {},
                                   ),
-                                  if (standardList.last != e) const Divider(),
+                                  if (standardList.last != e) Divider(),
                                 ],
                               );
                             }),
@@ -198,8 +198,8 @@ Future<dynamic> ModalBottomSheetWidget(BuildContext context,
                     SizedBox(
                       width: double.infinity,
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Column(

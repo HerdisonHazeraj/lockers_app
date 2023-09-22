@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../models/student.dart';
 
@@ -15,9 +16,9 @@ class StudentLockerInfoWidget extends StatelessWidget {
         children: [
           RichText(
               text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Prenom : "),
@@ -29,9 +30,9 @@ class StudentLockerInfoWidget extends StatelessWidget {
           )),
           RichText(
               text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Nom : "),
@@ -43,9 +44,9 @@ class StudentLockerInfoWidget extends StatelessWidget {
           )),
           RichText(
               text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Maitre de classe : "),
