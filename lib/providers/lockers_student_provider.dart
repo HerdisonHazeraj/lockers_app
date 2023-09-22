@@ -35,8 +35,8 @@ class LockerStudentProvider with ChangeNotifier {
   };
 
   Future<void> fetchAndSetLockers() async {
-    _lockerItems.clear();
     final data = await dbService.getAllLockers();
+    _lockerItems.clear();
     _lockerItems.addAll(data);
     setAllLockerToDefective();
     notifyListeners();
