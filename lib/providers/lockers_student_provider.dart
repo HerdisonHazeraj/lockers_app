@@ -171,8 +171,8 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetStudents() async {
-    _studentItems.clear();
     final data = await dbService.getAllStudents();
+    _studentItems.clear();
     _studentItems.addAll(data);
     notifyListeners();
   }

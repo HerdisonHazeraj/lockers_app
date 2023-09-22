@@ -11,7 +11,6 @@ import 'package:lockers_app/screens/desktop/students/students_overview_screen.da
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/theme.dart';
 import '../../../responsive.dart';
 import 'widgets/dashboard_menu.dart';
 

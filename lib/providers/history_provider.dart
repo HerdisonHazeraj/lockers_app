@@ -15,8 +15,8 @@ class HistoryProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetHistory() async {
-    _historyItems.clear();
     final data = await dbService.getAllHistory();
+    _historyItems.clear();
     _historyItems.addAll(data);
     notifyListeners();
   }
