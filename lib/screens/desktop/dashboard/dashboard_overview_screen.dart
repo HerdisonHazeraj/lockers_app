@@ -137,14 +137,18 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                                         Text("Thème sombre"),
                                         Switch(
                                           value: isDarkTheme,
-                                          onChanged: (value) async {
+                                          onChanged: (value) {
                                             Navigator.pop(context);
-                                            await changeTheme();
-                                            await widget.changeTheme();
+                                            changeTheme();
+                                            widget.changeTheme();
                                           },
                                         ),
                                       ],
                                     ),
+                                    onTap: () async {
+                                      changeTheme();
+                                      widget.changeTheme();
+                                    },
                                   ),
                                   const PopupMenuItem<int>(
                                     child: Text(

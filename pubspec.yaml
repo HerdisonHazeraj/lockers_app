@@ -62,6 +62,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
+  build_runner: ^2.4.6
   flutter_test:
     sdk: flutter
 
