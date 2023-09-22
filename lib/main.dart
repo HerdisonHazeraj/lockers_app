@@ -143,12 +143,12 @@ class _MyWidgetState extends State<MyWidget> {
   bool isLogged = false;
 
   TextStyle styleSelected = const TextStyle(
-    color: LightColorTheme.primary,
+    color: ColorTheme.primary,
     fontWeight: FontWeight.bold,
     fontSize: 18,
   );
   TextStyle styleUnselected = const TextStyle(
-    color: LightColorTheme.secondaryTextColor,
+    color: ColorTheme.secondaryTextColor,
     fontSize: 18,
   );
 
@@ -224,7 +224,7 @@ class _MyWidgetState extends State<MyWidget> {
             color: Theme.of(context).canvasColor,
             child: const Center(
               child: CircularProgressIndicator(
-                color: LightColorTheme.primary,
+                color: ColorTheme.primary,
               ),
             ),
           )
@@ -270,7 +270,7 @@ class _MyWidgetState extends State<MyWidget> {
                         color: Colors.white,
                         border: Border(
                           bottom: BorderSide(
-                            color: LightColorTheme.secondaryTextColor,
+                            color: ColorTheme.secondaryTextColor,
                             width: 0.3,
                           ),
                         ),
@@ -432,8 +432,7 @@ class _MyWidgetState extends State<MyWidget> {
                                           ? const BoxDecoration(
                                               border: Border(
                                                 bottom: BorderSide(
-                                                  color:
-                                                      LightColorTheme.primary,
+                                                  color: ColorTheme.primary,
                                                   width: 3,
                                                 ),
                                               ),
@@ -459,8 +458,7 @@ class _MyWidgetState extends State<MyWidget> {
                                           ? const BoxDecoration(
                                               border: Border(
                                                 bottom: BorderSide(
-                                                  color:
-                                                      LightColorTheme.primary,
+                                                  color: ColorTheme.primary,
                                                   width: 3,
                                                 ),
                                               ),

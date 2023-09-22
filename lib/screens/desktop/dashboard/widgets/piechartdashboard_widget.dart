@@ -95,12 +95,12 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           Column(
             children: [
               Indicator(
-                color: LightColorTheme.secondary,
+                color: ColorTheme.secondary,
                 text: 'Casiers libres',
                 isSquare: true,
               ),
               Indicator(
-                color: LightColorTheme.primary,
+                color: ColorTheme.primary,
                 text: 'Casiers occupés',
                 isSquare: true,
               ),
@@ -135,7 +135,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           case 0:
             // Casiers libres
             return PieChartSectionData(
-              color: LightColorTheme.secondary,
+              color: ColorTheme.secondary,
               value: Provider.of<LockerStudentProvider>(context)
                   .getAvailableLockers()
                   .length
@@ -155,7 +155,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
           case 1:
             // Casiers occupés
             return PieChartSectionData(
-              color: LightColorTheme.primary,
+              color: ColorTheme.primary,
               value: Provider.of<LockerStudentProvider>(context)
                   .getUnAvailableLockers()
                   .length

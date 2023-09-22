@@ -197,10 +197,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            LightColorTheme.secondaryTextColor),
-                      ),
                       onPressed: widget.locker.isInaccessible == true
                           ? null
                           : () {
@@ -214,10 +210,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            LightColorTheme.secondaryTextColor),
-                      ),
                       onPressed: widget.locker.isInaccessible == true
                           ? null
                           : () async {

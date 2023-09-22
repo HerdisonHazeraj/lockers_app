@@ -41,11 +41,12 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Ajouter un élève",
             style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               height: 1.3,
@@ -231,10 +232,6 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        LightColorTheme.secondaryTextColor),
-                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Student student = Student(

@@ -63,11 +63,13 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Veuillez entrer vos identifiants,",
-                  style: TextStyle(color: LightColorTheme.secondaryTextColor),
+                  style: TextStyle(
+                      color:
+                          Theme.of(context).textSelectionTheme.selectionColor),
                 ),
               ),
               const SizedBox(height: 20),
@@ -116,10 +118,6 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        LightColorTheme.secondaryTextColor),
-                  ),
                   child: Text(
                     otpFieldVisibility && connectWithSMS
                         ? "Confirmer"

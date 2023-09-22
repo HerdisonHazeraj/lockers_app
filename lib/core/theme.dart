@@ -5,9 +5,16 @@ import 'package:flutter/material.dart';
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+        elevation: 10.0,
+        shadowColor: isDarkTheme ? Colors.black : Colors.grey.withOpacity(0.1),
+        backgroundColor: isDarkTheme ? Color(0xff35454C) : Colors.black54,
+        foregroundColor: isDarkTheme ? Colors.white : Colors.white,
+      )),
       dividerColor: isDarkTheme ? Colors.blueGrey : Color(0xffCCCCCC),
       iconTheme:
-          IconThemeData(color: isDarkTheme ? Colors.white : Colors.black54),
+          IconThemeData(color: isDarkTheme ? Colors.white : Colors.black),
       shadowColor:
           isDarkTheme ? Color(0xff02020F) : Colors.grey.withOpacity(0.1),
       primaryColor: isDarkTheme ? Color(0xff161616) : Color(0xffececf6),
@@ -28,32 +35,10 @@ class Styles {
   }
 }
 
-// bool isDarkTheme = false;
-
-class LightColorTheme {
-  // static setTheme(bool newValue) {
-  //   isDarkTheme = newValue;
-  // }
-
-  static Color primaryBackGroudColor = Color(0xffF5F5FD);
-  static Color secondaryBackGroudColor = Colors.white;
+class ColorTheme {
   static Color secondary = Color(0xFF01FBCF);
   static const Color primary = Color(0xFFFB3274);
-  static Color primaryTextColor = Colors.black;
-  static const Color secondaryTextColor = Colors.black54;
-  static const Color thirdTextColor = Colors.black38;
-}
 
-class DarkColorTheme {
-  // static setTheme(bool newValue) {
-  //   isDarkTheme = newValue;
-  // }
-
-  static Color primaryBackGroudColor = Color(0xFF1F1F1F);
-  static Color secondaryBackGroudColor = Color(0xFF181818);
-  static Color secondary = Color(0xFF01FBCF);
-  static const Color primary = Color(0xFFFB3274);
-  static Color primaryTextColor = Colors.white;
   static const Color secondaryTextColor = Colors.black54;
   static const Color thirdTextColor = Colors.black38;
 }

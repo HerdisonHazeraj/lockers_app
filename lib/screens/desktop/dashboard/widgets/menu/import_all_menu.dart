@@ -65,10 +65,6 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
             ),
             Expanded(
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      LightColorTheme.secondaryTextColor),
-                ),
                 onPressed: () async {
                   //écrire la méthode
                   final error = await Provider.of<LockerStudentProvider>(

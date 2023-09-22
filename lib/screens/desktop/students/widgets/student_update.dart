@@ -258,10 +258,6 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            LightColorTheme.secondaryTextColor),
-                      ),
                       onPressed: widget.student.isArchived!
                           ? null
                           : () {
@@ -275,10 +271,6 @@ class _StudentUpdateState extends State<StudentUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            LightColorTheme.secondaryTextColor),
-                      ),
                       onPressed: widget.student.isArchived!
                           ? null
                           : () async {

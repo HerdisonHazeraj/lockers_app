@@ -65,13 +65,13 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                             endWidth: 20,
                             startValue: 0,
                             endValue: paidCautionsList,
-                            color: LightColorTheme.secondary),
+                            color: ColorTheme.secondary),
                         GaugeRange(
                             startWidth: 20,
                             endWidth: 20,
                             startValue: paidCautionsList,
                             endValue: paidCautionsList + unPaidCautionsList,
-                            color: LightColorTheme.primary),
+                            color: ColorTheme.primary),
                       ],
                       pointers: <GaugePointer>[
                         MarkerPointer(
@@ -115,12 +115,12 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                 child: Column(
                   children: [
                     Indicator(
-                      color: LightColorTheme.secondary,
+                      color: ColorTheme.secondary,
                       text: 'Cautions payées',
                       isSquare: true,
                     ),
                     Indicator(
-                      color: LightColorTheme.primary,
+                      color: ColorTheme.primary,
                       text: 'Cautions non-payées',
                       isSquare: true,
                     ),

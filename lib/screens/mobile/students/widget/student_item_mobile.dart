@@ -271,7 +271,7 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
             },
             icon: Icons.more_horiz_outlined,
             label: "Options",
-            backgroundColor: LightColorTheme.secondaryTextColor,
+            backgroundColor: Theme.of(context).iconTheme.color!,
           ),
           SlidableAction(
             onPressed: (_) async {
@@ -335,7 +335,7 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
           onTap: () {
             showGeneralDialog(
               context: context,
-              barrierColor: LightColorTheme.thirdTextColor,
+              barrierColor: ColorTheme.thirdTextColor,
               barrierLabel: "Photo de l'élève",
               barrierDismissible: true,
               pageBuilder: (_, __, ___) => Center(

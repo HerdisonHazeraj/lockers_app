@@ -234,13 +234,13 @@ class _AssignListViewState extends State<AssignListView> {
       }
       Provider.of<LockerStudentProvider>(context, listen: false)
           .attributeLocker(locker, student);
-      Provider.of<HistoryProvider>(context, listen: false).addHistory(
-        History(
-            date: DateTime.now().toString(),
-            action: "attribution",
-            locker: locker.toJson(),
-            student: student.toJson()),
-      );
+      // Provider.of<HistoryProvider>(context, listen: false).addHistory(
+      //   History(
+      //       date: DateTime.now().toString(),
+      //       action: "attribution",
+      //       locker: locker.toJson(),
+      //       student: student.toJson()),
+      // );
 
       showSnackBarMessage(
           'L\'élève ${student.firstName} ${student.lastName} a été attribué avec succès au casier n°${locker.lockerNumber.toString()}');
@@ -277,10 +277,6 @@ class _AssignListViewState extends State<AssignListView> {
                           ElevatedButton.icon(
                             label: const Text('Attribuer'),
                             icon: const Icon(Icons.done_all_outlined),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  LightColorTheme.secondaryTextColor),
-                            ),
                             onPressed: _isAutoAttributeButtonEnabled ||
                                     _isConfirmButtonEnabled
                                 ? () {

@@ -145,7 +145,7 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  color: LightColorTheme
+                                                  color: ColorTheme
                                                       .thirdTextColor),
                                             ),
                                           ),
@@ -241,7 +241,7 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  color: LightColorTheme
+                                                  color: ColorTheme
                                                       .thirdTextColor),
                                             ),
                                           ),

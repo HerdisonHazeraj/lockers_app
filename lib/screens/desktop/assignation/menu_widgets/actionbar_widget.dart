@@ -136,8 +136,8 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             border: Border(
-              left: BorderSide(
-                  width: 0.3, color: LightColorTheme.secondaryTextColor),
+              left:
+                  BorderSide(width: 0.3, color: Theme.of(context).dividerColor),
             ),
           ),
           child: SingleChildScrollView(
@@ -147,14 +147,15 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
             ),
             child: Column(
               children: [
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: SizedBox(
                     child: Text(
                       "Filtrer les élèves",
                       style: TextStyle(
                         fontSize: 18,
-                        color: LightColorTheme.secondaryTextColor,
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),
@@ -193,10 +194,6 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              LightColorTheme.secondaryTextColor),
-                        ),
                         onPressed: () {
                           prepareFilterKeys();
                         },
@@ -206,14 +203,15 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
                   ],
                 ),
                 const dividerMenu(),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: SizedBox(
                     child: Text(
                       "Trier les casiers",
                       style: TextStyle(
                         fontSize: 18,
-                        color: LightColorTheme.secondaryTextColor,
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),

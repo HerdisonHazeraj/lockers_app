@@ -97,11 +97,11 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                             ),
                             Text(
                               "Bienvenue sur l'application de gestion des casiers",
-                              // style: TextStyle(
-                              //   color: Theme.of(context)
-                              //       .textSelectionTheme
-                              //       .selectionColor,
-                              // ),
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor,
+                              ),
                             )
                           ],
                         ),

@@ -232,7 +232,7 @@ class _StudentsOverviewScreenMobileState
         child: isTerminauxListGenerated
             ? Icon(Icons.playlist_remove_outlined)
             : Icon(Icons.format_list_bulleted_add),
-        backgroundColor: LightColorTheme.primary,
+        backgroundColor: ColorTheme.primary,
         shape: CircleBorder(),
       ),
       body: SizedBox(
@@ -329,8 +329,7 @@ class _StudentsOverviewScreenMobileState
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color:
-                                              LightColorTheme.thirdTextColor),
+                                          color: ColorTheme.thirdTextColor),
                                     ),
                                   ),
                                 ],

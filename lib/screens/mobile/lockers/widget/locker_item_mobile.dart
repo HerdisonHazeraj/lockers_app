@@ -83,7 +83,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
           SlidableAction(
             onPressed: (_) {
               showModalBottomSheet(
-                shape: const RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -98,7 +98,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
             },
             icon: Icons.more_horiz_outlined,
             label: "Options",
-            backgroundColor: LightColorTheme.secondaryTextColor,
+            backgroundColor: Theme.of(context).iconTheme.color!,
           ),
           SlidableAction(
             onPressed: (_) {

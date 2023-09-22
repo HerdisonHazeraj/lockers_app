@@ -21,6 +21,7 @@ class _SearchLockerMenuState extends State<SearchLockerMenu> {
           child: Text(
             "Rechercher un casier",
             style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               height: 1.3,

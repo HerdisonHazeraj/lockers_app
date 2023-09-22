@@ -34,10 +34,6 @@ class _SortLockersMenuState extends State<SortLockersMenu> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      LightColorTheme.secondaryTextColor),
-                ),
                 onPressed: () {},
                 child: const Text('Appliquer'),
               ),

@@ -143,8 +143,7 @@ class _LockersOverviewScreenMobileState
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 16,
-                                            color:
-                                                LightColorTheme.thirdTextColor),
+                                            color: ColorTheme.thirdTextColor),
                                       ),
                                     ),
                                   ],

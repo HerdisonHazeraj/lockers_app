@@ -17,6 +17,7 @@ class HistoricDashboardMenu extends StatefulWidget {
 
 class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
   bool isExpandedHistoric = false;
+  bool _isInit = false;
 
   @override
   void initState() {
@@ -36,7 +37,12 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_isInit) {
+      Provider.of<HistoryProvider>(context).fetchAndSetHistory();
+      _isInit = true;
+    }
     List<History> histories = [];
+
     histories = Provider.of<HistoryProvider>(context).historyItems.toList();
     histories.sort((a, b) => a.date.compareTo(b.date));
     return Theme(
@@ -65,6 +71,8 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                     Text(
                       "Historique",
                       style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         height: 1.3,
@@ -209,8 +217,7 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                           "Votre historique est vide",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 16,
-                              color: LightColorTheme.thirdTextColor),
+                              fontSize: 16, color: ColorTheme.thirdTextColor),
                         ),
                       ),
               ),

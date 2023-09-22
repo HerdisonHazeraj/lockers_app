@@ -28,6 +28,7 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
           child: Text(
             "Importer un fichier CSV",
             style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               height: 1.3,
@@ -64,10 +65,6 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
             ),
             Expanded(
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      LightColorTheme.secondaryTextColor),
-                ),
                 onPressed: () async {
                   final error = await Provider.of<LockerStudentProvider>(
                     context,

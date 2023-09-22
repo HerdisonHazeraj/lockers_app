@@ -74,7 +74,7 @@ class _SideMenuAppState extends State<SideMenuApp> {
         child: TextButton(
           onPressed: () {
             setState(() {
-              // LightColorTheme.setTheme(true);
+              // ColorTheme.setTheme(true);
             });
           },
           child: const Text(
@@ -130,7 +130,7 @@ class _SideMenuAppState extends State<SideMenuApp> {
               color: Colors.white,
             ),
           ),
-          // badgeColor: constLightColorTheme.primary,
+          // badgeColor: constColorTheme.primary,
           priority: LockersOverviewScreen.pageIndex,
 
           builder: (context, displayMode) {

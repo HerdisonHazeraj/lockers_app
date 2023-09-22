@@ -279,14 +279,14 @@ class LockerStudentProvider with ChangeNotifier {
       ),
     );
 
-    // historyProvider.addHistory(
-    //   History(
-    //     date: DateTime.now().toString(),
-    //     action: "attribution",
-    //     locker: locker.toJson(),
-    //     student: student.toJson(),
-    //   ),
-    // );
+    historyProvider.addHistory(
+      History(
+        date: DateTime.now().toString(),
+        action: "attribution",
+        locker: locker.toJson(),
+        student: student.toJson(),
+      ),
+    );
   }
 
   Future<void> unAttributeLocker(Locker locker, Student student) async {
@@ -303,14 +303,14 @@ class LockerStudentProvider with ChangeNotifier {
       ),
     );
 
-    // historyProvider.addHistory(
-    //   History(
-    //     date: DateTime.now().toString(),
-    //     action: "unattribution",
-    //     locker: locker.toJson(),
-    //     student: student.toJson(),
-    //   ),
-    // );
+    historyProvider.addHistory(
+      History(
+        date: DateTime.now().toString(),
+        action: "unattribution",
+        locker: locker.toJson(),
+        student: student.toJson(),
+      ),
+    );
   }
 
   int autoAttributeLocker(List<Student> students) {
@@ -325,13 +325,7 @@ class LockerStudentProvider with ChangeNotifier {
         break;
       }
       attributeLocker(lockers[i], students[i]);
-      historyProvider.addHistory(
-        History(
-            date: DateTime.now().toString(),
-            action: "attribution",
-            locker: lockers[i].toJson(),
-            student: students[i].toJson()),
-      );
+
       count++;
     }
 
@@ -482,6 +476,12 @@ class LockerStudentProvider with ChangeNotifier {
           ),
         );
       }
+      // historyProvider.addHistory(History(
+      //   date: DateTime.now().toString(),
+      //   action: "update",
+      //   locker: locker.toJson(),
+      //   // student: locker.toJson(),
+      // ));
     }
   }
 
@@ -502,6 +502,12 @@ class LockerStudentProvider with ChangeNotifier {
           ),
         );
       }
+      // historyProvider.addHistory(History(
+      //   date: DateTime.now().toString(),
+      //   action: "update",
+      //   locker: locker.toJson(),
+      //   // student: locker.toJson(),
+      // ));
     }
   }
 
@@ -519,6 +525,12 @@ class LockerStudentProvider with ChangeNotifier {
         isDefective: true,
       ),
     );
+    // historyProvider.addHistory(History(
+    //   date: DateTime.now().toString(),
+    //   action: "update",
+    //   locker: locker.toJson(),
+    //   // student: locker.toJson(),
+    // ));
   }
 
   Future<void> setNumberOfLockerKey(Locker locker, int nbKey) async {

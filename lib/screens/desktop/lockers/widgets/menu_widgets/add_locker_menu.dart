@@ -187,10 +187,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        LightColorTheme.secondaryTextColor),
-                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Locker locker = Locker(

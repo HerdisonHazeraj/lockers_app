@@ -42,7 +42,6 @@ class _DropDownItemWidgetState extends State<DropDownItemWidget> {
               widget.hintText,
               style: const TextStyle(
                 fontSize: 14,
-                color: LightColorTheme.secondaryTextColor,
               ),
             ),
           ),

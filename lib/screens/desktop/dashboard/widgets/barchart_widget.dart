@@ -139,12 +139,12 @@ class BarChartWidgetState extends State<BarChartWidget> {
                 child: Column(
                   children: [
                     Indicator(
-                      color: LightColorTheme.secondary,
+                      color: ColorTheme.secondary,
                       text: 'Casiers totaux par étage',
                       isSquare: true,
                     ),
                     Indicator(
-                      color: LightColorTheme.primary,
+                      color: ColorTheme.primary,
                       text: 'Casiers occupés par étage',
                       isSquare: true,
                     ),
@@ -173,8 +173,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
       barRods: [
         BarChartRodData(
           toY: isTouched ? y1 + 1 : y1,
-          color:
-              isTouched ? LightColorTheme.secondary : LightColorTheme.secondary,
+          color: isTouched ? ColorTheme.secondary : ColorTheme.secondary,
           width: width,
           borderSide: isTouched
               ? const BorderSide(color: Color(0xFFDAE9F2))
@@ -187,7 +186,7 @@ class BarChartWidgetState extends State<BarChartWidget> {
         ),
         BarChartRodData(
           toY: isTouched ? y2 + 1 : y2,
-          color: isTouched ? LightColorTheme.primary : LightColorTheme.primary,
+          color: isTouched ? ColorTheme.primary : ColorTheme.primary,
           width: width,
           borderSide: isTouched
               ? const BorderSide(color: Color(0xFFDAE9F2))

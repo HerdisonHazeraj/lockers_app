@@ -17,11 +17,12 @@ class ImportStudentMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Importer un fichier CSV",
             style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               height: 1.3,
@@ -58,10 +59,6 @@ class ImportStudentMenu extends StatelessWidget {
             ),
             Expanded(
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      LightColorTheme.secondaryTextColor),
-                ),
                 onPressed: () async {
                   final error = await Provider.of<LockerStudentProvider>(
                     context,

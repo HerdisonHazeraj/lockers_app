@@ -69,10 +69,7 @@ class _SortElementWidgetState extends State<SortElementWidget> {
               widget.changeLockerListStateVoid(
                   widget.sortController, widget.isOrderCheckChecked);
             },
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(LightColorTheme.secondaryTextColor),
-            ),
+            // style: Theme.of(context).elevatedButtonTheme.style,
             child: const Text(
               'Appliquer',
             ),
