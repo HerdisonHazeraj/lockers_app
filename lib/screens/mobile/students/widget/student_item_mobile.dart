@@ -6,7 +6,6 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/theme.dart';
 import '../../../../models/student.dart';
 import '../../../mobile/students/widget/student_details_screen.dart';
 
@@ -231,21 +230,51 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
 
     return Slidable(
       key: const ValueKey(0),
+      // key: UniqueKey(),
       startActionPane: ActionPane(
-        motion: const ScrollMotion(),
-        dismissible: DismissiblePane(
-          onDismissed: () {},
-        ),
-        children: [
-          SlidableAction(
-            onPressed: (_) {},
-            icon: Icons.arrow_circle_down,
-            label: 'Caution rendue',
-            backgroundColor: Colors.amber,
-            foregroundColor: Colors.white,
+          motion: const ScrollMotion(),
+          dismissible: DismissiblePane(
+            onDismissed: () {
+              if (widget.student.isTerminal! && widget.student.caution != 0) {
+                Provider.of<LockerStudentProvider>(context, listen: false)
+                    .updateStudent(widget.student.copyWith(
+                        caution: 0, isArchived: true, isTerminal: false));
+              } else if (widget.student.caution == 0) {
+                Provider.of<LockerStudentProvider>(context, listen: false)
+                    .updateStudent(widget.student.copyWith(caution: 20));
+              }
+            },
           ),
-        ],
-      ),
+          children: [
+            widget.student.isTerminal! && widget.student.caution != 0
+                ? SlidableAction(
+                    onPressed: (_) {
+                      Provider.of<LockerStudentProvider>(context, listen: false)
+                          .updateStudent(widget.student.copyWith(
+                              caution: 0, isArchived: true, isTerminal: false));
+                      // Provider.of<LockerStudentProvider>(context, listen: false).
+                    },
+                    icon: Icons.arrow_circle_up,
+                    label: 'Caution rendue',
+                    backgroundColor: Colors.amber,
+                    foregroundColor: Colors.white,
+                  )
+                : SizedBox(),
+            widget.student.caution == 0
+                ? SlidableAction(
+                    onPressed: (_) {
+                      Provider.of<LockerStudentProvider>(context, listen: false)
+                          .updateStudent(widget.student.copyWith(
+                        caution: 20,
+                      ));
+                    },
+                    icon: Icons.arrow_circle_down,
+                    label: 'Caution payée',
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                  )
+                : SizedBox(),
+          ]),
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         // dismissible: DismissiblePane(
@@ -254,20 +283,26 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
         children: [
           SlidableAction(
             onPressed: (_) {
-              showModalBottomSheet(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                )),
-                context: context,
-                builder: (_) => ModalBottomSheetWidgetTest(
-                  title:
-                      "${widget.student.firstName} ${widget.student.lastName}",
-                  standardList: standardList,
-                  importantList: importantList,
-                ),
+              ModalBottomSheetWidget(
+                context,
+                standardList,
+                importantList,
+                '${widget.student.firstName} ${widget.student.lastName}',
               );
+              // showModalBottomSheet(
+              //   shape: const RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.only(
+              //     topLeft: Radius.circular(20),
+              //     topRight: Radius.circular(20),
+              //   )),
+              //   context: context,
+              //   builder: (_) => ModalBottomSheetWidgetTest(
+              //     title:
+              //         "${widget.student.firstName} ${widget.student.lastName}",
+              //     standardList: standardList,
+              //     importantList: importantList,
+              //   ),
+              // );
             },
             icon: Icons.more_horiz_outlined,
             label: "Options",

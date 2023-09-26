@@ -311,7 +311,7 @@ class _StudentsOverviewScreenMobileState
                       headerBuilder: (context, isExpanded) {
                         return ListTile(
                           title: Text(
-                            "Cautions non payées (${Provider.of<LockerStudentProvider>(context, listen: false).getDefectiveLockers().length})",
+                            "Cautions non payées (${Provider.of<LockerStudentProvider>(context, listen: false).getNonPaidCaution().length})",
                             style: const TextStyle(fontSize: 18),
                           ),
                         );
@@ -324,11 +324,11 @@ class _StudentsOverviewScreenMobileState
                                 children: [
                                   ListTile(
                                     title: Text(
-                                      "Aucun élève n'a pas payé ses caution",
+                                      "Tous les élèves ont payé leur caution",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          color: ColorTheme.thirdTextColor),
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ],

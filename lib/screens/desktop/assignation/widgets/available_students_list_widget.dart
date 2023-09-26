@@ -49,8 +49,7 @@ class _AvailableStudentsListWidgetState
                   child: Text(
                     'Aucun élève disponible',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 16, color: ColorTheme.thirdTextColor),
+                    style: TextStyle(fontSize: 16),
                   ),
                 )
               : Column(
