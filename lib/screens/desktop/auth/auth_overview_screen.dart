@@ -36,7 +36,8 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
         height: 600,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
+          // color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(

@@ -72,8 +72,11 @@ class LockerStudentProvider with ChangeNotifier {
             filters.addEntries(
                 [MapEntry(student.responsable, "Aucun responsable")]);
           } else {
-            filters.addEntries(
-                [MapEntry(student.responsable, student.responsable)]);
+            filters.addEntries([
+              MapEntry(
+                  student.responsable.replaceAll(new RegExp(r"\s+\b|\b\s"), ""),
+                  student.responsable)
+            ]);
           }
           break;
       }
@@ -92,8 +95,9 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   List<Student> getAllTerminaux() {
-    List<Student> terminaux =
-        _studentItems.where((element) => element.isTerminal == true).toList();
+    List<Student> terminaux = getNotArchivedStudent()
+        .where((element) => element.isTerminal == true && element.caution != 0)
+        .toList();
     return terminaux;
   }
 

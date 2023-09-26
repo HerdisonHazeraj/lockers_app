@@ -131,9 +131,9 @@ class _LockerItemState extends State<LockerItem> {
                         );
                       },
                       tooltip: "Rendre ce casier à nouveau accessible",
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.switch_access_shortcut_add_outlined,
-                        color: Colors.black,
+                        color: Theme.of(context).iconTheme.color,
                       ),
                     ),
                   )

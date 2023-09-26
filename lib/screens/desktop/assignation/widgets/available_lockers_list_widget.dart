@@ -39,7 +39,8 @@ class _AvailableLockersListWidgetState
                       'Aucun casier disponible',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 16, color: ColorTheme.thirdTextColor),
+                        fontSize: 16,
+                      ),
                     ),
                   )
                 : Column(

@@ -4,7 +4,6 @@ import 'package:lockers_app/screens/desktop/assignation/menu_widgets/sort_elemen
 import 'package:lockers_app/screens/desktop/assignation/menu_widgets/filter_element.dart';
 import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/theme.dart';
 import '../../../../models/locker.dart';
 import '../../../../models/student.dart';
 import '../../../../providers/lockers_student_provider.dart';

@@ -55,7 +55,11 @@ class _StudentDetailsScreenMobileState
       ),
       ListTile(
         title: const Text('Désattribuer le casier'),
-        onTap: () {},
+        onTap: () {
+          Navigator.pop(context);
+          Provider.of<LockerStudentProvider>(context, listen: false)
+              .unAttributeLocker(locker, widget.student);
+        },
         trailing: const Icon(
           Icons.remove_circle_outline,
           size: 30,

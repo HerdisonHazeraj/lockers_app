@@ -119,6 +119,8 @@ class _MyAppState extends State<MyApp> {
         },
         home: MyWidget(
           changeTheme: () => changeTheme(),
+          isDarkTheme: isDarkTheme,
+          getTheme: () => _getTheme,
         ),
       ),
     );
@@ -126,8 +128,13 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyWidget extends StatefulWidget {
-  const MyWidget({required this.changeTheme, super.key});
-
+  const MyWidget(
+      {required this.changeTheme,
+      super.key,
+      required this.isDarkTheme,
+      required this.getTheme});
+  final bool isDarkTheme;
+  final Function getTheme;
   final Function changeTheme;
 
   @override
@@ -182,7 +189,7 @@ class _MyWidgetState extends State<MyWidget> {
   Future<void> didChangeDependencies() async {
     if (_isInit) {
       _isLoading = true;
-      _getTheme();
+      widget.getTheme();
       await Provider.of<LockerStudentProvider>(context, listen: false)
           .fetchAndSetLockers();
       await Provider.of<LockerStudentProvider>(context, listen: false)
@@ -215,14 +222,6 @@ class _MyWidgetState extends State<MyWidget> {
   onSignedOut() {
     setState(() {
       isLogged = false;
-    });
-  }
-
-  late bool isDarkTheme;
-  _getTheme() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
     });
   }
 
@@ -372,11 +371,13 @@ class _MyWidgetState extends State<MyWidget> {
                                                   children: [
                                                     Text("Thème sombre"),
                                                     Switch(
-                                                      value: isDarkTheme,
+                                                      value: widget.isDarkTheme,
                                                       onChanged: (value) {
                                                         Navigator.pop(context);
                                                         // widget.changeTheme();
-                                                        widget.changeTheme();
+                                                        setState(() {
+                                                          widget.changeTheme();
+                                                        });
                                                       },
                                                     ),
                                                   ],
