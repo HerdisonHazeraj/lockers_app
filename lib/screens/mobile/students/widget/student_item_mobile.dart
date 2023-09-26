@@ -289,7 +289,22 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         dismissible: DismissiblePane(
-          onDismissed: () {},
+          onDismissed: () {
+            Locker locker =
+                Provider.of<LockerStudentProvider>(context, listen: false)
+                    .getLockerByLockerNumber(widget.student.lockerNumber);
+            Provider.of<LockerStudentProvider>(context, listen: false)
+                .updateLocker(locker.copyWith(
+              idEleve: "",
+              isAvailable: true,
+            ));
+            Provider.of<LockerStudentProvider>(context, listen: false)
+                .updateStudent(widget.student.copyWith(
+              lockerNumber: 0,
+              isArchived: true,
+              isTerminal: false,
+            ));
+          },
         ),
         children: [
           SlidableAction(
@@ -333,8 +348,8 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
               }
 
               await Provider.of<LockerStudentProvider>(context, listen: false)
-                  .updateStudent(widget.student
-                      .copyWith(isArchived: true, lockerNumber: 0));
+                  .updateStudent(widget.student.copyWith(
+                      isArchived: true, lockerNumber: 0, isTerminal: false));
 
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text(

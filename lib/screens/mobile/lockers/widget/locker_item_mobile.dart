@@ -74,12 +74,24 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
           ? ActionPane(
               motion: const ScrollMotion(),
               dismissible: DismissiblePane(
-                onDismissed: () {},
+                onDismissed: () {
+                  if (widget.locker.nbKey < 2) {
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .setLockerToUnDefectiveKeys(widget.locker);
+                  } else if (widget.locker.remark != "") {
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .setLockerToUnDefectiveRemarks(widget.locker);
+                  }
+                },
               ),
               children: [
                 widget.locker.nbKey < 2
                     ? SlidableAction(
-                        onPressed: (_) {},
+                        onPressed: (_) {
+                          Provider.of<LockerStudentProvider>(context,
+                                  listen: false)
+                              .setLockerToUnDefectiveKeys(widget.locker);
+                        },
                         icon: Icons.vpn_key_outlined,
                         label: 'Ajouter les clés manquantes',
                         backgroundColor: Colors.green,
@@ -88,7 +100,11 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
                     : SizedBox(),
                 widget.locker.remark != ""
                     ? SlidableAction(
-                        onPressed: (_) {},
+                        onPressed: (_) {
+                          Provider.of<LockerStudentProvider>(context,
+                                  listen: false)
+                              .setLockerToUnDefectiveRemarks(widget.locker);
+                        },
                         icon: Icons.task_alt_outlined,
                         label: 'Supprimer la remarque',
                         backgroundColor: Colors.lightGreen,
