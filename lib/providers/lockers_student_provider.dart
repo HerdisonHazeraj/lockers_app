@@ -646,11 +646,15 @@ class LockerStudentProvider with ChangeNotifier {
     }
   }
 
-  List<Student> searchStudents(value) {
+  List<Student> searchStudents(value, {bool searchArchivedStudents = false}) {
     List<Student> filtredStudent = [];
     List<Student> students = [];
     if (value != "") {
-      students = _studentItems;
+      if (searchArchivedStudents) {
+        students = _studentItems;
+      } else {
+        students = getNotArchivedStudent();
+      }
       filtredStudent = students
           .where((element) =>
               ("${element.lastName} ${element.firstName}")
@@ -679,11 +683,15 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-  List<Locker> searchLockers(value) {
+  List<Locker> searchLockers(value, {bool searchUnAccessibleLocker = false}) {
     List<Locker> filtredLocker = [];
     List<Locker> lockers = [];
     if (value != "") {
-      lockers = _lockerItems;
+      if (searchUnAccessibleLocker) {
+        lockers = _lockerItems;
+      } else {
+        lockers = getAccessibleLocker();
+      }
       filtredLocker = lockers
           .where((element) => element.lockerNumber
               .toString()

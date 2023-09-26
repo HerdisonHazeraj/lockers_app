@@ -69,7 +69,35 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
     }
 
     return Slidable(
-      key: const ValueKey(0),
+      key: ValueKey(widget.locker.id),
+      startActionPane: widget.locker.isDefective!
+          ? ActionPane(
+              motion: const ScrollMotion(),
+              dismissible: DismissiblePane(
+                onDismissed: () {},
+              ),
+              children: [
+                widget.locker.nbKey < 2
+                    ? SlidableAction(
+                        onPressed: (_) {},
+                        icon: Icons.vpn_key_outlined,
+                        label: 'Ajouter les clés manquantes',
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                      )
+                    : SizedBox(),
+                widget.locker.remark != ""
+                    ? SlidableAction(
+                        onPressed: (_) {},
+                        icon: Icons.task_alt_outlined,
+                        label: 'Supprimer la remarque',
+                        backgroundColor: Colors.lightGreen,
+                        foregroundColor: Colors.white,
+                      )
+                    : SizedBox(),
+              ],
+            )
+          : null,
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         // dismissible: DismissiblePane(

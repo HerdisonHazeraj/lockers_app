@@ -19,19 +19,42 @@ class SearchBarWidget extends StatefulWidget {
 class _SearchBarWidgetState extends State<SearchBarWidget> {
   List<Locker> searchedListLockers = [];
   List<Student> searchedListStudents = [];
+  bool searchAll = false;
   SearchController controller = SearchController();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: SearchAnchor(
+        searchController: controller,
+        viewTrailing: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                searchAll = !searchAll;
+                searchedListLockers.clear();
+                searchedListStudents.clear();
+              });
+            },
+            icon: searchAll
+                ? Icon(Icons.group_outlined)
+                : Icon(Icons.group_off_outlined),
+          ),
+          IconButton(
+            onPressed: () {
+              controller.clear();
+            },
+            icon: Icon(Icons.clear),
+          ),
+        ],
         // suggestions: searchedListLockers,
         suggestionsBuilder:
             (BuildContext context, SearchController controller) {
           if (widget.isLockerPage!) {
             searchedListLockers =
                 Provider.of<LockerStudentProvider>(context, listen: false)
-                    .searchLockers(controller.text);
+                    .searchLockers(controller.text,
+                        searchUnAccessibleLocker: searchAll);
             return List<ListTile>.from(searchedListLockers.map((item) {
               return ListTile(
                 title: Text(item.lockerNumber.toString()),
@@ -53,7 +76,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           } else {
             searchedListStudents =
                 Provider.of<LockerStudentProvider>(context, listen: false)
-                    .searchStudents(controller.text);
+                    .searchStudents(controller.text,
+                        searchArchivedStudents: searchAll);
             return List<ListTile>.from(searchedListStudents.map((item) {
               return ListTile(
                 title: Text("${item.firstName} ${item.lastName}"),

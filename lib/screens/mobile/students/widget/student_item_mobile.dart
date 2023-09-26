@@ -229,57 +229,68 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
     ];
 
     return Slidable(
-      key: const ValueKey(0),
+      key: ValueKey(widget.student.id),
       // key: UniqueKey(),
-      startActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          dismissible: DismissiblePane(
-            onDismissed: () {
-              if (widget.student.isTerminal! && widget.student.caution != 0) {
-                Provider.of<LockerStudentProvider>(context, listen: false)
-                    .updateStudent(widget.student.copyWith(
-                        caution: 0, isArchived: true, isTerminal: false));
-              } else if (widget.student.caution == 0) {
-                Provider.of<LockerStudentProvider>(context, listen: false)
-                    .updateStudent(widget.student.copyWith(caution: 20));
-              }
-            },
-          ),
-          children: [
-            widget.student.isTerminal! && widget.student.caution != 0
-                ? SlidableAction(
-                    onPressed: (_) {
-                      Provider.of<LockerStudentProvider>(context, listen: false)
-                          .updateStudent(widget.student.copyWith(
-                              caution: 0, isArchived: true, isTerminal: false));
-                      // Provider.of<LockerStudentProvider>(context, listen: false).
-                    },
-                    icon: Icons.arrow_circle_up,
-                    label: 'Caution rendue',
-                    backgroundColor: Colors.amber,
-                    foregroundColor: Colors.white,
-                  )
-                : SizedBox(),
-            widget.student.caution == 0
-                ? SlidableAction(
-                    onPressed: (_) {
-                      Provider.of<LockerStudentProvider>(context, listen: false)
-                          .updateStudent(widget.student.copyWith(
-                        caution: 20,
-                      ));
-                    },
-                    icon: Icons.arrow_circle_down,
-                    label: 'Caution payée',
-                    backgroundColor: Colors.green,
-                    foregroundColor: Colors.white,
-                  )
-                : SizedBox(),
-          ]),
+      startActionPane: (widget.student.isTerminal! ||
+                  widget.student.caution == 0) &&
+              widget.student.lockerNumber != 0
+          ? ActionPane(
+              motion: const ScrollMotion(),
+              dismissible: DismissiblePane(
+                onDismissed: () {
+                  if (widget.student.isTerminal! &&
+                      widget.student.caution != 0) {
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .updateStudent(widget.student.copyWith(
+                            caution: 0, isArchived: true, isTerminal: false));
+                  } else if (widget.student.caution == 0) {
+                    Provider.of<LockerStudentProvider>(context, listen: false)
+                        .updateStudent(widget.student
+                            .copyWith(caution: 20, isTerminal: false));
+                  }
+                },
+              ),
+              children: [
+                  widget.student.isTerminal! && widget.student.caution != 0
+                      ? SlidableAction(
+                          onPressed: (_) {
+                            Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .updateStudent(widget.student.copyWith(
+                                    caution: 0,
+                                    isArchived: true,
+                                    isTerminal: false));
+                            // Provider.of<LockerStudentProvider>(context, listen: false).
+                          },
+                          icon: Icons.arrow_circle_up,
+                          label: 'Caution rendue',
+                          backgroundColor: Colors.amber,
+                          foregroundColor: Colors.white,
+                        )
+                      : SizedBox(),
+                  widget.student.caution == 0 &&
+                          widget.student.lockerNumber != 0
+                      ? SlidableAction(
+                          onPressed: (_) {
+                            Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .updateStudent(widget.student.copyWith(
+                              caution: 20,
+                            ));
+                          },
+                          icon: Icons.arrow_circle_down,
+                          label: 'Caution payée',
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                        )
+                      : SizedBox(),
+                ])
+          : null,
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        // dismissible: DismissiblePane(
-        //   onDismissed: () {},
-        // ),
+        dismissible: DismissiblePane(
+          onDismissed: () {},
+        ),
         children: [
           SlidableAction(
             onPressed: (_) {

@@ -31,9 +31,13 @@ class _SearchStudentMenuState extends State<SearchStudentMenu> {
         TextField(
           decoration: InputDecoration(
             labelText: "Rechercher...",
+            prefixIcon: Icon(Icons.search_outlined),
           ),
           onChanged: (value) => widget.searchStudents(value),
         ),
+        // IconButton(onPressed: () {
+
+        // }, icon: Icon(Icons.group_off_outlined))
       ],
     );
   }
