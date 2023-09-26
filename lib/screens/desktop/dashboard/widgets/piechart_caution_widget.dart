@@ -75,6 +75,7 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                       ],
                       pointers: <GaugePointer>[
                         MarkerPointer(
+                          borderColor: Theme.of(context).dividerColor,
                           enableAnimation: true,
                           animationType: AnimationType.ease,
                           value: paidCautionsList,
