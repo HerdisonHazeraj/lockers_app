@@ -195,7 +195,7 @@
     },
     {
       "name": "excel",
-      "rootUri": "file:///Users/herdisonhazeraj/.pub-cache/hosted/pub.dev/excel-2.1.0",
+      "rootUri": "file:///Users/timoportal/.pub-cache/hosted/pub.dev/excel-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -1022,15 +1022,7 @@
       "languageVersion": "3.0"
     }
   ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "generated": "2023-09-26T09:06:57.936500Z",
-=======
-  "generated": "2023-09-22T06:44:48.992961Z",
->>>>>>> c0f77e1 (import bon)
-=======
-  "generated": "2023-09-27T06:19:12.603246Z",
->>>>>>> a4d341c (test)
+  "generated": "2023-09-27T06:49:43.596244Z",
   "generator": "pub",
   "generatorVersion": "3.1.0"
 }

@@ -60,12 +60,9 @@ dependencies:
   firebase_auth: ^4.9.0
   flutter_slidable: ^3.0.0
   flutter_launcher_icons: ^0.13.1
-<<<<<<< HEAD
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-=======
   excel: ^2.1.0
->>>>>>> c0f77e1 (import bon)
 
 dev_dependencies:
   build_runner: ^2.4.6
