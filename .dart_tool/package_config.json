@@ -194,6 +194,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "excel",
+      "rootUri": "file:///Users/herdisonhazeraj/.pub-cache/hosted/pub.dev/excel-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1",
       "packageUri": "lib/",
@@ -1010,7 +1016,11 @@
       "languageVersion": "3.0"
     }
   ],
+<<<<<<< HEAD
   "generated": "2023-09-26T09:06:57.936500Z",
+=======
+  "generated": "2023-09-22T06:44:48.992961Z",
+>>>>>>> c0f77e1 (import bon)
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

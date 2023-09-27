@@ -289,7 +289,7 @@ class _StudentUpdateState extends State<StudentUpdate> {
                                   login: loginController.text,
                                   job: jobController.text,
                                   classe: classeController.text,
-                                  manager: responsableController.text,
+                                  responsable: responsableController.text,
                                   year: int.parse(yearController.text),
                                 ));
                                 Provider.of<HistoryProvider>(context,

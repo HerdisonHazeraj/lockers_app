@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 // import 'dart:js_interop';
+import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -914,16 +915,87 @@ class LockerStudentProvider with ChangeNotifier {
     return null;
   }
 
+  Future<String> importAllWithXLSX(FilePickerResult? result) async {
+    bool importOnlyStudents = false;
+    if (result != null) {
+      var bytes = result.files.single.bytes;
+      var excel = Excel.decodeBytes(bytes!);
+
+      if (excel.tables.keys.contains("Total")) {
+        excel.delete("Total");
+      }
+
+      for (var table in excel.tables.keys) {
+        // Cela permet de vérifier si l'on importe uniquement des élèves ou pas
+        excel.tables[table]!.rows[0].forEach((element) {
+          if (element!.value.toString().trim() == "Login") {
+            importOnlyStudents = true;
+          }
+        });
+
+        if (importOnlyStudents) {
+          for (int i = 1; i < excel.tables[table]!.rows.length; i++) {
+            await addStudent(
+              Student.base().copyWith(
+                firstName: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Prénom")]!
+                    .value
+                    .toString(),
+                lastName: excel.tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Nom")]!.value
+                    .toString(),
+                login: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Login")]!
+                    .value
+                    .toString(),
+                job: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Formation")]!
+                    .value
+                    .toString(),
+                responsable: excel
+                    .tables[table]!
+                    .rows[i]
+                        [_getIndexXLSX(excel.tables[table]!, "Maître Classe")]!
+                    .value
+                    .toString(),
+                year: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Année")]!
+                    .value,
+                classe: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Classe")]!
+                    .value,
+              ),
+            );
+          }
+        }
+      }
+    }
+
+    return '';
+  }
+
+  int _getIndexXLSX(Sheet sheet, String item) {
+    return sheet.rows[0]
+        .firstWhere((element) => element!.value == item)!
+        .colIndex;
+  }
+
   Future<String?> importAllWithCSV(FilePickerResult? result) async {
     try {
       if (result != null) {
         final file = result.files.first;
         final fileContent = utf8.decode(file.bytes!);
         final rows = fileContent.split('\n');
+
         final indexes = rows[0].split(';');
 
         indexes[indexes.length - 1] = indexes[indexes.length - 1]
-            .substring(0, indexes[indexes.length - 1].length - 1);
+            .substring(0, indexes[indexes.length - 1].length);
 
         rows.removeAt(0);
         rows.removeLast();
@@ -981,7 +1053,7 @@ class LockerStudentProvider with ChangeNotifier {
                         lastName: jsonRow['Nom'],
                         job: metier,
                         year: year,
-                        manager: jsonRow['Responsable'],
+                        responsable: jsonRow['Responsable'],
                         caution: caution));
 
                     notifyListeners();

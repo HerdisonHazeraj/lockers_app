@@ -128,8 +128,17 @@ file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/easy_sidemenu-0
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/easy_sidemenu-0.4.2/lib/
 equatable
 2.12
+<<<<<<< HEAD
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.5/
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.5/lib/
+=======
+file:///Users/herdisonhazeraj/.pub-cache/hosted/pub.dev/equatable-2.0.5/
+file:///Users/herdisonhazeraj/.pub-cache/hosted/pub.dev/equatable-2.0.5/lib/
+excel
+2.17
+file:///Users/herdisonhazeraj/.pub-cache/hosted/pub.dev/excel-2.1.0/
+file:///Users/herdisonhazeraj/.pub-cache/hosted/pub.dev/excel-2.1.0/lib/
+>>>>>>> c0f77e1 (import bon)
 fake_async
 2.12
 file:///C:/Users/cp-20tip/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1/
