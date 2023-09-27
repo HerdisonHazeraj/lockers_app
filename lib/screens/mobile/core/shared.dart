@@ -5,7 +5,7 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
 class Shared {
-  void methodInaccessibleOrDelete(BuildContext context, Locker locker,
+  void methodInaccessibleOrDeleteLocker(BuildContext context, Locker locker,
       bool isForDelete, bool inDetails) async {
     if (locker.idEleve != "") {
       Student student =
@@ -350,5 +350,152 @@ class Shared {
               : Text(
                   "Le casier n°${locker.lockerNumber} est maintenant inaccessible, celui-ci peut être retrouver dans la catégorie 'Casiers inaccessibles' en bas de page.")));
     }
+  }
+
+  void methodArchivedOrDeleteStudent(BuildContext context, Student student,
+      bool isForDelete, bool inDetails) async {
+    if (isForDelete) {
+      showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        )),
+        context: context,
+        builder: (_) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${student.firstName} ${student.lastName}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          size: 34,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 20),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Êtes-vous sûre de vouloir supprimer cet élève ?",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    right: BorderSide(
+                                      color: Colors.grey.withOpacity(0.2),
+                                    ),
+                                  ),
+                                ),
+                                constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            20),
+                                child: ListTile(
+                                  onTap: () async {
+                                    if (student.lockerNumber != 0) {
+                                      Locker locker = await Provider.of<
+                                                  LockerStudentProvider>(
+                                              context,
+                                              listen: false)
+                                          .getLockerByLockerNumber(
+                                              student.lockerNumber);
+                                      await Provider.of<LockerStudentProvider>(
+                                              context,
+                                              listen: false)
+                                          .updateLocker(locker.copyWith(
+                                        idEleve: "",
+                                      ));
+                                    }
+
+                                    await Provider.of<LockerStudentProvider>(
+                                            context,
+                                            listen: false)
+                                        .deleteStudent(student.id.toString());
+
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                    if (inDetails) Navigator.of(context).pop();
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                "L'élève ${student.firstName} ${student.lastName} a bien été supprimé.")));
+                                  },
+                                  title: const Text("Oui"),
+                                ),
+                              ),
+                              Container(
+                                constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            20),
+                                child: ListTile(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  title: const Text("Annuler"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+      // await Provider.of<LockerStudentProvider>(context, listen: false)
+      //     .deleteLocker(locker.id.toString());
+
+      // Navigator.pop(context);
+      // if (inDetails) Navigator.pop(context);
+    } else {
+      await Provider.of<LockerStudentProvider>(context, listen: false)
+          .updateStudent(student.copyWith(
+              lockerNumber: 0, isArchived: true, isTerminal: false));
+
+      Navigator.of(context).pop();
+      if (inDetails) Navigator.of(context).pop();
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: isForDelete
+            ? Text(
+                "L'élève ${student.firstName} ${student.lastName} a bien été supprimé.")
+            : Text(
+                "L'élève ${student.firstName} ${student.lastName} est maintenant archivé.")));
   }
 }

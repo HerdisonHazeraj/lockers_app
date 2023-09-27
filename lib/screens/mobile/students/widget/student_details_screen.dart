@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
+import 'package:lockers_app/screens/mobile/core/shared.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
 import 'package:lockers_app/screens/mobile/students/widget/lockerstudent_info_widget.dart';
 import 'package:lockers_app/screens/mobile/students/widget/students_info_widget.dart';
@@ -25,6 +26,7 @@ class StudentDetailsScreenMobile extends StatefulWidget {
 class _StudentDetailsScreenMobileState
     extends State<StudentDetailsScreenMobile> {
   List<bool> ExpList = [false, false];
+  Shared shared = Shared();
   // bool IsLockerDataExp = true;
   @override
   Widget build(BuildContext context) {
@@ -38,10 +40,21 @@ class _StudentDetailsScreenMobileState
 
     List<ListTile> importantList = [
       ListTile(
+        title: const Text("Archiver"),
+        onTap: () {
+          shared.methodArchivedOrDeleteStudent(
+              context, widget.student, false, true);
+        },
+        trailing: const Icon(Icons.archive_outlined),
+      ),
+      ListTile(
         title: const Text("Supprimer"),
-        onTap: () {},
+        onTap: () {
+          shared.methodArchivedOrDeleteStudent(
+              context, widget.student, true, true);
+        },
         trailing: const Icon(Icons.delete_forever_outlined),
-      )
+      ),
     ];
 
     List<ListTile> standardList = [

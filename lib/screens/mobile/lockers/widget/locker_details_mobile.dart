@@ -44,7 +44,8 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
       ListTile(
         title: const Text("Supprimer"),
         onTap: () async {
-          shared.methodInaccessibleOrDelete(context, widget.locker, true, true);
+          shared.methodInaccessibleOrDeleteLocker(
+              context, widget.locker, true, true);
         },
         trailing: const Icon(Icons.delete_forever_outlined),
       )

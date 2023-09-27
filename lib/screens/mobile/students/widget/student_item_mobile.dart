@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
+import 'package:lockers_app/screens/mobile/core/shared.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/student.dart';
@@ -23,6 +24,7 @@ class StudentItemMobile extends StatefulWidget {
 }
 
 class _StudentItemMobileState extends State<StudentItemMobile> {
+  Shared shared = Shared();
   @override
   Widget build(BuildContext context) {
     List<ListTile> standardList = [
@@ -336,6 +338,8 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
           ),
           SlidableAction(
             onPressed: (_) async {
+              // shared.methodArchivedOrDeleteStudent(
+              //     context, widget.student, false, false);
               if (widget.student.lockerNumber != 0 &&
                   widget.student.lockerNumber != "") {
                 Locker locker = await Provider.of<LockerStudentProvider>(

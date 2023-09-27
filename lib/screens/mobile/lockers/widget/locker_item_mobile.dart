@@ -50,7 +50,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
       ListTile(
         title: const Text("Supprimer"),
         onTap: () {
-          shared.methodInaccessibleOrDelete(
+          shared.methodInaccessibleOrDeleteLocker(
               context, widget.locker, true, false);
         },
         trailing: const Icon(Icons.delete_forever_outlined),
@@ -139,7 +139,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
           ),
           SlidableAction(
             onPressed: (_) {
-              shared.methodInaccessibleOrDelete(
+              shared.methodInaccessibleOrDeleteLocker(
                   context, widget.locker, false, false);
             },
             icon: Icons.block_outlined,

@@ -90,8 +90,10 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                             children: [
                               Text(
                                 paidCautionsList.toInt().toString(),
-                                style: const TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               const Text(
                                 'cautions payées',

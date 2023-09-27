@@ -159,12 +159,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
                       enabled: !widget.locker.isInaccessible!,
                       controller: jobController,
                       decoration: const InputDecoration(
