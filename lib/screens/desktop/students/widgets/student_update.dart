@@ -292,15 +292,6 @@ class _StudentUpdateState extends State<StudentUpdate> {
                                   manager: responsableController.text,
                                   year: int.parse(yearController.text),
                                 ));
-                                Provider.of<HistoryProvider>(context,
-                                        listen: false)
-                                    .addHistory(
-                                  History(
-                                    date: DateTime.now().toString(),
-                                    action: "update",
-                                    student: student.toJson(),
-                                  ),
-                                );
 
                                 widget.updateSearchStudentList!();
 

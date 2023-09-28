@@ -232,14 +232,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                                           : true,
                                 ));
 
-                                Provider.of<HistoryProvider>(context,
-                                        listen: false)
-                                    .addHistory(History(
-                                  date: DateTime.now().toString(),
-                                  action: "update",
-                                  locker: locker.toJson(),
-                                ));
-
                                 widget.updateSearchLockerList!();
 
                                 widget.showUpdateForm!();

@@ -20,7 +20,8 @@ class Styles {
       primaryColor: isDarkTheme ? Color(0xff161616) : Color(0xffececf6),
       indicatorColor: isDarkTheme ? Colors.blue : Colors.blue,
       hintColor: isDarkTheme ? Colors.white : Colors.black54,
-      focusColor: isDarkTheme ? Color(0xff020219) : Color(0xffA8DAB5),
+      focusColor:
+          isDarkTheme ? Color(0xff020219) : Color.fromARGB(255, 218, 171, 168),
       cardColor: isDarkTheme ? Color(0xff191919) : Colors.white,
       canvasColor: isDarkTheme ? Color(0xff262626) : Colors.grey[50],
       brightness: isDarkTheme ? Brightness.dark : Brightness.light,

@@ -74,6 +74,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
           ? ActionPane(
               motion: const ScrollMotion(),
               dismissible: DismissiblePane(
+                // motion: const ScrollMotion(),
                 onDismissed: () {
                   if (widget.locker.nbKey < 2) {
                     Provider.of<LockerStudentProvider>(context, listen: false)

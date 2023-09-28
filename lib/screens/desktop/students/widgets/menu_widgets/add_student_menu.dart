@@ -248,14 +248,6 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
 
                       Provider.of<LockerStudentProvider>(context, listen: false)
                           .addStudent(student);
-                      Provider.of<HistoryProvider>(context, listen: false)
-                          .addHistory(
-                        History(
-                          date: DateTime.now().toString(),
-                          action: "add",
-                          student: student.toJson(),
-                        ),
-                      );
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

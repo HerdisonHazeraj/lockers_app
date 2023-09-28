@@ -45,14 +45,31 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addLocker(Locker locker) async {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);
+
+    historyProvider.addHistory(History(
+      date: DateTime.now().toString(),
+      action: "add",
+      locker: locker.toJson(),
+    ));
     notifyListeners();
   }
 
-  Future<void> updateLocker(Locker updatedLocker) async {
+  Future<void> updateLocker(Locker updatedLocker,
+      {bool historic = true}) async {
     final lockerIndex = findIndexOfLockerById(updatedLocker.id!);
+    final Locker oldLocker = getLocker(updatedLocker.id!);
     if (lockerIndex >= 0) {
       final newLocker = await dbService.updateLocker(updatedLocker);
       _lockerItems[lockerIndex] = newLocker;
+
+      if (historic) {
+        historyProvider.addHistory(History(
+          action: "update",
+          date: DateTime.now().toString(),
+          locker: updatedLocker.toJson(),
+          oldLocker: oldLocker.toJson(),
+        ));
+      }
       notifyListeners();
     }
   }
@@ -88,6 +105,11 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> deleteLocker(String id) async {
     await dbService.deleteLocker(id);
+    historyProvider.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "delete",
+        locker: getLocker(id).toJson(),
+        index: findIndexOfLockerById(id)));
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
     _lockerItems.remove(item);
 
@@ -107,7 +129,7 @@ class LockerStudentProvider with ChangeNotifier {
     return terminaux.isNotEmpty;
   }
 
-  void setAllTerinauxToFalse() {
+  void setAllTerminauxToFalse() {
     final students = getAllTerminaux();
 
     students.forEach((student) {
@@ -140,7 +162,7 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<void> insertLocker(int index, Locker locker) async {
-    await dbService.updateLocker(locker);
+    await dbService.addLocker(locker);
     _lockerItems.insert(index, locker);
     notifyListeners();
   }
@@ -185,28 +207,50 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
+    historyProvider.addHistory(History(
+      date: DateTime.now().toString(),
+      action: "add",
+      student: student.toJson(),
+    ));
     notifyListeners();
   }
 
-  Future<void> updateStudent(Student updatedStudent) async {
+  Future<void> updateStudent(Student updatedStudent,
+      {bool historic = true}) async {
     final studentIndex = findIndexOfStudentById(updatedStudent.id!);
+    final Student oldStudent = getStudent(updatedStudent.id!);
     if (studentIndex >= 0) {
       final newStudent = await dbService.updateStudent(updatedStudent);
       _studentItems[studentIndex] = newStudent;
+
+      if (historic) {
+        historyProvider.addHistory(History(
+            id: newStudent.id,
+            student: newStudent.toJson(),
+            oldStudent: oldStudent.toJson(),
+            date: DateTime.now().toString(),
+            action: "update"));
+      }
       notifyListeners();
     }
   }
 
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
+    historyProvider.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "delete",
+        student: getStudent(id).toJson(),
+        index: findIndexOfStudentById(id)));
+
     _studentItems.removeWhere((student) => student.id == id);
 
     notifyListeners();
   }
 
-  Future<void> insertStudent(int index, Student student) async {
-    await dbService.updateStudent(student);
-    _studentItems.insert(index, student);
+  Future<void> insertStudent(Student student) async {
+    await dbService.addStudent(student);
+    _studentItems.add(student);
     notifyListeners();
   }
 
@@ -276,13 +320,14 @@ class LockerStudentProvider with ChangeNotifier {
         isAvailable: false,
         idEleve: student.id,
       ),
+      historic: false,
     );
 
     await updateStudent(
-      student.copyWith(
-        lockerNumber: locker.lockerNumber,
-      ),
-    );
+        student.copyWith(
+          lockerNumber: locker.lockerNumber,
+        ),
+        historic: false);
 
     historyProvider.addHistory(
       History(
@@ -296,17 +341,17 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> unAttributeLocker(Locker locker, Student student) async {
     await updateLocker(
-      locker.copyWith(
-        isAvailable: true,
-        idEleve: "",
-      ),
-    );
+        locker.copyWith(
+          isAvailable: true,
+          idEleve: "",
+        ),
+        historic: false);
 
     await updateStudent(
-      student.copyWith(
-        lockerNumber: 0,
-      ),
-    );
+        student.copyWith(
+          lockerNumber: 0,
+        ),
+        historic: false);
 
     historyProvider.addHistory(
       History(
@@ -481,12 +526,6 @@ class LockerStudentProvider with ChangeNotifier {
           ),
         );
       }
-      // historyProvider.addHistory(History(
-      //   date: DateTime.now().toString(),
-      //   action: "update",
-      //   locker: locker.toJson(),
-      //   // student: locker.toJson(),
-      // ));
     }
   }
 
@@ -507,12 +546,6 @@ class LockerStudentProvider with ChangeNotifier {
           ),
         );
       }
-      // historyProvider.addHistory(History(
-      //   date: DateTime.now().toString(),
-      //   action: "update",
-      //   locker: locker.toJson(),
-      //   // student: locker.toJson(),
-      // ));
     }
   }
 
@@ -526,16 +559,10 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> setLockerToDefective(Locker locker) async {
     await updateLocker(
-      locker.copyWith(
-        isDefective: true,
-      ),
-    );
-    // historyProvider.addHistory(History(
-    //   date: DateTime.now().toString(),
-    //   action: "update",
-    //   locker: locker.toJson(),
-    //   // student: locker.toJson(),
-    // ));
+        locker.copyWith(
+          isDefective: true,
+        ),
+        historic: false);
   }
 
   Future<void> setNumberOfLockerKey(Locker locker, int nbKey) async {
@@ -719,7 +746,6 @@ class LockerStudentProvider with ChangeNotifier {
       case "delete":
         if (history.student != null) {
           insertStudent(
-            history.index!,
             Student.fromJson(history.student!),
           );
         } else {
@@ -730,14 +756,10 @@ class LockerStudentProvider with ChangeNotifier {
         }
         break;
       case "update":
-        if (history.locker != null) {
-          updateStudent(
-            Student.fromJson(history.student!),
-          );
+        if (history.locker == null) {
+          updateStudent(Student.fromJson(history.oldStudent!), historic: false);
         } else {
-          updateLocker(
-            Locker.fromJson(history.locker!),
-          );
+          updateLocker(Locker.fromJson(history.oldLocker!), historic: false);
         }
         break;
       case "attribution":

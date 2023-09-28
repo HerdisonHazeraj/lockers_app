@@ -5,6 +5,71 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
 class Shared {
+  List<DataRow> createTableDataRows(firstList, secondList, bool locker) {
+    late List list;
+    if (locker) {
+      list = [
+        'lockerNumber',
+        'lockNumber',
+        'floor',
+        'nbKey',
+        'remark',
+      ];
+    } else {
+      list = [
+        'firstName',
+        'lastName',
+        'classe',
+        'job',
+        'year',
+        'login',
+        'manager',
+        'caution'
+      ];
+    }
+    return [
+      for (var i = 0; i < list.length; i++)
+        DataRow(cells: [
+          // DataCell(Text(changeText(list[i]))),0
+          DataCell(Text(firstList[list[i]].toString())),
+          DataCell(Text(secondList[list[i]].toString())),
+        ]),
+    ];
+  }
+
+  String changeText(String text) {
+    switch (text) {
+      case 'lockerNumber':
+        return 'N° Casier';
+      case 'lockNumber':
+        return 'N° Serrure';
+      case 'floor':
+        return 'Étage';
+      case 'nbKey':
+        return 'Nb de clés';
+      case 'remark':
+        return 'Remarque';
+      case 'firstName':
+        return 'Prénom';
+      case 'lastName':
+        return 'Nom';
+      case 'classe':
+        return 'Classe';
+      case 'job':
+        return 'Métier';
+      case 'year':
+        return 'Année';
+      case 'login':
+        return 'Login';
+      case 'manager':
+        return 'Responsable';
+      case 'caution':
+        return 'Caution';
+      default:
+        return '-';
+    }
+  }
+
   void methodInaccessibleOrDeleteLocker(BuildContext context, Locker locker,
       bool isForDelete, bool inDetails) async {
     if (locker.idEleve != "") {
@@ -58,8 +123,8 @@ class Shared {
                         ),
                         Container(
                           width: double.infinity,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                           child: Column(
@@ -251,8 +316,8 @@ class Shared {
                           ),
                           Container(
                             width: double.infinity,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
@@ -344,11 +409,11 @@ class Shared {
             .setLockerToInaccessible(locker);
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: isForDelete
-              ? Text("Le casier n°${locker.lockerNumber} a bien été supprimé.")
-              : Text(
-                  "Le casier n°${locker.lockerNumber} est maintenant inaccessible, celui-ci peut être retrouver dans la catégorie 'Casiers inaccessibles' en bas de page.")));
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: isForDelete
+      //         ? Text("Le casier n°${locker.lockerNumber} a bien été supprimé.")
+      //         : Text(
+      //             "Le casier n°${locker.lockerNumber} est maintenant inaccessible, celui-ci peut être retrouver dans la catégorie 'Casiers inaccessibles' en bas de page.")));
     }
   }
 
@@ -400,8 +465,8 @@ class Shared {
                         ),
                         Container(
                           width: double.infinity,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                           child: Row(
@@ -491,11 +556,11 @@ class Shared {
       if (inDetails) Navigator.of(context).pop();
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: isForDelete
-            ? Text(
-                "L'élève ${student.firstName} ${student.lastName} a bien été supprimé.")
-            : Text(
-                "L'élève ${student.firstName} ${student.lastName} est maintenant archivé.")));
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: isForDelete
+    //         ? Text(
+    //             "L'élève ${student.firstName} ${student.lastName} a bien été supprimé.")
+    //         : Text(
+    //             "L'élève ${student.firstName} ${student.lastName} est maintenant archivé.")));
   }
 }

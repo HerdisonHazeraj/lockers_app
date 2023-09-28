@@ -239,6 +239,7 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
           ? ActionPane(
               motion: const ScrollMotion(),
               dismissible: DismissiblePane(
+                motion: ScrollMotion(),
                 onDismissed: () {
                   if (widget.student.isTerminal! &&
                       widget.student.caution != 0) {
@@ -274,11 +275,20 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
                           widget.student.lockerNumber != 0
                       ? SlidableAction(
                           onPressed: (_) {
-                            Provider.of<LockerStudentProvider>(context,
-                                    listen: false)
-                                .updateStudent(widget.student.copyWith(
-                              caution: 20,
-                            ));
+                            if (widget.student.isTerminal! &&
+                                widget.student.caution != 0) {
+                              Provider.of<LockerStudentProvider>(context,
+                                      listen: false)
+                                  .updateStudent(widget.student.copyWith(
+                                      caution: 0,
+                                      isArchived: true,
+                                      isTerminal: false));
+                            } else if (widget.student.caution == 0) {
+                              Provider.of<LockerStudentProvider>(context,
+                                      listen: false)
+                                  .updateStudent(widget.student.copyWith(
+                                      caution: 20, isTerminal: false));
+                            }
                           },
                           icon: Icons.arrow_circle_down,
                           label: 'Caution payée',

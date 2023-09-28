@@ -1,6 +1,8 @@
 // import 'dart:js_interop';
 
 import 'package:lockers_app/models/IHistory.dart';
+import 'package:lockers_app/models/locker.dart';
+import 'package:lockers_app/models/student.dart';
 
 class History extends IHistory {
   final String? id;
@@ -8,6 +10,8 @@ class History extends IHistory {
   final String date;
   final Map<String, dynamic>? locker;
   final Map<String, dynamic>? student;
+  final Map<String, dynamic>? oldLocker;
+  final Map<String, dynamic>? oldStudent;
   final int? index;
   // final int lockerNumber;
 
@@ -15,6 +19,8 @@ class History extends IHistory {
     this.id,
     required this.date,
     required this.action,
+    this.oldLocker,
+    this.oldStudent,
     this.locker,
     this.student,
     this.index,
@@ -28,6 +34,8 @@ class History extends IHistory {
         action: json['action'],
         locker: json['locker'],
         student: json['student'],
+        oldLocker: json['oldLocker'],
+        oldStudent: json['oldStudent'],
         index: json['index']
         // lockerNumber: json['lockerNumber'],
         );
@@ -54,6 +62,30 @@ class History extends IHistory {
     switch (action) {
       case "attribution" || "unattribution":
         return "L'élève ${student!["firstName"]} ${student!["lastName"]} à bien été ${getAction()} au casier n°${locker!["lockerNumber"]}";
+      case "update":
+      default:
+        switch (locker == null) {
+          case true:
+            return "L'élève ${student!["firstName"]} ${student!["lastName"]} à été ${getAction()}";
+          case false:
+            return "Le casier n°${locker!["lockerNumber"]} à été ${getAction()}";
+        }
+    }
+  }
+
+  String getUpdateSentence() {
+// if(locker==null){
+//   switch(student){
+//     case
+//   }
+// }else{
+
+// }
+
+    switch (action) {
+      case "attribution" || "unattribution":
+        return "L'élève ${student!["firstName"]} ${student!["lastName"]} à bien été ${getAction()} au casier n°${locker!["lockerNumber"]}";
+      case "update":
       default:
         switch (locker == null) {
           case true:
@@ -70,6 +102,8 @@ class History extends IHistory {
         'action': action,
         'locker': locker,
         'student': student,
+        'oldLocker': oldLocker,
+        'oldStudent': oldStudent,
         'index': index,
         // 'lockerNumber': lockerNumber,
       };
@@ -95,6 +129,8 @@ class History extends IHistory {
     String? action,
     Map<String, dynamic>? locker,
     Map<String, dynamic>? student,
+    Map<String, dynamic>? oldLocker,
+    Map<String, dynamic>? oldStudent,
     int? index,
     // int? lockerNumber,
   }) {
@@ -104,6 +140,8 @@ class History extends IHistory {
       action: action ?? this.action,
       locker: locker ?? this.locker,
       student: student ?? this.student,
+      oldLocker: oldLocker ?? this.oldLocker,
+      oldStudent: oldStudent ?? this.oldStudent,
       index: index ?? this.index,
       // lockerNumber: lockerNumber ?? this.lockerNumber,
     );
@@ -117,6 +155,8 @@ class History extends IHistory {
         action == other.action &&
         locker == other.locker &&
         student == other.student &&
+        oldLocker == other.oldLocker &&
+        oldStudent == other.oldStudent &&
         index == other.index;
     // lockerNumber == other.lockerNumber;
   }

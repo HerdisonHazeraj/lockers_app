@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/history.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../infrastructure/db_service.dart';
 
@@ -34,6 +35,15 @@ class HistoryProvider with ChangeNotifier {
       _historyItems[historyIndex] = newHistory;
       notifyListeners();
     }
+  }
+
+  Future<void> deleteAll() async {
+    //  _historyItems = [];
+    for (var item in _historyItems) {
+      await dbService.deleteHistory(item.id!);
+    }
+    _historyItems.clear();
+    notifyListeners();
   }
 
   Future<void> deleteHistory(String id) async {

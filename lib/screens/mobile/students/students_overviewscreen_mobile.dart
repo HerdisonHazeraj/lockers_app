@@ -162,7 +162,7 @@ class _StudentsOverviewScreenMobileState
                                           Provider.of<LockerStudentProvider>(
                                                   context,
                                                   listen: false)
-                                              .setAllTerinauxToFalse();
+                                              .setAllTerminauxToFalse();
 
                                           setState(() {
                                             isTerminauxListGenerated = false;

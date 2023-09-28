@@ -201,12 +201,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
 
                       Provider.of<LockerStudentProvider>(context, listen: false)
                           .addLocker(locker);
-                      Provider.of<HistoryProvider>(context, listen: false)
-                          .addHistory(History(
-                        date: DateTime.now().toString(),
-                        action: "add",
-                        locker: locker.toJson(),
-                      ));
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

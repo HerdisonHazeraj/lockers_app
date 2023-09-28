@@ -240,17 +240,6 @@ class _StudentItemState extends State<StudentItem> {
                                           .getLockerByLockerNumber(
                                               updatedStudent.lockerNumber);
 
-                                  Provider.of<HistoryProvider>(context,
-                                          listen: false)
-                                      .addHistory(
-                                    History(
-                                      date: DateTime.now().toString(),
-                                      action: "attribution",
-                                      locker: locker.toJson(),
-                                      student: updatedStudent.toJson(),
-                                    ),
-                                  );
-
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -283,17 +272,6 @@ class _StudentItemState extends State<StudentItem> {
                                           listen: false)
                                       .unAttributeLocker(
                                           locker, widget.student);
-
-                                  Provider.of<HistoryProvider>(context,
-                                          listen: false)
-                                      .addHistory(
-                                    History(
-                                      date: DateTime.now().toString(),
-                                      action: "unattribution",
-                                      locker: locker.toJson(),
-                                      student: widget.student.toJson(),
-                                    ),
-                                  );
 
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -358,24 +336,8 @@ class _StudentItemState extends State<StudentItem> {
                                                   listen: false)
                                               .deleteStudent(
                                                   widget.student.id!);
-                                          Provider.of<HistoryProvider>(context,
-                                                  listen: false)
-                                              .addHistory(
-                                            History(
-                                              date: DateTime.now().toString(),
-                                              action: "delete",
-                                              student: widget.student.toJson(),
-                                              index: Provider.of<
-                                                          LockerStudentProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .findIndexOfLockerById(
-                                                      widget.student.id!),
-                                            ),
-                                          );
-                                          widget.refreshList!();
-
                                           Navigator.of(context).pop();
+                                          widget.refreshList!();
                                         },
                                         child: const Text("Confirmer"),
                                       ),

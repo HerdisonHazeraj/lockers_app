@@ -59,8 +59,8 @@ class _ModalBottomSheetWidgetTestState
                   SizedBox(
                     width: double.infinity,
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       child: Column(
@@ -85,8 +85,8 @@ class _ModalBottomSheetWidgetTestState
                   SizedBox(
                     width: double.infinity,
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       child: Column(

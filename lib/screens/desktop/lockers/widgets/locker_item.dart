@@ -39,7 +39,7 @@ class _LockerItemState extends State<LockerItem> {
       widget.locker.isInaccessible = true;
 
       Provider.of<LockerStudentProvider>(context, listen: false)
-          .updateLocker(widget.locker);
+          .updateLocker(widget.locker, historic: true);
     }
 
     return MouseRegion(
@@ -381,19 +381,7 @@ class _LockerItemState extends State<LockerItem> {
                                                 context,
                                                 listen: false)
                                             .deleteLocker(widget.locker.id!);
-                                        Provider.of<HistoryProvider>(context,
-                                                listen: false)
-                                            .addHistory(History(
-                                          date: DateTime.now().toString(),
-                                          action: "delete",
-                                          locker: widget.locker.toJson(),
-                                          index: Provider.of<
-                                                      LockerStudentProvider>(
-                                                  context,
-                                                  listen: false)
-                                              .findIndexOfLockerById(
-                                                  widget.locker.id!),
-                                        ));
+
                                         widget.refreshList!();
                                         Navigator.of(context).pop();
                                       },

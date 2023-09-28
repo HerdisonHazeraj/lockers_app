@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -52,13 +53,25 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                 child: SfRadialGauge(
                   axes: <RadialAxis>[
                     RadialAxis(
+                      axisLabelStyle: GaugeTextStyle(
+                          color: Theme.of(context)
+                              .textSelectionTheme
+                              .selectionColor),
                       maximumLabels: 3,
                       minimum: 0,
                       maximum: paidCautionsList + unPaidCautionsList == 0
                           ? 1
                           : paidCautionsList + unPaidCautionsList,
-                      majorTickStyle: const MajorTickStyle(length: 17),
-                      minorTickStyle: const MinorTickStyle(length: 11),
+                      majorTickStyle: MajorTickStyle(
+                          length: 17,
+                          color: Theme.of(context)
+                              .textSelectionTheme
+                              .selectionColor),
+                      minorTickStyle: MinorTickStyle(
+                          length: 11,
+                          color: Theme.of(context)
+                              .textSelectionTheme
+                              .selectionColor),
                       ranges: <GaugeRange>[
                         GaugeRange(
                             startWidth: 20,
