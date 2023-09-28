@@ -17,7 +17,7 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
   // Controllers for the importing student form
   final fileController = TextEditingController();
 
-  late FilePickerResult? filePicker;
+  late FilePickerResult? pickedFile;
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +48,27 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
                 ),
                 readOnly: true,
                 onTap: () async {
-                  filePicker = (await FilePicker.platform.pickFiles(
+                  pickedFile = (await FilePicker.platform.pickFiles(
                     type: FileType.custom,
                     allowedExtensions: ['csv'],
+                    allowMultiple: false,
                     withData: true,
                   ));
 
-                  if (filePicker != null) {
-                    fileController.text = filePicker!.files.single.name;
+                  if (pickedFile != null) {
+                    fileController.text = pickedFile!.files.single.name;
                   }
+
+                  // pickedFile = (await FilePicker.platform.pickFiles(
+                  //   type: FileType.custom,
+                  //   allowedExtensions: ['xlsx'],
+                  //   withData: true,
+                  //   allowMultiple: false,
+                  // ));
+
+                  // if (pickedFile != null) {
+                  //   fileController.text = pickedFile!.files.single.name;
+                  // }
                 },
               ),
             ),
@@ -70,7 +82,7 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
                   final error = await Provider.of<LockerStudentProvider>(
                     context,
                     listen: false,
-                  ).importAllWithCSV(filePicker!);
+                  ).importAllWithCSV(pickedFile!);
                   if (error != null) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(error)));
@@ -84,6 +96,17 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
 
                     fileController.clear();
                   }
+
+                  // final message = await Provider.of<LockerStudentProvider>(
+                  //   context,
+                  //   listen: false,
+                  // ).importAllWithXLSX(pickedFile!);
+
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(
+                  //     content: Text(message),
+                  //   ),
+                  // );
                 },
                 child: const Text("Importer"),
               ),
