@@ -74,7 +74,7 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
           ? ActionPane(
               motion: const ScrollMotion(),
               dismissible: DismissiblePane(
-                // motion: const ScrollMotion(),
+                motion: const ScrollMotion(),
                 onDismissed: () {
                   if (widget.locker.nbKey < 2) {
                     Provider.of<LockerStudentProvider>(context, listen: false)
@@ -117,13 +117,13 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
           : null,
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        // dismissible: DismissiblePane(
-        //   closeOnCancel: true,
-        //   onDismissed: () {
-        //     shared.methodInaccessibleOrDelete(
-        //         context, widget.locker, false, false);
-        //   },
-        // ),
+        dismissible: DismissiblePane(
+          closeOnCancel: true,
+          onDismissed: () {
+            shared.methodInaccessibleOrDeleteLocker(
+                context, widget.locker, false, false);
+          },
+        ),
         children: [
           SlidableAction(
             onPressed: (_) {

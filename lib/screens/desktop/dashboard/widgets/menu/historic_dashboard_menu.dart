@@ -225,25 +225,41 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                             IconButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  Provider.of<LockerStudentProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .cancelHistory(history);
-                                                  Provider.of<HistoryProvider>(
-                                                          context,
-                                                          listen: false)
-                                                      .deleteHistory(
-                                                          history.id!);
+                                                  if (history.locker![
+                                                          'isInaccessible'] ==
+                                                      true) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                            'Erreur, L\'action n\'a pas pu être annuler, Le casier est inaccessible'),
+                                                        duration: Duration(
+                                                            seconds: 3),
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    Provider.of<LockerStudentProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .cancelHistory(history);
+                                                    Provider.of<HistoryProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .deleteHistory(
+                                                            history.id!);
 
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                          'L\'action à été annuler avec succès !'),
-                                                      duration:
-                                                          Duration(seconds: 3),
-                                                    ),
-                                                  );
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                            'L\'action à été annuler avec succès !'),
+                                                        duration: Duration(
+                                                            seconds: 3),
+                                                      ),
+                                                    );
+                                                  }
                                                 });
                                               },
                                               icon: Icon(

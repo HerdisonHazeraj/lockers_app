@@ -303,7 +303,6 @@ class LockerStudentProvider with ChangeNotifier {
       if (oldItem[textList[i]] != newItem[textList[i]]) {
         switch (textList[i]) {
           // formattage élève
-          // case 'isTerminal':
           case 'isArchived':
             formatModifications(modifications, oldItem, textList, i,
                 'élève archivé', 'élève non-archivé');
@@ -341,6 +340,14 @@ class LockerStudentProvider with ChangeNotifier {
           case 'isInaccessible':
             formatModifications(modifications, oldItem, textList, i,
                 'Casier inaccessible', 'Casier accessible');
+          case 'nbKey':
+            modifications.addAll({
+              '${oldItem[textList[i]]} clé(s)',
+            });
+            modifications.addAll({
+              '${newItem[textList[i]]} clé(s)',
+            });
+
           default:
             modifications.addAll({
               oldItem[textList[i]],
