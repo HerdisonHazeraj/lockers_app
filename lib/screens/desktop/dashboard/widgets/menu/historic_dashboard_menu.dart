@@ -267,8 +267,6 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                         child: Text(
                           "Votre historique est vide",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16, color: ColorTheme.thirdTextColor),
                         ),
                       ),
               ),

@@ -131,8 +131,11 @@ class _UpdateExpansionPanelState extends State<UpdateExpansionPanel> {
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                     ], rows: [
-                      ...shared.createTableDataRows(widget.history.oldLocker!,
-                          widget.history.locker!, true),
+                      ...shared.createTableDataRows(
+                          context,
+                          widget.history.oldLocker!,
+                          widget.history.locker!,
+                          true),
                     ])
                   : DataTable(columns: [
                       // DataColumn(label: Text('-')),
@@ -145,8 +148,11 @@ class _UpdateExpansionPanelState extends State<UpdateExpansionPanel> {
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                     ], rows: [
-                      ...shared.createTableDataRows(widget.history.oldStudent!,
-                          widget.history.student!, false),
+                      ...shared.createTableDataRows(
+                          context,
+                          widget.history.oldStudent!,
+                          widget.history.student!,
+                          false),
                     ]))
         ]);
   }

@@ -233,7 +233,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                           InfoCard(
                             "Nombre total \nd'élèves",
                             Provider.of<LockerStudentProvider>(context)
-                                .studentItems
+                                .getNotArchivedStudent()
                                 .length
                                 .toString(),
                             'assets/icons/student.svg',

@@ -57,12 +57,10 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> updateLocker(Locker updatedLocker,
       {bool historic = true}) async {
-    final lockerIndex = findIndexOfLockerById(updatedLocker.id!);
     final Locker oldLocker = getLocker(updatedLocker.id!);
-    if (lockerIndex >= 0) {
-      final newLocker = await dbService.updateLocker(updatedLocker);
-      _lockerItems[lockerIndex] = newLocker;
+    final lockerIndex = findIndexOfLockerById(updatedLocker.id!);
 
+    if (lockerIndex >= 0) {
       if (historic) {
         historyProvider.addHistory(History(
           action: "update",
@@ -71,6 +69,8 @@ class LockerStudentProvider with ChangeNotifier {
           oldLocker: oldLocker.toJson(),
         ));
       }
+      final newLocker = await dbService.updateLocker(updatedLocker);
+      _lockerItems[lockerIndex] = newLocker;
       notifyListeners();
     }
   }
@@ -221,17 +221,16 @@ class LockerStudentProvider with ChangeNotifier {
     final studentIndex = findIndexOfStudentById(updatedStudent.id!);
     final Student oldStudent = getStudent(updatedStudent.id!);
     if (studentIndex >= 0) {
-      final newStudent = await dbService.updateStudent(updatedStudent);
-      _studentItems[studentIndex] = newStudent;
-
       if (historic) {
         historyProvider.addHistory(History(
-            id: newStudent.id,
-            student: newStudent.toJson(),
+            id: updatedStudent.id,
+            student: updatedStudent.toJson(),
             oldStudent: oldStudent.toJson(),
             date: DateTime.now().toString(),
             action: "update"));
       }
+      final newStudent = await dbService.updateStudent(updatedStudent);
+      _studentItems[studentIndex] = newStudent;
       notifyListeners();
     }
   }
@@ -295,6 +294,77 @@ class LockerStudentProvider with ChangeNotifier {
         .where((element) => element.lockerNumber != 0)
         .toList();
     return unavailableItem;
+  }
+
+//permegt de renvoyer la liste des modifications effectuées entre l'ancien et le nouvel élève ou casier
+  List getModificationsOldNewList(oldItem, newItem, textList) {
+    List modifications = [];
+    for (var i = 0; i < textList.length; i++) {
+      if (oldItem[textList[i]] != newItem[textList[i]]) {
+        switch (textList[i]) {
+          // formattage élève
+          // case 'isTerminal':
+          case 'isArchived':
+            formatModifications(modifications, oldItem, textList, i,
+                'élève archivé', 'élève non-archivé');
+          case 'caution':
+            formatModifications(modifications, oldItem, textList, i,
+                'caution non-payée', 'caution payée');
+
+          case 'year':
+            if (oldItem[textList[i]] == 1) {
+              modifications.addAll({
+                '${oldItem[textList[i]]}ère',
+              });
+              modifications.addAll({
+                '${newItem[textList[i]]}ème',
+              });
+            } else if (newItem[textList[i]] == 1) {
+              modifications.addAll({
+                '${oldItem[textList[i]]}ème',
+              });
+              modifications.addAll({
+                '${newItem[textList[i]]}ère',
+              });
+            } else {
+              modifications.addAll({
+                '${oldItem[textList[i]]}ème',
+              });
+              modifications.addAll({
+                '${newItem[textList[i]]}ème',
+              });
+            }
+          //formattage casier
+          case 'isAvailable':
+            formatModifications(modifications, oldItem, textList, i,
+                'Casier disponible', 'Casier indisponible');
+          case 'isInaccessible':
+            formatModifications(modifications, oldItem, textList, i,
+                'Casier inaccessible', 'Casier accessible');
+          default:
+            modifications.addAll({
+              oldItem[textList[i]],
+            });
+            modifications.addAll({
+              newItem[textList[i]],
+            });
+        }
+      }
+    }
+    return modifications;
+  }
+
+//permet de formater les textes qui vont être affichés dans les modifs
+//pour ne pas juste avoir des textes true false
+  void formatModifications(
+      List modifications, oldItem, textList, i, textTrue, textFalse) {
+    if (oldItem[textList[i]] == false || oldItem[textList[i]] == 20) {
+      modifications.addAll({textFalse});
+      modifications.addAll({textTrue});
+    } else {
+      modifications.addAll({textTrue});
+      modifications.addAll({textFalse});
+    }
   }
 
   List<Student> getArchivedStudent() {

@@ -5,8 +5,10 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
 class Shared {
-  List<DataRow> createTableDataRows(firstList, secondList, bool locker) {
+  List<DataRow> createTableDataRows(
+      BuildContext context, firstList, secondList, bool locker) {
     late List list;
+
     if (locker) {
       list = [
         'lockerNumber',
@@ -14,25 +16,40 @@ class Shared {
         'floor',
         'nbKey',
         'remark',
+        'isAvailable',
+        'isInaccessible'
       ];
     } else {
       list = [
-        'firstName',
-        'lastName',
+        'caution',
         'classe',
+        'firstName',
+        'isArchived',
         'job',
-        'year',
+        'lastName',
         'login',
         'manager',
-        'caution'
+        'year',
       ];
     }
+    List modifications =
+        Provider.of<LockerStudentProvider>(context, listen: false)
+            .getModificationsOldNewList(firstList, secondList, list);
     return [
-      for (var i = 0; i < list.length; i++)
+      // for (var i = 0; i < list.length; i++)
+      //   DataRow(cells: [
+      //     // DataCell(Text(changeText(list[i]))),0
+      //     DataCell(Text(firstList[list[i]].toString())),
+      //     DataCell(Text(secondList[list[i]].toString())),
+      //   ]),
+
+      for (var i = 0; i < modifications.length; i += 2)
         DataRow(cells: [
           // DataCell(Text(changeText(list[i]))),0
-          DataCell(Text(firstList[list[i]].toString())),
-          DataCell(Text(secondList[list[i]].toString())),
+          DataCell(
+            Text(modifications[i].toString()),
+          ),
+          DataCell(Text(modifications[i + 1].toString())),
         ]),
     ];
   }

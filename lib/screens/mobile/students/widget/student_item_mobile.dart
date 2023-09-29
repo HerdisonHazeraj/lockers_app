@@ -358,7 +358,8 @@ class _StudentItemMobileState extends State<StudentItemMobile> {
                     .getLockerByLockerNumber(widget.student.lockerNumber);
                 await Provider.of<LockerStudentProvider>(context, listen: false)
                     .updateLocker(
-                        locker.copyWith(idEleve: "", isAvailable: true));
+                        locker.copyWith(idEleve: "", isAvailable: true),
+                        historic: false);
               }
 
               await Provider.of<LockerStudentProvider>(context, listen: false)

@@ -60,8 +60,10 @@ class History extends IHistory {
 
   String getSentence() {
     switch (action) {
-      case "attribution" || "unattribution":
+      case "attribution":
         return "L'élève ${student!["firstName"]} ${student!["lastName"]} à bien été ${getAction()} au casier n°${locker!["lockerNumber"]}";
+      case "unattribution":
+        return "L'élève ${student!["firstName"]} ${student!["lastName"]} a bien été ${getAction()} du casier n°${locker!["lockerNumber"]}";
       case "update":
       default:
         switch (locker == null) {

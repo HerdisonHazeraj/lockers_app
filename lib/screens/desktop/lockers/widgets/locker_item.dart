@@ -31,17 +31,6 @@ class _LockerItemState extends State<LockerItem> {
   Locker deletedLocker = Locker.base();
   @override
   Widget build(BuildContext context) {
-    desattributeLockerAndStudent(Student owner, Locker locker) async {
-      await Provider.of<LockerStudentProvider>(context, listen: false)
-          .updateStudent(owner.copyWith(lockerNumber: 0));
-
-      widget.locker.isAvailable = false;
-      widget.locker.isInaccessible = true;
-
-      Provider.of<LockerStudentProvider>(context, listen: false)
-          .updateLocker(widget.locker, historic: true);
-    }
-
     return MouseRegion(
       onExit: (event) => setState(() {
         widget.locker.isFocus = false;
@@ -116,11 +105,11 @@ class _LockerItemState extends State<LockerItem> {
                     visible: widget.locker.isFocus,
                     child: IconButton(
                       onPressed: () {
-                        widget.locker.isAvailable = true;
-                        widget.locker.isInaccessible = false;
                         Provider.of<LockerStudentProvider>(context,
                                 listen: false)
-                            .updateLocker(widget.locker);
+                            .unSetLockerToAccessible(widget.locker);
+                        widget.locker.isAvailable = true;
+                        widget.locker.isInaccessible = false;
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -223,8 +212,17 @@ class _LockerItemState extends State<LockerItem> {
                                       actions: [
                                         TextButton(
                                           onPressed: () {
-                                            desattributeLockerAndStudent(
-                                                owner, widget.locker);
+                                            Student student = Provider.of<
+                                                        LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getStudentByLocker(
+                                                    widget.locker);
+                                            Provider.of<LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .unAttributeLocker(
+                                                    widget.locker, student);
 
                                             Navigator.of(context).pop();
                                           },
@@ -232,14 +230,35 @@ class _LockerItemState extends State<LockerItem> {
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            desattributeLockerAndStudent(
-                                                owner, widget.locker);
+                                            Student student = Provider.of<
+                                                        LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getStudentByLocker(
+                                                    widget.locker);
+                                            Provider.of<LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .unAttributeLocker(
+                                                    widget.locker, student);
+
+                                            // Provider.of<LockerStudentProvider>(
+                                            //         context,
+                                            //         listen: false)
+                                            //     .updateLocker(widget.locker,
+                                            //         historic: false);
 
                                             Provider.of<LockerStudentProvider>(
                                                     context,
                                                     listen: false)
                                                 .autoAttributeOneLocker(owner);
-
+                                            // Provider.of<LockerStudentProvider>(
+                                            //         context,
+                                            //         listen: false)
+                                            //     .setLockerToInaccessible(
+                                            //         widget.locker);
+                                            // widget.locker.isAvailable = false;
+                                            // widget.locker.isInaccessible = true;
                                             Navigator.of(context).pop();
                                           },
                                           child: const Text('Confirmer'),
@@ -247,14 +266,12 @@ class _LockerItemState extends State<LockerItem> {
                                       ],
                                     );
                                   });
-                            } else {
-                              widget.locker.isAvailable = false;
-                              widget.locker.isInaccessible = true;
-
-                              Provider.of<LockerStudentProvider>(context,
-                                      listen: false)
-                                  .updateLocker(widget.locker);
                             }
+                            Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .setLockerToInaccessible(widget.locker);
+                            widget.locker.isAvailable = false;
+                            widget.locker.isInaccessible = true;
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

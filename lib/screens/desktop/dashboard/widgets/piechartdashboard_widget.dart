@@ -23,7 +23,7 @@ class _PieChartDashboardState extends State<PieChartDashboard> {
   Widget build(BuildContext context) {
     return Container(
       height: 440,
-      width: 495,
+      width: 400,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,

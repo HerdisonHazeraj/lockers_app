@@ -127,10 +127,11 @@ class _StudentItemState extends State<StudentItem> {
                     visible: widget.student.isFocus,
                     child: IconButton(
                       onPressed: () {
-                        widget.student.isArchived = false;
                         Provider.of<LockerStudentProvider>(context,
                                 listen: false)
-                            .updateStudent(widget.student);
+                            .updateStudent(
+                                widget.student.copyWith(isArchived: false));
+                        widget.student.isArchived = false;
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
