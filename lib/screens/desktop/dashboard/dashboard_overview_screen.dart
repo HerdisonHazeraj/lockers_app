@@ -15,11 +15,16 @@ import '../../../responsive.dart';
 import 'widgets/dashboard_menu.dart';
 
 class DashboardOverviewScreen extends StatefulWidget {
-  const DashboardOverviewScreen(
-      {required this.changePage, required this.onSignedOut, super.key});
+  const DashboardOverviewScreen({
+    required this.changePage,
+    required this.onSignedOut,
+    required this.changeTheme,
+    super.key,
+  });
 
   final Function changePage;
   final Function onSignedOut;
+  final Function changeTheme;
 
   static String routeName = "/dashboard";
   static int pageIndex = 0;
@@ -34,6 +39,31 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
 
   int touchedIndex = -1;
 
+  late bool isDarkTheme;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getTheme();
+    });
+  }
+
+  _getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
+    });
+  }
+
+  changeTheme() async {
+    setState(() {
+      isDarkTheme = !isDarkTheme;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isDarkTheme', isDarkTheme);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,11 +74,11 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
               children: [
                 Container(
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
                     border: Border(
                       bottom: BorderSide(
-                        color: Colors.black54,
+                        color: Theme.of(context).dividerColor,
                         width: 0.3,
                       ),
                     ),
@@ -58,7 +88,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -67,7 +97,11 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                             ),
                             Text(
                               "Bienvenue sur l'application de gestion des casiers",
-                              style: TextStyle(color: Colors.black54),
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .textSelectionTheme
+                                    .selectionColor,
+                              ),
                             )
                           ],
                         ),
@@ -84,67 +118,84 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Hero(
-                                tag: "Petit chat",
-                                child: PopupMenuButton<int>(
-                                  elevation: 2,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
+                              child: PopupMenuButton<int>(
+                                elevation: 2,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                position: PopupMenuPosition.under,
+                                tooltip: "",
+                                itemBuilder: (context) => [
+                                  PopupMenuItem<int>(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Thème sombre"),
+                                        Switch(
+                                          value: isDarkTheme,
+                                          onChanged: (value) {
+                                            Navigator.pop(context);
+                                            changeTheme();
+                                            widget.changeTheme();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    onTap: () async {
+                                      changeTheme();
+                                      widget.changeTheme();
+                                    },
+                                  ),
+                                  const PopupMenuItem<int>(
+                                    child: Text(
+                                      "Profil",
                                     ),
                                   ),
-                                  position: PopupMenuPosition.under,
-                                  tooltip: "",
-                                  itemBuilder: (context) => [
-                                    const PopupMenuItem<int>(
-                                      child: Text(
-                                        "Profil",
-                                      ),
-                                    ),
-                                    const PopupMenuDivider(height: 1),
-                                    PopupMenuItem<int>(
-                                      onTap: () async {
-                                        SharedPreferences prefs =
-                                            await SharedPreferences
-                                                .getInstance();
+                                  const PopupMenuDivider(height: 1),
+                                  PopupMenuItem<int>(
+                                    onTap: () async {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
 
-                                        auth.signOut();
-                                        widget.onSignedOut();
-                                        prefs.setString("token", "");
-                                        // Navigator.pop(context);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content:
-                                                Text("Déconnexion réussie !"),
-                                          ),
-                                        );
-                                      },
-                                      child: const Text(
-                                        "Déconnexion",
-                                        style: TextStyle(color: Colors.red),
-                                      ),
+                                      auth.signOut();
+                                      widget.onSignedOut();
+                                      prefs.setString("token", "");
+                                      // Navigator.pop(context);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text("Déconnexion réussie !"),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      "Déconnexion",
+                                      style: TextStyle(color: Colors.red),
                                     ),
-                                  ],
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        "https://ik.imagekit.io/yynn3ntzglc/cms/medium_Accroche_chat_poil_long_96efb37bbd_4ma1xrsmu.jpg",
-                                    imageBuilder: (context, imageProvider) =>
-                                        CircleAvatar(
-                                      backgroundImage: imageProvider,
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        const Tooltip(
-                                      message:
-                                          "L'image n'a pas réussi à se charger",
-                                      child: Icon(
-                                        Icons.error_outlined,
-                                        color: Colors.red,
-                                        size: 40,
-                                      ),
+                                  ),
+                                ],
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      "https://ik.imagekit.io/yynn3ntzglc/cms/medium_Accroche_chat_poil_long_96efb37bbd_4ma1xrsmu.jpg",
+                                  imageBuilder: (context, imageProvider) =>
+                                      CircleAvatar(
+                                    backgroundImage: imageProvider,
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const Tooltip(
+                                    message:
+                                        "L'image n'a pas réussi à se charger",
+                                    child: Icon(
+                                      Icons.error_outlined,
+                                      color: Colors.red,
+                                      size: 40,
                                     ),
                                   ),
                                 ),
@@ -182,7 +233,7 @@ class _DashboardOverviewScreenState extends State<DashboardOverviewScreen> {
                           InfoCard(
                             "Nombre total \nd'élèves",
                             Provider.of<LockerStudentProvider>(context)
-                                .studentItems
+                                .getNotArchivedStudent()
                                 .length
                                 .toString(),
                             'assets/icons/student.svg',

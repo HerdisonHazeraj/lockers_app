@@ -5,6 +5,7 @@ import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/theme.dart';
 import 'drop_down_menu.dart';
 
 class AddStudentMenu extends StatefulWidget {
@@ -40,13 +41,13 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Ajouter un élève",
             style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 18,
-              color: Colors.black54,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -76,7 +77,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusLastName);
                           },
                           controller: firstnameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Prénom",
                             prefixIcon: Icon(Icons.person_outlined),
                           ),
@@ -95,7 +96,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusMail);
                           },
                           controller: loginController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Login",
                             prefixIcon: Icon(Icons.login_outlined),
                           ),
@@ -113,7 +114,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusYear);
                           },
                           controller: classeController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Classe",
                             prefixIcon: Icon(Icons.school_outlined),
                           ),
@@ -132,7 +133,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                                 .requestFocus(focusResponsable);
                           },
                           controller: jobController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Formation",
                             prefixIcon: Icon(Icons.work_outlined),
                           ),
@@ -160,7 +161,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusLogin);
                           },
                           controller: lastnameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Nom",
                             prefixIcon: Icon(Icons.person_outlined),
                           ),
@@ -179,7 +180,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                             FocusScope.of(context).requestFocus(focusClasse);
                           },
                           controller: mailController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Mail",
                             prefixIcon: Icon(Icons.mail_outlined),
                           ),
@@ -213,7 +214,7 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
                           focusNode: focusResponsable,
                           textInputAction: TextInputAction.done,
                           controller: responsableController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Maître de classe",
                             prefixIcon:
                                 Icon(Icons.admin_panel_settings_outlined),
@@ -231,9 +232,6 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black54),
-                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Student student = Student(
@@ -250,14 +248,6 @@ class _AddStudentMenuState extends State<AddStudentMenu> {
 
                       Provider.of<LockerStudentProvider>(context, listen: false)
                           .addStudent(student);
-                      Provider.of<HistoryProvider>(context, listen: false)
-                          .addHistory(
-                        History(
-                          date: DateTime.now().toString(),
-                          action: "add",
-                          student: student.toJson(),
-                        ),
-                      );
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

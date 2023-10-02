@@ -8,7 +8,9 @@ import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart
 import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 
-class SideMenuApp extends StatelessWidget {
+import '../../../core/theme.dart';
+
+class SideMenuApp extends StatefulWidget {
   const SideMenuApp({
     super.key,
     required this.sideMenuController,
@@ -17,20 +19,25 @@ class SideMenuApp extends StatelessWidget {
   final SideMenuController sideMenuController;
 
   @override
+  State<SideMenuApp> createState() => _SideMenuAppState();
+}
+
+class _SideMenuAppState extends State<SideMenuApp> {
+  @override
   Widget build(BuildContext context) {
     return SideMenu(
-      controller: sideMenuController,
+      controller: widget.sideMenuController,
       collapseWidth: 1,
       style: SideMenuStyle(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           border: Border(
             right: BorderSide(
-              color: Colors.black54,
+              color: Theme.of(context).dividerColor,
               width: 0.3,
             ),
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         itemBorderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           bottomLeft: Radius.circular(10),
@@ -66,7 +73,9 @@ class SideMenuApp extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: TextButton(
           onPressed: () {
-            // Navigator.of(context).pushNamed(PrepareDatabaseScreen.routeName);
+            setState(() {
+              // ColorTheme.setTheme(true);
+            });
           },
           child: const Text(
             'ceff - 2023',
@@ -86,13 +95,33 @@ class SideMenuApp extends StatelessWidget {
           ),
           priority: DashboardOverviewScreen.pageIndex,
           title: 'Dashboard',
-          onTap: (page, _) {
-            sideMenuController.changePage(page);
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/dashboard.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Dashboard',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
           },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/dashboard.svg",
-            height: 24,
-          ),
+          onTap: (page, _) {
+            widget.sideMenuController.changePage(page);
+          },
         ),
         SideMenuItem(
           badgeContent: const Text(
@@ -101,9 +130,33 @@ class SideMenuApp extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          // badgeColor: const Color(0xFFFB3274),
+          // badgeColor: constColorTheme.primary,
           priority: LockersOverviewScreen.pageIndex,
-          title: 'Casiers',
+
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/locker.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Casiers',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
+          },
           trailing: Provider.of<LockerStudentProvider>(context)
                   .getDefectiveLockers()
                   .isNotEmpty
@@ -131,16 +184,35 @@ class SideMenuApp extends StatelessWidget {
                 )
               : const Text(''),
           onTap: (page, _) {
-            sideMenuController.changePage(page);
+            widget.sideMenuController.changePage(page);
           },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/locker.svg",
-            height: 24,
-          ),
         ),
         SideMenuItem(
           priority: StudentsOverviewScreen.pageIndex,
-          title: 'Élèves',
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/student.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Élèves',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
+          },
           trailing: Provider.of<LockerStudentProvider>(context)
                   .getNonPaidCaution()
                   .isNotEmpty
@@ -168,23 +240,38 @@ class SideMenuApp extends StatelessWidget {
                 )
               : const Text(''),
           onTap: (page, _) {
-            sideMenuController.changePage(page);
+            widget.sideMenuController.changePage(page);
           },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/student.svg",
-            height: 24,
-          ),
         ),
         SideMenuItem(
           priority: AssignationOverviewScreen.pageIndex,
-          title: 'Attributions',
-          onTap: (page, _) {
-            sideMenuController.changePage(page);
+          builder: (context, displayMode) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SvgPicture.asset(
+                    "assets/icons/assign.svg",
+                    height: 24,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    'Attributions',
+                    style: TextStyle(
+                        color:
+                            Theme.of(context).textSelectionTheme.selectionColor,
+                        fontSize: 16),
+                  ),
+                ),
+              ],
+            );
           },
-          iconWidget: SvgPicture.asset(
-            "assets/icons/assign.svg",
-            height: 24,
-          ),
+          onTap: (page, _) {
+            widget.sideMenuController.changePage(page);
+          },
         ),
       ],
     );

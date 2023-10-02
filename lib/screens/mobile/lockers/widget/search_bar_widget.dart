@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
@@ -9,10 +8,7 @@ import '../../../../models/locker.dart';
 import '../../../../providers/lockers_student_provider.dart';
 
 class SearchBarWidget extends StatefulWidget {
-  const SearchBarWidget(
-      {super.key, this.isLockerPage, required this.refreshSearchBar});
-
-  final Function refreshSearchBar;
+  const SearchBarWidget({super.key, this.isLockerPage});
 
   final bool? isLockerPage;
 
@@ -23,33 +19,42 @@ class SearchBarWidget extends StatefulWidget {
 class _SearchBarWidgetState extends State<SearchBarWidget> {
   List<Locker> searchedListLockers = [];
   List<Student> searchedListStudents = [];
-
-  FocusNode searchFocusNode = FocusNode();
-
+  bool searchAll = false;
   SearchController controller = SearchController();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: SearchAnchor(
-        viewLeading: IconButton(
-          onPressed: () {
-            widget.refreshSearchBar(searchFocusNode);
-
-            // FocusManager.instance.primaryFocus?.unfocus();
-            // Navigator.pop(context);
-            // searchFocusNode.unfocus();
-            // FocusManager.instance.primaryFocus?.unfocus();
-          },
-          icon: const Icon(Icons.arrow_back_outlined),
-        ),
+        searchController: controller,
+        viewTrailing: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                searchAll = !searchAll;
+                searchedListLockers.clear();
+                searchedListStudents.clear();
+              });
+            },
+            icon: searchAll
+                ? Icon(Icons.group_outlined)
+                : Icon(Icons.group_off_outlined),
+          ),
+          IconButton(
+            onPressed: () {
+              controller.clear();
+            },
+            icon: Icon(Icons.clear),
+          ),
+        ],
         // suggestions: searchedListLockers,
         suggestionsBuilder:
             (BuildContext context, SearchController controller) {
           if (widget.isLockerPage!) {
             searchedListLockers =
                 Provider.of<LockerStudentProvider>(context, listen: false)
-                    .searchLockers(controller.text);
+                    .searchLockers(controller.text,
+                        searchUnAccessibleLocker: searchAll);
             return List<ListTile>.from(searchedListLockers.map((item) {
               return ListTile(
                 title: Text(item.lockerNumber.toString()),
@@ -71,7 +76,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           } else {
             searchedListStudents =
                 Provider.of<LockerStudentProvider>(context, listen: false)
-                    .searchStudents(controller.text);
+                    .searchStudents(controller.text,
+                        searchArchivedStudents: searchAll);
             return List<ListTile>.from(searchedListStudents.map((item) {
               return ListTile(
                 title: Text("${item.firstName} ${item.lastName}"),
@@ -96,19 +102,23 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
         builder: (BuildContext context, SearchController controller) {
           return SearchBar(
-              focusNode: searchFocusNode,
-              // hintText: widget.isLockerPage!
-              //     ? "Rechercher un Casier..."
-              //     : "Rechercher un élève...",
-              backgroundColor:
-                  MaterialStateColor.resolveWith((states) => Color(0xffF4F6F7)),
-              elevation: MaterialStateProperty.all(0),
-              controller: controller,
-              onChanged: (value) {},
-              onTap: () {
-                controller.openView();
-              },
-              leading: const Icon(Icons.search));
+            backgroundColor: MaterialStateColor.resolveWith(
+                (states) => Theme.of(context).canvasColor
+                // const Color(0xffF4F6F7)
+                ),
+            elevation: MaterialStateProperty.all(0),
+            controller: controller,
+            onChanged: (value) {
+              controller.openView();
+            },
+            // : (value) {
+            //   controller.openView();
+            // },
+            onTap: () {
+              controller.openView();
+            },
+            leading: const Icon(Icons.search),
+          );
         },
       ),
     );

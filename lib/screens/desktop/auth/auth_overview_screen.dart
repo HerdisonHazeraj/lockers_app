@@ -4,6 +4,8 @@ import 'package:lockers_app/screens/desktop/auth/widgets/sign_in/mail_password_a
 import 'package:lockers_app/screens/desktop/auth/widgets/sign_in/number_confirmation_auth_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/theme.dart';
+
 class AuthOverviewScreen extends StatefulWidget {
   const AuthOverviewScreen({required this.onSignedIn, super.key});
   final Function onSignedIn;
@@ -34,7 +36,8 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
         height: 600,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
+          // color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -49,23 +52,25 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
           height: double.infinity,
           child: Column(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Se connecter",
                   style: TextStyle(
                     fontSize: 24,
-                    color: Colors.black,
+                    // color: Theme.of(context).textSelectionTheme.selectionColor,
                     fontWeight: FontWeight.w500,
                     height: 1.3,
                   ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Veuillez entrer vos identifiants,",
-                  style: TextStyle(color: Colors.black54),
+                  style: TextStyle(
+                      color:
+                          Theme.of(context).textSelectionTheme.selectionColor),
                 ),
               ),
               const SizedBox(height: 20),
@@ -114,14 +119,16 @@ class _AuthOverviewScreenState extends State<AuthOverviewScreen> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black54),
-                  ),
+                  style: Theme.of(context).elevatedButtonTheme.style,
                   child: Text(
                     otpFieldVisibility && connectWithSMS
                         ? "Confirmer"
                         : "Se connecter",
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        // color: Theme.of(context)
+                        //     .textSelectionTheme
+                        //     .selectionColor
+                        ),
                   ),
                   onPressed: () async {
                     final SharedPreferences prefs =

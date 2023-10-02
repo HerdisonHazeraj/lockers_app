@@ -7,6 +7,8 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/drop_down_menu.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/theme.dart';
+
 class LockerUpdate extends StatefulWidget {
   const LockerUpdate(
       {super.key,
@@ -157,12 +159,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez remplir ce champ';
-                        }
-                        return null;
-                      },
                       enabled: !widget.locker.isInaccessible!,
                       controller: jobController,
                       decoration: const InputDecoration(
@@ -195,10 +191,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black54),
-                      ),
                       onPressed: widget.locker.isInaccessible == true
                           ? null
                           : () {
@@ -212,10 +204,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black54),
-                      ),
                       onPressed: widget.locker.isInaccessible == true
                           ? null
                           : () async {
@@ -242,14 +230,6 @@ class _LockerUpdateState extends State<LockerUpdate> {
                                               remarkController.text == ""
                                           ? false
                                           : true,
-                                ));
-
-                                Provider.of<HistoryProvider>(context,
-                                        listen: false)
-                                    .addHistory(History(
-                                  date: DateTime.now().toString(),
-                                  action: "update",
-                                  locker: locker.toJson(),
                                 ));
 
                                 widget.updateSearchLockerList!();

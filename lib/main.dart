@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lockers_app/core/config.dart';
+import 'package:lockers_app/core/theme.dart';
 import 'package:lockers_app/firebase_options.dart';
 import 'package:lockers_app/infrastructure/firebase_api_service.dart';
 import 'package:lockers_app/providers/history_provider.dart';
@@ -50,8 +51,36 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isDarkTheme = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getTheme();
+    });
+  }
+
+  _getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
+    });
+  }
+
+  changeTheme() async {
+    setState(() {
+      isDarkTheme = !isDarkTheme;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +100,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Application de gestion des casiers du ceff',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: const Color(0xfff5f5fd),
-          fontFamily: GoogleFonts.roboto().fontFamily,
-        ),
+        theme: Styles.themeData(isDarkTheme, context),
         routes: {
           PrepareDatabaseScreen.routeName: (context) =>
               const PrepareDatabaseScreen(),
           DashboardOverviewScreen.routeName: (context) =>
               DashboardOverviewScreen(
-                  changePage: () => null, onSignedOut: () => null),
+                changePage: () => null,
+                onSignedOut: () => null,
+                changeTheme: () => null,
+              ),
           LockersOverviewScreen.routeName: (context) =>
               const LockersOverviewScreen(),
           AssignationOverviewScreen.routeName: (context) =>
@@ -89,14 +117,25 @@ class MyApp extends StatelessWidget {
           StudentsOverviewScreen.routeName: (context) =>
               const StudentsOverviewScreen(),
         },
-        home: const MyWidget(),
+        home: MyWidget(
+          changeTheme: () => changeTheme(),
+          isDarkTheme: isDarkTheme,
+          getTheme: () => _getTheme,
+        ),
       ),
     );
   }
 }
 
 class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+  const MyWidget(
+      {required this.changeTheme,
+      super.key,
+      required this.isDarkTheme,
+      required this.getTheme});
+  final bool isDarkTheme;
+  final Function getTheme;
+  final Function changeTheme;
 
   @override
   State<MyWidget> createState() => _MyWidgetState();
@@ -111,14 +150,14 @@ class _MyWidgetState extends State<MyWidget> {
   bool isLogged = false;
 
   TextStyle styleSelected = const TextStyle(
-    color: Color(0xfffb3274),
+    color: ColorTheme.primary,
     fontWeight: FontWeight.bold,
     fontSize: 18,
   );
-  TextStyle styleUnselected = const TextStyle(
-    color: Colors.black54,
-    fontSize: 18,
-  );
+  // TextStyle styleUnselected =  TextStyle(
+  // color: Theme.of(context).textSelectionTheme.selectionColor,
+  // fontSize: 18,
+  // );
 
   @override
   void initState() {
@@ -150,6 +189,7 @@ class _MyWidgetState extends State<MyWidget> {
   Future<void> didChangeDependencies() async {
     if (_isInit) {
       _isLoading = true;
+      widget.getTheme();
       await Provider.of<LockerStudentProvider>(context, listen: false)
           .fetchAndSetLockers();
       await Provider.of<LockerStudentProvider>(context, listen: false)
@@ -189,10 +229,10 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return _isLoading
         ? Container(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             child: const Center(
               child: CircularProgressIndicator(
-                color: Color(0xfffb3274),
+                color: ColorTheme.primary,
               ),
             ),
           )
@@ -212,6 +252,7 @@ class _MyWidgetState extends State<MyWidget> {
                                 DashboardOverviewScreen(
                                   changePage: (index) => changePage(index),
                                   onSignedOut: () => onSignedOut(),
+                                  changeTheme: () => widget.changeTheme(),
                                 ),
                                 const LockersOverviewScreen(),
                                 const StudentsOverviewScreen(),
@@ -229,79 +270,272 @@ class _MyWidgetState extends State<MyWidget> {
             // Version mobile
             : Scaffold(
                 appBar: AppBar(
-                  toolbarHeight: 40,
+                  toolbarHeight: 100.3,
                   actions: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
                         border: Border(
-                            bottom: BorderSide(
-                          color: Colors.black54,
-                          width: 0.3,
-                        )),
+                          bottom: BorderSide(
+                            color: Theme.of(context).dividerColor,
+                            width: 0.3,
+                          ),
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            height: double.infinity,
-                            decoration: selectedIndex == 0
-                                ? const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Color(0xfffb3274),
-                                        width: 3,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(''),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 10,
+                                          top: 10,
+                                        ),
+                                        child: Hero(
+                                          tag: "Petit chat",
+                                          child: PopupMenuButton<int>(
+                                            elevation: 2,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(10),
+                                              ),
+                                            ),
+                                            position: PopupMenuPosition.under,
+                                            tooltip: "",
+                                            itemBuilder: (context) => [
+                                              PopupMenuItem<int>(
+                                                onTap: () {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                          content: Text(
+                                                              "Cette fonctionnalité n'est pas encore disponible.")));
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "Profil",
+                                                    ),
+                                                    Icon(
+                                                      Icons.person_outline,
+                                                      color: Theme.of(context)
+                                                          .iconTheme
+                                                          .color,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const PopupMenuDivider(height: 1),
+                                              PopupMenuItem<int>(
+                                                onTap: () {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                          content: Text(
+                                                              "Cette fonctionnalité n'est pas encore disponible.")));
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Paramètres',
+                                                    ),
+                                                    Icon(
+                                                      Icons.settings_outlined,
+                                                      color: Theme.of(context)
+                                                          .iconTheme
+                                                          .color,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              const PopupMenuDivider(height: 1),
+                                              PopupMenuItem<int>(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text("Thème sombre"),
+                                                    Switch(
+                                                      value: widget.isDarkTheme,
+                                                      onChanged: (value) {
+                                                        Navigator.pop(context);
+                                                        // widget.changeTheme();
+                                                        setState(() {
+                                                          widget.changeTheme();
+                                                        });
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                                onTap: () async {
+                                                  // widget.changeTheme();
+                                                  widget.changeTheme();
+                                                },
+                                              ),
+                                              const PopupMenuDivider(height: 1),
+                                              PopupMenuItem<int>(
+                                                onTap: () async {
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
+
+                                                  auth.signOut();
+                                                  // widget.onSignedOut();
+                                                  prefs.setString("token", "");
+                                                  // Navigator.pop(context);
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text(
+                                                          "Déconnexion réussie !"),
+                                                    ),
+                                                  );
+                                                },
+                                                child: const Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "Déconnexion",
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
+                                                    Icon(
+                                                      Icons.logout,
+                                                      color: Colors.red,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  "https://ik.imagekit.io/yynn3ntzglc/cms/medium_Accroche_chat_poil_long_96efb37bbd_4ma1xrsmu.jpg",
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      CircleAvatar(
+                                                backgroundImage: imageProvider,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  const CircularProgressIndicator(),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Tooltip(
+                                                message:
+                                                    "L'image n'a pas réussi à se charger",
+                                                child: Icon(
+                                                  Icons.error_outlined,
+                                                  color: Colors.red,
+                                                  size: 40,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 50,
+                              child: Align(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      height: double.infinity,
+                                      decoration: selectedIndex == 0
+                                          ? const BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: ColorTheme.primary,
+                                                  width: 3,
+                                                ),
+                                              ),
+                                            )
+                                          : null,
+                                      child: TextButton(
+                                        child: Text(
+                                          "Casiers",
+                                          style: selectedIndex == 0
+                                              ? styleSelected
+                                              : TextStyle(
+                                                  color: Theme.of(context)
+                                                      .textSelectionTheme
+                                                      .selectionColor,
+                                                  fontSize: 18,
+                                                ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            selectedIndex = 0;
+                                          });
+                                        },
                                       ),
                                     ),
-                                  )
-                                : null,
-                            child: TextButton(
-                              child: Text(
-                                "Casiers",
-                                style: selectedIndex == 0
-                                    ? styleSelected
-                                    : styleUnselected,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  selectedIndex = 0;
-                                });
-                              },
-                            ),
-                          ),
-                          Container(
-                            height: double.infinity,
-                            decoration: selectedIndex == 1
-                                ? const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Color(0xfffb3274),
-                                        width: 3,
+                                    Container(
+                                      height: double.infinity,
+                                      decoration: selectedIndex == 1
+                                          ? const BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: ColorTheme.primary,
+                                                  width: 3,
+                                                ),
+                                              ),
+                                            )
+                                          : null,
+                                      child: TextButton(
+                                        child: Text(
+                                          "Élèves",
+                                          style: selectedIndex == 1
+                                              ? styleSelected
+                                              : TextStyle(
+                                                  color: Theme.of(context)
+                                                      .textSelectionTheme
+                                                      .selectionColor,
+                                                  fontSize: 18,
+                                                ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            selectedIndex = 1;
+                                          });
+                                        },
                                       ),
                                     ),
-                                  )
-                                : null,
-                            child: TextButton(
-                              child: Text(
-                                "Élèves",
-                                style: selectedIndex == 1
-                                    ? styleSelected
-                                    : styleUnselected,
+                                  ],
+                                ),
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  selectedIndex = 1;
-                                });
-                              },
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
                   elevation: 0,
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: Theme.of(context).canvasColor,
                 ),
                 body: selectedIndex == 0
                     ? const LockersOverviewScreenMobile()

@@ -6,6 +6,7 @@ import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/theme.dart';
 import '../../../../models/locker.dart';
 import '../../../../models/student.dart';
 import '../../../../responsive.dart';
@@ -77,7 +78,7 @@ class _StudentItemState extends State<StudentItem> {
           onTap: () {
             showGeneralDialog(
               context: context,
-              barrierColor: Colors.black38,
+              barrierColor: ColorTheme.thirdTextColor,
               barrierLabel: "Photo de l'élève",
               barrierDismissible: true,
               pageBuilder: (_, __, ___) => Center(
@@ -126,10 +127,11 @@ class _StudentItemState extends State<StudentItem> {
                     visible: widget.student.isFocus,
                     child: IconButton(
                       onPressed: () {
-                        widget.student.isArchived = false;
                         Provider.of<LockerStudentProvider>(context,
                                 listen: false)
-                            .updateStudent(widget.student);
+                            .updateStudent(
+                                widget.student.copyWith(isArchived: false));
+                        widget.student.isArchived = false;
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -140,9 +142,9 @@ class _StudentItemState extends State<StudentItem> {
                         );
                       },
                       tooltip: "Désarchiver l'élève",
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.unarchive_outlined,
-                        color: Colors.black,
+                        color: Theme.of(context).iconTheme.color,
                       ),
                     ),
                   )
@@ -166,9 +168,9 @@ class _StudentItemState extends State<StudentItem> {
                             widget.refreshList!();
                           },
                           tooltip: "Archiver l'élève",
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.archive_outlined,
-                            color: Colors.black,
+                            color: Theme.of(context).iconTheme.color,
                           ),
                         ),
                         widget.student.caution == 20
@@ -189,9 +191,9 @@ class _StudentItemState extends State<StudentItem> {
                                   );
                                 },
                                 tooltip: "La caution a été rendue",
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.money_off_outlined,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                 ),
                               )
                             : IconButton(
@@ -213,9 +215,9 @@ class _StudentItemState extends State<StudentItem> {
                                   widget.refreshList!();
                                 },
                                 tooltip: "L'élève a payé la caution",
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.attach_money_outlined,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                 ),
                               ),
                         widget.student.lockerNumber == 0
@@ -239,17 +241,6 @@ class _StudentItemState extends State<StudentItem> {
                                           .getLockerByLockerNumber(
                                               updatedStudent.lockerNumber);
 
-                                  Provider.of<HistoryProvider>(context,
-                                          listen: false)
-                                      .addHistory(
-                                    History(
-                                      date: DateTime.now().toString(),
-                                      action: "attribution",
-                                      locker: locker.toJson(),
-                                      student: updatedStudent.toJson(),
-                                    ),
-                                  );
-
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -261,9 +252,9 @@ class _StudentItemState extends State<StudentItem> {
                                   widget.refreshList!();
                                 },
                                 tooltip: "Attribuer automatiquement un casier",
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.bookmark_add_outlined,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                 ),
                               )
                             : IconButton(
@@ -283,17 +274,6 @@ class _StudentItemState extends State<StudentItem> {
                                       .unAttributeLocker(
                                           locker, widget.student);
 
-                                  Provider.of<HistoryProvider>(context,
-                                          listen: false)
-                                      .addHistory(
-                                    History(
-                                      date: DateTime.now().toString(),
-                                      action: "unattribution",
-                                      locker: locker.toJson(),
-                                      student: widget.student.toJson(),
-                                    ),
-                                  );
-
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -305,9 +285,9 @@ class _StudentItemState extends State<StudentItem> {
                                   widget.refreshList!();
                                 },
                                 tooltip: "Désattribuer le casier de l'élève",
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.bookmark_remove_outlined,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                 ),
                               ),
                         IconButton(
@@ -322,9 +302,9 @@ class _StudentItemState extends State<StudentItem> {
                             await launchUrl(mail);
                           },
                           tooltip: "Envoyer un mail à l'élève",
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.mail_outlined,
-                            color: Colors.black,
+                            color: Theme.of(context).iconTheme.color,
                           ),
                         ),
                         IconButton(
@@ -357,24 +337,8 @@ class _StudentItemState extends State<StudentItem> {
                                                   listen: false)
                                               .deleteStudent(
                                                   widget.student.id!);
-                                          Provider.of<HistoryProvider>(context,
-                                                  listen: false)
-                                              .addHistory(
-                                            History(
-                                              date: DateTime.now().toString(),
-                                              action: "delete",
-                                              student: widget.student.toJson(),
-                                              index: Provider.of<
-                                                          LockerStudentProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .findIndexOfLockerById(
-                                                      widget.student.id!),
-                                            ),
-                                          );
-                                          widget.refreshList!();
-
                                           Navigator.of(context).pop();
+                                          widget.refreshList!();
                                         },
                                         child: const Text("Confirmer"),
                                       ),

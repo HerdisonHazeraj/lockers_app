@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/theme.dart';
+
 class ImportAllMenu extends StatefulWidget {
   ImportAllMenu({super.key});
   final List<Widget> items = [];
@@ -15,19 +17,19 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
   // Controllers for the importing student form
   final fileController = TextEditingController();
 
-  late FilePickerResult? filePicker;
+  late FilePickerResult? pickedFile;
 
   @override
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Importer un fichier CSV",
             style: TextStyle(
               fontSize: 18,
-              color: Colors.black54,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -40,21 +42,33 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
             Expanded(
               child: TextField(
                 controller: fileController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: "Choisir...",
                   prefixIcon: Icon(Icons.file_upload_outlined),
                 ),
                 readOnly: true,
                 onTap: () async {
-                  filePicker = (await FilePicker.platform.pickFiles(
+                  pickedFile = (await FilePicker.platform.pickFiles(
                     type: FileType.custom,
                     allowedExtensions: ['csv'],
+                    allowMultiple: false,
                     withData: true,
                   ));
 
-                  if (filePicker != null) {
-                    fileController.text = filePicker!.files.single.name;
+                  if (pickedFile != null) {
+                    fileController.text = pickedFile!.files.single.name;
                   }
+
+                  // pickedFile = (await FilePicker.platform.pickFiles(
+                  //   type: FileType.custom,
+                  //   allowedExtensions: ['xlsx'],
+                  //   withData: true,
+                  //   allowMultiple: false,
+                  // ));
+
+                  // if (pickedFile != null) {
+                  //   fileController.text = pickedFile!.files.single.name;
+                  // }
                 },
               ),
             ),
@@ -63,15 +77,12 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
             ),
             Expanded(
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black54),
-                ),
                 onPressed: () async {
                   //écrire la méthode
                   final error = await Provider.of<LockerStudentProvider>(
                     context,
                     listen: false,
-                  ).importAllWithCSV(filePicker!);
+                  ).importAllWithCSV(pickedFile!);
                   if (error != null) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(error)));
@@ -85,6 +96,17 @@ class _ImportAllMenuState extends State<ImportAllMenu> {
 
                     fileController.clear();
                   }
+
+                  // final message = await Provider.of<LockerStudentProvider>(
+                  //   context,
+                  //   listen: false,
+                  // ).importAllWithXLSX(pickedFile!);
+
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(
+                  //     content: Text(message),
+                  //   ),
+                  // );
                 },
                 child: const Text("Importer"),
               ),

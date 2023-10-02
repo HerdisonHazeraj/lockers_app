@@ -31,17 +31,6 @@ class _LockerItemState extends State<LockerItem> {
   Locker deletedLocker = Locker.base();
   @override
   Widget build(BuildContext context) {
-    desattributeLockerAndStudent(Student owner, Locker locker) async {
-      await Provider.of<LockerStudentProvider>(context, listen: false)
-          .updateStudent(owner.copyWith(lockerNumber: 0));
-
-      widget.locker.isAvailable = false;
-      widget.locker.isInaccessible = true;
-
-      Provider.of<LockerStudentProvider>(context, listen: false)
-          .updateLocker(widget.locker);
-    }
-
     return MouseRegion(
       onExit: (event) => setState(() {
         widget.locker.isFocus = false;
@@ -116,11 +105,11 @@ class _LockerItemState extends State<LockerItem> {
                     visible: widget.locker.isFocus,
                     child: IconButton(
                       onPressed: () {
-                        widget.locker.isAvailable = true;
-                        widget.locker.isInaccessible = false;
                         Provider.of<LockerStudentProvider>(context,
                                 listen: false)
-                            .updateLocker(widget.locker);
+                            .unSetLockerToAccessible(widget.locker);
+                        widget.locker.isAvailable = true;
+                        widget.locker.isInaccessible = false;
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -131,9 +120,9 @@ class _LockerItemState extends State<LockerItem> {
                         );
                       },
                       tooltip: "Rendre ce casier à nouveau accessible",
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.switch_access_shortcut_add_outlined,
-                        color: Colors.black,
+                        color: Theme.of(context).iconTheme.color,
                       ),
                     ),
                   )
@@ -168,9 +157,10 @@ class _LockerItemState extends State<LockerItem> {
                                           });
                                         },
                                         tooltip: "Rajouter les clés manquantes",
-                                        icon: const Icon(
+                                        icon: Icon(
                                           Icons.vpn_key_outlined,
-                                          color: Colors.black,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
                                         ),
                                       )
                                     : const Text(''),
@@ -197,9 +187,10 @@ class _LockerItemState extends State<LockerItem> {
                                           });
                                         },
                                         tooltip: "Supprimer la remarque",
-                                        icon: const Icon(
+                                        icon: Icon(
                                           Icons.task_alt_outlined,
-                                          color: Colors.black,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
                                         ))
                                     : const Text('')
                               ])
@@ -221,8 +212,17 @@ class _LockerItemState extends State<LockerItem> {
                                       actions: [
                                         TextButton(
                                           onPressed: () {
-                                            desattributeLockerAndStudent(
-                                                owner, widget.locker);
+                                            Student student = Provider.of<
+                                                        LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getStudentByLocker(
+                                                    widget.locker);
+                                            Provider.of<LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .unAttributeLocker(
+                                                    widget.locker, student);
 
                                             Navigator.of(context).pop();
                                           },
@@ -230,14 +230,35 @@ class _LockerItemState extends State<LockerItem> {
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            desattributeLockerAndStudent(
-                                                owner, widget.locker);
+                                            Student student = Provider.of<
+                                                        LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getStudentByLocker(
+                                                    widget.locker);
+                                            Provider.of<LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .unAttributeLocker(
+                                                    widget.locker, student);
+
+                                            // Provider.of<LockerStudentProvider>(
+                                            //         context,
+                                            //         listen: false)
+                                            //     .updateLocker(widget.locker,
+                                            //         historic: false);
 
                                             Provider.of<LockerStudentProvider>(
                                                     context,
                                                     listen: false)
                                                 .autoAttributeOneLocker(owner);
-
+                                            // Provider.of<LockerStudentProvider>(
+                                            //         context,
+                                            //         listen: false)
+                                            //     .setLockerToInaccessible(
+                                            //         widget.locker);
+                                            // widget.locker.isAvailable = false;
+                                            // widget.locker.isInaccessible = true;
                                             Navigator.of(context).pop();
                                           },
                                           child: const Text('Confirmer'),
@@ -245,14 +266,12 @@ class _LockerItemState extends State<LockerItem> {
                                       ],
                                     );
                                   });
-                            } else {
-                              widget.locker.isAvailable = false;
-                              widget.locker.isInaccessible = true;
-
-                              Provider.of<LockerStudentProvider>(context,
-                                      listen: false)
-                                  .updateLocker(widget.locker);
                             }
+                            Provider.of<LockerStudentProvider>(context,
+                                    listen: false)
+                                .setLockerToInaccessible(widget.locker);
+                            widget.locker.isAvailable = false;
+                            widget.locker.isInaccessible = true;
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -264,9 +283,9 @@ class _LockerItemState extends State<LockerItem> {
                             );
                           },
                           tooltip: "Rendre le casier inaccessible",
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.block_outlined,
-                            color: Colors.black,
+                            color: Theme.of(context).iconTheme.color,
                           ),
                         ),
                         IconButton(
@@ -379,19 +398,7 @@ class _LockerItemState extends State<LockerItem> {
                                                 context,
                                                 listen: false)
                                             .deleteLocker(widget.locker.id!);
-                                        Provider.of<HistoryProvider>(context,
-                                                listen: false)
-                                            .addHistory(History(
-                                          date: DateTime.now().toString(),
-                                          action: "delete",
-                                          locker: widget.locker.toJson(),
-                                          index: Provider.of<
-                                                      LockerStudentProvider>(
-                                                  context,
-                                                  listen: false)
-                                              .findIndexOfLockerById(
-                                                  widget.locker.id!),
-                                        ));
+
                                         widget.refreshList!();
                                         Navigator.of(context).pop();
                                       },

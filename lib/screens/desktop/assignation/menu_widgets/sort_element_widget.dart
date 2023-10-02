@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/screens/desktop/assignation/menu_widgets/dropdown_item_widget.dart';
 
+import '../../../../core/theme.dart';
+
 // ignore: must_be_immutable
 class SortElementWidget extends StatefulWidget {
   SortElementWidget(
@@ -67,9 +69,7 @@ class _SortElementWidgetState extends State<SortElementWidget> {
               widget.changeLockerListStateVoid(
                   widget.sortController, widget.isOrderCheckChecked);
             },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.black54),
-            ),
+            // style: Theme.of(context).elevatedButtonTheme.style,
             child: const Text(
               'Appliquer',
             ),

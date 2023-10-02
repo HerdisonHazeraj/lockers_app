@@ -6,6 +6,7 @@ import 'package:lockers_app/screens/desktop/students/widgets/student_update.dart
 import 'package:lockers_app/screens/desktop/students/widgets/students_menu.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/theme.dart';
 import '../../../responsive.dart';
 
 class StudentsOverviewScreen extends StatefulWidget {
@@ -151,7 +152,8 @@ class _StudentsListViewState extends State<StudentsListView> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  color: Colors.black38),
+                                                  color: ColorTheme
+                                                      .thirdTextColor),
                                             ),
                                           ),
                                         ],

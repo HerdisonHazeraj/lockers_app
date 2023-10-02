@@ -3,6 +3,7 @@ import 'package:lockers_app/models/locker.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
+import 'package:lockers_app/screens/mobile/core/shared.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_info_widget.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/studentlocker_info_widget.dart';
 import 'package:lockers_app/screens/mobile/students/widget/student_details_screen.dart';
@@ -17,6 +18,7 @@ class LockerDetailsScreenMobile extends StatefulWidget {
 }
 
 class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
+  Shared shared = Shared();
   List<bool> ExpList = [false, false, true];
   bool isInit = false;
   late int nbKey;
@@ -42,15 +44,8 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
       ListTile(
         title: const Text("Supprimer"),
         onTap: () async {
-          await Provider.of<LockerStudentProvider>(context, listen: false)
-              .deleteLocker(widget.locker.id.toString());
-
-          Navigator.pop(context);
-          Navigator.pop(context);
-
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                  "Le casier n°${widget.locker.lockerNumber} a bien été supprimé.")));
+          shared.methodInaccessibleOrDeleteLocker(
+              context, widget.locker, true, true);
         },
         trailing: const Icon(Icons.delete_forever_outlined),
       )
@@ -59,7 +54,7 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
     List<ListTile> standardList = [
       ListTile(
         title: showTextFormField
-            ? const Text('ffsfdsfffsffsdfdsfsdfdsfsdfsd')
+            ? const Text('Ajouter une remarque')
             : const Text('Ajouter une remarque'),
         onTap: () {
           setState(() {
@@ -122,12 +117,13 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
           )),
     ];
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            icon: Icon(Icons.arrow_back,
+                color: Theme.of(context).iconTheme.color),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -138,23 +134,30 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
                   right: MediaQuery.of(context).size.width * 0.03),
               child: IconButton(
                 onPressed: () {
-                  showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    )),
-                    context: context,
-                    builder: (_) => ModalBottomSheetWidgetTest(
-                      importantList: importantList,
-                      standardList: standardList,
-                      title: "Casier n°${widget.locker.lockerNumber}",
-                    ),
+                  ModalBottomSheetWidget(
+                    context,
+                    standardList,
+                    importantList,
+                    "Casier n°${widget.locker.lockerNumber}",
                   );
+
+                  // showModalBottomSheet(
+                  //   shape: const RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.only(
+                  //     topLeft: Radius.circular(20),
+                  //     topRight: Radius.circular(20),
+                  //   )),
+                  //   context: context,
+                  //   builder: (_) => ModalBottomSheetWidgetTest(
+                  //     importantList: importantList,
+                  //     standardList: standardList,
+                  //     title: "Casier n°${widget.locker.lockerNumber}",
+                  //   ),
+                  // );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.more_vert_outlined,
-                  color: Colors.black,
+                  color: Theme.of(context).iconTheme.color,
                   size: 26,
                 ),
               ),
@@ -164,8 +167,21 @@ class _LockerDetailsScreenMobileState extends State<LockerDetailsScreenMobile> {
         body: SingleChildScrollView(
           child: Column(children: [
             Text(
-              "Casier ${widget.locker.lockerNumber}",
+              "Casier n°${widget.locker.lockerNumber}",
               style: const TextStyle(fontSize: 20),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.01,
+                bottom: MediaQuery.of(context).size.height * 0.02,
+              ),
+              child: Text(
+                "${widget.locker.isAvailable! ? "Disponible" : "Indisponible"}",
+                style: TextStyle(
+                    fontSize: 16,
+                    color:
+                        widget.locker.isAvailable! ? Colors.green : Colors.red),
+              ),
             ),
             ExpansionPanelList(
               elevation: 0,

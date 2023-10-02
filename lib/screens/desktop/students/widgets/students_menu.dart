@@ -5,6 +5,8 @@ import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
 import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/import_student_menu.dart';
 import 'package:lockers_app/screens/desktop/students/widgets/menu_widgets/search_student_menu.dart';
 
+import '../../../../core/theme.dart';
+
 class StudentsMenu extends StatefulWidget {
   const StudentsMenu({super.key, required this.searchStudents});
 
@@ -26,10 +28,11 @@ class _StudentsMenuState extends State<StudentsMenu> {
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            color: Color(0xffececf6),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
             border: Border(
-              left: BorderSide(width: 0.3, color: Colors.black54),
+              left:
+                  BorderSide(width: 0.3, color: Theme.of(context).dividerColor),
             ),
           ),
           child: SingleChildScrollView(

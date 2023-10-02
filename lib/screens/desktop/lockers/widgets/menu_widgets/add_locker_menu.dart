@@ -4,6 +4,7 @@ import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/theme.dart';
 import '../../../../../models/locker.dart';
 import '../../../students/widgets/menu_widgets/drop_down_menu.dart';
 
@@ -38,13 +39,13 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Ajouter un casier",
             style: TextStyle(
               fontSize: 18,
-              color: Colors.black54,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -74,7 +75,7 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             FocusScope.of(context).requestFocus(focusNbKey);
                           },
                           controller: lockerNumberController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "N° de casier",
                             prefixIcon: Icon(Icons.lock_outlined),
                           ),
@@ -93,7 +94,7 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             FocusScope.of(context).requestFocus(focusJob);
                           },
                           controller: lockNumberController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "N° de serrure",
                             prefixIcon: Icon(Icons.numbers_outlined),
                           ),
@@ -140,7 +141,7 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                                 .requestFocus(focusLockNumber);
                           },
                           controller: nbKeyController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Nombre de clés",
                             prefixIcon: Icon(Icons.key_outlined),
                           ),
@@ -159,7 +160,7 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                             FocusScope.of(context).requestFocus(focusFloor);
                           },
                           controller: jobController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Métier",
                             prefixIcon: Icon(Icons.work_outlined),
                           ),
@@ -169,7 +170,7 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
                           focusNode: focusRemark,
                           textInputAction: TextInputAction.done,
                           controller: remarkController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Remarque (facultatif)",
                             prefixIcon: Icon(Icons.note_outlined),
                           ),
@@ -186,9 +187,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black54),
-                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Locker locker = Locker(
@@ -203,12 +201,6 @@ class _AddLockerMenuState extends State<AddLockerMenu> {
 
                       Provider.of<LockerStudentProvider>(context, listen: false)
                           .addLocker(locker);
-                      Provider.of<HistoryProvider>(context, listen: false)
-                          .addHistory(History(
-                        date: DateTime.now().toString(),
-                        action: "add",
-                        locker: locker.toJson(),
-                      ));
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

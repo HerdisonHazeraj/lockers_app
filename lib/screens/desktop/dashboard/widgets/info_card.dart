@@ -20,22 +20,18 @@ class InfoCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 30, right: 30),
       child: InkWell(
-        hoverColor: Colors.transparent,
+        // hoverColor: Colors.transparent,
         onTap: () {
           onTap();
         },
         child: Container(
-          constraints: const BoxConstraints(
-            maxWidth: 235,
-            maxHeight: 235,
-          ),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).shadowColor,
                 spreadRadius: 1,
                 blurRadius: 10,
                 offset: const Offset(0, 5),
@@ -47,6 +43,7 @@ class InfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SvgPicture.asset(
+                color: Theme.of(context).iconTheme.color,
                 svgSrc,
                 height: 40,
               ),

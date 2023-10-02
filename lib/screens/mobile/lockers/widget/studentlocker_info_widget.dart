@@ -1,6 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../models/student.dart';
 
@@ -10,16 +9,16 @@ class StudentLockerInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+        physics: NeverScrollableScrollPhysics(),
         childAspectRatio: 4,
-        scrollDirection: Axis.vertical,
         shrinkWrap: true,
         crossAxisCount: 2,
         children: [
           RichText(
               text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Prenom : "),
@@ -31,9 +30,9 @@ class StudentLockerInfoWidget extends StatelessWidget {
           )),
           RichText(
               text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Nom : "),
@@ -45,9 +44,9 @@ class StudentLockerInfoWidget extends StatelessWidget {
           )),
           RichText(
               text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Maitre de classe : "),

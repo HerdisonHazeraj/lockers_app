@@ -8,6 +8,7 @@ class LockerStudentInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+      physics: NeverScrollableScrollPhysics(),
       childAspectRatio: 4,
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
@@ -15,9 +16,9 @@ class LockerStudentInfoWidget extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "N° de Casier : "),
@@ -30,9 +31,9 @@ class LockerStudentInfoWidget extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Étage : "),
@@ -45,9 +46,9 @@ class LockerStudentInfoWidget extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
-              color: Colors.black,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
             ),
             children: <TextSpan>[
               const TextSpan(text: "Nombre de clés : "),

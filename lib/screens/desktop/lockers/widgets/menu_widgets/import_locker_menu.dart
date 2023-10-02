@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/theme.dart';
+
 class ImportLockerMenu extends StatefulWidget {
   ImportLockerMenu({super.key});
   final List<Widget> items = [];
@@ -21,13 +23,13 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Importer un fichier CSV",
             style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 18,
-              color: Colors.black54,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
@@ -40,7 +42,7 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
             Expanded(
               child: TextField(
                 controller: fileController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: "Choisir...",
                   prefixIcon: Icon(Icons.file_upload_outlined),
                 ),
@@ -63,9 +65,6 @@ class _ImportLockerMenuState extends State<ImportLockerMenu> {
             ),
             Expanded(
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.black54),
-                ),
                 onPressed: () async {
                   final error = await Provider.of<LockerStudentProvider>(
                     context,

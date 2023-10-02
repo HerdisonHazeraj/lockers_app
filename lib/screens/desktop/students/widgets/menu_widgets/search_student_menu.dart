@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme.dart';
+
 class SearchStudentMenu extends StatefulWidget {
   const SearchStudentMenu({super.key, required this.searchStudents});
 
@@ -14,25 +16,28 @@ class _SearchStudentMenuState extends State<SearchStudentMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Rechercher un élève",
             style: TextStyle(
               fontSize: 18,
-              color: Colors.black54,
+              color: Theme.of(context).textSelectionTheme.selectionColor!,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
           ),
         ),
         TextField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: "Rechercher...",
             prefixIcon: Icon(Icons.search_outlined),
           ),
           onChanged: (value) => widget.searchStudents(value),
         ),
+        // IconButton(onPressed: () {
+
+        // }, icon: Icon(Icons.group_off_outlined))
       ],
     );
   }

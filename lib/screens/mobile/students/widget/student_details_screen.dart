@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/screens/core/components/modal_bottomsheet.dart';
+import 'package:lockers_app/screens/mobile/core/shared.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
 import 'package:lockers_app/screens/mobile/students/widget/lockerstudent_info_widget.dart';
 import 'package:lockers_app/screens/mobile/students/widget/students_info_widget.dart';
@@ -24,6 +26,7 @@ class StudentDetailsScreenMobile extends StatefulWidget {
 class _StudentDetailsScreenMobileState
     extends State<StudentDetailsScreenMobile> {
   List<bool> ExpList = [false, false];
+  Shared shared = Shared();
   // bool IsLockerDataExp = true;
   @override
   Widget build(BuildContext context) {
@@ -37,25 +40,40 @@ class _StudentDetailsScreenMobileState
 
     List<ListTile> importantList = [
       ListTile(
+        title: const Text("Archiver"),
+        onTap: () {
+          shared.methodArchivedOrDeleteStudent(
+              context, widget.student, false, true);
+        },
+        trailing: const Icon(Icons.archive_outlined),
+      ),
+      ListTile(
         title: const Text("Supprimer"),
-        onTap: () {},
+        onTap: () {
+          shared.methodArchivedOrDeleteStudent(
+              context, widget.student, true, true);
+        },
         trailing: const Icon(Icons.delete_forever_outlined),
-      )
+      ),
     ];
 
     List<ListTile> standardList = [
       ListTile(
         title: const Text('Changer de casier'),
         onTap: () {},
-        trailing: Icon(
+        trailing: const Icon(
           Icons.lock_reset_outlined,
           size: 30,
         ),
       ),
       ListTile(
         title: const Text('Désattribuer le casier'),
-        onTap: () {},
-        trailing: Icon(
+        onTap: () {
+          Navigator.pop(context);
+          Provider.of<LockerStudentProvider>(context, listen: false)
+              .unAttributeLocker(locker, widget.student);
+        },
+        trailing: const Icon(
           Icons.remove_circle_outline,
           size: 30,
         ),
@@ -63,18 +81,18 @@ class _StudentDetailsScreenMobileState
     ];
 
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
+            icon: Icon(Icons.arrow_back,
+                color: Theme.of(context).iconTheme.color),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
           actions: [
-            // widget.locker.isDefective!
             Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width * 0.03),
@@ -87,23 +105,73 @@ class _StudentDetailsScreenMobileState
                     '${widget.student.firstName} ${widget.student.lastName}',
                   );
                 },
-                icon: const Icon(
-                  Icons.info_outline,
-                  color: Colors.black,
+                icon: Icon(
+                  Icons.more_vert_outlined,
+                  color: Theme.of(context).iconTheme.color,
                   size: 26,
                 ),
               ),
             )
-            //  const Text('')
           ],
         ),
         body: SingleChildScrollView(
           child: Column(children: [
-            CircleAvatar(
-              radius: MediaQuery.of(context).size.width * 0.25,
-              backgroundImage: AssetImage(
-                'assets/images/cp-20ahb.jpg',
+            GestureDetector(
+              child: CachedNetworkImage(
+                imageUrl:
+                    "https://intranet.ceff.ch/Image/PhotosPortraits/photos/Carré/${widget.student.login}.jpg",
+                imageBuilder: (context, imageProvider) => CircleAvatar(
+                  backgroundImage: imageProvider,
+                  radius: MediaQuery.of(context).size.width * 0.25,
+                ),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Tooltip(
+                  message: "L'image n'a pas réussi à se charger",
+                  child: Icon(
+                    size: MediaQuery.of(context).size.width * 0.25,
+                    Icons.error_outlined,
+                    color: Colors.red,
+                  ),
+                ),
               ),
+              onTap: () {
+                // showGeneralDialog(
+                //   context: context,
+                //   // barrierColor: ColorTheme.thirdTextColor,
+                //   barrierLabel: "Photo de l'élève",
+                //   barrierDismissible: true,
+                //   pageBuilder: (_, __, ___) => Center(
+                //     child: Container(
+                //       color: Colors.transparent,
+                //       child: Material(
+                //         color: Colors.transparent,
+                //         child: CachedNetworkImage(
+                //           // width: 500,
+                //           // height: 500,
+                //           imageUrl:
+                //               "https://intranet.ceff.ch/Image/PhotosPortraits/photos/Carré/${widget.student.login}.jpg",
+                //           imageBuilder: (context, imageProvider) =>
+                //               CircleAvatar(
+                //             radius: MediaQuery.of(context).size.width * 0.25,
+                //             backgroundImage: imageProvider,
+                //           ),
+                //           placeholder: (context, url) =>
+                //               const CircularProgressIndicator(),
+                //           errorWidget: (context, url, error) => const Tooltip(
+                //             message: "L'image n'a pas réussi à se charger",
+                //             child: Icon(
+                //               Icons.error_outlined,
+                //               color: Colors.red,
+                //               // size: 500,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // );
+              },
             ),
 
             Padding(
@@ -115,23 +183,19 @@ class _StudentDetailsScreenMobileState
               ),
             ),
             widget.student.lockerNumber != 0
-                ? SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Card(
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: widget.student.caution == 0
-                            ? const Text(
-                                'Caution non-payée',
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 16),
-                              )
-                            : const Text(
-                                'Caution payée',
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 16),
-                              )),
-                  )
+                ? Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.01,
+                        bottom: MediaQuery.of(context).size.height * 0.02),
+                    child: widget.student.caution == 0
+                        ? const Text(
+                            'Caution non-payée',
+                            style: TextStyle(color: Colors.red, fontSize: 16),
+                          )
+                        : const Text(
+                            'Caution payée',
+                            style: TextStyle(color: Colors.green, fontSize: 16),
+                          ))
                 : const Text(''),
             ExpansionPanelList(
               elevation: 0,

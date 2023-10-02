@@ -4,6 +4,8 @@ import 'package:lockers_app/screens/core/widgets/divider_menu.dart';
 import 'package:lockers_app/screens/desktop/lockers/widgets/menu_widgets/add_locker_menu.dart';
 import 'package:lockers_app/screens/desktop/lockers/widgets/menu_widgets/import_locker_menu.dart';
 import 'package:lockers_app/screens/desktop/lockers/widgets/menu_widgets/search_locker_menu.dart';
+
+import '../../../../core/theme.dart';
 // import 'package:lockers_app/screens/shared/widgets/divider_menu.dart';
 
 class LockersMenu extends StatefulWidget {
@@ -30,10 +32,11 @@ class _LockersMenuState extends State<LockersMenu> {
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            color: Color(0xffececf6),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
             border: Border(
-              left: BorderSide(width: 0.3, color: Colors.black54),
+              left:
+                  BorderSide(width: 0.3, color: Theme.of(context).dividerColor),
             ),
           ),
           child: Container(

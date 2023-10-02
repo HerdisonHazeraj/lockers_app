@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme.dart';
+
 class DropDownMenu extends StatelessWidget {
   const DropDownMenu({
     super.key,
@@ -38,11 +40,12 @@ class DropDownMenu extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
       ),
-      hint: Text(defaultItem),
+      hint: Text(
+        defaultItem,
+      ),
       iconSize: 36,
-      icon: const Icon(
+      icon: Icon(
         Icons.arrow_drop_down_outlined,
-        color: Colors.black54,
       ),
       value: defaultChoosedItem,
       items: items.entries

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 // import 'dart:js_interop';
+import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,8 @@ class LockerStudentProvider with ChangeNotifier {
   };
 
   Future<void> fetchAndSetLockers() async {
-    _lockerItems.clear();
     final data = await dbService.getAllLockers();
+    _lockerItems.clear();
     _lockerItems.addAll(data);
     setAllLockerToDefective();
     notifyListeners();
@@ -45,12 +46,29 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addLocker(Locker locker) async {
     final data = await dbService.addLocker(locker);
     _lockerItems.add(data);
+
+    historyProvider.addHistory(History(
+      date: DateTime.now().toString(),
+      action: "add",
+      locker: locker.toJson(),
+    ));
     notifyListeners();
   }
 
-  Future<void> updateLocker(Locker updatedLocker) async {
+  Future<void> updateLocker(Locker updatedLocker,
+      {bool historic = true}) async {
+    final Locker oldLocker = getLocker(updatedLocker.id!);
     final lockerIndex = findIndexOfLockerById(updatedLocker.id!);
+
     if (lockerIndex >= 0) {
+      if (historic) {
+        historyProvider.addHistory(History(
+          action: "update",
+          date: DateTime.now().toString(),
+          locker: updatedLocker.toJson(),
+          oldLocker: oldLocker.toJson(),
+        ));
+      }
       final newLocker = await dbService.updateLocker(updatedLocker);
       _lockerItems[lockerIndex] = newLocker;
       notifyListeners();
@@ -72,8 +90,11 @@ class LockerStudentProvider with ChangeNotifier {
             filters.addEntries(
                 [MapEntry(student.responsable, "Aucun responsable")]);
           } else {
-            filters.addEntries(
-                [MapEntry(student.responsable, student.responsable)]);
+            filters.addEntries([
+              MapEntry(
+                  student.responsable.replaceAll(new RegExp(r"\s+\b|\b\s"), ""),
+                  student.responsable)
+            ]);
           }
           break;
       }
@@ -85,14 +106,64 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> deleteLocker(String id) async {
     await dbService.deleteLocker(id);
+    historyProvider.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "delete",
+        locker: getLocker(id).toJson(),
+        index: findIndexOfLockerById(id)));
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
     _lockerItems.remove(item);
 
     notifyListeners();
   }
 
+  List<Student> getAllTerminaux() {
+    List<Student> terminaux = getNotArchivedStudent()
+        .where((element) => element.isTerminal == true && element.caution != 0)
+        .toList();
+    return terminaux;
+  }
+
+  bool checkIfTheresTerminaux() {
+    List<Student> terminaux =
+        _studentItems.where((element) => element.isTerminal == true).toList();
+    return terminaux.isNotEmpty;
+  }
+
+  void setAllTerminauxToFalse() {
+    final students = getAllTerminaux();
+
+    students.forEach((student) {
+      student.isTerminal = false;
+      dbService.updateStudent(student);
+    });
+  }
+
+  Future<void> setAllTerminauxList() async {
+    final students = getNotArchivedStudent();
+
+    // students.where((element) => false)
+    students.forEach((student) {
+      if (student.classe.toLowerCase().contains('oic3') ||
+          student.classe.toLowerCase().contains('ict4') ||
+          (student.classe.toLowerCase().contains('ict3') &&
+              student.classe.toLowerCase().contains('p3')) ||
+          (student.classe.toLowerCase().contains('ich3') &&
+              student.classe.toLowerCase().contains('p3'))) {
+        student.isTerminal = true;
+        dbService.updateStudent(student);
+      }
+
+      // switch(student.classe){
+      //   case .contains('oic3'):
+
+      //   break;
+      // }
+    });
+  }
+
   Future<void> insertLocker(int index, Locker locker) async {
-    await dbService.updateLocker(locker);
+    await dbService.addLocker(locker);
     _lockerItems.insert(index, locker);
     notifyListeners();
   }
@@ -128,8 +199,8 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetStudents() async {
-    _studentItems.clear();
     final data = await dbService.getAllStudents();
+    _studentItems.clear();
     _studentItems.addAll(data);
     notifyListeners();
   }
@@ -137,12 +208,27 @@ class LockerStudentProvider with ChangeNotifier {
   Future<void> addStudent(Student student) async {
     final data = await dbService.addStudent(student);
     _studentItems.add(data);
+    historyProvider.addHistory(History(
+      date: DateTime.now().toString(),
+      action: "add",
+      student: student.toJson(),
+    ));
     notifyListeners();
   }
 
-  Future<void> updateStudent(Student updatedStudent) async {
+  Future<void> updateStudent(Student updatedStudent,
+      {bool historic = true}) async {
     final studentIndex = findIndexOfStudentById(updatedStudent.id!);
+    final Student oldStudent = getStudent(updatedStudent.id!);
     if (studentIndex >= 0) {
+      if (historic) {
+        historyProvider.addHistory(History(
+            id: updatedStudent.id,
+            student: updatedStudent.toJson(),
+            oldStudent: oldStudent.toJson(),
+            date: DateTime.now().toString(),
+            action: "update"));
+      }
       final newStudent = await dbService.updateStudent(updatedStudent);
       _studentItems[studentIndex] = newStudent;
       notifyListeners();
@@ -151,14 +237,20 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
+    historyProvider.addHistory(History(
+        date: DateTime.now().toString(),
+        action: "delete",
+        student: getStudent(id).toJson(),
+        index: findIndexOfStudentById(id)));
+
     _studentItems.removeWhere((student) => student.id == id);
 
     notifyListeners();
   }
 
-  Future<void> insertStudent(int index, Student student) async {
-    await dbService.updateStudent(student);
-    _studentItems.insert(index, student);
+  Future<void> insertStudent(Student student) async {
+    await dbService.addStudent(student);
+    _studentItems.add(student);
     notifyListeners();
   }
 
@@ -204,6 +296,84 @@ class LockerStudentProvider with ChangeNotifier {
     return unavailableItem;
   }
 
+//permegt de renvoyer la liste des modifications effectuées entre l'ancien et le nouvel élève ou casier
+  List getModificationsOldNewList(oldItem, newItem, textList) {
+    List modifications = [];
+    for (var i = 0; i < textList.length; i++) {
+      if (oldItem[textList[i]] != newItem[textList[i]]) {
+        switch (textList[i]) {
+          // formattage élève
+          case 'isArchived':
+            formatModifications(modifications, oldItem, textList, i,
+                'élève archivé', 'élève non-archivé');
+          case 'caution':
+            formatModifications(modifications, oldItem, textList, i,
+                'caution non-payée', 'caution payée');
+
+          case 'year':
+            if (oldItem[textList[i]] == 1) {
+              modifications.addAll({
+                '${oldItem[textList[i]]}ère',
+              });
+              modifications.addAll({
+                '${newItem[textList[i]]}ème',
+              });
+            } else if (newItem[textList[i]] == 1) {
+              modifications.addAll({
+                '${oldItem[textList[i]]}ème',
+              });
+              modifications.addAll({
+                '${newItem[textList[i]]}ère',
+              });
+            } else {
+              modifications.addAll({
+                '${oldItem[textList[i]]}ème',
+              });
+              modifications.addAll({
+                '${newItem[textList[i]]}ème',
+              });
+            }
+          //formattage casier
+          case 'isAvailable':
+            formatModifications(modifications, oldItem, textList, i,
+                'Casier disponible', 'Casier indisponible');
+          case 'isInaccessible':
+            formatModifications(modifications, oldItem, textList, i,
+                'Casier inaccessible', 'Casier accessible');
+          case 'nbKey':
+            modifications.addAll({
+              '${oldItem[textList[i]]} clé(s)',
+            });
+            modifications.addAll({
+              '${newItem[textList[i]]} clé(s)',
+            });
+
+          default:
+            modifications.addAll({
+              oldItem[textList[i]],
+            });
+            modifications.addAll({
+              newItem[textList[i]],
+            });
+        }
+      }
+    }
+    return modifications;
+  }
+
+//permet de formater les textes qui vont être affichés dans les modifs
+//pour ne pas juste avoir des textes true false
+  void formatModifications(
+      List modifications, oldItem, textList, i, textTrue, textFalse) {
+    if (oldItem[textList[i]] == false || oldItem[textList[i]] == 20) {
+      modifications.addAll({textFalse});
+      modifications.addAll({textTrue});
+    } else {
+      modifications.addAll({textTrue});
+      modifications.addAll({textFalse});
+    }
+  }
+
   List<Student> getArchivedStudent() {
     List<Student> availableItem =
         _studentItems.where((element) => element.isArchived == true).toList();
@@ -228,46 +398,47 @@ class LockerStudentProvider with ChangeNotifier {
         isAvailable: false,
         idEleve: student.id,
       ),
+      historic: false,
     );
 
     await updateStudent(
-      student.copyWith(
-        lockerNumber: locker.lockerNumber,
+        student.copyWith(
+          lockerNumber: locker.lockerNumber,
+        ),
+        historic: false);
+
+    historyProvider.addHistory(
+      History(
+        date: DateTime.now().toString(),
+        action: "attribution",
+        locker: locker.toJson(),
+        student: student.toJson(),
       ),
     );
-
-    // historyProvider.addHistory(
-    //   History(
-    //     date: DateTime.now().toString(),
-    //     action: "attribution",
-    //     locker: locker.toJson(),
-    //     student: student.toJson(),
-    //   ),
-    // );
   }
 
   Future<void> unAttributeLocker(Locker locker, Student student) async {
     await updateLocker(
-      locker.copyWith(
-        isAvailable: true,
-        idEleve: "",
-      ),
-    );
+        locker.copyWith(
+          isAvailable: true,
+          idEleve: "",
+        ),
+        historic: false);
 
     await updateStudent(
-      student.copyWith(
-        lockerNumber: 0,
+        student.copyWith(
+          lockerNumber: 0,
+        ),
+        historic: false);
+
+    historyProvider.addHistory(
+      History(
+        date: DateTime.now().toString(),
+        action: "unattribution",
+        locker: locker.toJson(),
+        student: student.toJson(),
       ),
     );
-
-    // historyProvider.addHistory(
-    //   History(
-    //     date: DateTime.now().toString(),
-    //     action: "unattribution",
-    //     locker: locker.toJson(),
-    //     student: student.toJson(),
-    //   ),
-    // );
   }
 
   int autoAttributeLocker(List<Student> students) {
@@ -282,13 +453,7 @@ class LockerStudentProvider with ChangeNotifier {
         break;
       }
       attributeLocker(lockers[i], students[i]);
-      historyProvider.addHistory(
-        History(
-            date: DateTime.now().toString(),
-            action: "attribution",
-            locker: lockers[i].toJson(),
-            student: students[i].toJson()),
-      );
+
       count++;
     }
 
@@ -472,10 +637,10 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> setLockerToDefective(Locker locker) async {
     await updateLocker(
-      locker.copyWith(
-        isDefective: true,
-      ),
-    );
+        locker.copyWith(
+          isDefective: true,
+        ),
+        historic: false);
   }
 
   Future<void> setNumberOfLockerKey(Locker locker, int nbKey) async {
@@ -586,11 +751,15 @@ class LockerStudentProvider with ChangeNotifier {
     }
   }
 
-  List<Student> searchStudents(value) {
+  List<Student> searchStudents(value, {bool searchArchivedStudents = false}) {
     List<Student> filtredStudent = [];
     List<Student> students = [];
     if (value != "") {
-      students = _studentItems;
+      if (searchArchivedStudents) {
+        students = _studentItems;
+      } else {
+        students = getNotArchivedStudent();
+      }
       filtredStudent = students
           .where((element) =>
               ("${element.lastName} ${element.firstName}")
@@ -619,11 +788,15 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-  List<Locker> searchLockers(value) {
+  List<Locker> searchLockers(value, {bool searchUnAccessibleLocker = false}) {
     List<Locker> filtredLocker = [];
     List<Locker> lockers = [];
     if (value != "") {
-      lockers = _lockerItems;
+      if (searchUnAccessibleLocker) {
+        lockers = _lockerItems;
+      } else {
+        lockers = getAccessibleLocker();
+      }
       filtredLocker = lockers
           .where((element) => element.lockerNumber
               .toString()
@@ -651,7 +824,6 @@ class LockerStudentProvider with ChangeNotifier {
       case "delete":
         if (history.student != null) {
           insertStudent(
-            history.index!,
             Student.fromJson(history.student!),
           );
         } else {
@@ -662,14 +834,10 @@ class LockerStudentProvider with ChangeNotifier {
         }
         break;
       case "update":
-        if (history.locker != null) {
-          updateStudent(
-            Student.fromJson(history.student!),
-          );
+        if (history.locker == null) {
+          updateStudent(Student.fromJson(history.oldStudent!), historic: false);
         } else {
-          updateLocker(
-            Locker.fromJson(history.locker!),
-          );
+          updateLocker(Locker.fromJson(history.oldLocker!), historic: false);
         }
         break;
       case "attribution":
@@ -846,16 +1014,87 @@ class LockerStudentProvider with ChangeNotifier {
     return null;
   }
 
+  Future<String> importAllWithXLSX(FilePickerResult? result) async {
+    bool importOnlyStudents = false;
+    if (result != null) {
+      var bytes = result.files.single.bytes;
+      var excel = Excel.decodeBytes(bytes!);
+
+      if (excel.tables.keys.contains("Total")) {
+        excel.delete("Total");
+      }
+
+      for (var table in excel.tables.keys) {
+        // Cela permet de vérifier si l'on importe uniquement des élèves ou pas
+        excel.tables[table]!.rows[0].forEach((element) {
+          if (element!.value.toString().trim() == "Login") {
+            importOnlyStudents = true;
+          }
+        });
+
+        if (importOnlyStudents) {
+          for (int i = 1; i < excel.tables[table]!.rows.length; i++) {
+            await addStudent(
+              Student.base().copyWith(
+                firstName: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Prénom")]!
+                    .value
+                    .toString(),
+                lastName: excel.tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Nom")]!.value
+                    .toString(),
+                login: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Login")]!
+                    .value
+                    .toString(),
+                job: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Formation")]!
+                    .value
+                    .toString(),
+                responsable: excel
+                    .tables[table]!
+                    .rows[i]
+                        [_getIndexXLSX(excel.tables[table]!, "Maître Classe")]!
+                    .value
+                    .toString(),
+                year: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Année")]!
+                    .value,
+                classe: excel
+                    .tables[table]!
+                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Classe")]!
+                    .value,
+              ),
+            );
+          }
+        }
+      }
+    }
+
+    return '';
+  }
+
+  int _getIndexXLSX(Sheet sheet, String item) {
+    return sheet.rows[0]
+        .firstWhere((element) => element!.value == item)!
+        .colIndex;
+  }
+
   Future<String?> importAllWithCSV(FilePickerResult? result) async {
     try {
       if (result != null) {
         final file = result.files.first;
         final fileContent = utf8.decode(file.bytes!);
         final rows = fileContent.split('\n');
+
         final indexes = rows[0].split(';');
 
         indexes[indexes.length - 1] = indexes[indexes.length - 1]
-            .substring(0, indexes[indexes.length - 1].length - 1);
+            .substring(0, indexes[indexes.length - 1].length);
 
         rows.removeAt(0);
         rows.removeLast();
@@ -913,7 +1152,7 @@ class LockerStudentProvider with ChangeNotifier {
                         lastName: jsonRow['Nom'],
                         job: metier,
                         year: year,
-                        manager: jsonRow['Responsable'],
+                        responsable: jsonRow['Responsable'],
                         caution: caution));
 
                     notifyListeners();

@@ -7,6 +7,8 @@ import 'package:lockers_app/screens/desktop/lockers/widgets/locker_update.dart';
 import 'package:lockers_app/screens/desktop/lockers/widgets/lockers_menu.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/theme.dart';
+
 class LockersOverviewScreen extends StatefulWidget {
   const LockersOverviewScreen({super.key});
 
@@ -143,7 +145,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  color: Colors.black38),
+                                                  color: ColorTheme
+                                                      .thirdTextColor),
                                             ),
                                           ),
                                         ],
@@ -238,7 +241,8 @@ class _LockersOverviewScreenState extends State<LockersOverviewScreen> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  color: Colors.black38),
+                                                  color: ColorTheme
+                                                      .thirdTextColor),
                                             ),
                                           ),
                                         ],

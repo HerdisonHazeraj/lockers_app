@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
+import '../../../../core/theme.dart';
 import '../../../../providers/lockers_student_provider.dart';
 import 'indicator.dart';
 
@@ -29,16 +31,16 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
     return Container(
       padding: const EdgeInsets.only(right: 30),
       width: 305,
-      height: 400,
+      height: 440,
       child: InkWell(
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color: Theme.of(context).shadowColor,
                 spreadRadius: 1,
                 blurRadius: 30,
                 offset: const Offset(0, 5),
@@ -51,29 +53,42 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                 child: SfRadialGauge(
                   axes: <RadialAxis>[
                     RadialAxis(
+                      axisLabelStyle: GaugeTextStyle(
+                          color: Theme.of(context)
+                              .textSelectionTheme
+                              .selectionColor),
                       maximumLabels: 3,
                       minimum: 0,
                       maximum: paidCautionsList + unPaidCautionsList == 0
                           ? 1
                           : paidCautionsList + unPaidCautionsList,
-                      majorTickStyle: const MajorTickStyle(length: 17),
-                      minorTickStyle: const MinorTickStyle(length: 11),
+                      majorTickStyle: MajorTickStyle(
+                          length: 17,
+                          color: Theme.of(context)
+                              .textSelectionTheme
+                              .selectionColor),
+                      minorTickStyle: MinorTickStyle(
+                          length: 11,
+                          color: Theme.of(context)
+                              .textSelectionTheme
+                              .selectionColor),
                       ranges: <GaugeRange>[
                         GaugeRange(
                             startWidth: 20,
                             endWidth: 20,
                             startValue: 0,
                             endValue: paidCautionsList,
-                            color: const Color(0xFF01FBCF)),
+                            color: ColorTheme.secondary),
                         GaugeRange(
                             startWidth: 20,
                             endWidth: 20,
                             startValue: paidCautionsList,
                             endValue: paidCautionsList + unPaidCautionsList,
-                            color: const Color(0xFFFB3274)),
+                            color: ColorTheme.primary),
                       ],
                       pointers: <GaugePointer>[
                         MarkerPointer(
+                          borderColor: Theme.of(context).dividerColor,
                           enableAnimation: true,
                           animationType: AnimationType.ease,
                           value: paidCautionsList,
@@ -88,8 +103,10 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                             children: [
                               Text(
                                 paidCautionsList.toInt().toString(),
-                                style: const TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               const Text(
                                 'cautions payées',
@@ -114,12 +131,12 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
                 child: Column(
                   children: [
                     Indicator(
-                      color: const Color(0xFF01FBCF),
+                      color: ColorTheme.secondary,
                       text: 'Cautions payées',
                       isSquare: true,
                     ),
                     Indicator(
-                      color: const Color(0xFFFB3274),
+                      color: ColorTheme.primary,
                       text: 'Cautions non-payées',
                       isSquare: true,
                     ),

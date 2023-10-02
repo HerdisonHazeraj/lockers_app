@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 
+import '../../../../core/theme.dart';
+
 // ignore: must_be_immutable
 class AvailableStudentsListWidget extends StatefulWidget {
 //liste des élèves dans la page d'attribution
@@ -47,7 +49,7 @@ class _AvailableStudentsListWidgetState
                   child: Text(
                     'Aucun élève disponible',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: Colors.black38),
+                    style: TextStyle(fontSize: 16),
                   ),
                 )
               : Column(

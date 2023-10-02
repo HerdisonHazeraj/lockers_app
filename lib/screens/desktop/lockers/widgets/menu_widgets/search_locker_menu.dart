@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme.dart';
+
 class SearchLockerMenu extends StatefulWidget {
   const SearchLockerMenu({super.key, required this.searchLockers});
 
@@ -14,22 +16,24 @@ class _SearchLockerMenuState extends State<SearchLockerMenu> {
   Widget build(BuildContext context) {
     return ListBody(
       children: [
-        const SizedBox(
+        SizedBox(
           width: double.infinity,
           child: Text(
             "Rechercher un casier",
             style: TextStyle(
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 18,
-              color: Colors.black54,
               fontWeight: FontWeight.w500,
               height: 1.3,
             ),
           ),
         ),
         TextField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: "Rechercher...",
-            prefixIcon: Icon(Icons.search_outlined),
+            prefixIcon: Icon(
+              Icons.search_outlined,
+            ),
           ),
           onChanged: (value) => widget.searchLockers(value),
         ),
