@@ -29,8 +29,8 @@ class _CautionPieChartWidgetState extends State<CautionPieChartWidget> {
             .toDouble();
     return Container(
       padding: const EdgeInsets.only(right: 30),
-      width: 305,
-      height: 440,
+      // width: 300,
+      height: 400,
       child: InkWell(
         child: Container(
           padding: const EdgeInsets.all(20),

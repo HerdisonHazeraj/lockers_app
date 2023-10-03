@@ -26,11 +26,11 @@ class BarChartWidgetState extends State<BarChartWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+      padding: const EdgeInsets.only(left: 30, right: 30),
       child: InkWell(
         child: Container(
           width: 740,
-          height: 440,
+          height: 400,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
