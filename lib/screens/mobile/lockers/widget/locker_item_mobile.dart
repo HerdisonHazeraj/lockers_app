@@ -7,7 +7,6 @@ import 'package:lockers_app/screens/mobile/core/shared.dart';
 import 'package:lockers_app/screens/mobile/lockers/widget/locker_details_mobile.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/theme.dart';
 import '../../../../models/student.dart';
 
 class LockerItemMobile extends StatefulWidget {
@@ -56,17 +55,6 @@ class _LockerItemMobileState extends State<LockerItemMobile> {
         trailing: const Icon(Icons.delete_forever_outlined),
       )
     ];
-
-    desattributeLockerAndStudent(Student owner, Locker locker) async {
-      await Provider.of<LockerStudentProvider>(context, listen: false)
-          .updateStudent(owner.copyWith(lockerNumber: 0));
-
-      widget.locker.isAvailable = false;
-      widget.locker.isInaccessible = true;
-
-      Provider.of<LockerStudentProvider>(context, listen: false)
-          .updateLocker(widget.locker);
-    }
 
     return Slidable(
       key: ValueKey(widget.locker.id),

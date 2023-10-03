@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../models/student.dart';
 
+// ignore: must_be_immutable
 class StudentsInfo extends StatelessWidget {
   StudentsInfo({super.key, required this.student});
   Student student;

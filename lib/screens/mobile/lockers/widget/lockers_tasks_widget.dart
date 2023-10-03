@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/locker.dart';
 
+// ignore: must_be_immutable
 class LockersTasksWidget extends StatelessWidget {
   LockersTasksWidget({super.key, required this.locker});
   Locker locker;

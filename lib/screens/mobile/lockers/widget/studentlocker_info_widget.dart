@@ -1,8 +1,8 @@
-import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../models/student.dart';
 
+// ignore: must_be_immutable
 class StudentLockerInfoWidget extends StatelessWidget {
   StudentLockerInfoWidget({super.key, required this.student});
   Student student;
