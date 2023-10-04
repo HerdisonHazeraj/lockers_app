@@ -1,8 +1,4 @@
-// import 'dart:js_interop';
-
 import 'package:lockers_app/models/IHistory.dart';
-import 'package:lockers_app/models/locker.dart';
-import 'package:lockers_app/models/student.dart';
 
 class History extends IHistory {
   final String? id;

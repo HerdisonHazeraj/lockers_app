@@ -4,7 +4,6 @@ import 'package:lockers_app/screens/mobile/lockers/widget/locker_item_mobile.dar
 import 'package:lockers_app/screens/mobile/lockers/widget/search_bar_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/theme.dart';
 import '../../../models/locker.dart';
 import '../../../providers/lockers_student_provider.dart';
 
@@ -65,16 +64,6 @@ class _LockersOverviewScreenMobileState
 
   @override
   Widget build(BuildContext context) {
-    refreshSearchBar(FocusNode searchFocusNode) {
-      setState(() {
-        ;
-        FocusManager.instance.primaryFocus?.unfocus();
-        Navigator.pop(context);
-        searchFocusNode.unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
-      });
-    }
-
     lockersByFloor =
         Provider.of<LockerStudentProvider>(context).mapLockerByFloor();
     defectiveLockers =
@@ -82,18 +71,7 @@ class _LockersOverviewScreenMobileState
             .getDefectiveLockers()
             .toList();
 
-    // if (!isInit) {
-    //   isExpFloor = List.generate(lockersByFloor.length, (index) => false);
-    //   // defectiveLockers =
-    //   //     Provider.of<LockerStudentProvider>(context, listen: false)
-    //   //         .getDefectiveLockers()
-    //   //         .toList();
-    //   isInit = true;
-    // }
-
     return SizedBox(
-      // child: SingleChildScrollView(
-      //   controller: _scrollViewController,
       child: Column(
         children: [
           //barre de recherche
@@ -197,7 +175,6 @@ class _LockersOverviewScreenMobileState
                                     (l) => LockerItemMobile(
                                       locker: l,
                                       isLockerInDefectiveList: false,
-                                      // refreshList: () => refreshList(),
                                     ),
                                   ),
                                 ],

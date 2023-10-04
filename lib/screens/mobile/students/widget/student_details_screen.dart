@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../../../models/locker.dart';
 import '../../../../models/student.dart';
 
+// ignore: must_be_immutable
 class StudentDetailsScreenMobile extends StatefulWidget {
   StudentDetailsScreenMobile({
     super.key,

@@ -4,8 +4,6 @@ import 'package:lockers_app/screens/desktop/auth/widgets/sign_in/mail_password_a
 import 'package:lockers_app/screens/desktop/auth/widgets/sign_in/number_confirmation_auth_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/theme.dart';
-
 class AuthOverviewScreen extends StatefulWidget {
   const AuthOverviewScreen({required this.onSignedIn, super.key});
   final Function onSignedIn;

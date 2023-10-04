@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lockers_app/models/student.dart';
 
-import '../../../../core/theme.dart';
-
 // ignore: must_be_immutable
 class AvailableStudentsListWidget extends StatefulWidget {
 //liste des élèves dans la page d'attribution

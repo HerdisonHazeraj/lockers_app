@@ -9,6 +9,7 @@ import 'package:lockers_app/screens/mobile/lockers/widget/studentlocker_info_wid
 import 'package:lockers_app/screens/mobile/students/widget/student_details_screen.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class LockerDetailsScreenMobile extends StatefulWidget {
   LockerDetailsScreenMobile({super.key, required this.locker});
   Locker locker;

@@ -1124,7 +1124,7 @@ class LockerStudentProvider with ChangeNotifier {
         final indexes = rows[0].split(';');
 
         indexes[indexes.length - 1] = indexes[indexes.length - 1]
-            .substring(0, indexes[indexes.length - 1].length);
+            .substring(0, indexes[indexes.length - 1].length - 1);
 
         rows.removeAt(0);
         rows.removeLast();

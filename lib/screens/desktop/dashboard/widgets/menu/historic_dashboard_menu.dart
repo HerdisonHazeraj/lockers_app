@@ -7,8 +7,6 @@ import 'package:lockers_app/screens/desktop/dashboard/widgets/menu/update_expans
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../core/theme.dart';
-
 class HistoricDashboardMenu extends StatefulWidget {
   const HistoricDashboardMenu({super.key});
 

@@ -8,8 +8,6 @@ import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart
 import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/theme.dart';
-
 class SideMenuApp extends StatefulWidget {
   const SideMenuApp({
     super.key,

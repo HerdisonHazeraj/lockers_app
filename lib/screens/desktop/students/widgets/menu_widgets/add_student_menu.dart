@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
-import 'package:lockers_app/providers/history_provider.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/theme.dart';
 import 'drop_down_menu.dart';
 
 class AddStudentMenu extends StatefulWidget {

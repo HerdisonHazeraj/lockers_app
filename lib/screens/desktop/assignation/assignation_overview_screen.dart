@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lockers_app/models/history.dart';
 import 'package:lockers_app/models/student.dart';
 import 'package:lockers_app/providers/lockers_student_provider.dart';
 import 'package:lockers_app/responsive.dart';
@@ -9,10 +8,7 @@ import 'package:lockers_app/screens/desktop/assignation/widgets/available_studen
 
 import 'package:provider/provider.dart';
 
-import '../../../core/theme.dart';
 import '../../../models/locker.dart';
-import '../../../providers/history_provider.dart';
-// import 'menu_widgets/sort_element_widget.dart';
 
 class AssignationOverviewScreen extends StatefulWidget {
   static const routeName = '/assignation';
