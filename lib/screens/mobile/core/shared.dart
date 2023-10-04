@@ -182,8 +182,10 @@ class Shared {
                                                     LockerStudentProvider>(
                                                 context,
                                                 listen: false)
-                                            .updateStudent(student.copyWith(
-                                                lockerNumber: 0));
+                                            .updateStudent(
+                                                student.copyWith(
+                                                    lockerNumber: 0),
+                                                historic: false);
 
                                         await Provider.of<
                                                     LockerStudentProvider>(

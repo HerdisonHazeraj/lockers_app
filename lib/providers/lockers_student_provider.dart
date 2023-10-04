@@ -237,6 +237,12 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> deleteStudent(String id) async {
     await dbService.deleteStudent(id);
+    Student student = getStudent(id);
+    if (student.lockerNumber != 0) {
+      Locker locker = getLockerByLockerNumber(student.lockerNumber);
+      await dbService.updateLocker(locker.copyWith(idEleve: ""));
+    }
+
     historyProvider.addHistory(History(
         date: DateTime.now().toString(),
         action: "delete",
@@ -808,46 +814,70 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-  void cancelHistory(History history) {
+  bool cancelHistory(History history) {
     switch (history.action) {
       case "add":
         if (history.student != null) {
+          if (history.student!['lockerNumber'] != 0) {
+            Locker locker =
+                getLockerByLockerNumber(history.student!['lockerNumber']);
+            dbService.updateLocker(locker.copyWith(idEleve: ""));
+          }
           deleteStudent(
             history.student!['id'],
           );
+          return true;
         } else {
+          if (history.locker!['idEleve'] != 0) {
+            Student student =
+                getStudentByLocker(history.locker!['lockerNumber']);
+            dbService.updateStudent(student.copyWith(lockerNumber: 0));
+          }
           deleteLocker(
             history.locker!['id'],
           );
+          return true;
         }
-        break;
+
       case "delete":
         if (history.student != null) {
+          if (history.student!['lockerNumber'] != 0) {
+            Locker locker =
+                getLockerByLockerNumber(history.student!['lockerNumber']);
+            // if(locker.)
+            dbService.updateLocker(locker.copyWith(idEleve: ""));
+          }
           insertStudent(
             Student.fromJson(history.student!),
           );
+          return true;
         } else {
           insertLocker(
             history.index!,
             Locker.fromJson(history.locker!),
           );
+          return true;
         }
-        break;
+
       case "update":
         if (history.locker == null) {
           updateStudent(Student.fromJson(history.oldStudent!), historic: false);
+          return true;
         } else {
           updateLocker(Locker.fromJson(history.oldLocker!), historic: false);
+          return true;
         }
-        break;
+
       case "attribution":
         unAttributeLocker(Locker.fromJson(history.locker!),
             Student.fromJson(history.student!));
-        break;
+        return true;
       case "unattribution":
         attributeLocker(Locker.fromJson(history.locker!),
             Student.fromJson(history.student!));
-        break;
+        return true;
+      default:
+        return false;
     }
   }
 
