@@ -76,7 +76,6 @@ class FirebaseRTDBService implements DBService {
   Future<Locker> addLocker(Locker locker) async {
     final id = _db.child(lockerNode).push().key;
     return _db.child('$lockerNode/$id').set(locker.toJson()).then((_) {
-      developer.log("OK");
       return locker.copyWith(id: id);
     }).catchError((error) {
       developer.log(error);
@@ -86,9 +85,11 @@ class FirebaseRTDBService implements DBService {
 
   @override
   Future<Locker> updateLocker(Locker locker) async {
-    _db.child('$lockerNode/${locker.id}').update(locker.toJson()).then((_) {
-      developer.log("OK");
-    }).catchError((error) {
+    _db
+        .child('$lockerNode/${locker.id}')
+        .update(locker.toJson())
+        .then((_) {})
+        .catchError((error) {
       developer.log(error);
     });
     return locker;
@@ -118,7 +119,6 @@ class FirebaseRTDBService implements DBService {
   Future<Student> addStudent(Student student) {
     final id = _db.child(studentNode).push().key;
     return _db.child('$studentNode/$id').set(student.toJson()).then((_) {
-      developer.log("OK");
       return student.copyWith(id: id);
     }).catchError((error) {
       developer.log(error);
@@ -128,9 +128,11 @@ class FirebaseRTDBService implements DBService {
 
   @override
   Future<Student> updateStudent(Student student) async {
-    _db.child('$studentNode/${student.id}').update(student.toJson()).then((_) {
-      developer.log("OK");
-    }).catchError((error) {
+    _db
+        .child('$studentNode/${student.id}')
+        .update(student.toJson())
+        .then((_) {})
+        .catchError((error) {
       developer.log(error);
     });
     return student;
@@ -160,7 +162,6 @@ class FirebaseRTDBService implements DBService {
   Future<Problem> addProblem(Problem problem) {
     final id = _db.child(problemNode).push().key;
     return _db.child('$problemNode/$id').set(problem.toJson()).then((_) {
-      developer.log("OK");
       return problem.copyWith(id: id);
     }).catchError((error) {
       developer.log(error);
@@ -170,9 +171,11 @@ class FirebaseRTDBService implements DBService {
 
   @override
   Future<Problem> updateProblem(Problem problem) async {
-    _db.child('$problemNode/${problem.id}').update(problem.toJson()).then((_) {
-      developer.log("OK");
-    }).catchError((error) {
+    _db
+        .child('$problemNode/${problem.id}')
+        .update(problem.toJson())
+        .then((_) {})
+        .catchError((error) {
       developer.log(error);
     });
     return problem;
@@ -205,9 +208,11 @@ class FirebaseRTDBService implements DBService {
 
   @override
   Future<History> updateHistory(History history) async {
-    _db.child('$historyNode/${history.id}').update(history.toJson()).then((_) {
-      developer.log("OK");
-    }).catchError((error) {
+    _db
+        .child('$historyNode/${history.id}')
+        .update(history.toJson())
+        .then((_) {})
+        .catchError((error) {
       developer.log(error);
     });
     return history;
@@ -217,7 +222,6 @@ class FirebaseRTDBService implements DBService {
   Future<History> addHistory(History history) {
     final id = _db.child(historyNode).push().key;
     return _db.child('$historyNode/$id').set(history.toJson()).then((_) {
-      developer.log("OK");
       return history.copyWith(id: id);
     }).catchError((error) {
       developer.log(error);

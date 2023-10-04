@@ -1002,7 +1002,7 @@ class LockerStudentProvider with ChangeNotifier {
     } catch (e) {
       if (e.toString() ==
           "Expected a value of type 'String', but got one of type 'Null'") {
-        return 'verifier le nom des colones. Colones obligatoires : "Prénom", "Nom", "Formation" et "Maître Classe"';
+        return 'verifier le nom des colonnes. Colonnes obligatoires : "Prénom", "Nom", "Formation" et "Maître Classe"';
       } else if (e.toString().startsWith("FormatException:")) {
         return "verifier que le ficheir soit un csv et qu'il soit codé en utf-8";
       } else if (e.toString() == "Exception: Fichier non trouvé") {
@@ -1027,49 +1027,100 @@ class LockerStudentProvider with ChangeNotifier {
       for (var table in excel.tables.keys) {
         // Cela permet de vérifier si l'on importe uniquement des élèves ou pas
         excel.tables[table]!.rows[0].forEach((element) {
-          if (element!.value.toString().trim() == "Login") {
-            importOnlyStudents = true;
+          if (element != null) {
+            if (element.value.toString().trim() == "Login") {
+              importOnlyStudents = true;
+            }
           }
         });
 
-        if (importOnlyStudents) {
-          for (int i = 1; i < excel.tables[table]!.rows.length; i++) {
+        for (int i = 1; i < excel.tables[table]!.rows.length; i++) {
+          List<Data?> data = excel.tables[table]!.rows[i];
+
+          if (importOnlyStudents) {
             await addStudent(
               Student.base().copyWith(
-                firstName: excel
-                    .tables[table]!
-                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Prénom")]!
+                firstName: data[_getIndexXLSX(excel.tables[table]!, "Prénom")]!
                     .value
                     .toString(),
-                lastName: excel.tables[table]!
-                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Nom")]!.value
-                    .toString(),
-                login: excel
-                    .tables[table]!
-                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Login")]!
+                lastName: data[_getIndexXLSX(excel.tables[table]!, "Nom")]!
                     .value
                     .toString(),
-                job: excel
-                    .tables[table]!
-                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Formation")]!
+                login: data[_getIndexXLSX(excel.tables[table]!, "Login")]!
                     .value
                     .toString(),
-                responsable: excel
-                    .tables[table]!
-                    .rows[i]
-                        [_getIndexXLSX(excel.tables[table]!, "Maître Classe")]!
+                job: data[_getIndexXLSX(excel.tables[table]!, "Formation")]!
                     .value
                     .toString(),
-                year: excel
-                    .tables[table]!
-                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Année")]!
-                    .value,
-                classe: excel
-                    .tables[table]!
-                    .rows[i][_getIndexXLSX(excel.tables[table]!, "Classe")]!
-                    .value,
+                responsable:
+                    data[_getIndexXLSX(excel.tables[table]!, "Maître Classe")]!
+                        .value
+                        .toString(),
+                year: data[_getIndexXLSX(excel.tables[table]!, "Année")]!.value,
+                classe: data[_getIndexXLSX(excel.tables[table]!, "Classe")]!
+                    .value
+                    .toString(),
               ),
             );
+          } else {
+            if (data[_getIndexXLSX(excel.tables[table]!, "Etage")] != null &&
+                data[_getIndexXLSX(excel.tables[table]!, "No Casier")] !=
+                    null &&
+                data[_getIndexXLSX(excel.tables[table]!, "Responsable")] !=
+                    null &&
+                data[_getIndexXLSX(excel.tables[table]!, "Nb clé")] != null &&
+                data[_getIndexXLSX(excel.tables[table]!, "N° serrure")] !=
+                    null) {
+              if (data[_getIndexXLSX(excel.tables[table]!, "Responsable")]!
+                      .value
+                      .toString() ==
+                  "JHI") {
+                // Récupération de l'élève du casier
+                Student student = Student.base();
+                if (data[_getIndexXLSX(excel.tables[table]!, "Nom")] != null &&
+                    data[_getIndexXLSX(excel.tables[table]!, "Prénom")] !=
+                        null) {
+                  student = await studentItems.firstWhere(
+                    (element) =>
+                        element.firstName ==
+                            data[_getIndexXLSX(excel.tables[table]!, "Prénom")]!
+                                .value
+                                .toString() &&
+                        element.lastName ==
+                            data[_getIndexXLSX(excel.tables[table]!, "Nom")]!
+                                .value
+                                .toString(),
+                  );
+                }
+
+                await addLocker(
+                  Locker.base().copyWith(
+                    lockerNumber: int.parse(
+                        data[_getIndexXLSX(excel.tables[table]!, "No Casier")]!
+                            .value
+                            .toString()),
+                    lockNumber: int.parse(
+                        data[_getIndexXLSX(excel.tables[table]!, "N° serrure")]!
+                            .value
+                            .toString()),
+                    floor: data[_getIndexXLSX(excel.tables[table]!, "Etage")]!
+                        .value
+                        .toString(),
+                    idEleve: student.id ?? "",
+                    job: data[_getIndexXLSX(excel.tables[table]!, "Métier")] ==
+                            null
+                        ? ""
+                        : data[_getIndexXLSX(excel.tables[table]!, "Métier")]!
+                            .value
+                            .toString(),
+                    nbKey: int.parse(
+                        data[_getIndexXLSX(excel.tables[table]!, "Nb clé")]!
+                            .value
+                            .toString()),
+                  ),
+                );
+              }
+            }
           }
         }
       }
@@ -1079,9 +1130,17 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   int _getIndexXLSX(Sheet sheet, String item) {
-    return sheet.rows[0]
-        .firstWhere((element) => element!.value == item)!
-        .colIndex;
+    int colIndex = 0;
+
+    sheet.rows[0].forEach((element) {
+      if (element != null) {
+        if (element.value.toString() == item) {
+          colIndex = element.colIndex;
+        }
+      }
+    });
+
+    return colIndex;
   }
 
   Future<String?> importAllWithCSV(FilePickerResult? result) async {

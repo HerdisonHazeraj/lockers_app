@@ -14,7 +14,6 @@ import 'package:lockers_app/responsive.dart';
 import 'package:lockers_app/screens/desktop/assignation/assignation_overview_screen.dart';
 import 'package:lockers_app/screens/core/components/prepare_database_app.dart';
 import 'package:lockers_app/screens/core/components/side_menu_app.dart';
-import 'package:lockers_app/screens/desktop/auth/auth_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/dashboard/dashboard_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/lockers/lockers_overview_screen.dart';
 import 'package:lockers_app/screens/desktop/students/students_overview_screen.dart';
@@ -22,7 +21,6 @@ import 'package:lockers_app/screens/mobile/lockers/lockers_overviewscreen_mobile
 import 'package:lockers_app/screens/mobile/students/students_overviewscreen_mobile.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:window_size/window_size.dart';
 
 import 'infrastructure/firebase_rtdb_service.dart';
 
@@ -41,11 +39,6 @@ void main() async {
   } else {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-  }
-
-  if (defaultTargetPlatform == TargetPlatform.windows) {
-    setWindowMaxSize(const Size(double.infinity, 1080));
-    setWindowMinSize(const Size(1280, 720));
   }
 
   runApp(const MyApp());
@@ -154,10 +147,6 @@ class _MyWidgetState extends State<MyWidget> {
     fontWeight: FontWeight.bold,
     fontSize: 18,
   );
-  // TextStyle styleUnselected =  TextStyle(
-  // color: Theme.of(context).textSelectionTheme.selectionColor,
-  // fontSize: 18,
-  // );
 
   @override
   void initState() {
@@ -167,9 +156,9 @@ class _MyWidgetState extends State<MyWidget> {
 
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkIfIsLogged();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _checkIfIsLogged();
+    // });
   }
 
   _checkIfIsLogged() async {
@@ -239,32 +228,28 @@ class _MyWidgetState extends State<MyWidget> {
         : Responsive.isDesktop(context)
             // Version desktop
             ? Scaffold(
-                body: isLogged == true
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                body: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SideMenuApp(sideMenuController: sideMenuController),
+                    Expanded(
+                      child: PageView(
+                        controller: page,
                         children: [
-                          SideMenuApp(sideMenuController: sideMenuController),
-                          Expanded(
-                            child: PageView(
-                              controller: page,
-                              children: [
-                                // PrepareDatabaseScreen(),
-                                DashboardOverviewScreen(
-                                  changePage: (index) => changePage(index),
-                                  onSignedOut: () => onSignedOut(),
-                                  changeTheme: () => widget.changeTheme(),
-                                ),
-                                const LockersOverviewScreen(),
-                                const StudentsOverviewScreen(),
-                                const AssignationOverviewScreen(),
-                              ],
-                            ),
+                          // PrepareDatabaseScreen(),
+                          DashboardOverviewScreen(
+                            changePage: (index) => changePage(index),
+                            onSignedOut: () => onSignedOut(),
+                            changeTheme: () => widget.changeTheme(),
                           ),
+                          const LockersOverviewScreen(),
+                          const StudentsOverviewScreen(),
+                          const AssignationOverviewScreen(),
                         ],
-                      )
-                    : AuthOverviewScreen(
-                        onSignedIn: () => onSignedIn(),
                       ),
+                    ),
+                  ],
+                ),
               )
 
             // Version mobile
