@@ -109,9 +109,12 @@ class LockerStudentProvider with ChangeNotifier {
     historyProvider.addHistory(History(
         date: DateTime.now().toString(),
         action: "delete",
-        locker: getLocker(id).toJson(),
+        locker: getLocker(id)
+            .copyWith(idEleve: "", isAvailable: true, job: "")
+            .toJson(),
         index: findIndexOfLockerById(id)));
     Locker item = _lockerItems.firstWhere((locker) => locker.id == id);
+
     _lockerItems.remove(item);
 
     notifyListeners();
@@ -170,7 +173,7 @@ class LockerStudentProvider with ChangeNotifier {
 
   Locker getLocker(String id) {
     final lockerIndex = findIndexOfLockerById(id);
-    return _lockerItems[lockerIndex];
+    return lockerIndex == -1 ? Locker.error() : _lockerItems[lockerIndex];
   }
 
   Locker getLockerByLockerNumber(int lockerNumber) {
@@ -236,11 +239,19 @@ class LockerStudentProvider with ChangeNotifier {
   }
 
   Future<void> deleteStudent(String id) async {
+    Student student = getStudent(id);
     await dbService.deleteStudent(id);
+
+    if (student.lockerNumber != 0) {
+      Locker locker = getLockerByLockerNumber(student.lockerNumber);
+      unAttributeLocker(locker, student, historic: false);
+    }
+
     historyProvider.addHistory(History(
         date: DateTime.now().toString(),
         action: "delete",
-        student: getStudent(id).toJson(),
+        //enlever le copywith pour tenter de réattribuer le casier après sa suppression
+        student: getStudent(id).copyWith(lockerNumber: 0).toJson(),
         index: findIndexOfStudentById(id)));
 
     _studentItems.removeWhere((student) => student.id == id);
@@ -392,7 +403,8 @@ class LockerStudentProvider with ChangeNotifier {
     return studentIndex;
   }
 
-  Future<void> attributeLocker(Locker locker, Student student) async {
+  Future<void> attributeLocker(Locker locker, Student student,
+      {bool historic = true}) async {
     await updateLocker(
       locker.copyWith(
         isAvailable: false,
@@ -407,17 +419,20 @@ class LockerStudentProvider with ChangeNotifier {
         ),
         historic: false);
 
-    historyProvider.addHistory(
-      History(
-        date: DateTime.now().toString(),
-        action: "attribution",
-        locker: locker.toJson(),
-        student: student.toJson(),
-      ),
-    );
+    if (historic) {
+      historyProvider.addHistory(
+        History(
+          date: DateTime.now().toString(),
+          action: "attribution",
+          locker: locker.toJson(),
+          student: student.toJson(),
+        ),
+      );
+    }
   }
 
-  Future<void> unAttributeLocker(Locker locker, Student student) async {
+  Future<void> unAttributeLocker(Locker locker, Student student,
+      {bool historic = true}) async {
     await updateLocker(
         locker.copyWith(
           isAvailable: true,
@@ -431,14 +446,16 @@ class LockerStudentProvider with ChangeNotifier {
         ),
         historic: false);
 
-    historyProvider.addHistory(
-      History(
-        date: DateTime.now().toString(),
-        action: "unattribution",
-        locker: locker.toJson(),
-        student: student.toJson(),
-      ),
-    );
+    if (historic) {
+      historyProvider.addHistory(
+        History(
+          date: DateTime.now().toString(),
+          action: "unattribution",
+          locker: locker.toJson(),
+          student: student.toJson(),
+        ),
+      );
+    }
   }
 
   int autoAttributeLocker(List<Student> students) {
@@ -629,10 +646,10 @@ class LockerStudentProvider with ChangeNotifier {
 
   Future<void> setLockerToUnDefective(Locker locker) async {
     await updateLocker(
-      locker.copyWith(
-        isDefective: false,
-      ),
-    );
+        locker.copyWith(
+          isDefective: false,
+        ),
+        historic: false);
   }
 
   Future<void> setLockerToDefective(Locker locker) async {
@@ -808,47 +825,89 @@ class LockerStudentProvider with ChangeNotifier {
     return [];
   }
 
-  void cancelHistory(History history) {
+  bool cancelHistory(History history) {
     switch (history.action) {
       case "add":
         if (history.student != null) {
+          if (history.student!['lockerNumber'] != 0) {
+            Locker locker =
+                getLockerByLockerNumber(history.student!['lockerNumber']);
+            dbService.updateLocker(locker.copyWith(idEleve: ""));
+          }
           deleteStudent(
             history.student!['id'],
           );
+          return true;
         } else {
+          if (history.locker!['idEleve'] != 0) {
+            Student student =
+                getStudentByLocker(history.locker!['lockerNumber']);
+            dbService.updateStudent(student.copyWith(lockerNumber: 0));
+          }
           deleteLocker(
             history.locker!['id'],
           );
+          return true;
         }
-        break;
+
       case "delete":
         if (history.student != null) {
           insertStudent(
             Student.fromJson(history.student!),
           );
+          // possibilité de pouvoir réattribuer le casier après sa son annulation de suppression
+          // doit controller si le casier n'a pas été attribué à un  autre élève entre temps
+          // if (history.student!['lockerNumber'] != 0) {
+          //   Locker locker =
+          //       getLockerByLockerNumber(history.student!['lockerNumber']);
+          //   if (locker.idEleve == "") {
+          //     dbService.updateLocker(locker.copyWith(
+          //         idEleve: history.student!['id'], isAvailable: false));
+          //   } else {
+          //     // await fetchAndSetStudents();
+          //     Student student = _studentItems.firstWhere((student) =>
+          //         student.firstName == history.student!['firstName'] &&
+          //         student.lastName == history.student!['lastName']);
+          //     dbService.updateStudent(student.copyWith(lockerNumber: 0));
+          //   }
+          // }
+          return true;
         } else {
           insertLocker(
             history.index!,
             Locker.fromJson(history.locker!),
           );
+          return true;
         }
-        break;
+
       case "update":
         if (history.locker == null) {
           updateStudent(Student.fromJson(history.oldStudent!), historic: false);
+          return true;
         } else {
           updateLocker(Locker.fromJson(history.oldLocker!), historic: false);
+          return true;
         }
-        break;
+
       case "attribution":
         unAttributeLocker(Locker.fromJson(history.locker!),
-            Student.fromJson(history.student!));
-        break;
+            Student.fromJson(history.student!),
+            historic: false);
+        return true;
       case "unattribution":
-        attributeLocker(Locker.fromJson(history.locker!),
-            Student.fromJson(history.student!));
-        break;
+        Locker locker = getLocker(history.locker!['id']);
+        if (locker != Locker.error()) {
+          if (locker.isAvailable != false && locker.isInaccessible == false) {
+            attributeLocker(Locker.fromJson(history.locker!),
+                Student.fromJson(history.student!),
+                historic: false);
+            return true;
+          }
+        } else {
+          return false;
+        }
     }
+    return false;
   }
 
   Future<String?> importLockersWithCSV(FilePickerResult? result) async {
