@@ -283,54 +283,93 @@ class _LockerItemState extends State<LockerItem> {
                         IconButton(
                           onPressed: () async {
                             if (widget.locker.isAvailable == false) {
+                              bool onDeleted = true;
                               Student owner =
                                   Provider.of<LockerStudentProvider>(context,
                                           listen: false)
                                       .getStudentByLocker(widget.locker);
                               await showDialog(
-                                  context: context,
-                                  builder: (builder) {
-                                    return AlertDialog(
-                                      title: const Text('Attention !'),
-                                      content: Text(
-                                          "Ce casier appartient actuellement à '${owner.firstName} ${owner.lastName}', voulez-vous qu'un nouveau casier lui soit attribué ?"),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Non'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Student student = Provider.of<
-                                                        LockerStudentProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .getStudentByLocker(
-                                                    widget.locker);
-                                            Provider.of<LockerStudentProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .unAttributeLocker(
-                                                    widget.locker, student);
+                                context: context,
+                                builder: (context) {
+                                  Locker locker = widget.locker;
+                                  return AlertDialog(
+                                    title: const Text('Supprimer un casier'),
+                                    content: Text(
+                                        'Êtes-vous sûr de vouloir supprimer le casier n°${locker.lockerNumber} ?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          onDeleted = false;
+                                        },
+                                        child: const Text('Annuler'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          await Provider.of<
+                                                      LockerStudentProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .deleteLocker(locker.id!);
 
-                                            Provider.of<LockerStudentProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .autoAttributeOneLocker(owner);
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Confirmer'),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                              Provider.of<LockerStudentProvider>(context,
-                                      listen: false)
-                                  .updateStudent(
-                                      owner.copyWith(lockerNumber: 0),
-                                      historic: false);
+                                          widget.refreshList!();
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('Supprimer'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              if (onDeleted) {
+                                showDialog(
+                                    context: context,
+                                    builder: (builder) {
+                                      return AlertDialog(
+                                        title: const Text('Attention !'),
+                                        content: Text(
+                                            "Ce casier appartient actuellement à '${owner.firstName} ${owner.lastName}', voulez-vous qu'un nouveau casier lui soit attribué ?"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Provider.of<LockerStudentProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .updateStudent(
+                                                      owner.copyWith(
+                                                          lockerNumber: 0),
+                                                      historic: false);
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Non'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Student student = Provider.of<
+                                                          LockerStudentProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .getStudentByLocker(
+                                                      widget.locker);
+                                              Provider.of<LockerStudentProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .unAttributeLocker(
+                                                      widget.locker, student);
+
+                                              Provider.of<LockerStudentProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .autoAttributeOneLocker(
+                                                      owner);
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Confirmer'),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              }
                             }
 
                             // Suppression avec une snackbar qui permet de cancel la suppression
@@ -386,38 +425,6 @@ class _LockerItemState extends State<LockerItem> {
 
                             // Suppression avec une boite de dialogue qui permet de confirmer
                             // ignore: use_build_context_synchronously
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                Locker locker = widget.locker;
-                                return AlertDialog(
-                                  title: const Text('Supprimer un casier'),
-                                  content: Text(
-                                      'Êtes-vous sûr de vouloir supprimer le casier n°${locker.lockerNumber} ?'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Annuler'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () async {
-                                        await Provider.of<
-                                                    LockerStudentProvider>(
-                                                context,
-                                                listen: false)
-                                            .deleteLocker(locker.id!);
-
-                                        widget.refreshList!();
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Supprimer'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
                           },
                           tooltip: "Supprimer le casier",
                           icon: const Icon(
