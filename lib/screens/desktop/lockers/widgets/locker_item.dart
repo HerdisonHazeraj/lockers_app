@@ -240,12 +240,6 @@ class _LockerItemState extends State<LockerItem> {
                                                 .unAttributeLocker(
                                                     widget.locker, student);
 
-                                            // Provider.of<LockerStudentProvider>(
-                                            //         context,
-                                            //         listen: false)
-                                            //     .updateLocker(widget.locker,
-                                            //         historic: false);
-
                                             Provider.of<LockerStudentProvider>(
                                                     context,
                                                     listen: false)
@@ -309,6 +303,22 @@ class _LockerItemState extends State<LockerItem> {
                                         ),
                                         TextButton(
                                           onPressed: () {
+                                            Student student = Provider.of<
+                                                        LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getStudentByLocker(
+                                                    widget.locker);
+                                            Provider.of<LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .unAttributeLocker(
+                                                    widget.locker, student);
+
+                                            Provider.of<LockerStudentProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .autoAttributeOneLocker(owner);
                                             Navigator.of(context).pop();
                                           },
                                           child: const Text('Confirmer'),
@@ -319,7 +329,8 @@ class _LockerItemState extends State<LockerItem> {
                               Provider.of<LockerStudentProvider>(context,
                                       listen: false)
                                   .updateStudent(
-                                      owner.copyWith(lockerNumber: 0));
+                                      owner.copyWith(lockerNumber: 0),
+                                      historic: false);
                             }
 
                             // Suppression avec une snackbar qui permet de cancel la suppression
@@ -378,10 +389,11 @@ class _LockerItemState extends State<LockerItem> {
                             showDialog(
                               context: context,
                               builder: (context) {
+                                Locker locker = widget.locker;
                                 return AlertDialog(
                                   title: const Text('Supprimer un casier'),
                                   content: Text(
-                                      'Êtes-vous sûr de vouloir supprimer le casier n°${widget.locker.lockerNumber} ?'),
+                                      'Êtes-vous sûr de vouloir supprimer le casier n°${locker.lockerNumber} ?'),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
@@ -395,7 +407,7 @@ class _LockerItemState extends State<LockerItem> {
                                                     LockerStudentProvider>(
                                                 context,
                                                 listen: false)
-                                            .deleteLocker(widget.locker.id!);
+                                            .deleteLocker(locker.id!);
 
                                         widget.refreshList!();
                                         Navigator.of(context).pop();

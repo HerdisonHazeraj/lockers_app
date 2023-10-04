@@ -223,24 +223,17 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                             IconButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  if (history.locker![
-                                                          'isInaccessible'] ==
+                                                  // if (history.locker![
+                                                  //         'isInaccessible'] ==
+                                                  //     true) {
+
+                                                  // } else {
+                                                  if (Provider.of<LockerStudentProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .cancelHistory(
+                                                              history) ==
                                                       true) {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                      const SnackBar(
-                                                        content: Text(
-                                                            'Erreur, L\'action n\'a pas pu être annuler, Le casier est inaccessible'),
-                                                        duration: Duration(
-                                                            seconds: 3),
-                                                      ),
-                                                    );
-                                                  } else {
-                                                    Provider.of<LockerStudentProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .cancelHistory(history);
                                                     Provider.of<HistoryProvider>(
                                                             context,
                                                             listen: false)
@@ -257,8 +250,21 @@ class _HistoricDashboardMenuState extends State<HistoricDashboardMenu> {
                                                             seconds: 3),
                                                       ),
                                                     );
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                            'Erreur, L\'action n\'a pas pu être annuler, une erreur est survenue'),
+                                                        duration: Duration(
+                                                            seconds: 3),
+                                                      ),
+                                                    );
                                                   }
-                                                });
+                                                }
+                                                    // }
+                                                    );
                                               },
                                               icon: Icon(
                                                 Icons.close_outlined,
